@@ -35,35 +35,38 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 	}
 
 }
-
+// Движение
 void Player::Move()
 {
+	// Дживение вперед 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) &&
 		position.x < fieldSizeOne)
 	{
 		position.x += run;
 		angle = 1;
 	}
+	// Дживение влево
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) &&
 		position.x > 0)
 	{
 		position.x -= run;
 		angle = 3;
 	}
+	// Дживение вниз
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) &&
 		position.y < fieldSizeOne)
 	{
 		position.y += run;
 		angle = 2;
 	}
-
+	// Дживение вправо	
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) &&
 		position.y > 0)
 	{
 		position.y -= run;
 		angle = 0;
 	}
-
+	// Ускорение
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl))
 	{
 		run = 0.1f;
@@ -141,31 +144,32 @@ void Player::PutObject(std::vector<Oven>& ovens)
 		{
 			if (!CheckObject(ovens))
 			{
-				if (angle == 0)
+				switch (angle)
 				{
+				case 0:
 					ovens.push_back(Oven(rw, fieldSizeOne, "Images/Oven.png", sf::Vector2f((int)position.x, (int)position.y - 1)));
 					inventory.items[inventory.choseCell][3].quantity -= 1;
-				}
-				else if (angle == 1)
-				{
+					break;
+				case 1:
 					ovens.push_back(Oven(rw, fieldSizeOne, "Images/Oven.png", sf::Vector2f((int)position.x + 1, (int)position.y)));
 					inventory.items[inventory.choseCell][3].quantity -= 1;
-				}
-				else if (angle == 2)
-				{
+					break;
+				case 2:
 					ovens.push_back(Oven(rw, fieldSizeOne, "Images/Oven.png", sf::Vector2f((int)position.x, (int)position.y + 1)));
 					inventory.items[inventory.choseCell][3].quantity -= 1;
-				}
-				else if (angle == 3)
-				{
+					break;
+				case 3:
 					ovens.push_back(Oven(rw, fieldSizeOne, "Images/Oven.png", sf::Vector2f((int)position.x - 1, (int)position.y)));
 					inventory.items[inventory.choseCell][3].quantity -= 1;
+					break;
+				default:
+					break;
 				}
 			}
 		}
 	}
 }
-
+// Отрисовать
 void Player::Draw(sf::Vector2f cameraPosition)
 {
 	sprite.setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
