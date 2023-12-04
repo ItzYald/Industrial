@@ -136,8 +136,6 @@ void Player::PutObject(std::vector<Oven>& ovens)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
 	{
-
-		std::cout << "lol" << std::endl;
 		if (inventory.items[inventory.choseCell][3].number == 2 &&
 			inventory.items[inventory.choseCell][3].quantity > 0)
 		{
