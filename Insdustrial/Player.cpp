@@ -28,6 +28,8 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 	inventory.items[0][3].quantity = 15;
 	inventory.items[2][2].number = 2;
 	inventory.items[2][2].quantity = 20;
+	inventory.items[3][3].number = 3;
+	inventory.items[3][3].quantity = 10;
 
 	for (int i = 0; i < 30; i++)
 	{
