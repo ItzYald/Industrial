@@ -50,9 +50,9 @@ public:
 	//Каждый кадр
 	void Update();
 
-	bool CheckObject(std::vector<Oven>& ovens);
+	bool CheckObject(std::vector<Object*> objects);
 	// Проверить наличие объекта перед игроком
-	void PutObject(std::vector<Oven>& ovens);
+	bool PutObject(std::vector<Object*> objects);
 	// Отрисовка
 	void Draw(sf::Vector2f cameraPosition);
 };

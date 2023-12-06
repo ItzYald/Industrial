@@ -5,20 +5,26 @@ StaticSprites::StaticSprites()
 	textures = std::vector<sf::Texture*>();
 	sprites = std::vector<sf::Sprite>();
 	
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		textures.push_back(new sf::Texture());
 		sprites.push_back(sf::Sprite());
 	}
 
+	// Пустой слот
 	textures[0]->loadFromFile("Images/Empty.png");
+	// Железная руда
 	textures[1]->loadFromFile("Images/IronOre.png");
-	//textures[1]->loadFromFile("Images/Wood.png");
+	// Печка
 	textures[2]->loadFromFile("Images/Oven.png");
+	// Уголь
 	textures[3]->loadFromFile("Images/Coal.png");
+	// Железный слиток
 	textures[4]->loadFromFile("Images/IronIngot.png");
+	// Сундук
+	textures[5]->loadFromFile("Images/Chest.png");
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		sprites[i].setTexture(*textures[i]);
 	}
@@ -49,9 +55,7 @@ int StaticSprites::IsFuel(int nuberItem)
 	int res = 0;
 	switch (nuberItem)
 	{
-	case 1:
-		res = 4;
-		break;
+	// Уголь
 	case 3:
 		res = 8;
 		break;
@@ -64,7 +68,14 @@ int StaticSprites::IsFuel(int nuberItem)
 int StaticSprites::IsBurn(int nuberItem)
 {
 	int res = 0;
-	if (nuberItem == 1)
+	switch (nuberItem)
+	{
+	// Железная руда переплавляется в железный слиток
+	case 1:
 		res = 4;
+		break;
+	default:
+		break;
+	}
 	return res;
 }

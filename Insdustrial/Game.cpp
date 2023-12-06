@@ -40,6 +40,14 @@ void Game::LoadingApp()
 	
 	ovens = std::vector<Oven>();
 	ovens.push_back(Oven(rw, field.sizeOne, "Images/Oven.png", sf::Vector2f(25, 20)));
+
+	objects = std::vector<Object*>();
+
+	for (int i = 0; i < ovens.size(); i++)
+	{
+		objects.push_back(&ovens[i]);
+	}
+
 }
 // Отрисовка игры
 void Game::DrawPlay()
@@ -75,6 +83,15 @@ void Game::OvenInventory()
 		player.buttons.clear();
 	}
 }
+
+void Game::PutObject(sf::Vector2f position)
+{
+	if (player.inventory.items[player.inventory.choseCell][3].number == 2)
+	{
+		ovens.push_back(Oven(rw, field.sizeOne, "Images/Oven.png", position));
+		objects.push_back(&ovens[ovens.size() - 1]);
+	}
+}
 // Геймплей
 void Game::Drive()
 {
@@ -83,7 +100,25 @@ void Game::Drive()
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	player.PutObject(ovens);
+	if (player.PutObject(objects))
+	{
+		if (player.angle == 0)
+		{
+			PutObject(sf::Vector2f((int)player.position.x, (int)player.position.y - 1));
+		}
+		else if (player.angle == 1)
+		{
+			PutObject(sf::Vector2f((int)player.position.x + 1, (int)player.position.y));
+		}
+		else if (player.angle == 2)
+		{
+			PutObject(sf::Vector2f((int)player.position.x, (int)player.position.y + 1));
+			}
+		else if (player.angle == 3)
+		{
+			PutObject(sf::Vector2f((int)player.position.x - 1, (int)player.position.y));
+		}
+	}
 
 	for (int i = 0; i < ovens.size(); i++)
 	{

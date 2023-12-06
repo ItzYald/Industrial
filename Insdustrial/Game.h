@@ -18,6 +18,7 @@
 #include "Player.h"
 #include "Oven.h"
 #include "Inventory.h"
+#include "Object.h"
 
 
 class Game
@@ -54,6 +55,8 @@ private:
 	// Игрок
 	Player player;
 
+	// Список всех объектов
+	std::vector<Object*> objects;
 	// Список печек
 	std::vector<Oven> ovens;
 	// Поле
@@ -68,6 +71,8 @@ public:
 	void DrawPlay();
 	// Интерфейс Печки
 	void OvenInventory();
+	// Поставить объект по определенным коодинатам
+	void PutObject(sf::Vector2f position);
 	// Геймплей
 	void Drive();
 	// Отрисовка

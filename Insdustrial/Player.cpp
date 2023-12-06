@@ -89,13 +89,13 @@ void Player::Update()
 	}
 }
 // Проверить если перед игроком объект
-bool Player::CheckObject(std::vector<Oven>& ovens)
+bool Player::CheckObject(std::vector<Object*> objects)
 {
 	if (angle == 0)
 	{
-		for (Oven thisOven : ovens)
+		for (Object* thisOven : objects)
 		{
-			if (thisOven.position == sf::Vector2f((int)position.x, (int)position.y - 1))
+			if (thisOven->position == sf::Vector2f((int)position.x, (int)position.y - 1))
 			{
 				return true;
 			}
@@ -103,9 +103,9 @@ bool Player::CheckObject(std::vector<Oven>& ovens)
 	}
 	else if (angle == 1)
 	{
-		for (Oven thisOven : ovens)
+		for (Object* thisOven : objects)
 		{
-			if (thisOven.position == sf::Vector2f((int)position.x + 1, (int)position.y))
+			if (thisOven->position == sf::Vector2f((int)position.x + 1, (int)position.y))
 			{
 				return true;
 			}
@@ -113,9 +113,9 @@ bool Player::CheckObject(std::vector<Oven>& ovens)
 	}
 	else if (angle == 2)
 	{
-		for (Oven thisOven : ovens)
+		for (Object* thisOven : objects)
 		{
-			if (thisOven.position == sf::Vector2f((int)position.x, (int)position.y + 1))
+			if (thisOven->position == sf::Vector2f((int)position.x, (int)position.y + 1))
 			{
 				return true;
 			}
@@ -123,9 +123,9 @@ bool Player::CheckObject(std::vector<Oven>& ovens)
 	}
 	else if (angle == 3)
 	{
-		for (Oven thisOven : ovens)
+		for (Object* thisOven : objects)
 		{
-			if (thisOven.position == sf::Vector2f((int)position.x - 1, (int)position.y))
+			if (thisOven->position == sf::Vector2f((int)position.x - 1, (int)position.y))
 			{
 				return true;
 			}
@@ -134,38 +134,36 @@ bool Player::CheckObject(std::vector<Oven>& ovens)
 	return false;
 }
 // Проверить наличие объекта перед игроком
-void Player::PutObject(std::vector<Oven>& ovens)
+bool Player::PutObject(std::vector<Object*> objects)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
 	{
 		if (inventory.items[inventory.choseCell][3].number == 2 &&
 			inventory.items[inventory.choseCell][3].quantity > 0)
 		{
-			if (!CheckObject(ovens))
+			if (!CheckObject(objects))
 			{
 				if (angle == 0)
 				{
-					ovens.push_back(Oven(rw, fieldSizeOne, "Images/Oven.png", sf::Vector2f((int)position.x, (int)position.y - 1)));
 					inventory.items[inventory.choseCell][3].quantity -= 1;
 				}
 				else if (angle == 1)
 				{
-					ovens.push_back(Oven(rw, fieldSizeOne, "Images/Oven.png", sf::Vector2f((int)position.x + 1, (int)position.y)));
 					inventory.items[inventory.choseCell][3].quantity -= 1;
 				}
 				else if (angle == 2)
 				{
-					ovens.push_back(Oven(rw, fieldSizeOne, "Images/Oven.png", sf::Vector2f((int)position.x, (int)position.y + 1)));
 					inventory.items[inventory.choseCell][3].quantity -= 1;
 				}
 				else if (angle == 3)
 				{
-					ovens.push_back(Oven(rw, fieldSizeOne, "Images/Oven.png", sf::Vector2f((int)position.x - 1, (int)position.y)));
 					inventory.items[inventory.choseCell][3].quantity -= 1;
 				}
+				return true;
 			}
 		}
 	}
+	return false;
 }
 
 void Player::Draw(sf::Vector2f cameraPosition)
