@@ -10,20 +10,12 @@
 #include "Button.h"
 
 #include "Inventory.h"
+#include "ObjectInventory.h"
 
 #include "StaticSprites.h"
 
-class OvenInventory
+class OvenInventory : public ObjectInventory
 {
-	// Списко кнопок
-	std::vector<Button> buttons;
-	// Окно
-	std::shared_ptr<sf::RenderWindow> rw;
-	Functions functions;
-	StaticSprites itemsSprites;
-	// Позиция мыши
-	sf::Vector2i mousePosition;
-
 	// Сколько можно сжечь
 	int fuel;
 	int whatBurn;

@@ -56,9 +56,9 @@ private:
 	Player player;
 
 	// Список всех объектов
-	std::vector<Object*> objects;
+	std::vector<std::shared_ptr<Object>> objects;
 	// Список печек
-	std::vector<Oven> ovens;
+	std::vector<std::shared_ptr<Oven>> ovens;
 	// Поле
 	Field field;
 

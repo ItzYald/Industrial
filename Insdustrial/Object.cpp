@@ -16,23 +16,3 @@ Object::Object(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 		ch.push_back(Checks());
 	}
 }
-
-void Object::NearPlayer(sf::Vector2f playerPosition, int playerAngle)
-{
-	//if (ch[0].Check(sf::Keyboard::Key::Q))
-	//{
-	//	if ((playerPosition.x == position.x && playerPosition.y == position.y + 1 && playerAngle == 2) ||
-	//		(playerPosition.x == position.x && playerPosition.y == position.y - 1 && playerAngle == 0) ||
-	//		(playerPosition.x == position.x + 1 && playerPosition.y == position.y && playerAngle == 1) ||
-	//		(playerPosition.x == position.x - 1 && playerPosition.y == position.y && playerAngle == 3))
-	//	{
-	//		//std::cout << "lol";
-	//	}
-	//}
-}
-
-void Object::Update(sf::Vector2f playerPosition, int playerAngle)
-{
-
-}
-

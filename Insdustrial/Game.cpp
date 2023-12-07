@@ -38,14 +38,15 @@ void Game::LoadingApp()
 
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
 	
-	ovens = std::vector<Oven>();
-	ovens.push_back(Oven(rw, field.sizeOne, "Images/Oven.png", sf::Vector2f(25, 20)));
+	ovens = std::vector<std::shared_ptr<Oven>>();
+	ovens.push_back(std::make_shared<Oven>(rw, field.sizeOne, "Images/Oven.png", sf::Vector2f(25, 20)));
 
-	objects = std::vector<Object*>();
+	objects = std::vector<std::shared_ptr<Object>>();
 
 	for (int i = 0; i < ovens.size(); i++)
 	{
-		objects.push_back(&ovens[i]);
+		// objects.push_back(std::shared_ptr<Object>(& ovens[i]));
+		objects.push_back(ovens[i]);
 	}
 
 }
@@ -60,9 +61,9 @@ void Game::DrawPlay()
 		for (int j = 0; j < field.size.y; j++)
 			field.Draw(cameraPosition, i, j);
 
-	for (Oven oven : ovens)
+	for (std::shared_ptr<Oven> oven : ovens)
 	{
-		oven.Draw(cameraPosition);
+		oven->Draw(cameraPosition);
 	}
 	player.Draw(cameraPosition);
 }
@@ -74,22 +75,24 @@ void Game::Draw()
 // Интерфейс печки
 void Game::OvenInventory()
 {
-	ovens[player.whatNumberInventoryOpen].inventory.Draw(player.inventory);
+	ovens[player.whatNumberInventoryOpen]->inventory.Draw(player.inventory);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
 	{
 		player.isOpenInterface = false;
-		ovens[player.whatNumberInventoryOpen].isOpenInterface = false;
+		ovens[player.whatNumberInventoryOpen]->isOpenInterface = false;
 		player.buttons.clear();
 	}
 }
-
+// Поставить объект по определенным координатам
 void Game::PutObject(sf::Vector2f position)
 {
 	if (player.inventory.items[player.inventory.choseCell][3].number == 2)
 	{
-		ovens.push_back(Oven(rw, field.sizeOne, "Images/Oven.png", position));
-		objects.push_back(&ovens[ovens.size() - 1]);
+		// Oven ovn = Oven(rw, field.sizeOne, "Images/Oven.png", position);
+		ovens.push_back(std::make_shared<Oven>(rw, field.sizeOne, "Images/Oven.png", position));
+
+		objects.push_back(ovens[ovens.size() - 1]);
 	}
 }
 // Геймплей
@@ -102,6 +105,7 @@ void Game::Drive()
 	// Поставить объект на землю
 	if (player.PutObject(objects))
 	{
+
 		if (player.angle == 0)
 		{
 			PutObject(sf::Vector2f((int)player.position.x, (int)player.position.y - 1));
@@ -122,8 +126,9 @@ void Game::Drive()
 
 	for (int i = 0; i < ovens.size(); i++)
 	{
-		ovens[i].Update(player.position, player.angle);
-		if (ovens[i].isOpenInterface)
+		ovens[i]->Update(player.position, player.angle);
+		//if (ovens[i].isOpenInterface)
+		if (ovens[i]->isOpenInterface)
 		{
 			player.isOpenInterface = true;
 			player.whatTypeInventoryOpen = 1;
@@ -141,7 +146,7 @@ void Game::Play()
 	// Работа печек
 	for (int i = 0; i < ovens.size(); i++)
 	{
-		ovens[i].inventory.Burn(player.inventory);
+		ovens[i]->inventory.Burn(player.inventory);
 	}
 
 	if (buttons.size() < 4)
@@ -165,6 +170,7 @@ void Game::Play()
 			if (ch[2].Check(sf::Keyboard::Key::Escape) || ch[3].Check(sf::Keyboard::Key::E))
 			{
 				player.isOpenInterface = false;
+				ovens[player.whatNumberInventoryOpen]->isOpenInterface = false;
 			}
 		}
 		else if (player.whatTypeInventoryOpen == 1)

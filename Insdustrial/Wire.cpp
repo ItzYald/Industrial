@@ -17,10 +17,8 @@ Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::string
 	}
 }
 
-void Wire::NearPlayer(sf::Vector2f playerPosition, int playerAngle)
+bool Wire::NearPlayer(sf::Vector2f playerPosition, int playerAngle)
 {
-	//if (ch[0].Check(sf::Keyboard::Key::Q))
-	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
 	{
 		if ((playerPosition.x == position.x && playerPosition.y == position.y + 1 && playerAngle == 2) ||
@@ -31,6 +29,7 @@ void Wire::NearPlayer(sf::Vector2f playerPosition, int playerAngle)
 			
 		}
 	}
+	return 0;
 }
 
 void Wire::Update(sf::Vector2f playerPosition, int playerAngle)

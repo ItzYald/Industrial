@@ -106,8 +106,6 @@ void OvenInventory::Draw(Inventory &playerInventory)
 	functions.Rectangle(rw.get(), sf::Vector2f(530, 240), sf::Vector2f(90, 20), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
 	functions.DrawRectangleGradient(sf::Vector2f(530, 240), sf::Vector2f((120 - whatBurn) * 0.75, 20), sf::Color::Red, sf::Color(255, 200, 0));
 
-
-
 	for (int i = 0; i < 3; i++)
 	{
 		buttons[i].Draw(*rw);

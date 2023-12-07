@@ -18,14 +18,13 @@ class Oven : public Object
 {
 public:
 	bool isOpenInterface;
-	Functions functions;
 
 	OvenInventory inventory;
 
 	Oven(){ }
 	Oven(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::string imageFileName, sf::Vector2f _position);
 
-	void NearPlayer(sf::Vector2f playerCoords, int playerAngle) override;
+	bool NearPlayer(sf::Vector2f playerCoords, int playerAngle) override;
 	void Update(sf::Vector2f playerCoords, int playerAngle) override;
 
 

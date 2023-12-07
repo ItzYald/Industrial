@@ -28,7 +28,7 @@ private:
 	//sf::Vector2i mousePosition;
 
 public:
-
+	// Инвентарь
 	Inventory inventory;
 
 	// Угол игрока
@@ -49,10 +49,8 @@ public:
 	void Move();
 	//Каждый кадр
 	void Update();
-
-	bool CheckObject(std::vector<Object*> objects);
 	// Проверить наличие объекта перед игроком
-	bool PutObject(std::vector<Object*> objects);
+	bool PutObject(std::vector<std::shared_ptr<Object>>& objects);
 	// Отрисовка
 	void Draw(sf::Vector2f cameraPosition);
 };

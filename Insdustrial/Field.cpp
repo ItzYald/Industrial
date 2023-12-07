@@ -18,5 +18,5 @@ void Field::Draw(sf::Vector2f cameraPosition, int i, int j)
 
 sf::Vector2i Field::WhatActive(sf::Vector2i mousePosition)
 {
-
+	return sf::Vector2i(0, 0);
 }

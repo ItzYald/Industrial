@@ -88,60 +88,22 @@ void Player::Update()
 		whatTypeInventoryOpen = 0;
 	}
 }
-// Проверить если перед игроком объект
-bool Player::CheckObject(std::vector<Object*> objects)
-{
-	if (angle == 0)
-	{
-		for (Object* thisOven : objects)
-		{
-			if (thisOven->position == sf::Vector2f((int)position.x, (int)position.y - 1))
-			{
-				return true;
-			}
-		}
-	}
-	else if (angle == 1)
-	{
-		for (Object* thisOven : objects)
-		{
-			if (thisOven->position == sf::Vector2f((int)position.x + 1, (int)position.y))
-			{
-				return true;
-			}
-		}
-	}
-	else if (angle == 2)
-	{
-		for (Object* thisOven : objects)
-		{
-			if (thisOven->position == sf::Vector2f((int)position.x, (int)position.y + 1))
-			{
-				return true;
-			}
-		}
-	}
-	else if (angle == 3)
-	{
-		for (Object* thisOven : objects)
-		{
-			if (thisOven->position == sf::Vector2f((int)position.x - 1, (int)position.y))
-			{
-				return true;
-			}
-		}
-	}
-	return false;
-}
 // Проверить наличие объекта перед игроком
-bool Player::PutObject(std::vector<Object*> objects)
+bool Player::PutObject(std::vector<std::shared_ptr<Object>>& objects)
 {
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
 	{
+
 		if (inventory.items[inventory.choseCell][3].number == 2 &&
 			inventory.items[inventory.choseCell][3].quantity > 0)
 		{
-			if (!CheckObject(objects))
+			bool isNear = false;
+			for (std::shared_ptr<Object>& thisObject : objects)
+			{
+				isNear = thisObject->NearPlayer(position, angle);
+			}
+			if (!isNear)
 			{
 				if (angle == 0)
 				{

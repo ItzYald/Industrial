@@ -25,31 +25,23 @@ Oven::Oven(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::string
 	}
 }
 
-void Oven::NearPlayer(sf::Vector2f playerPosition, int playerAngle)
+bool Oven::NearPlayer(sf::Vector2f playerPosition, int playerAngle)
 {
-	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
+	if (((int)playerPosition.x == position.x && (int)playerPosition.y == position.y + 1 && playerAngle == 0) ||
+		((int)playerPosition.x == position.x && (int)playerPosition.y == position.y - 1 && playerAngle == 2) ||
+		((int)playerPosition.x == position.x + 1 && (int)playerPosition.y == position.y && playerAngle == 3) ||
+		((int)playerPosition.x == position.x - 1 && (int)playerPosition.y == position.y && playerAngle == 1))
 	{
-		if (((int)playerPosition.x == position.x && (int)playerPosition.y == position.y + 1 && playerAngle == 0) ||
-			((int)playerPosition.x == position.x && (int)playerPosition.y == position.y - 1 && playerAngle == 2) ||
-			((int)playerPosition.x == position.x + 1 && (int)playerPosition.y == position.y && playerAngle == 3) ||
-			((int)playerPosition.x == position.x - 1 && (int)playerPosition.y == position.y && playerAngle == 1))
-		{
-			isOpenInterface = true;
-		}
-		else
-		{
-			isOpenInterface = false;
-		}
+		return true;
 	}
-	else
-	{
-		isOpenInterface = false;
-	}
+	return false;
 }
 
 void Oven::Update(sf::Vector2f playerPosition, int playerAngle)
 {
-	NearPlayer(playerPosition, playerAngle);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
+	{
+		isOpenInterface = NearPlayer(playerPosition, playerAngle);
+	}
 }
 

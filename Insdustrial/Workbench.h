@@ -1,7 +1,9 @@
 #pragma once
-class Workbench
-{
+#include "Object.h"
 
+class Workbench : public Object
+{
+	bool isOpenInterface;
 
 
 };

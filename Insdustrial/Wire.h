@@ -22,7 +22,7 @@ public:
 	Wire(){ }
 	Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::string imageFileName, sf::Vector2f _position);
 
-	void NearPlayer(sf::Vector2f playerPosition, int playerAngle);
+	bool NearPlayer(sf::Vector2f playerPosition, int playerAngle);
 	void Update(sf::Vector2f playerPosition, int playerAngle);
 };
 
