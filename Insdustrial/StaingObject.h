@@ -7,9 +7,9 @@
 #include "SFML/Window.hpp"
 
 #include "Functions.h"
+#include "Checks.h"
 
 #include "Object.h"
-#include "Checks.h"
 
 #include "OvenInventory.h"
 
@@ -18,8 +18,8 @@ class StaingObject : Object
 {
 public:
 
-	//Functions functions;
-	bool isOpenInterface;
+	// Открыт ли инт
+	bool isOpenInventory;
 
 	T inventory;
 
@@ -35,7 +35,7 @@ public:
 
 		functions = Functions(rw);
 
-		isOpenInterface = false;
+		isOpenInventory = false;
 
 		inventory = T(rw);
 
@@ -47,6 +47,10 @@ public:
 		}
 	}
 
+	/// <summary>Проверка игрока рядом</summary>
+	/// <param name="playerPosition">Позиция игрока</param>
+	/// <param name="playerAngle">Куда повернут игрок</param>
+	/// <returns>Наличие рядом игрока</returns>
 	bool NearPlayer(sf::Vector2f playerPosition, int playerAngle)
 	{
 		if (((int)playerPosition.x == position.x && (int)playerPosition.y == position.y + 1 && playerAngle == 0) ||
@@ -62,10 +66,11 @@ public:
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
 		{
-			isOpenInterface = NearPlayer(playerPosition, playerAngle);
+			isOpenInventory = NearPlayer(playerPosition, playerAngle);
 		}
 	}
-
+	/// <summary>Отрисовка</summary>
+	/// <param name="cameraPosition">Позиция камеры</param>
 	void Draw(sf::Vector2f cameraPosition)
 	{
 		sprite.setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));

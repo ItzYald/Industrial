@@ -16,7 +16,6 @@
 #include "Wire.h"
 #include "Field.h"
 #include "Player.h"
-#include "Oven.h"
 #include "Inventory.h"
 #include "Object.h"
 #include "StaingObject.h"

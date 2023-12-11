@@ -13,18 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\Functions">
+      <UniqueIdentifier>{718b4266-b37c-4f37-a5b0-e45daab0ef5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Functions">
+      <UniqueIdentifier>{b330a75a-b0dc-461c-9480-5c8f5012fa0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Insdustrial.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Checks.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Functions.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -43,9 +40,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Oven.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="OvenInventory.cpp">
@@ -69,17 +63,17 @@
     <ClCompile Include="StaingObject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Functions\Functions.cpp">
+      <Filter>Исходные файлы\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Functions\Checks.cpp">
+      <Filter>Исходные файлы\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Functions\Button.cpp">
+      <Filter>Исходные файлы\Functions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Checks.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Functions.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -96,9 +90,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Oven.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="OvenInventory.h">
@@ -121,6 +112,15 @@
     </ClInclude>
     <ClInclude Include="StaingObject.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions\Functions.h">
+      <Filter>Файлы заголовков\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions\Checks.h">
+      <Filter>Файлы заголовков\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions\Button.h">
+      <Filter>Файлы заголовков\Functions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

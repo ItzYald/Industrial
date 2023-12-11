@@ -62,9 +62,9 @@ void Game::DrawPlay()
 		for (int j = 0; j < field.size.y; j++)
 			field.Draw(cameraPosition, i, j);
 
-	for (std::shared_ptr<StaingObject<OvenInventory>> oven : ovens)
+	for (std::shared_ptr<StaingObject<OvenInventory>> object : objects)
 	{
-		oven->Draw(cameraPosition);
+		object->Draw(cameraPosition);
 	}
 	player.Draw(cameraPosition);
 }
@@ -81,7 +81,7 @@ void Game::OvenInventoryFun()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
 	{
 		player.isOpenInterface = false;
-		ovens[player.whatNumberInventoryOpen]->isOpenInterface = false;
+		ovens[player.whatNumberInventoryOpen]->isOpenInventory = false;
 		player.buttons.clear();
 	}
 }
@@ -128,7 +128,7 @@ void Game::Drive()
 	for (int i = 0; i < ovens.size(); i++)
 	{
 		ovens[i]->Update(player.position, player.angle);
-		if (ovens[i]->isOpenInterface)
+		if (ovens[i]->isOpenInventory)
 		{
 			player.isOpenInterface = true;
 			player.whatTypeInventoryOpen = 1;
@@ -164,15 +164,17 @@ void Game::Play()
 	}
 	else
 	{
+		// Инвентарь игрока
 		if (player.whatTypeInventoryOpen == 0)
 		{
 			player.inventory.Draw();
 			if (ch[2].Check(sf::Keyboard::Key::Escape) || ch[3].Check(sf::Keyboard::Key::E))
 			{
 				player.isOpenInterface = false;
-				ovens[player.whatNumberInventoryOpen]->isOpenInterface = false;
+				ovens[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			}
 		}
+		// Инвентарь печки
 		else if (player.whatTypeInventoryOpen == 1)
 		{
 			OvenInventoryFun();

@@ -122,6 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\ibuto\OneDrive\Рабочий стол\Файлы\Programm\C++\SFML\Games\Industrial\Insdustrial\Insdustrial\Functions;C:\Users\ibuto\OneDrive\Рабочий стол\Файлы\Programm\C++\SFML\Games\Industrial\Insdustrial\Insdustrial\Objects;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,16 +132,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Checks.cpp" />
+    <ClCompile Include="Functions\Button.cpp" />
+    <ClCompile Include="Functions\Checks.cpp" />
+    <ClCompile Include="Functions\Functions.cpp" />
     <ClCompile Include="StaingObject.cpp" />
     <ClCompile Include="Field.cpp" />
-    <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Insdustrial.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectInventory.cpp" />
-    <ClCompile Include="Oven.cpp" />
     <ClCompile Include="OvenInventory.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -151,15 +151,14 @@
     <ClCompile Include="Workbench.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="Checks.h" />
+    <ClInclude Include="Functions\Button.h" />
+    <ClInclude Include="Functions\Checks.h" />
+    <ClInclude Include="Functions\Functions.h" />
     <ClInclude Include="StaingObject.h" />
     <ClInclude Include="Field.h" />
-    <ClInclude Include="Functions.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectInventory.h" />
-    <ClInclude Include="Oven.h" />
     <ClInclude Include="OvenInventory.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Sprite.h" />

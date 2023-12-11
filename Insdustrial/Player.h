@@ -12,7 +12,6 @@
 #include "Sprite.h"
 #include "StaticSprites.h"
 #include "Inventory.h"
-#include "Oven.h"
 #include "StaingObject.h"
 
 class Player : public Sprite
