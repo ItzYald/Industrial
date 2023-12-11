@@ -19,6 +19,8 @@
 #include "Oven.h"
 #include "Inventory.h"
 #include "Object.h"
+#include "StaingObject.h"
+#include "OvenInventory.h"
 
 
 class Game
@@ -56,9 +58,9 @@ private:
 	Player player;
 
 	// Список всех объектов
-	std::vector<std::shared_ptr<Object>> objects;
+	std::vector<std::shared_ptr<StaingObject<OvenInventory>>> objects;
 	// Список печек
-	std::vector<std::shared_ptr<Oven>> ovens;
+	std::vector<std::shared_ptr<StaingObject<OvenInventory>>> ovens;
 	// Поле
 	Field field;
 
@@ -70,7 +72,7 @@ public:
 	// Отрисовка игрового поля
 	void DrawPlay();
 	// Интерфейс Печки
-	void OvenInventory();
+	void OvenInventoryFun();
 	// Поставить объект по определенным коодинатам
 	void PutObject(sf::Vector2f position);
 	// Геймплей

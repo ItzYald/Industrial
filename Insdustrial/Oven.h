@@ -17,7 +17,6 @@
 class Oven : public Object
 {
 public:
-	bool isOpenInterface;
 
 	OvenInventory inventory;
 

@@ -38,10 +38,11 @@ void Game::LoadingApp()
 
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
 	
-	ovens = std::vector<std::shared_ptr<Oven>>();
-	ovens.push_back(std::make_shared<Oven>(rw, field.sizeOne, "Images/Oven.png", sf::Vector2f(25, 20)));
+	//ovens = std::vector<std::shared_ptr<Oven>>();
+	ovens = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
+	ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, "Images/Oven.png", sf::Vector2f(25, 20)));
 
-	objects = std::vector<std::shared_ptr<Object>>();
+	objects = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
 
 	for (int i = 0; i < ovens.size(); i++)
 	{
@@ -61,7 +62,7 @@ void Game::DrawPlay()
 		for (int j = 0; j < field.size.y; j++)
 			field.Draw(cameraPosition, i, j);
 
-	for (std::shared_ptr<Oven> oven : ovens)
+	for (std::shared_ptr<StaingObject<OvenInventory>> oven : ovens)
 	{
 		oven->Draw(cameraPosition);
 	}
@@ -73,7 +74,7 @@ void Game::Draw()
 	DrawPlay();
 }
 // Интерфейс печки
-void Game::OvenInventory()
+void Game::OvenInventoryFun()
 {
 	ovens[player.whatNumberInventoryOpen]->inventory.Draw(player.inventory);
 
@@ -90,7 +91,7 @@ void Game::PutObject(sf::Vector2f position)
 	if (player.inventory.items[player.inventory.choseCell][3].number == 2)
 	{
 		// Oven ovn = Oven(rw, field.sizeOne, "Images/Oven.png", position);
-		ovens.push_back(std::make_shared<Oven>(rw, field.sizeOne, "Images/Oven.png", position));
+		ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, "Images/Oven.png", position));
 
 		objects.push_back(ovens[ovens.size() - 1]);
 	}
@@ -127,7 +128,6 @@ void Game::Drive()
 	for (int i = 0; i < ovens.size(); i++)
 	{
 		ovens[i]->Update(player.position, player.angle);
-		//if (ovens[i].isOpenInterface)
 		if (ovens[i]->isOpenInterface)
 		{
 			player.isOpenInterface = true;
@@ -175,7 +175,7 @@ void Game::Play()
 		}
 		else if (player.whatTypeInventoryOpen == 1)
 		{
-			OvenInventory();
+			OvenInventoryFun();
 		}
 	}
 

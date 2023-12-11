@@ -9,8 +9,6 @@ Oven::Oven(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::string
 	sprite.setTexture(*texture);
 	position = _position;
 
-	inventory = OvenInventory();
-
 	functions = Functions(rw);
 
 	isOpenInterface = false;

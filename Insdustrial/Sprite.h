@@ -20,7 +20,7 @@ public:
 	Sprite(){ }
 	Sprite(std::shared_ptr<sf::RenderWindow> _rw, int _sizeWorld, std::string imageFileName, sf::Vector2f _position){ }
 
-	virtual void Draw(sf::Vector2f cameraPosition);
+	virtual void Draw(sf::Vector2f cameraPosition) = 0;
 
 };
 

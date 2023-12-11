@@ -13,19 +13,12 @@
 #include "StaticSprites.h"
 #include "Inventory.h"
 #include "Oven.h"
-
-// struct ItemStruct
-// {
-// 	int number;
-// 	int quantity;
-// };
+#include "StaingObject.h"
 
 class Player : public Sprite
 {
 private:
 	Functions functions;
-	// Позиция мыши
-	//sf::Vector2i mousePosition;
 
 public:
 	// Инвентарь
@@ -50,7 +43,7 @@ public:
 	//Каждый кадр
 	void Update();
 	// Проверить наличие объекта перед игроком
-	bool PutObject(std::vector<std::shared_ptr<Object>>& objects);
+	bool PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>> objects);
 	// Отрисовка
 	void Draw(sf::Vector2f cameraPosition);
 };

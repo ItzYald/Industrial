@@ -10,9 +10,9 @@
 // 	position = _position;
 // }
 // 
-void Sprite::Draw(sf::Vector2f cameraPosition)
-{
-	sprite.setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
-	(*rw).draw(sprite);
-}
+// void Sprite::Draw(sf::Vector2f cameraPosition)
+// {
+// 	sprite.setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
+// 	(*rw).draw(sprite);
+// }
 

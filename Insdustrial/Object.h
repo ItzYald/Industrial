@@ -17,6 +17,9 @@ protected:
 	Functions functions;
 
 public:
+
+	bool isOpenInterface;
+
 	Object(){ }
 	Object(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::string imageFileName, sf::Vector2f _position);
 

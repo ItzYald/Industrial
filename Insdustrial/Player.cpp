@@ -89,7 +89,7 @@ void Player::Update()
 	}
 }
 // Проверить наличие объекта перед игроком
-bool Player::PutObject(std::vector<std::shared_ptr<Object>>& objects)
+bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>> objects)
 {
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
@@ -99,7 +99,7 @@ bool Player::PutObject(std::vector<std::shared_ptr<Object>>& objects)
 			inventory.items[inventory.choseCell][3].quantity > 0)
 		{
 			bool isNear = false;
-			for (std::shared_ptr<Object>& thisObject : objects)
+			for (std::shared_ptr<StaingObject<OvenInventory>>& thisObject : objects)
 			{
 				isNear = thisObject->NearPlayer(position, angle);
 			}
