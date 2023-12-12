@@ -57,9 +57,6 @@
     <ClCompile Include="WorbenchInventory.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectInventory.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="StaingObject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -71,6 +68,12 @@
     </ClCompile>
     <ClCompile Include="Functions\Button.cpp">
       <Filter>Исходные файлы\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectInventory.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ChestInventory.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -107,9 +110,6 @@
     <ClInclude Include="WorbenchInventory.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectInventory.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="StaingObject.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -121,6 +121,12 @@
     </ClInclude>
     <ClInclude Include="Functions\Button.h">
       <Filter>Файлы заголовков\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectInventory.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ChestInventory.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

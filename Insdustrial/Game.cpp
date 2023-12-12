@@ -38,17 +38,18 @@ void Game::LoadingApp()
 
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
 	
-	//ovens = std::vector<std::shared_ptr<Oven>>();
 	ovens = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
 	ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, "Images/Oven.png", sf::Vector2f(25, 20)));
 
-	objects = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
+	chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
+	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, "Images/Chest.png", sf::Vector2f(20, 15)));
 
-	for (int i = 0; i < ovens.size(); i++)
-	{
-		// objects.push_back(std::shared_ptr<Object>(& ovens[i]));
-		objects.push_back(ovens[i]);
-	}
+	// objects = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
+
+	// for (int i = 0; i < ovens.size(); i++)
+	// {
+	// 	//objects.push_back(ovens[i]);
+	// }
 
 }
 // Отрисовка игры
@@ -62,9 +63,13 @@ void Game::DrawPlay()
 		for (int j = 0; j < field.size.y; j++)
 			field.Draw(cameraPosition, i, j);
 
-	for (std::shared_ptr<StaingObject<OvenInventory>> object : objects)
+	for (std::shared_ptr<StaingObject<OvenInventory>> oven : ovens)
 	{
-		object->Draw(cameraPosition);
+		oven->Draw(cameraPosition);
+	}
+	for (std::shared_ptr<StaingObject<ChestInventory>> chest : chests)
+	{
+		chest->Draw(cameraPosition);
 	}
 	player.Draw(cameraPosition);
 }
@@ -80,20 +85,36 @@ void Game::OvenInventoryFun()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
 	{
-		player.isOpenInterface = false;
+		player.isOpenInventory = false;
 		ovens[player.whatNumberInventoryOpen]->isOpenInventory = false;
+		player.buttons.clear();
+	}
+}
+// Инвентарь сундука
+void Game::ChestInventoryFun()
+{
+	chests[player.whatNumberInventoryOpen]->inventory.Draw(player.inventory);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+	{
+		player.isOpenInventory = false;
+		chests[player.whatNumberInventoryOpen]->isOpenInventory = false;
 		player.buttons.clear();
 	}
 }
 // Поставить объект по определенным координатам
 void Game::PutObject(sf::Vector2f position)
 {
+	// Поставить печку
 	if (player.inventory.items[player.inventory.choseCell][3].number == 2)
 	{
-		// Oven ovn = Oven(rw, field.sizeOne, "Images/Oven.png", position);
 		ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, "Images/Oven.png", position));
-
-		objects.push_back(ovens[ovens.size() - 1]);
+		//objects.push_back(ovens[ovens.size() - 1]);
+	}
+	else if (player.inventory.items[player.inventory.choseCell][3].number == 5)
+	{
+		chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, "Images/Chest.png", position));
+		//objects.push_back(chests[ovens.size() - 1]);
 	}
 }
 // Геймплей
@@ -104,7 +125,7 @@ void Game::Drive()
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	if (player.PutObject(objects))
+	if (player.PutObject(ovens, chests))
 	{
 
 		if (player.angle == 0)
@@ -130,12 +151,25 @@ void Game::Drive()
 		ovens[i]->Update(player.position, player.angle);
 		if (ovens[i]->isOpenInventory)
 		{
-			player.isOpenInterface = true;
+			player.isOpenInventory = true;
 			player.whatTypeInventoryOpen = 1;
 			player.whatNumberInventoryOpen = i;
 			break;
 		}
 	}
+
+	for (int i = 0; i < chests.size(); i++)
+	{
+		chests[i]->Update(player.position, player.angle);
+		if (chests[i]->isOpenInventory)
+		{
+			player.isOpenInventory = true;
+			player.whatTypeInventoryOpen = 2;
+			player.whatNumberInventoryOpen = i;
+			break;
+		}
+	}
+
 	cameraPosition = sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2));
 }
 // Игра
@@ -157,7 +191,7 @@ void Game::Play()
 			sf::Color(0, 255, 0), sf::Color::Transparent, 1, 2, 25));
 	}
 
-	if (!player.isOpenInterface)
+	if (!player.isOpenInventory)
 	{
 		// Геймплей
 		Drive();
@@ -170,14 +204,20 @@ void Game::Play()
 			player.inventory.Draw();
 			if (ch[2].Check(sf::Keyboard::Key::Escape) || ch[3].Check(sf::Keyboard::Key::E))
 			{
-				player.isOpenInterface = false;
+				player.isOpenInventory = false;
 				ovens[player.whatNumberInventoryOpen]->isOpenInventory = false;
+				chests[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			}
 		}
 		// Инвентарь печки
 		else if (player.whatTypeInventoryOpen == 1)
 		{
 			OvenInventoryFun();
+		}
+		// Инвентарь сундука
+		else if (player.whatTypeInventoryOpen == 2)
+		{
+			ChestInventoryFun();
 		}
 	}
 
@@ -195,7 +235,7 @@ void Game::Menu()
 {
 	if (buttons.size() < 1)
 	{
-		buttons.push_back(Button(sf::Vector2f(sizeW.x / 2 - 75, 300), sf::Vector2f(150, 40), L"Играть",
+		buttons.push_back(Button(sf::Vector2f(sizeW.x / 2 - 75, 300), sf::Vector2f(150, 40), L"Начать",
 			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(0, 255, 0), sf::Color::Transparent,
 			sf::Color(0, 255, 0), sf::Color::Transparent, 1, 2, 30));
 		buttons.push_back(Button(sf::Vector2f(sizeW.x / 2 - 75, 500), sf::Vector2f(150, 40), L"Выйти",

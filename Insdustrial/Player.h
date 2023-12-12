@@ -14,6 +14,9 @@
 #include "Inventory.h"
 #include "StaingObject.h"
 
+#include "ChestInventory.h"
+#include "OvenInventory.h"
+
 class Player : public Sprite
 {
 private:
@@ -25,7 +28,7 @@ public:
 
 	// Угол игрока
 	int angle;
-	bool isOpenInterface;
+	bool isOpenInventory;
 	int whatTypeInventoryOpen;
 	int whatNumberInventoryOpen;
 
@@ -42,7 +45,8 @@ public:
 	//Каждый кадр
 	void Update();
 	// Проверить наличие объекта перед игроком
-	bool PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>> objects);
+	bool PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>> ovens,
+		std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests);
 	// Отрисовка
 	void Draw(sf::Vector2f cameraPosition);
 };

@@ -21,6 +21,7 @@ class OvenInventory : public ObjectInventory
 	int whatBurn;
 
 public:
+
 	std::vector<ItemStruct> items;
 
 	OvenInventory(){ }

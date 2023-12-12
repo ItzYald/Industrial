@@ -19,7 +19,9 @@
 #include "Inventory.h"
 #include "Object.h"
 #include "StaingObject.h"
+// Инвентари
 #include "OvenInventory.h"
+#include "ChestInventory.h"
 
 
 class Game
@@ -57,9 +59,10 @@ private:
 	Player player;
 
 	// Список всех объектов
-	std::vector<std::shared_ptr<StaingObject<OvenInventory>>> objects;
+	// std::vector<std::shared_ptr<StaingObject<OvenInventory>>> objects;
 	// Список печек
 	std::vector<std::shared_ptr<StaingObject<OvenInventory>>> ovens;
+	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests;
 	// Поле
 	Field field;
 
@@ -72,6 +75,8 @@ public:
 	void DrawPlay();
 	// Интерфейс Печки
 	void OvenInventoryFun();
+	// Инвентарь сундука
+	void ChestInventoryFun();
 	// Поставить объект по определенным коодинатам
 	void PutObject(sf::Vector2f position);
 	// Геймплей

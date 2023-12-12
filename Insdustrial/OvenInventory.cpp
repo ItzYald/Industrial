@@ -110,6 +110,7 @@ void OvenInventory::Draw(Inventory &playerInventory)
 	{
 		buttons[i].Draw(*rw);
 
+		// Отрисовка предмета в ячейке 
 		if (items[i].number != 0)
 		{
 			itemsSprites.DrawItemSprite(rw.get(), items[i].number, buttons[i].coords, sf::Vector2f(4, 4));

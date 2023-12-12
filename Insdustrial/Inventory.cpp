@@ -9,7 +9,7 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw)
 	itemsSprites = StaticSprites();
 	rw = _rw;
 	functions = Functions(rw);
-
+	// Выбранная ячейка
 	choseCell = 0;
 
 	for (int i = 0; i < 10; i++)
@@ -28,17 +28,12 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw)
 
 void Inventory::Draw()
 {
-	// Узнать координаты мыши
-	mousePosition = sf::Mouse::getPosition(*rw);
-	// Отрисовать окно интерфейса
-	functions.Rectangle(rw.get(), sf::Vector2f(302, 400), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
-
 	// Задание кнопок
 	if (buttons.size() < 1)
 	{
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < items.size(); i++)
 		{
-			for (int j = 0; j < 4; j++)
+			for (int j = 0; j < items[0].size(); j++)
 			{
 				buttons.push_back(Button(sf::Vector2f(300 + 8 + i * 66, 400 + 8 + j * 66), sf::Vector2f(64, 64), L"",
 					sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
@@ -47,11 +42,16 @@ void Inventory::Draw()
 		}
 	}
 
-	for (int i = 0; i < 10; i++)
+	// Узнать координаты мыши
+	mousePosition = sf::Mouse::getPosition(*rw);
+	// Отрисовать окно интерфейса
+	functions.Rectangle(rw.get(), sf::Vector2f(302, 400), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
+
+	for (int i = 0; i < items.size(); i++)
 	{
-		for (int j = 0; j < 4; j++)
+		for (int j = 0; j < items[0].size(); j++)
 		{
-			if (buttons[i * 4 + j].CheckLeft(*rw))
+			if (buttons[i * items[0].size() + j].CheckLeft(*rw))
 			{
 				if (items[i][j].number != 0 && mouseItem.number != 0)
 				{

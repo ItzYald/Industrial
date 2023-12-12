@@ -9,7 +9,7 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 	sprite.setTexture(*texture);
 	position = _position;
 
-	isOpenInterface = false;
+	isOpenInventory = false;
 	whatTypeInventoryOpen = 0;
 	whatNumberInventoryOpen = 0;
 
@@ -30,6 +30,8 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 	inventory.items[2][2].quantity = 20;
 	inventory.items[3][3].number = 3;
 	inventory.items[3][3].quantity = 10;
+	inventory.items[5][3].number = 5;
+	inventory.items[5][3].quantity = 2;
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -78,18 +80,19 @@ void Player::Move()
 // То, что игрок делает каждый кадр
 void Player::Update()
 {
-	if (!isOpenInterface)
+	if (!isOpenInventory)
 	{
 		Move();
 	}
 	if (ch[0].Check(sf::Keyboard::Key::E))
 	{
-		isOpenInterface = true;
+		isOpenInventory = true;
 		whatTypeInventoryOpen = 0;
 	}
 }
 // Проверить наличие объекта перед игроком
-bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>> objects)
+bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>> ovens,
+	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests)
 {
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
@@ -99,7 +102,11 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>>
 			inventory.items[inventory.choseCell][3].quantity > 0)
 		{
 			bool isNear = false;
-			for (std::shared_ptr<StaingObject<OvenInventory>>& thisObject : objects)
+			for (std::shared_ptr<StaingObject<OvenInventory>>& thisObject : ovens)
+			{
+				isNear = thisObject->NearPlayer(position, angle);
+			}
+			for (std::shared_ptr<StaingObject<ChestInventory>>& thisObject : chests)
 			{
 				isNear = thisObject->NearPlayer(position, angle);
 			}

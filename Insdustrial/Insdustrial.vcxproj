@@ -132,15 +132,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChestInventory.cpp" />
     <ClCompile Include="Functions\Button.cpp" />
     <ClCompile Include="Functions\Checks.cpp" />
     <ClCompile Include="Functions\Functions.cpp" />
+    <ClCompile Include="ObjectInventory.cpp" />
     <ClCompile Include="StaingObject.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Insdustrial.cpp" />
     <ClCompile Include="Object.cpp" />
-    <ClCompile Include="ObjectInventory.cpp" />
     <ClCompile Include="OvenInventory.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -151,14 +152,15 @@
     <ClCompile Include="Workbench.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChestInventory.h" />
     <ClInclude Include="Functions\Button.h" />
     <ClInclude Include="Functions\Checks.h" />
     <ClInclude Include="Functions\Functions.h" />
+    <ClInclude Include="ObjectInventory.h" />
     <ClInclude Include="StaingObject.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="ObjectInventory.h" />
     <ClInclude Include="OvenInventory.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Sprite.h" />

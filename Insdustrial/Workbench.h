@@ -3,7 +3,7 @@
 
 class Workbench : public Object
 {
-	bool isOpenInterface;
+	bool isOpenInventory;
 
 
 };
