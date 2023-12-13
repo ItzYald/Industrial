@@ -34,6 +34,8 @@ public:
 
 	// Предметы в интерфейсе
 	std::vector<std::vector<ItemStruct>> items;
+	// Предметы в мини 
+	std::vector<std::vector<ItemStruct>> itemsMiniWorkbench;
 	// Предмет перетаскиваемый мышкой
 	ItemStruct mouseItem;
 
@@ -44,7 +46,11 @@ public:
 	// Конструктор
 	Inventory(std::shared_ptr<sf::RenderWindow> _rw);
 
+	// Отрисовка инвентаря
 	void Draw();
+	// Отрисовка внутреннего инвентаря (вместе с мини верстаком)
+	void DrawMiniWorkbench();
+	// Отрисовка нижней части инвентаря (во время геймплея)
 	void DrawNear(int mouseWheel);
 	
 

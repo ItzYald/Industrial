@@ -149,7 +149,6 @@
     <ClCompile Include="StaticSprites.cpp" />
     <ClCompile Include="Wire.cpp" />
     <ClCompile Include="WorbenchInventory.cpp" />
-    <ClCompile Include="Workbench.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChestInventory.h" />
@@ -168,7 +167,6 @@
     <ClInclude Include="StaticSprites.h" />
     <ClInclude Include="Wire.h" />
     <ClInclude Include="WorbenchInventory.h" />
-    <ClInclude Include="Workbench.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

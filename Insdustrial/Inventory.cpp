@@ -21,6 +21,15 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw)
 		}
 	}
 
+	for (int i = 0; i < 2; i++)
+	{
+		itemsMiniWorkbench.push_back(std::vector<ItemStruct>());
+		for (int j = 0; j < 2; j++)
+		{
+			itemsMiniWorkbench[i].push_back(ItemStruct());
+		}
+	}
+
 	for (int i = 0; i < 30; i++)
 		ch.push_back(Checks());
 
@@ -47,20 +56,26 @@ void Inventory::Draw()
 	// Отрисовать окно интерфейса
 	functions.Rectangle(rw.get(), sf::Vector2f(302, 400), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 
+	// Два цикла по координатам инвентаря
 	for (int i = 0; i < items.size(); i++)
 	{
 		for (int j = 0; j < items[0].size(); j++)
 		{
-			if (buttons[i * items[0].size() + j].CheckLeft(*rw))
+			int numberButton = i * items[0].size() + j;
+			// Нажатие левой кнопки мыши
+			if (buttons[numberButton].CheckLeft(*rw))
 			{
+				// Если и в мыши и в ячейке есть предмет
 				if (items[i][j].number != 0 && mouseItem.number != 0)
 				{
+					// Если предметы одинаковые - сложить
 					if (items[i][j].number == mouseItem.number)
 					{
 						items[i][j].quantity += mouseItem.quantity;
 						mouseItem.number = 0;
 						mouseItem.quantity = 0;
 					}
+					// Если разные - поменять
 					else
 					{
 						ItemStruct intermediateItem = mouseItem;
@@ -68,12 +83,14 @@ void Inventory::Draw()
 						items[i][j] = intermediateItem;
 					}
 				}
+				// Если в ячейке есть предмет, а в мыше нету
 				else if (items[i][j].number != 0)
 				{
 					mouseItem = items[i][j];
 					items[i][j].number = 0;
 					items[i][j].quantity = 0;
 				}
+				// Если предмет есть в мыши, но нету в ячейке
 				else if (mouseItem.number != 0)
 				{
 					items[i][j] = mouseItem;
@@ -81,8 +98,8 @@ void Inventory::Draw()
 					mouseItem.quantity = 0;
 				}
 			}
-
-			if (buttons[i * 4 + j].CheckRight(*rw) && mouseItem.number == 0 && items[i][j].number != 0)
+			// Нажатие правой кнопки мыши
+			if (buttons[numberButton].CheckRight(*rw) && mouseItem.number == 0 && items[i][j].number != 0)
 			{
 				mouseItem.number = items[i][j].number;
 				if (items[i][j].quantity == 1)
@@ -98,14 +115,16 @@ void Inventory::Draw()
 				}
 			}
 
-			sf::Vector2f positionInventory = sf::Vector2f(300 + 8 + i * 66, 400 + 8 + j * 66);
+			// Отрисовка
+			//sf::Vector2f positionInventory = sf::Vector2f(300 + 8 + i * 66, 400 + 8 + j * 66);
+			sf::Vector2f positionInventory = buttons[numberButton].coords;
 			if (items[i][j].number != 0)
 			{
 				itemsSprites.DrawItemSprite(rw.get(), items[i][j].number, positionInventory, sf::Vector2f(4, 4));
 				functions.PrintText(std::to_string(items[i][j].quantity), sf::Vector2f(positionInventory.x + 40, positionInventory.y + 40), 20, sf::Color(250, 250, 250));
 			}
 
-			buttons[i * 4 + j].Draw(*rw);
+			buttons[numberButton].Draw(*rw);
 		}
 	}
 
@@ -117,6 +136,111 @@ void Inventory::Draw()
 
 }
 
+void Inventory::DrawMiniWorkbench()
+{
+	if (buttons.size() < 4 * 10 + 3)
+	{
+		for (int i = 0; i < items.size(); i++)
+		{
+			for (int j = 0; j < items[0].size(); j++)
+			{
+				buttons.push_back(Button(sf::Vector2f(300 + 8 + i * 66, 400 + 8 + j * 66), sf::Vector2f(64, 64), L"",
+					sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
+					sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
+			}
+		}
+
+		for (int i = 0; i < itemsMiniWorkbench.size(); i++)
+		{
+			for (int j = 0; j < itemsMiniWorkbench[0].size(); j++)
+			{
+				buttons.push_back(Button(sf::Vector2f(600 + 8 + i * 66, 130 + 8 + j * 66), sf::Vector2f(64, 64), L"",
+					sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
+					sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
+			}
+		}
+	}
+
+	// Узнать координаты мыши
+	mousePosition = sf::Mouse::getPosition(*rw);
+	// Отрисовать окно интерфейса
+	functions.Rectangle(rw.get(), sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
+	
+	// Два цикла по координатам инвентаря
+	for (int i = 0; i < itemsMiniWorkbench.size(); i++)
+	{
+		for (int j = 0; j < itemsMiniWorkbench[0].size(); j++)
+		{
+			int numberButton = i * itemsMiniWorkbench.size() + (items[0].size() * items.size()) + j;
+			// Нажатие левой кнопки мыши
+			if (buttons[numberButton].CheckLeft(*rw))
+			{
+				// Если и в мыши и в ячейке есть предмет
+				if (itemsMiniWorkbench[i][j].number != 0 && mouseItem.number != 0)
+				{
+					// Если предметы одинаковые - сложить
+					if (itemsMiniWorkbench[i][j].number == mouseItem.number)
+					{
+						itemsMiniWorkbench[i][j].quantity += mouseItem.quantity;
+						mouseItem.number = 0;
+						mouseItem.quantity = 0;
+					}
+					// Если разные - поменять
+					else
+					{
+						ItemStruct intermediateItem = mouseItem;
+						mouseItem = itemsMiniWorkbench[i][j];
+						itemsMiniWorkbench[i][j] = intermediateItem;
+					}
+				}
+				// Если в ячейке есть предмет, а в мыше нету
+				else if (itemsMiniWorkbench[i][j].number != 0)
+				{
+					mouseItem = itemsMiniWorkbench[i][j];
+					itemsMiniWorkbench[i][j].number = 0;
+					itemsMiniWorkbench[i][j].quantity = 0;
+				}
+				// Если предмет есть в мыши, но нету в ячейке
+				else if (mouseItem.number != 0)
+				{
+					itemsMiniWorkbench[i][j] = mouseItem;
+					mouseItem.number = 0;
+					mouseItem.quantity = 0;
+				}
+			}
+			// Нажатие правой кнопки мыши
+			if (buttons[numberButton].CheckRight(*rw) && mouseItem.number == 0 && itemsMiniWorkbench[i][j].number != 0)
+			{
+				mouseItem.number = itemsMiniWorkbench[i][j].number;
+				if (itemsMiniWorkbench[i][j].quantity == 1)
+				{
+					mouseItem.quantity = 1;
+					itemsMiniWorkbench[i][j].number = 0;
+					itemsMiniWorkbench[i][j].quantity = 0;
+				}
+				else
+				{
+					mouseItem.quantity = itemsMiniWorkbench[i][j].quantity / 2;
+					itemsMiniWorkbench[i][j].quantity = itemsMiniWorkbench[i][j].quantity - mouseItem.quantity;
+				}
+			}
+
+			// Отрисовка
+			// sf::Vector2f positionInventory = sf::Vector2f(600 + 8 + i * 66, 130 + 8 + j * 66);
+			sf::Vector2f positionInventory = buttons[numberButton].coords;
+			if (itemsMiniWorkbench[i][j].number != 0)
+			{
+				itemsSprites.DrawItemSprite(rw.get(), itemsMiniWorkbench[i][j].number, positionInventory, sf::Vector2f(4, 4));
+				functions.PrintText(std::to_string(itemsMiniWorkbench[i][j].quantity), sf::Vector2f(positionInventory.x + 40, positionInventory.y + 40), 20, sf::Color(250, 250, 250));
+			}
+
+			buttons[numberButton].Draw(*rw);
+		}
+	}
+
+
+}
+// Отрисовка нижней части инвентаря (во время геймплея)
 void Inventory::DrawNear(int mouseWheel)
 {
 

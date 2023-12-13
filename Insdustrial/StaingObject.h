@@ -62,6 +62,11 @@ public:
 		}
 		return false;
 	}
+	/// <summary>
+	/// Обн==
+	/// </summary>
+	/// <param name="playerPosition">Позиция игрока</param>
+	/// <param name="playerAngle">Куда повернут игрок</param>
 	void Update(sf::Vector2f playerPosition, int playerAngle)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))

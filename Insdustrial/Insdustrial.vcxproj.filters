@@ -19,6 +19,18 @@
     <Filter Include="Файлы заголовков\Functions">
       <UniqueIdentifier>{b330a75a-b0dc-461c-9480-5c8f5012fa0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Inventories">
+      <UniqueIdentifier>{b9f3fe4c-9feb-4eef-a5bf-8b536834c5cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Inventories">
+      <UniqueIdentifier>{a87bd017-d5ae-477c-928f-01b64b161127}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Sprites">
+      <UniqueIdentifier>{14464f21-4d0d-4eac-b134-7f1fb2c99eda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Sprites">
+      <UniqueIdentifier>{79a900e3-1d5b-45bf-877d-5e159dc0f4b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Insdustrial.cpp">
@@ -27,37 +39,10 @@
     <ClCompile Include="Game.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Wire.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Field.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="OvenInventory.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Inventory.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="StaticSprites.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Workbench.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="WorbenchInventory.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="StaingObject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Functions\Functions.cpp">
@@ -70,47 +55,44 @@
       <Filter>Исходные файлы\Functions</Filter>
     </ClCompile>
     <ClCompile Include="ObjectInventory.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Inventories</Filter>
+    </ClCompile>
+    <ClCompile Include="OvenInventory.cpp">
+      <Filter>Исходные файлы\Inventories</Filter>
+    </ClCompile>
+    <ClCompile Include="WorbenchInventory.cpp">
+      <Filter>Исходные файлы\Inventories</Filter>
     </ClCompile>
     <ClCompile Include="ChestInventory.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Inventories</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Исходные файлы\Inventories</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Исходные файлы\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Исходные файлы\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="StaingObject.cpp">
+      <Filter>Исходные файлы\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="Wire.cpp">
+      <Filter>Исходные файлы\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Исходные файлы\Sprites</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Wire.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Field.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="OvenInventory.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Inventory.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="StaticSprites.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Workbench.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="WorbenchInventory.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="StaingObject.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Functions\Functions.h">
@@ -122,11 +104,35 @@
     <ClInclude Include="Functions\Button.h">
       <Filter>Файлы заголовков\Functions</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectInventory.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="ChestInventory.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Inventories</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectInventory.h">
+      <Filter>Файлы заголовков\Inventories</Filter>
+    </ClInclude>
+    <ClInclude Include="OvenInventory.h">
+      <Filter>Файлы заголовков\Inventories</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Файлы заголовков\Inventories</Filter>
+    </ClInclude>
+    <ClInclude Include="WorbenchInventory.h">
+      <Filter>Файлы заголовков\Inventories</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Файлы заголовков\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Файлы заголовков\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Файлы заголовков\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="StaingObject.h">
+      <Filter>Файлы заголовков\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="Wire.h">
+      <Filter>Файлы заголовков\Sprites</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
