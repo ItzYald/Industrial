@@ -39,10 +39,13 @@ void Game::LoadingApp()
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
 	
 	ovens = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
-	ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, "Images/Oven.png", sf::Vector2f(25, 20)));
+	ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, "Images/Oven.png", sf::Vector2f(23, 20)));
 
 	chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
-	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, "Images/Chest.png", sf::Vector2f(20, 15)));
+	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, "Images/Chest.png", sf::Vector2f(23, 21)));
+
+	worbenches = std::vector<std::shared_ptr<StaingObject<WorbenchInventory>>>();
+	worbenches.push_back(std::make_shared<StaingObject<WorbenchInventory>>(rw, field.sizeOne, "Images/IronOre.png", sf::Vector2f(23, 22)));
 
 	// objects = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
 
@@ -71,36 +74,51 @@ void Game::DrawPlay()
 	{
 		chest->Draw(cameraPosition);
 	}
+	for (std::shared_ptr<StaingObject<WorbenchInventory>> worbenche : worbenches)
+	{
+		worbenche->Draw(cameraPosition);
+	}
 	player.Draw(cameraPosition);
 }
-// Отрисовка всего
-void Game::Draw()
+
+void Game::CloseInventory()
 {
-	DrawPlay();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+	{
+		player.isOpenInventory = false;
+
+		switch (player.whatTypeInventoryOpen)
+		{
+		case 1:
+			ovens[player.whatNumberInventoryOpen]->isOpenInventory = false;
+			break;
+		case 2:
+			chests[player.whatNumberInventoryOpen]->isOpenInventory = false;
+			break;
+		case 3:
+			worbenches[player.whatNumberInventoryOpen]->isOpenInventory = false;
+			break;
+		}
+		player.buttons.clear();
+	}
 }
 // Интерфейс печки
 void Game::OvenInventoryFun()
 {
 	ovens[player.whatNumberInventoryOpen]->inventory.Draw(player.inventory);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
-	{
-		player.isOpenInventory = false;
-		ovens[player.whatNumberInventoryOpen]->isOpenInventory = false;
-		player.buttons.clear();
-	}
+	CloseInventory();
 }
 // Инвентарь сундука
 void Game::ChestInventoryFun()
 {
 	chests[player.whatNumberInventoryOpen]->inventory.Draw(player.inventory);
+	CloseInventory();
+}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
-	{
-		player.isOpenInventory = false;
-		chests[player.whatNumberInventoryOpen]->isOpenInventory = false;
-		player.buttons.clear();
-	}
+void Game::WorkbenchInventoryFunn()
+{
+	worbenches[player.whatNumberInventoryOpen]->inventory.Draw(player.inventory);
+	CloseInventory();
 }
 // Поставить объект по определенным координатам
 void Game::PutObject(sf::Vector2f position)
@@ -116,16 +134,21 @@ void Game::PutObject(sf::Vector2f position)
 		chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, "Images/Chest.png", position));
 		//objects.push_back(chests[ovens.size() - 1]);
 	}
+	else if (player.inventory.items[player.inventory.choseCell][3].number == 5)
+	{
+		worbenches.push_back(std::make_shared<StaingObject<WorbenchInventory>>(rw, field.sizeOne, "Images/IronOre.png", position));
+		//objects.push_back(chests[ovens.size() - 1]);
+	}
 }
 // Геймплей
 void Game::Drive()
 {
-	// Все что делает игрок каждый кадр
+	// То, что делает игрок каждый кадр
 	player.Update();
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	if (player.PutObject(ovens, chests))
+	if (player.PutObject(ovens, chests, worbenches))
 	{
 
 		if (player.angle == 0)
@@ -170,11 +193,25 @@ void Game::Drive()
 		}
 	}
 
+	for (int i = 0; i < worbenches.size(); i++)
+	{
+		worbenches[i]->Update(player.position, player.angle);
+
+		if (worbenches[i]->isOpenInventory)
+		{
+			player.isOpenInventory = true;
+			player.whatTypeInventoryOpen = 3;
+			player.whatNumberInventoryOpen = i;
+			break;
+		}
+	}
+
 	cameraPosition = sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2));
 }
 // Игра
 void Game::Play()
 {
+	// Отрисовать игру
 	DrawPlay();
 
 	// Работа печек
@@ -198,6 +235,7 @@ void Game::Play()
 	}
 	else
 	{
+
 		// Инвентарь игрока
 		if (player.whatTypeInventoryOpen == 0)
 		{
@@ -208,6 +246,7 @@ void Game::Play()
 				player.isOpenInventory = false;
 				ovens[player.whatNumberInventoryOpen]->isOpenInventory = false;
 				chests[player.whatNumberInventoryOpen]->isOpenInventory = false;
+				worbenches[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			}
 		}
 		// Инвентарь печки
@@ -219,6 +258,13 @@ void Game::Play()
 		else if (player.whatTypeInventoryOpen == 2)
 		{
 			ChestInventoryFun();
+		}
+		// Инвентарь верстака
+		else if (player.whatTypeInventoryOpen == 3)
+		{
+			//std::cout << "lol";
+			WorkbenchInventoryFunn();
+			//ChestInventoryFun();
 		}
 	}
 

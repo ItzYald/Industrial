@@ -6,8 +6,8 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 
-#include "Functions.h"
-#include "Button.h"
+#include "Functions/Functions.h"
+#include "Functions/Button.h"
 
 #include "Inventory.h"
 #include "ObjectInventory.h"
@@ -28,7 +28,7 @@ public:
 	OvenInventory(std::shared_ptr<sf::RenderWindow> _rw);
 
 	void Burn(Inventory& playerInventory);
-	void Draw(Inventory &playerInventory);
+	void Draw(Inventory& playerInventory);
 
 };
 

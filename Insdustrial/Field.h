@@ -5,7 +5,7 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 
-#include "Functions.h"
+#include "Functions/Functions.h"
 
 class Field
 {

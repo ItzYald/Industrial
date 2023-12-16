@@ -5,8 +5,8 @@ OvenInventory::OvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
 	rw = _rw;
 	functions = Functions(rw);
 
+	// 3 €чейки в инвентаре
 	items = std::vector<ItemStruct>();
-
 	items.push_back(ItemStruct());
 	items.push_back(ItemStruct());
 	items.push_back(ItemStruct());

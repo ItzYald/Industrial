@@ -5,6 +5,7 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw)
 	// Узнать координаты мыши
 	mousePosition = sf::Vector2i();
 	items = std::vector<std::vector<ItemStruct>>();
+	// Предмет перетаскиваемый мышкой
 	mouseItem = ItemStruct();
 	itemsSprites = StaticSprites();
 	rw = _rw;
@@ -12,6 +13,7 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw)
 	// Выбранная ячейка
 	choseCell = 0;
 
+	// Ивентарь игрока
 	for (int i = 0; i < 10; i++)
 	{
 		items.push_back(std::vector<ItemStruct>());
@@ -21,6 +23,7 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw)
 		}
 	}
 
+	// Инвертарь
 	for (int i = 0; i < 2; i++)
 	{
 		itemsMiniWorkbench.push_back(std::vector<ItemStruct>());
@@ -99,19 +102,34 @@ void Inventory::Draw()
 				}
 			}
 			// Нажатие правой кнопки мыши
-			if (buttons[numberButton].CheckRight(*rw) && mouseItem.number == 0 && items[i][j].number != 0)
+			if (buttons[numberButton].CheckRight(*rw))
 			{
-				mouseItem.number = items[i][j].number;
-				if (items[i][j].quantity == 1)
+				// Если в мыши есть предмет, а в ячейке нету
+				if (mouseItem.number != 0 && items[i][j].number == 0)
 				{
-					mouseItem.quantity = 1;
-					items[i][j].number = 0;
-					items[i][j].quantity = 0;
+					items[i][j].number = mouseItem.number;
+					items[i][j].quantity = 1;
+					mouseItem.quantity -= 1;
+					if (mouseItem.quantity == 0)
+					{
+						mouseItem.number = 0;
+					}
 				}
-				else
+				// Если в мыши нет предмета, а в ячейке есть
+				if (mouseItem.number == 0 && items[i][j].number != 0)
 				{
-					mouseItem.quantity = items[i][j].quantity / 2;
-					items[i][j].quantity = items[i][j].quantity - mouseItem.quantity;
+					mouseItem.number = items[i][j].number;
+					if (items[i][j].quantity == 1)
+					{
+						mouseItem.quantity = 1;
+						items[i][j].number = 0;
+						items[i][j].quantity = 0;
+					}
+					else
+					{
+						mouseItem.quantity = items[i][j].quantity / 2;
+						items[i][j].quantity = items[i][j].quantity - mouseItem.quantity;
+					}
 				}
 			}
 

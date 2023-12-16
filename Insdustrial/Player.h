@@ -6,16 +6,17 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 
-#include "Functions.h"
-#include "Button.h"
+#include "Functions/Functions.h"
+#include "Functions/Button.h"
 
 #include "Sprite.h"
 #include "StaticSprites.h"
 #include "Inventory.h"
 #include "StaingObject.h"
-
+// Инвентари
 #include "ChestInventory.h"
 #include "OvenInventory.h"
+#include "WorbenchInventory.h"
 
 class Player : public Sprite
 {
@@ -46,7 +47,8 @@ public:
 	void Update();
 	// Проверить наличие объекта перед игроком
 	bool PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>> ovens,
-		std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests);
+		std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests,
+		std::vector<std::shared_ptr<StaingObject<WorbenchInventory>>> workbenches);
 	// Отрисовка
 	void Draw(sf::Vector2f cameraPosition);
 };

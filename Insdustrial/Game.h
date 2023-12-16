@@ -8,9 +8,9 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
-#include "Functions.h"
-#include "Button.h"
-#include "Checks.h"
+#include "Functions/Functions.h"
+#include "Functions/Button.h"
+#include "Functions/Checks.h"
 
 //#include "Sprite.h"
 #include "Wire.h"
@@ -22,6 +22,7 @@
 // Инвентари
 #include "OvenInventory.h"
 #include "ChestInventory.h"
+#include "WorbenchInventory.h"
 
 
 class Game
@@ -62,7 +63,11 @@ private:
 	// std::vector<std::shared_ptr<StaingObject<OvenInventory>>> objects;
 	// Список печек
 	std::vector<std::shared_ptr<StaingObject<OvenInventory>>> ovens;
+	// Список сундуков
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests;
+	// Список верстаков
+	std::vector<std::shared_ptr<StaingObject<WorbenchInventory>>> worbenches;
+
 	// Поле
 	Field field;
 
@@ -73,16 +78,18 @@ public:
 	void LoadingApp();
 	// Отрисовка игрового поля
 	void DrawPlay();
+	// Закрыть
+	void CloseInventory();
 	// Интерфейс Печки
 	void OvenInventoryFun();
 	// Инвентарь сундука
 	void ChestInventoryFun();
+	// Инвентарь верстака
+	void WorkbenchInventoryFunn();
 	// Поставить объект по определенным коодинатам
 	void PutObject(sf::Vector2f position);
 	// Геймплей
 	void Drive();
-	// Отрисовка
-	void Draw();
 	// Игра
 	void Play();
 	// Меню
@@ -91,9 +98,9 @@ public:
 	void Next();
 	// Нарисовать круг
 	void Circle(sf::Vector2f pos, sf::Vector2f size, sf::Color col);
-	// Текст
+	// Событие мыши
 	void Mouse(sf::Event& e, sf::RenderWindow& rw);
-
+	// Прокручено колесико мыши
 	void MouseWheelScrolled(int _mouseWheel);
 
 	void EndProgramm(){}

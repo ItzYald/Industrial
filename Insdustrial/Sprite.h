@@ -3,7 +3,7 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 
-#include "Checks.h"
+#include "Functions/Checks.h"
 
 class Sprite
 {

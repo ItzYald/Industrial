@@ -6,8 +6,7 @@ Functions::Functions(std::shared_ptr<sf::RenderWindow> _rw)
 	rw = _rw;
 	text = sf::Text("", font, 25);
 }
-
-// Нарисовать прямоугольник
+// Нарисовать прямоугольник (старый)
 void Functions::Rectangle(sf::RenderWindow* rw, sf::Vector2f pos, sf::Vector2f size, sf::Color col)
 {
 	sf::RectangleShape rect;
@@ -16,7 +15,7 @@ void Functions::Rectangle(sf::RenderWindow* rw, sf::Vector2f pos, sf::Vector2f s
 	rect.setFillColor(col);
 	rw->draw(rect);
 }
-// Нарисовать прямоугольник с границей
+// Нарисовать прямоугольник с границей (старый)
 void Functions::Rectangle(sf::RenderWindow* rw, sf::Vector2f pos, sf::Vector2f size, sf::Color col, sf::Color col2, float size2)
 {
 	sf::RectangleShape rect;

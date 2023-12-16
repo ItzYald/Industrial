@@ -6,9 +6,9 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 
-#include "Functions.h"
-#include "Button.h"
-#include "Checks.h"
+#include "Functions/Functions.h"
+#include "Functions/Button.h"
+#include "Functions/Checks.h"
 
 #include "StaticSprites.h"
 
@@ -21,7 +21,9 @@ struct ItemStruct
 class Inventory
 {
 private:
+	// Список кнопок
 	std::vector<Button> buttons;
+	// Окно
 	std::shared_ptr<sf::RenderWindow> rw;
 	Functions functions;
 	StaticSprites itemsSprites;

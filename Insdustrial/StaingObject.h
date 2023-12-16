@@ -6,8 +6,8 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 
-#include "Functions.h"
-#include "Checks.h"
+#include "Functions/Functions.h"
+#include "Functions/Checks.h"
 
 #include "Object.h"
 
@@ -69,6 +69,7 @@ public:
 	/// <param name="playerAngle">Куда повернут игрок</param>
 	void Update(sf::Vector2f playerPosition, int playerAngle)
 	{
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
 		{
 			isOpenInventory = NearPlayer(playerPosition, playerAngle);
