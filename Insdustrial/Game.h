@@ -12,7 +12,6 @@
 #include "Functions/Button.h"
 #include "Functions/Checks.h"
 
-//#include "Sprite.h"
 #include "Wire.h"
 #include "Field.h"
 #include "Player.h"
@@ -66,7 +65,7 @@ private:
 	// Список сундуков
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests;
 	// Список верстаков
-	std::vector<std::shared_ptr<StaingObject<WorbenchInventory>>> worbenches;
+	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches;
 
 	// Поле
 	Field field;

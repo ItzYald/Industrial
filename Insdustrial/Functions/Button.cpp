@@ -106,7 +106,7 @@ bool Button::CheckLeft(sf::RenderWindow& rw)
         buttonLeftPressed = false;
     return false;
 }
-
+// Проверить нажатие левой кнопки мыши
 bool Button::CheckRight(sf::RenderWindow& rw)
 {
     bool click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
@@ -132,7 +132,6 @@ bool Button::CheckRight(sf::RenderWindow& rw)
         buttonRightPressed = false;
     return false;
 }
-
 // Отрисовать и проверить на наведение
 bool Button::DrawAim(sf::RenderWindow& rw)
 {

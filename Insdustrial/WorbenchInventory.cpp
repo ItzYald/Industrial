@@ -1,6 +1,6 @@
 #include "WorbenchInventory.h"
 
-WorbenchInventory::WorbenchInventory(std::shared_ptr<sf::RenderWindow> _rw)
+WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw)
 {
 	// Окно
 	rw = _rw;
@@ -25,7 +25,7 @@ WorbenchInventory::WorbenchInventory(std::shared_ptr<sf::RenderWindow> _rw)
 	collectionResult = std::vector<int>();
 
 	// Добавление пустых крафтов
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		// Временный массив
 		std::vector<std::vector<int>> mas = std::vector<std::vector<int>>();
@@ -45,9 +45,19 @@ WorbenchInventory::WorbenchInventory(std::shared_ptr<sf::RenderWindow> _rw)
 
 	AddCraft(0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6);
 
+	AddCraft(1, 7, 0, 0, 0, 0, 0, 0, 0, 0, 8);
+	AddCraft(2, 0, 7, 0, 0, 0, 0, 0, 0, 0, 8);
+	AddCraft(3, 0, 0, 7, 0, 0, 0, 0, 0, 0, 8);
+	AddCraft(4, 0, 0, 0, 7, 0, 0, 0, 0, 0, 8);
+	AddCraft(5, 0, 0, 0, 0, 7, 0, 0, 0, 0, 8);
+	AddCraft(6, 0, 0, 0, 0, 0, 7, 0, 0, 0, 8);
+	AddCraft(7, 0, 0, 0, 0, 0, 0, 7, 0, 0, 8);
+	AddCraft(8, 0, 0, 0, 0, 0, 0, 0, 7, 0, 8);
+	AddCraft(9, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8);
+
 }
 
-void WorbenchInventory::AddCraft(int number,
+void WorkbenchInventory::AddCraft(int number,
 	int craft1, int craft2, int craft3, int craft4, int craft5, int craft6, int craft7, int craft8, int craft9,
 	int result)
 {
@@ -63,7 +73,7 @@ void WorbenchInventory::AddCraft(int number,
 	collectionResult[number] = result;
 }
 
-void WorbenchInventory::Craft()
+void WorkbenchInventory::Craft()
 {
 	for (int i = 0; i < collectionCraft.size(); i++)
 	{
@@ -116,7 +126,7 @@ void WorbenchInventory::Craft()
 
 }
 
-void WorbenchInventory::Draw(Inventory& playerInventory)
+void WorkbenchInventory::Draw(Inventory& playerInventory)
 {
 	if (buttons.size() < 1)
 	{

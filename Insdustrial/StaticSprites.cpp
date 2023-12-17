@@ -5,7 +5,7 @@ StaticSprites::StaticSprites()
 	textures = std::vector<sf::Texture*>();
 	sprites = std::vector<sf::Sprite>();
 	
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		textures.push_back(new sf::Texture());
 		sprites.push_back(sf::Sprite());
@@ -23,10 +23,14 @@ StaticSprites::StaticSprites()
 	textures[4]->loadFromFile("Images/IronIngot.png");
 	// Сундук
 	textures[5]->loadFromFile("Images/Chest.png");
-	// Сундук
+	// Железный блок
 	textures[6]->loadFromFile("Images/IronBlock.png");
+	// Древесина
+	textures[7]->loadFromFile("Images/Wood.png");
+	// Верстак
+	textures[8]->loadFromFile("Images/WorkBench.png");
 
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		sprites[i].setTexture(*textures[i]);
 	}

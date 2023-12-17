@@ -14,9 +14,7 @@
 
 #include "StaticSprites.h"
 
-#define coal 10
-
-class WorbenchInventory : ObjectInventory
+class WorkbenchInventory : ObjectInventory
 {
 public:
 	// Предметы в поле для крафта
@@ -27,8 +25,8 @@ public:
 	std::vector<std::vector<std::vector<int>>> collectionCraft;
 	std::vector<int> collectionResult;
 
-	WorbenchInventory(){}
-	WorbenchInventory(std::shared_ptr<sf::RenderWindow> _rw);
+	WorkbenchInventory(){}
+	WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw);
 
 	// Добавить новый крафт (в начале программы для сокращения кода)
 	void AddCraft(int number,
