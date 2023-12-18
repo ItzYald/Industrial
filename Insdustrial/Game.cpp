@@ -134,7 +134,7 @@ void Game::PutObject(sf::Vector2f position)
 		chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, "Images/Chest.png", position));
 		//objects.push_back(chests[ovens.size() - 1]);
 	}
-	else if (player.inventory.items[player.inventory.choseCell][3].number == 5)
+	else if (player.inventory.items[player.inventory.choseCell][3].number == 8)
 	{
 		workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, "Images/Workbench.png", position));
 		//objects.push_back(chests[ovens.size() - 1]);
@@ -148,23 +148,19 @@ void Game::Drive()
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	if (player.PutObject(ovens, chests, workbenches))
+	bool nearObject = player.PutObject(ovens, chests, workbenches);
+	functions.PrintText(std::to_string(nearObject), sf::Vector2f(100, 100), 25, sf::Color::Red);
+	if (nearObject)
 	{
-
-		if (player.angle == 0)
+		switch (player.angle)
 		{
+		case 0:
 			PutObject(sf::Vector2f((int)player.position.x, (int)player.position.y - 1));
-		}
-		else if (player.angle == 1)
-		{
+		case 1:
 			PutObject(sf::Vector2f((int)player.position.x + 1, (int)player.position.y));
-		}
-		else if (player.angle == 2)
-		{
+		case 2:
 			PutObject(sf::Vector2f((int)player.position.x, (int)player.position.y + 1));
-			}
-		else if (player.angle == 3)
-		{
+		case 3:
 			PutObject(sf::Vector2f((int)player.position.x - 1, (int)player.position.y));
 		}
 	}
@@ -235,7 +231,6 @@ void Game::Play()
 	}
 	else
 	{
-
 		// Инвентарь игрока
 		if (player.whatTypeInventoryOpen == 0)
 		{
@@ -262,9 +257,7 @@ void Game::Play()
 		// Инвентарь верстака
 		else if (player.whatTypeInventoryOpen == 3)
 		{
-			//std::cout << "lol";
 			WorkbenchInventoryFunn();
-			//ChestInventoryFun();
 		}
 	}
 
@@ -348,11 +341,9 @@ void Game::Circle(sf::Vector2f pos, sf::Vector2f size, sf::Color col)
 void Game::Mouse(sf::Event& e, sf::RenderWindow& rw)
 {
 	mousePosition = sf::Mouse::getPosition(rw);
-
 }
 
 void Game::MouseWheelScrolled(int _mouseWheel)
 {
 	mouseWheel = _mouseWheel;
-	//std::cout << mouseWheel << " ";
 }

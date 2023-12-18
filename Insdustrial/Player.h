@@ -46,9 +46,9 @@ public:
 	//Каждый кадр
 	void Update();
 	// Проверить наличие объекта перед игроком
-	bool PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>> ovens,
-		std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests,
-		std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches);
+	bool PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>>& ovens,
+		std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests,
+		std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches);
 	// Отрисовка
 	void Draw(sf::Vector2f cameraPosition);
 };

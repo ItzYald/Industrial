@@ -26,15 +26,17 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 
 	inventory.items[0][3].number = 1;
 	inventory.items[0][3].quantity = 15;
-	inventory.items[2][2].number = 2;
-	inventory.items[2][2].quantity = 20;
-	inventory.items[3][3].number = 3;
-	inventory.items[3][3].quantity = 10;
-	inventory.items[5][3].number = 5;
-	inventory.items[5][3].quantity = 2;
-	inventory.items[6][3].number = 4;
-	inventory.items[6][3].quantity = 10;
-	inventory.items[7][3].number = 8;
+	inventory.items[1][3].number = 2;
+	inventory.items[1][3].quantity = 20;
+	inventory.items[2][3].number = 3;
+	inventory.items[2][3].quantity = 10;
+	inventory.items[3][3].number = 5;
+	inventory.items[3][3].quantity = 2;
+	inventory.items[4][3].number = 4;
+	inventory.items[4][3].quantity = 10;
+	inventory.items[5][3].number = 8;
+	inventory.items[5][3].quantity = 10;
+	inventory.items[6][3].number = 7;
 	inventory.items[7][3].quantity = 10;
 
 	for (int i = 0; i < 30; i++)
@@ -95,13 +97,15 @@ void Player::Update()
 	}
 }
 // Проверить наличие объекта перед игроком
-bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>> ovens,
-	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests, 
-	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches)
+bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>>& ovens,
+	std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests, 
+	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
 	{
-		if (inventory.items[inventory.choseCell][3].number == 2 &&
+		if ((inventory.items[inventory.choseCell][3].number == 2 ||
+			inventory.items[inventory.choseCell][3].number == 5 || 
+			inventory.items[inventory.choseCell][3].number == 8) &&
 			inventory.items[inventory.choseCell][3].quantity > 0)
 		{
 			bool isNear = false;
@@ -111,30 +115,18 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>>
 			}
 			for (std::shared_ptr<StaingObject<ChestInventory>>& thisObject : chests)
 			{
-				isNear = thisObject->NearPlayer(position, angle);
+				if (!isNear)
+					isNear = thisObject->NearPlayer(position, angle);
 			}
 			for (std::shared_ptr<StaingObject<WorkbenchInventory>>& thisObject : workbenches)
 			{
-				isNear = thisObject->NearPlayer(position, angle);
+				if (!isNear)
+					isNear = thisObject->NearPlayer(position, angle);
 			}
+
 			if (!isNear)
 			{
-				if (angle == 0)
-				{
-					inventory.items[inventory.choseCell][3].quantity -= 1;
-				}
-				else if (angle == 1)
-				{
-					inventory.items[inventory.choseCell][3].quantity -= 1;
-				}
-				else if (angle == 2)
-				{
-					inventory.items[inventory.choseCell][3].quantity -= 1;
-				}
-				else if (angle == 3)
-				{
-					inventory.items[inventory.choseCell][3].quantity -= 1;
-				}
+				inventory.items[inventory.choseCell][3].quantity -= 1;
 				return true;
 			}
 		}
