@@ -45,15 +45,15 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw)
 
 	AddCraft(0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6);
 
-	AddCraft(1, 7, 0, 0, 0, 0, 0, 0, 0, 0, 8);
-	AddCraft(2, 0, 7, 0, 0, 0, 0, 0, 0, 0, 8);
-	AddCraft(3, 0, 0, 7, 0, 0, 0, 0, 0, 0, 8);
-	AddCraft(4, 0, 0, 0, 7, 0, 0, 0, 0, 0, 8);
-	AddCraft(5, 0, 0, 0, 0, 7, 0, 0, 0, 0, 8);
-	AddCraft(6, 0, 0, 0, 0, 0, 7, 0, 0, 0, 8);
-	AddCraft(7, 0, 0, 0, 0, 0, 0, 7, 0, 0, 8);
-	AddCraft(8, 0, 0, 0, 0, 0, 0, 0, 7, 0, 8);
-	AddCraft(9, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8);
+	AddCraft(1, 7, 0, 0, 0, 0, 0, 0, 0, 0, 9);
+	AddCraft(2, 0, 7, 0, 0, 0, 0, 0, 0, 0, 9);
+	AddCraft(3, 0, 0, 7, 0, 0, 0, 0, 0, 0, 9);
+	AddCraft(4, 0, 0, 0, 7, 0, 0, 0, 0, 0, 9);
+	AddCraft(5, 0, 0, 0, 0, 7, 0, 0, 0, 0, 9);
+	AddCraft(6, 0, 0, 0, 0, 0, 7, 0, 0, 0, 9);
+	AddCraft(7, 0, 0, 0, 0, 0, 0, 7, 0, 0, 9);
+	AddCraft(8, 0, 0, 0, 0, 0, 0, 0, 7, 0, 9);
+	AddCraft(9, 0, 0, 0, 0, 0, 0, 0, 0, 7, 9);
 
 }
 
@@ -91,6 +91,10 @@ void WorkbenchInventory::Craft()
 					{
 						isCraft += 1;
 					}
+					else
+					{
+						break;
+					}
 				}
 			}
 			// Если крафт совпал
@@ -101,10 +105,11 @@ void WorkbenchInventory::Craft()
 					madeItem.number = collectionResult[i];
 					madeItem.quantity = 1;
 				}
-				//else if (madeItem.number == collectionResult[i])
-				//{
-				//	madeItem.quantity += 1;
-				//}
+			}
+			else
+			{
+				madeItem.number = 0;
+				madeItem.quantity = 0;
 			}
 		}
 		else
@@ -262,6 +267,6 @@ void WorkbenchInventory::Draw(Inventory& playerInventory)
 			}
 		}
 	}
-	playerInventory.Draw();
+	playerInventory.Update();
 }
 

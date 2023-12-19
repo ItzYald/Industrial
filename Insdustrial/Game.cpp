@@ -149,19 +149,22 @@ void Game::Drive()
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
 	bool nearObject = player.PutObject(ovens, chests, workbenches);
-	functions.PrintText(std::to_string(nearObject), sf::Vector2f(100, 100), 25, sf::Color::Red);
 	if (nearObject)
 	{
 		switch (player.angle)
 		{
 		case 0:
 			PutObject(sf::Vector2f((int)player.position.x, (int)player.position.y - 1));
+			break;
 		case 1:
 			PutObject(sf::Vector2f((int)player.position.x + 1, (int)player.position.y));
+			break;
 		case 2:
 			PutObject(sf::Vector2f((int)player.position.x, (int)player.position.y + 1));
+			break;
 		case 3:
 			PutObject(sf::Vector2f((int)player.position.x - 1, (int)player.position.y));
+			break;
 		}
 	}
 
@@ -170,6 +173,7 @@ void Game::Drive()
 		ovens[i]->Update(player.position, player.angle);
 		if (ovens[i]->isOpenInventory)
 		{
+			player.inventory.DeleteButtons();
 			player.isOpenInventory = true;
 			player.whatTypeInventoryOpen = 1;
 			player.whatNumberInventoryOpen = i;
@@ -182,6 +186,7 @@ void Game::Drive()
 		chests[i]->Update(player.position, player.angle);
 		if (chests[i]->isOpenInventory)
 		{
+			player.inventory.DeleteButtons();
 			player.isOpenInventory = true;
 			player.whatTypeInventoryOpen = 2;
 			player.whatNumberInventoryOpen = i;
@@ -192,9 +197,9 @@ void Game::Drive()
 	for (int i = 0; i < workbenches.size(); i++)
 	{
 		workbenches[i]->Update(player.position, player.angle);
-
 		if (workbenches[i]->isOpenInventory)
 		{
+			player.inventory.DeleteButtons();
 			player.isOpenInventory = true;
 			player.whatTypeInventoryOpen = 3;
 			player.whatNumberInventoryOpen = i;
@@ -235,7 +240,7 @@ void Game::Play()
 		if (player.whatTypeInventoryOpen == 0)
 		{
 			player.inventory.DrawMiniWorkbench();
-			player.inventory.Draw();
+			player.inventory.Update();
 			if (ch[2].Check(sf::Keyboard::Key::Escape) || ch[3].Check(sf::Keyboard::Key::E))
 			{
 				player.isOpenInventory = false;

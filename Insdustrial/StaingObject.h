@@ -11,7 +11,8 @@
 
 #include "Object.h"
 
-#include "OvenInventory.h"
+//#include "OvenInventory.h"
+#include "Inventory.h"
 
 template<class T>
 class StaingObject : Object
@@ -23,7 +24,7 @@ public:
 
 	T inventory;
 
-	StaingObject();
+	StaingObject(){}
 	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::string imageFileName, sf::Vector2f _position)
 	{
 		rw = _rw;
@@ -63,16 +64,16 @@ public:
 		return false;
 	}
 	/// <summary>
-	/// Обн==
+	/// Каждый кадр
 	/// </summary>
 	/// <param name="playerPosition">Позиция игрока</param>
 	/// <param name="playerAngle">Куда повернут игрок</param>
 	void Update(sf::Vector2f playerPosition, int playerAngle)
 	{
-
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
 		{
 			isOpenInventory = NearPlayer(playerPosition, playerAngle);
+			//playerInventory.DeleteButtons();
 		}
 	}
 	/// <summary>Отрисовка</summary>

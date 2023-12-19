@@ -29,10 +29,10 @@ bool Wire::NearPlayer(sf::Vector2f playerPosition, int playerAngle)
 	//		
 	//	}
 	//}
-	return 0;
+	return false;
 }
 
 void Wire::Update(sf::Vector2f playerPosition, int playerAngle)
 {
-	NearPlayer(playerPosition, playerAngle);
+
 }

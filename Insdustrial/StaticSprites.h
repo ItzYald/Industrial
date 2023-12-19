@@ -22,6 +22,8 @@ public:
 	int IsFuel(int nuberItem);
 	// Можно переплавить / сжечь
 	int IsBurn(int nuberItem);
+	// Получить название
+	sf::String GetName(int nuberItem);
 
 };
 

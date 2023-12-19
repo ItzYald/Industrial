@@ -5,7 +5,7 @@ StaticSprites::StaticSprites()
 	textures = std::vector<sf::Texture*>();
 	sprites = std::vector<sf::Sprite>();
 	
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		textures.push_back(new sf::Texture());
 		sprites.push_back(sf::Sprite());
@@ -29,8 +29,10 @@ StaticSprites::StaticSprites()
 	textures[7]->loadFromFile("Images/Wood.png");
 	// Верстак
 	textures[8]->loadFromFile("Images/WorkBench.png");
+	// Доски
+	textures[9]->loadFromFile("Images/Planks.png");
 
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		sprites[i].setTexture(*textures[i]);
 	}
@@ -84,4 +86,42 @@ int StaticSprites::IsBurn(int nuberItem)
 		break;
 	}
 	return res;
+}
+
+sf::String StaticSprites::GetName(int numberItem)
+{
+	switch (numberItem)
+	{
+	case 1:
+		return L"Железная руда";
+		break;
+	case 2:
+		return L"Печка";
+		break;
+	case 3:
+		return L"Уголь";
+		break;
+	case 4:
+		return L"Железный слиток";
+		break;
+	case 5:
+		return L"Cундук";
+		break;
+	case 6:
+		return L"Железный слиток";
+		break;
+	case 7:
+		return L"Древесина";
+		break;
+	case 8:
+		return L"Верстак";
+		break;
+	case 9:
+		return L"Доски";
+		break;
+	default:
+		return L"";
+		break;
+	}
+
 }

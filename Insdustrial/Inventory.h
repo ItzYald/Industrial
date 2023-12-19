@@ -48,8 +48,14 @@ public:
 	// Конструктор
 	Inventory(std::shared_ptr<sf::RenderWindow> _rw);
 
+	// Удалить кнопки
+	void DeleteButtons();
+	// Добавить кнопки
+	void AddButtons(bool miniWorkbench);
 	// Отрисовка инвентаря
 	void Draw();
+	// Действия инвентаря
+	void Update();
 	// Отрисовка внутреннего инвентаря (вместе с мини верстаком)
 	void DrawMiniWorkbench();
 	// Отрисовка нижней части инвентаря (во время геймплея)

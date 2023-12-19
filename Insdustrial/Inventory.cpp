@@ -38,20 +38,88 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw)
 
 }
 
+void Inventory::DeleteButtons()
+{
+	buttons.clear();
+}
+
+void Inventory::AddButtons(bool miniWorkbench)
+{
+	for (int i = 0; i < items.size(); i++)
+	{
+		for (int j = 0; j < items[0].size(); j++)
+		{
+			buttons.push_back(Button(sf::Vector2f(300 + 8 + i * 66, 400 + 8 + j * 66), sf::Vector2f(64, 64), L"",
+				sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
+				sf::Color::Transparent, sf::Color::Transparent, 1, 4, 25));
+		}
+	}
+	if (miniWorkbench)
+	{
+		for (int i = 0; i < itemsMiniWorkbench.size(); i++)
+		{
+			for (int j = 0; j < itemsMiniWorkbench[0].size(); j++)
+			{
+				buttons.push_back(Button(sf::Vector2f(600 + 8 + i * 66, 130 + 8 + j * 66), sf::Vector2f(64, 64), L"",
+					sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
+					sf::Color::Transparent, sf::Color::Transparent, 1, 4, 25));
+			}
+		}
+	}
+}
+
 void Inventory::Draw()
+{
+	// Отрисовка спрайтов предметов
+	for (int i = 0; i < items.size(); i++)
+	{
+		for (int j = 0; j < items[0].size(); j++)
+		{
+			int numberButton = i * items[0].size() + j;
+			sf::Vector2f positionInventory = buttons[numberButton].coords;
+			if (items[i][j].number != 0)
+			{
+				itemsSprites.DrawItemSprite(rw.get(), items[i][j].number, positionInventory, sf::Vector2f(4, 4));
+				// Написать колличество
+				functions.PrintText(std::to_string(items[i][j].quantity),
+					sf::Vector2f(positionInventory.x + 35, positionInventory.y + 35),
+					25, sf::Color(250, 250, 250));
+			}
+		}
+	}
+
+	// Отрисовка описания предметов
+	for (int i = 0; i < items.size(); i++)
+	{
+		for (int j = 0; j < items[0].size(); j++)
+		{
+			int numberButton = i * items[0].size() + j;
+			if (items[i][j].number != 0 && buttons[numberButton].Aim(*rw))
+			{
+				sf::Vector2f positionInventory = buttons[numberButton].coords;
+				sf::String name = itemsSprites.GetName(items[i][j].number);
+				int sizeSimbol = 20;
+				functions.DrawRectangle(sf::Vector2f(positionInventory.x + 65, positionInventory.y),
+					sf::Vector2f(sizeSimbol * name.getSize() / 1.8 + 10, 35), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 2);
+				functions.PrintText(name, sf::Vector2f(positionInventory.x + 70, positionInventory.y), sizeSimbol, sf::Color(250, 250, 250));
+			}
+		}
+	}
+
+	// Отрисовка предмета в мышке
+	if (mouseItem.number != 0)
+	{
+		itemsSprites.DrawItemSprite(rw.get(), mouseItem.number, sf::Vector2f(mousePosition.x, mousePosition.y), sf::Vector2f(4, 4));
+		functions.PrintText(std::to_string(mouseItem.quantity), sf::Vector2f(mousePosition.x + 40, mousePosition.y + 40), 20, sf::Color(250, 250, 250));
+	}
+}
+
+void Inventory::Update()
 {
 	// Задание кнопок
 	if (buttons.size() < 1)
 	{
-		for (int i = 0; i < items.size(); i++)
-		{
-			for (int j = 0; j < items[0].size(); j++)
-			{
-				buttons.push_back(Button(sf::Vector2f(300 + 8 + i * 66, 400 + 8 + j * 66), sf::Vector2f(64, 64), L"",
-					sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
-					sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
-			}
-		}
+		AddButtons(false);
 	}
 
 	// Узнать координаты мыши
@@ -59,11 +127,17 @@ void Inventory::Draw()
 	// Отрисовать окно интерфейса
 	functions.Rectangle(rw.get(), sf::Vector2f(302, 400), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 
+	for (int i = 0; i < buttons.size(); i++)
+	{
+		buttons[i].Draw(*rw);
+	}
+
 	// Два цикла по координатам инвентаря
 	for (int i = 0; i < items.size(); i++)
 	{
 		for (int j = 0; j < items[0].size(); j++)
 		{
+			// Номер кнопки (чтобы каждый раз не считать заново)
 			int numberButton = i * items[0].size() + j;
 			// Нажатие левой кнопки мыши
 			if (buttons[numberButton].CheckLeft(*rw))
@@ -133,50 +207,22 @@ void Inventory::Draw()
 				}
 			}
 
-			// Отрисовка
-			//sf::Vector2f positionInventory = sf::Vector2f(300 + 8 + i * 66, 400 + 8 + j * 66);
-			sf::Vector2f positionInventory = buttons[numberButton].coords;
-			if (items[i][j].number != 0)
+			// Если колличество 0 - сделать пустой
+			if (items[i][j].quantity == 0)
 			{
-				itemsSprites.DrawItemSprite(rw.get(), items[i][j].number, positionInventory, sf::Vector2f(4, 4));
-				functions.PrintText(std::to_string(items[i][j].quantity), sf::Vector2f(positionInventory.x + 40, positionInventory.y + 40), 20, sf::Color(250, 250, 250));
+				items[i][j].number = 0;
 			}
-
-			buttons[numberButton].Draw(*rw);
 		}
 	}
 
-	if (mouseItem.number != 0)
-	{
-		itemsSprites.DrawItemSprite(rw.get(), mouseItem.number, sf::Vector2f(mousePosition.x, mousePosition.y), sf::Vector2f(4, 4));
-		functions.PrintText(std::to_string(mouseItem.quantity), sf::Vector2f(mousePosition.x + 40, mousePosition.y + 40), 20, sf::Color(250, 250, 250));
-	}
-
+	Draw();
 }
 
 void Inventory::DrawMiniWorkbench()
 {
 	if (buttons.size() < 4 * 10 + 3)
 	{
-		for (int i = 0; i < items.size(); i++)
-		{
-			for (int j = 0; j < items[0].size(); j++)
-			{
-				buttons.push_back(Button(sf::Vector2f(300 + 8 + i * 66, 400 + 8 + j * 66), sf::Vector2f(64, 64), L"",
-					sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
-					sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
-			}
-		}
-
-		for (int i = 0; i < itemsMiniWorkbench.size(); i++)
-		{
-			for (int j = 0; j < itemsMiniWorkbench[0].size(); j++)
-			{
-				buttons.push_back(Button(sf::Vector2f(600 + 8 + i * 66, 130 + 8 + j * 66), sf::Vector2f(64, 64), L"",
-					sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
-					sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
-			}
-		}
+		AddButtons(true);
 	}
 
 	// Узнать координаты мыши
@@ -261,7 +307,6 @@ void Inventory::DrawMiniWorkbench()
 // Отрисовка нижней части инвентаря (во время геймплея)
 void Inventory::DrawNear(int mouseWheel)
 {
-
 	functions.Rectangle(rw.get(), sf::Vector2f(302, 598), sf::Vector2f(676, 82), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 
 	for (int i = 0; i < items.size(); i++)

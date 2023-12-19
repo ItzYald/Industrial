@@ -71,6 +71,7 @@ private:
 	Field field;
 
 public:
+	Game(){ }
 	Game(sf::RenderWindow& _rw);
 	void LoadingApp1();
 	void LoadingImg();

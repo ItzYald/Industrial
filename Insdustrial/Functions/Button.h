@@ -47,8 +47,10 @@ public:
     bool CheckLeft(sf::RenderWindow& rw);
 
     bool CheckRight(sf::RenderWindow& rw);
-    // Срабатывание при наведении
+    // Срабатывание при наведении и отрисовка
     bool DrawAim(sf::RenderWindow& rw);
+    // Срабатывание при наведении без отрисовки
+    bool Aim(sf::RenderWindow& rw);
 
     void PrintText(sf::RenderWindow& rw, sf::String mes, sf::Vector2f pos, int size, sf::Color col, int center);
 

@@ -181,6 +181,6 @@ void OvenInventory::Draw(Inventory &playerInventory)
 		}
 	}
 	
-	playerInventory.Draw();
+	playerInventory.Update();
 }
 

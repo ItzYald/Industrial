@@ -74,7 +74,7 @@ void ChestInventory::Draw(Inventory& playerInventory)
 				}
 			}
 
-			if (buttons[i * 4 + j].CheckRight(*rw) && playerInventory.mouseItem.number == 0 && items[i][j].number != 0)
+			if (buttons[i * items[0].size() + j].CheckRight(*rw) && playerInventory.mouseItem.number == 0 && items[i][j].number != 0)
 			{
 				playerInventory.mouseItem.number = items[i][j].number;
 				if (items[i][j].quantity == 1)
@@ -98,7 +98,7 @@ void ChestInventory::Draw(Inventory& playerInventory)
 				functions.PrintText(std::to_string(items[i][j].quantity), sf::Vector2f(positionInventory.x + 40, positionInventory.y + 40), 20, sf::Color(250, 250, 250));
 			}
 
-			buttons[i * 4 + j].Draw(*rw);
+			buttons[i * items[0].size() + j].Draw(*rw);
 		}
 	}
 
@@ -108,6 +108,6 @@ void ChestInventory::Draw(Inventory& playerInventory)
 	// 	functions.PrintText(std::to_string(playerInventory.mouseItem.quantity), sf::Vector2f(mousePosition.x + 40, mousePosition.y + 40), 20, sf::Color(250, 250, 250));
 	// }
 
-	playerInventory.Draw();
+	playerInventory.Update();
 }
 

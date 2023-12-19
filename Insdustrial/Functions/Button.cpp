@@ -38,6 +38,7 @@ void Button::Draw(sf::RenderWindow& rw)
 
     Rectangle(rw);
     PrintText(rw, message, coords + hitBox, fontSize, colorTitle, center);
+
     if (coords.x < mouseCoords.x && mouseCoords.x < coords.x + size.x && coords.y < mouseCoords.y && mouseCoords.y < coords.y + size.y)
     {
         Rectangle(rw, false);
@@ -152,6 +153,14 @@ bool Button::DrawAim(sf::RenderWindow& rw)
     }
     return false;
 
+}
+
+bool Button::Aim(sf::RenderWindow& rw)
+{
+    mouseCoords = (sf::Vector2f)sf::Mouse::getPosition(rw);
+    if (coords.x < mouseCoords.x && mouseCoords.x < coords.x + size.x && coords.y < mouseCoords.y && mouseCoords.y < coords.y + size.y)
+        return true;
+    return false;
 }
 
 void Button::PrintText(sf::RenderWindow& rw, sf::String mes, sf::Vector2f pos, int _size, sf::Color col, int center)
