@@ -15,19 +15,11 @@ void Game::LoadingApp1()
 	functions.PrintText(L"Загрузка...", sf::Vector2f(sizeW.x / 2 - 100, 300), 25, sf::Color::Green);
 	screen = "ЗагрузкаПриложения";
 }
-// Загрузка картинок
-void Game::LoadingImg()
-{
-	//imgImg = sf::Image();
-	//imgImg.loadFromFile("img/Andrew 1.jpg");
-}
 // Загрузка приложения
 void Game::LoadingApp()
 {
 	for (int i = 0; i < 30; i++)
 		ch.push_back(Checks());
-
-	LoadingImg();
 
 	srand(time(NULL));
 
@@ -36,16 +28,16 @@ void Game::LoadingApp()
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW);
 	cameraPosition = sf::Vector2f(20, 20);
 
-	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
-	
+	/*player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
+
 	ovens = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
 	ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, "Images/Oven.png", sf::Vector2f(23, 20)));
-
+	
 	chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
 	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, "Images/Chest.png", sf::Vector2f(23, 21)));
-
+	
 	workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
-	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, "Images/Workbench.png", sf::Vector2f(23, 22)));
+	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, "Images/Workbench.png", sf::Vector2f(23, 22)));*/
 
 	// objects = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
 
@@ -54,6 +46,27 @@ void Game::LoadingApp()
 	// 	//objects.push_back(ovens[i]);
 	// }
 
+}
+// Загрузка прогрессбарра геймплея
+void Game::LoadingPlay1()
+{
+	functions.PrintText(L"Загрузка...", sf::Vector2f(sizeW.x / 2 - 100, 300), 25, sf::Color::Green);
+	screen = "ЗагрузкаГеймплея";
+}
+// Загрузка геймплея
+void Game::LoadingPlay()
+{
+	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
+
+	ovens = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
+	ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, "Images/Oven.png", sf::Vector2f(23, 20)));
+
+	chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
+	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, "Images/Chest.png", sf::Vector2f(23, 21)));
+
+	workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
+	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, "Images/Workbench.png", sf::Vector2f(23, 22)));
+	screen = "Игра";
 }
 // Отрисовка игры
 void Game::DrawPlay()
@@ -293,7 +306,7 @@ void Game::Menu()
 
 	if (buttons[0].DrawCheckLeft(*rw))
 	{
-		screen = "Игра";
+		screen = "ЗагрузкаГеймплея1";
 		buttons.clear();
 		return;
 	}
@@ -322,6 +335,14 @@ void Game::Next()
 	else if (screen == "ЗагрузкаПриложения")
 	{
 		LoadingApp();
+	}
+	else if (screen == "ЗагрузкаГеймплея1")
+	{
+		LoadingPlay1();
+	}
+	else if (screen == "ЗагрузкаГеймплея")
+	{
+		LoadingPlay();
 	}
 	else if (screen == "Меню")
 	{

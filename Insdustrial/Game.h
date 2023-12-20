@@ -73,9 +73,16 @@ private:
 public:
 	Game(){ }
 	Game(sf::RenderWindow& _rw);
+	// Прогрессбарр загрузки приложения
 	void LoadingApp1();
-	void LoadingImg();
+	// Загрузка приложения
 	void LoadingApp();
+	// Прогрессбарр загрузки геймплея
+	void LoadingPlay1();
+	// Загрузка геймплея
+	void LoadingPlay();
+	// Выгрузка геймплея
+	void UnloadingPlay();
 	// Отрисовка игрового поля
 	void DrawPlay();
 	// Закрыть
