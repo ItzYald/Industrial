@@ -23,7 +23,7 @@ public:
 	ItemStruct madeItem;
 	// Какие есть крафты
 	std::vector<std::vector<std::vector<int>>> collectionCraft;
-	std::vector<int> collectionResult;
+	std::vector<std::vector<int>> collectionResult;
 
 	WorkbenchInventory(){}
 	WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw);
@@ -31,13 +31,13 @@ public:
 	// Добавить новый крафт (в начале программы для сокращения кода)
 	void AddCraft(
 		int craft1, int craft2, int craft3, int craft4, int craft5, int craft6, int craft7, int craft8, int craft9,
-		int result);
+		int result, int quantity);
 	// Добавить одиночный крафт (где только один предмет, но можно в каждую ячейку)
-	void AddSingleCraft(int craft, int result);
+	void AddSingleCraft(int craft, int result, int quantity);
 	// Добавить четверной крафт (где только 4 ОДИНАКОВЫХ предмета используется, но можно в 4 вариантах разложить)
-	void AddQuadroSimpleCraft(int craft, int result);
+	void AddQuadroSimpleCraft(int craft, int result, int quantity);
 	// Добавить четверной крафт (где только 4 РАЗЛИЧНЫХ предмета используется, но можно в 4 вариантах разложить)
-	void AddQuadroCraft(int craft1, int craft2, int craft3, int craft4, int result);
+	void AddQuadroCraft(int craft1, int craft2, int craft3, int craft4, int result, int quantity);
 	// Проверка слотов крафта
 	void Craft();
 	// Отрисовка и работа с мышью

@@ -22,18 +22,18 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw)
 	itemsSprites = StaticSprites();
 	// Какие есть крафты
 	collectionCraft = std::vector<std::vector<std::vector<int>>>();
-	collectionResult = std::vector<int>();
+	collectionResult = std::vector<std::vector<int>>();
 
-	AddCraft(4, 4, 4, 4, 4, 4, 4, 4, 4, 6);
+	AddCraft(4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 1);
 
-	AddSingleCraft(7, 9);
+	AddSingleCraft(7, 9, 4);
 
-	AddQuadroSimpleCraft(9, 8);
+	AddQuadroSimpleCraft(9, 8, 1);
 }
 
 void WorkbenchInventory::AddCraft(
 	int craft1, int craft2, int craft3, int craft4, int craft5, int craft6, int craft7, int craft8, int craft9,
-	int result)
+	int result, int quantity)
 {
 	// Временный массив
 	std::vector<std::vector<int>> mas = std::vector<std::vector<int>>();
@@ -57,37 +57,41 @@ void WorkbenchInventory::AddCraft(
 		mas.push_back(mas2);
 		mas2.clear();
 	}
+
 	collectionCraft.push_back(mas);
-	collectionResult.push_back(result);
+	std::vector<int> resAndQuant = std::vector<int>();
+	resAndQuant.push_back(result);
+	resAndQuant.push_back(quantity);
+	collectionResult.push_back(resAndQuant);
 }
 
-void WorkbenchInventory::AddSingleCraft(int craft, int result)
+void WorkbenchInventory::AddSingleCraft(int craft, int result, int quantity)
 {
-	AddCraft(craft, 0, 0, 0, 0, 0, 0, 0, 0, result);
-	AddCraft(0, craft, 0, 0, 0, 0, 0, 0, 0, result);
-	AddCraft(0, 0, craft, 0, 0, 0, 0, 0, 0, result);
-	AddCraft(0, 0, 0, craft, 0, 0, 0, 0, 0, result);
-	AddCraft(0, 0, 0, 0, craft, 0, 0, 0, 0, result);
-	AddCraft(0, 0, 0, 0, 0, craft, 0, 0, 0, result);
-	AddCraft(0, 0, 0, 0, 0, 0, craft, 0, 0, result);
-	AddCraft(0, 0, 0, 0, 0, 0, 0, craft, 0, result);
-	AddCraft(0, 0, 0, 0, 0, 0, 0, 0, craft, result);
+	AddCraft(craft, 0, 0, 0, 0, 0, 0, 0, 0, result, quantity);
+	AddCraft(0, craft, 0, 0, 0, 0, 0, 0, 0, result, quantity);
+	AddCraft(0, 0, craft, 0, 0, 0, 0, 0, 0, result, quantity);
+	AddCraft(0, 0, 0, craft, 0, 0, 0, 0, 0, result, quantity);
+	AddCraft(0, 0, 0, 0, craft, 0, 0, 0, 0, result, quantity);
+	AddCraft(0, 0, 0, 0, 0, craft, 0, 0, 0, result, quantity);
+	AddCraft(0, 0, 0, 0, 0, 0, craft, 0, 0, result, quantity);
+	AddCraft(0, 0, 0, 0, 0, 0, 0, craft, 0, result, quantity);
+	AddCraft(0, 0, 0, 0, 0, 0, 0, 0, craft, result, quantity);
 }
 
-void WorkbenchInventory::AddQuadroSimpleCraft(int craft, int result)
+void WorkbenchInventory::AddQuadroSimpleCraft(int craft, int result, int quantity)
 {
-	AddCraft(craft, craft, 0, craft, craft, 0, 0, 0, 0, result);
-	AddCraft(0, craft, craft, 0, craft, craft, 0, 0, 0, result);
-	AddCraft(0, 0, 0, craft, craft, 0, craft, craft, 0, result);
-	AddCraft(0, 0, 0, 0, craft, craft, 0, craft, craft, result);
+	AddCraft(craft, craft, 0, craft, craft, 0, 0, 0, 0, result, quantity);
+	AddCraft(0, craft, craft, 0, craft, craft, 0, 0, 0, result, quantity);
+	AddCraft(0, 0, 0, craft, craft, 0, craft, craft, 0, result, quantity);
+	AddCraft(0, 0, 0, 0, craft, craft, 0, craft, craft, result, quantity);
 }
 
-void WorkbenchInventory::AddQuadroCraft(int craft1, int craft2, int craft3, int craft4, int result)
+void WorkbenchInventory::AddQuadroCraft(int craft1, int craft2, int craft3, int craft4, int result, int quantity)
 {
-	AddCraft(craft1, craft2, 0, craft3, craft4, 0, 0, 0, 0, result);
-	AddCraft(0, craft1, craft2, 0, craft3, craft4, 0, 0, 0, result);
-	AddCraft(0, 0, 0, craft1, craft2, 0, craft3, craft4, 0, result);
-	AddCraft(0, 0, 0, 0, craft1, craft2, 0, craft3, craft4, result);
+	AddCraft(craft1, craft2, 0, craft3, craft4, 0, 0, 0, 0, result, quantity);
+	AddCraft(0, craft1, craft2, 0, craft3, craft4, 0, 0, 0, result, quantity);
+	AddCraft(0, 0, 0, craft1, craft2, 0, craft3, craft4, 0, result, quantity);
+	AddCraft(0, 0, 0, 0, craft1, craft2, 0, craft3, craft4, result, quantity);
 }
 
 void WorkbenchInventory::Craft()
@@ -97,7 +101,7 @@ void WorkbenchInventory::Craft()
 	for (int i = 0; i < collectionCraft.size(); i++)
 	{
 		// Если такой крафт есть 
-		if (collectionResult[i] != 0)
+		if (collectionResult[i][0] != 0)
 		{
 			// Сколько частей крафта совпало, если 9 - крафтить, иначе - нет
 			int isCraft = 0;
@@ -122,8 +126,8 @@ void WorkbenchInventory::Craft()
 				isAllCraft = false;
 				if (madeItem.number == 0)
 				{
-					madeItem.number = collectionResult[i];
-					madeItem.quantity = 1;
+					madeItem.number = collectionResult[i][0];
+					madeItem.quantity = collectionResult[i][1];
 				}
 			}
 		}
