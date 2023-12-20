@@ -114,7 +114,7 @@ void Game::ChestInventoryFun()
 	chests[player.whatNumberInventoryOpen]->inventory.Draw(player.inventory);
 	CloseInventory();
 }
-
+// Инвентарь верстака
 void Game::WorkbenchInventoryFunn()
 {
 	workbenches[player.whatNumberInventoryOpen]->inventory.Draw(player.inventory);

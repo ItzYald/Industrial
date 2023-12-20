@@ -47,7 +47,6 @@ public:
 	Inventory(){ }
 	// Конструктор
 	Inventory(std::shared_ptr<sf::RenderWindow> _rw);
-
 	// Удалить кнопки
 	void DeleteButtons();
 	// Добавить кнопки
@@ -56,7 +55,7 @@ public:
 	void Draw();
 	// Действия инвентаря
 	void Update();
-	// Отрисовка внутреннего инвентаря (вместе с мини верстаком)
+	// Отрисовка и действия внутреннего инвентаря (вместе с мини верстаком, который пока не работает)
 	void DrawMiniWorkbench();
 	// Отрисовка нижней части инвентаря (во время геймплея)
 	void DrawNear(int mouseWheel);

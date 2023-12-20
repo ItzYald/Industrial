@@ -24,57 +24,76 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw)
 	collectionCraft = std::vector<std::vector<std::vector<int>>>();
 	collectionResult = std::vector<int>();
 
-	// Добавление пустых крафтов
-	for (int i = 0; i < 10; i++)
-	{
-		// Временный массив
-		std::vector<std::vector<int>> mas = std::vector<std::vector<int>>();
-		for (int j = 0; j < 3; j++)
-		{
-			// Другой временный массив
-			std::vector<int> mas2 = std::vector<int>();
-			for (int k = 0; k < 3; k++)
-			{
-				mas2.push_back(0);
-			}
-			mas.push_back(mas2);
-		}
-		collectionCraft.push_back(mas);
-		collectionResult.push_back(0);
-	}
+	AddCraft(4, 4, 4, 4, 4, 4, 4, 4, 4, 6);
 
-	AddCraft(0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6);
+	AddSingleCraft(7, 9);
 
-	AddCraft(1, 7, 0, 0, 0, 0, 0, 0, 0, 0, 9);
-	AddCraft(2, 0, 7, 0, 0, 0, 0, 0, 0, 0, 9);
-	AddCraft(3, 0, 0, 7, 0, 0, 0, 0, 0, 0, 9);
-	AddCraft(4, 0, 0, 0, 7, 0, 0, 0, 0, 0, 9);
-	AddCraft(5, 0, 0, 0, 0, 7, 0, 0, 0, 0, 9);
-	AddCraft(6, 0, 0, 0, 0, 0, 7, 0, 0, 0, 9);
-	AddCraft(7, 0, 0, 0, 0, 0, 0, 7, 0, 0, 9);
-	AddCraft(8, 0, 0, 0, 0, 0, 0, 0, 7, 0, 9);
-	AddCraft(9, 0, 0, 0, 0, 0, 0, 0, 0, 7, 9);
-
+	AddQuadroSimpleCraft(9, 8);
 }
 
-void WorkbenchInventory::AddCraft(int number,
+void WorkbenchInventory::AddCraft(
 	int craft1, int craft2, int craft3, int craft4, int craft5, int craft6, int craft7, int craft8, int craft9,
 	int result)
 {
-	collectionCraft[number][0][0] = craft1;
-	collectionCraft[number][0][1] = craft2;
-	collectionCraft[number][0][2] = craft3;
-	collectionCraft[number][1][0] = craft4;
-	collectionCraft[number][1][1] = craft5;
-	collectionCraft[number][1][2] = craft6;
-	collectionCraft[number][2][0] = craft7;
-	collectionCraft[number][2][1] = craft8;
-	collectionCraft[number][2][2] = craft9;
-	collectionResult[number] = result;
+	// Временный массив
+	std::vector<std::vector<int>> mas = std::vector<std::vector<int>>();
+	for (int j = 0; j < 3; j++)
+	{
+		// Другой временный массив
+		std::vector<int> mas2 = std::vector<int>();
+		mas2.push_back(craft1);
+		mas2.push_back(craft2);
+		mas2.push_back(craft3);
+		mas.push_back(mas2);
+		mas2.clear();
+		mas2.push_back(craft4);
+		mas2.push_back(craft5);
+		mas2.push_back(craft6);
+		mas.push_back(mas2);
+		mas2.clear();
+		mas2.push_back(craft7);
+		mas2.push_back(craft8);
+		mas2.push_back(craft9);
+		mas.push_back(mas2);
+		mas2.clear();
+	}
+	collectionCraft.push_back(mas);
+	collectionResult.push_back(result);
+}
+
+void WorkbenchInventory::AddSingleCraft(int craft, int result)
+{
+	AddCraft(craft, 0, 0, 0, 0, 0, 0, 0, 0, result);
+	AddCraft(0, craft, 0, 0, 0, 0, 0, 0, 0, result);
+	AddCraft(0, 0, craft, 0, 0, 0, 0, 0, 0, result);
+	AddCraft(0, 0, 0, craft, 0, 0, 0, 0, 0, result);
+	AddCraft(0, 0, 0, 0, craft, 0, 0, 0, 0, result);
+	AddCraft(0, 0, 0, 0, 0, craft, 0, 0, 0, result);
+	AddCraft(0, 0, 0, 0, 0, 0, craft, 0, 0, result);
+	AddCraft(0, 0, 0, 0, 0, 0, 0, craft, 0, result);
+	AddCraft(0, 0, 0, 0, 0, 0, 0, 0, craft, result);
+}
+
+void WorkbenchInventory::AddQuadroSimpleCraft(int craft, int result)
+{
+	AddCraft(craft, craft, 0, craft, craft, 0, 0, 0, 0, result);
+	AddCraft(0, craft, craft, 0, craft, craft, 0, 0, 0, result);
+	AddCraft(0, 0, 0, craft, craft, 0, craft, craft, 0, result);
+	AddCraft(0, 0, 0, 0, craft, craft, 0, craft, craft, result);
+}
+
+void WorkbenchInventory::AddQuadroCraft(int craft1, int craft2, int craft3, int craft4, int result)
+{
+	AddCraft(craft1, craft2, 0, craft3, craft4, 0, 0, 0, 0, result);
+	AddCraft(0, craft1, craft2, 0, craft3, craft4, 0, 0, 0, result);
+	AddCraft(0, 0, 0, craft1, craft2, 0, craft3, craft4, 0, result);
+	AddCraft(0, 0, 0, 0, craft1, craft2, 0, craft3, craft4, result);
 }
 
 void WorkbenchInventory::Craft()
 {
+	// Если нет ни одного крафта, то сделать реузультат пустым
+	bool isAllCraft = true;
 	for (int i = 0; i < collectionCraft.size(); i++)
 	{
 		// Если такой крафт есть 
@@ -100,22 +119,24 @@ void WorkbenchInventory::Craft()
 			// Если крафт совпал
 			if (isCraft == 9)
 			{
+				isAllCraft = false;
 				if (madeItem.number == 0)
 				{
 					madeItem.number = collectionResult[i];
 					madeItem.quantity = 1;
 				}
 			}
-			else
-			{
-				madeItem.number = 0;
-				madeItem.quantity = 0;
-			}
 		}
 		else
 		{
 			break;
 		}
+	}
+
+	if (isAllCraft)
+	{
+		madeItem.number = 0;
+		madeItem.quantity = 0;
 	}
 
 	// Если тип пустой - сделать колличество 0
