@@ -78,7 +78,7 @@ public:
 	// Загрузка приложения
 	void LoadingApp();
 	// Прогрессбарр загрузки геймплея
-	void LoadingPlay1();
+	void LoadingScreen(std::string nextScreen);
 	// Загрузка геймплея
 	void LoadingPlay();
 	// Выгрузка геймплея

@@ -24,11 +24,16 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw)
 	collectionCraft = std::vector<std::vector<std::vector<int>>>();
 	collectionResult = std::vector<std::vector<int>>();
 
+	// Железный блок
 	AddCraft(4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 1);
-
+	// Доски
 	AddSingleCraft(7, 9, 4);
-
+	// Верстак
 	AddQuadroSimpleCraft(9, 8, 1);
+	// Сундук
+	AddCraft(9, 9, 9, 9, 0, 9, 9, 9, 9, 5, 1);
+
+
 }
 
 void WorkbenchInventory::AddCraft(
