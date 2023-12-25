@@ -60,14 +60,27 @@ void Game::LoadingScreen(std::string nextScreen)
 // Загрузка геймплея
 void Game::LoadingPlay()
 {
-	ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, "Images/Oven.png", sf::Vector2f(23, 20)));
-	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, "Images/Chest.png", sf::Vector2f(23, 21)));
-	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, "Images/Workbench.png", sf::Vector2f(23, 22)));
+	textures["Oven"] = sf::Texture();
+	textures["Oven"].loadFromFile("Images/Oven.png");
+	textures["Chest"] = sf::Texture();
+	textures["Chest"].loadFromFile("Images/Chest.png");
+	textures["Workbench"] = sf::Texture();
+	textures["Workbench"].loadFromFile("Images/Workbench.png");
+
+	ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, textures["Oven"], sf::Vector2f(23, 20)));
+	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], sf::Vector2f(23, 21)));
+	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], sf::Vector2f(23, 22)));
 	screen = "Игра";
 }
-
+// Выгрузка геймплея
 void Game::UnloadingPlay()
 {
+	//delete textures["Oven"];
+	//delete textures["Chest"];
+	//delete textures["Workbench"];
+	textures.erase("Oven");
+	textures.erase("Chest");
+	textures.erase("Workbench");
 	ovens.clear();
 	chests.clear();
 	workbenches.clear();

@@ -67,6 +67,12 @@ int StaticSprites::IsFuel(int nuberItem)
 	case 3:
 		res = 8;
 		break;
+	case 7:
+		res = 2;
+		break;
+	case 9:
+		res = 1;
+		break;
 	default:
 		break;
 	}
@@ -81,6 +87,10 @@ int StaticSprites::IsBurn(int nuberItem)
 	// Железная руда переплавляется в железный слиток
 	case 1:
 		res = 4;
+		break;
+	// Древесина в уголь
+	case 7:
+		res = 3;
 		break;
 	default:
 		break;

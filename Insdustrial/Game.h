@@ -67,6 +67,11 @@ private:
 	// Список верстаков
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches;
 
+	//std::map<std::string, sf::Texture> textures;
+	std::map<std::string, sf::Texture> textures;
+	//std::map<std::string, sf::Texture*> textures;
+
+
 	// Поле
 	Field field;
 
