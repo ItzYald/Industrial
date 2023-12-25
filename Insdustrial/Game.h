@@ -87,7 +87,7 @@ public:
 	// Загрузка геймплея
 	void LoadingPlay();
 	// Выгрузка геймплея
-	void UnloadingPlay();
+	void UnloadingPlay(std::string nextScreen);
 	// Отрисовка игрового поля
 	void DrawPlay();
 	// Закрыть

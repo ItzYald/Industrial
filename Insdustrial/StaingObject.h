@@ -52,8 +52,6 @@ public:
 	{
 		rw = _rw;
 		fieldSizeOne = _fieldSizeOne;
-		// texture = new sf::Texture();
-		// texture->loadFromFile(imageFileName);
 		sprite.setTexture(_texture);
 		position = _position;
 
@@ -69,11 +67,6 @@ public:
 		{
 			ch.push_back(Checks());
 		}
-	}
-
-	~StaingObject()
-	{
-		delete sprite.getTexture();
 	}
 
 	/// <summary>Проверка игрока рядом</summary>
