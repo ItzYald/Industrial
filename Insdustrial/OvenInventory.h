@@ -18,11 +18,13 @@ class OvenInventory : public ObjectInventory
 {
 	// Сколько можно сжечь
 	int fuel;
+	int maxFuel;
 	int whatBurn;
 
 public:
 
 	std::vector<ItemStruct> items;
+	int previousItemBurn;
 
 	OvenInventory(){ }
 	OvenInventory(std::shared_ptr<sf::RenderWindow> _rw);

@@ -13,6 +13,7 @@ OvenInventory::OvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
 
 	fuel = 0;
 	whatBurn = 120;
+	maxFuel = 0;
 
 	itemsSprites = StaticSprites();
 
@@ -21,14 +22,26 @@ OvenInventory::OvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
 void OvenInventory::Burn(Inventory& playerInventory)
 {
 	functions.PrintText(std::to_string(whatBurn), sf::Vector2f(10, 10), 25, sf::Color::Red);
+	functions.PrintText(std::to_string(fuel), sf::Vector2f(10, 40), 25, sf::Color::Red);
+	functions.PrintText(std::to_string(maxFuel), sf::Vector2f(10, 70), 25, sf::Color::Red);
 
-	if (items[0].number != 0)
+	if (previousItemBurn != items[0].number)
 	{
+		whatBurn = 120;
+	}
+	previousItemBurn = items[0].number;
+
+	if (items[2].number == 0 || items[2].number == itemsSprites.IsBurn(items[0].number))
+	{
+		if (fuel == 0)
+			maxFuel = 0;
+
 		if (itemsSprites.IsFuel(items[1].number) && itemsSprites.IsBurn(items[0].number))
 		{
-			if (fuel == 0)
+			if (fuel <= 0)
 			{
-				fuel = itemsSprites.IsFuel(items[1].number);
+				maxFuel = itemsSprites.IsFuel(items[1].number) * 60;
+				fuel = maxFuel;
 				items[1].quantity -= 1;
 				if (items[1].quantity == 0)
 				{
@@ -36,22 +49,20 @@ void OvenInventory::Burn(Inventory& playerInventory)
 				}
 			}
 			if (whatBurn <= 0)
-				whatBurn = 120;
-		}
-
-		if (itemsSprites.IsBurn(items[0].number))
-		{
-			if (fuel != 0)
 			{
+				whatBurn = 120;
+			}
+		}
+		if (fuel > 0)
+		{
+			fuel -= 1;
+			if (itemsSprites.IsBurn(items[0].number))
+			{
+				//fuel -= 1;
 				whatBurn -= 1;
-				if (whatBurn == 64)
-				{
-					fuel -= 1;
-				}
-				else if (whatBurn == 0)
+				if (whatBurn == 0)
 				{
 					whatBurn = 120;
-					fuel -= 1;
 					if (items[2].number == itemsSprites.IsBurn(items[0].number) && items[2].number != 0)
 					{
 						items[2].quantity += 1;
@@ -71,12 +82,20 @@ void OvenInventory::Burn(Inventory& playerInventory)
 			}
 			else
 			{
-				if (whatBurn < 120)
-				{
-					whatBurn += 1;
-				}
+				whatBurn = 120;
 			}
 		}
+		else
+		{
+			if (whatBurn < 120)
+			{
+				whatBurn += 1;
+			}
+		}
+	}
+	else
+	{
+		fuel -= 1;
 	}
 }
 
@@ -88,12 +107,14 @@ void OvenInventory::Draw(Inventory &playerInventory)
 		buttons.push_back(Button(sf::Vector2f(460, 130), sf::Vector2f(64, 64), L"",
 			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
 			sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
+
 		// Слот для угля
 		buttons.push_back(Button(sf::Vector2f(460, 306), sf::Vector2f(64, 64), L"",
 			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
 			sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
+
 		// Слот для того, что получилось
-		buttons.push_back(Button(sf::Vector2f(650, 218), sf::Vector2f(64, 64), L"",
+		buttons.push_back(Button(sf::Vector2f(670, 218), sf::Vector2f(64, 64), L"",
 			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
 			sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 	}
@@ -103,8 +124,15 @@ void OvenInventory::Draw(Inventory &playerInventory)
 	// Отрисовать окно интерфейса
 	functions.Rectangle(rw.get(), sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 	// Прогрессбар печки
-	functions.Rectangle(rw.get(), sf::Vector2f(530, 240), sf::Vector2f(90, 20), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
-	functions.DrawRectangleGradient(sf::Vector2f(530, 240), sf::Vector2f((120 - whatBurn) * 0.75, 20), sf::Color::Red, sf::Color(255, 200, 0));
+	functions.Rectangle(rw.get(), sf::Vector2f(550, 240), sf::Vector2f(90, 20), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
+	functions.DrawRectangleGradient(sf::Vector2f(550, 240), sf::Vector2f((120 - whatBurn) * 0.75f, 20), sf::Color::Red, sf::Color(255, 200, 0));
+	// Топливо печки
+	functions.Rectangle(rw.get(), sf::Vector2f(480, 220), sf::Vector2f(30, 60), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
+	if (maxFuel != 0)
+	{
+		functions.DrawRectangleGradient(sf::Vector2f(480, 280), sf::Vector2f(30, ((fuel / (float)maxFuel)) * -60), sf::Color::Red, sf::Color(255, 200, 1));
+		//functions.PrintText(std::to_string((((float)fuel / (float)maxFuel) - 1) * 60.f), sf::Vector2f(480, 280), 25, sf::Color::Blue);
+	}
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -133,7 +161,6 @@ void OvenInventory::Draw(Inventory &playerInventory)
 				items[i].quantity = items[i].quantity - playerInventory.mouseItem.quantity;
 			}
 		}
-
 	}
 
 	for (int i = 0; i < 2; i++)
@@ -170,7 +197,7 @@ void OvenInventory::Draw(Inventory &playerInventory)
 			}
 		}
 	}
-
+	// Забрать изготовленный предметы
 	if (buttons[2].CheckLeft(*rw))
 	{
 		if (items[2].number != 0)

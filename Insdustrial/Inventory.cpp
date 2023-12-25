@@ -307,8 +307,8 @@ void Inventory::DrawMiniWorkbench()
 // Отрисовка нижней части инвентаря (во время геймплея)
 void Inventory::DrawNear(int mouseWheel)
 {
+	
 	functions.Rectangle(rw.get(), sf::Vector2f(302, 598), sf::Vector2f(676, 82), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
-
 	
 	for (int i = 0; i < items.size(); i++)
 	{
