@@ -309,8 +309,16 @@ void Inventory::DrawNear(int mouseWheel)
 {
 	functions.Rectangle(rw.get(), sf::Vector2f(302, 598), sf::Vector2f(676, 82), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 
+	
 	for (int i = 0; i < items.size(); i++)
 	{
+		// Если 0 - сделать пустым
+		if (items[i][3].quantity == 0)
+		{
+			items[i][3].number = 0;
+		}
+
+		// Отрисовка
 		functions.DrawRectangle(sf::Vector2f(300 + 8 + i * 66, 400 + 8 + 3 * 66), sf::Vector2f(64, 64), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
 		sf::Vector2f positionInventory = sf::Vector2f(300 + 8 + i * 66, 400 + 8 + 3 * 66);
 		if (items[i][3].number != 0)
