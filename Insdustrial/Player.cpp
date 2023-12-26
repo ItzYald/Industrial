@@ -51,7 +51,7 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 void Player::Move()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) &&
-		position.x < fieldSizeOne)
+		position.x < fieldSizeOne * 1000)
 	{
 		position.x += run;
 		angle = 1;
@@ -63,7 +63,7 @@ void Player::Move()
 		angle = 3;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) &&
-		position.y < fieldSizeOne)
+		position.y < fieldSizeOne * 1000)
 	{
 		position.y += run;
 		angle = 2;

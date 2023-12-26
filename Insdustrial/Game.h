@@ -69,6 +69,7 @@ private:
 
 	//std::map<std::string, sf::Texture> textures;
 	std::map<std::string, sf::Texture> textures;
+	sf::Sprite spriteGress;
 	//std::map<std::string, sf::Texture*> textures;
 
 

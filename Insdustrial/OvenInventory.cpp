@@ -58,7 +58,6 @@ void OvenInventory::Burn(Inventory& playerInventory)
 			fuel -= 1;
 			if (itemsSprites.IsBurn(items[0].number))
 			{
-				//fuel -= 1;
 				whatBurn -= 1;
 				if (whatBurn == 0)
 				{
@@ -99,7 +98,7 @@ void OvenInventory::Burn(Inventory& playerInventory)
 	}
 }
 
-void OvenInventory::Draw(Inventory &playerInventory)
+void OvenInventory::Draw(Inventory& playerInventory)
 {
 	if (buttons.size() < 1)
 	{

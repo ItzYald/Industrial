@@ -24,8 +24,9 @@ void Game::LoadingApp()
 	srand(time(NULL));
 
 	screen = "Меню";
-
-	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW);
+	//textures["Gress"] = sf::Texture();
+	//textures["Gress"].loadFromFile("Images/Gress.png");
+	//field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Gress"]);
 	cameraPosition = sf::Vector2f(20, 20);
 
 	ovens = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
@@ -48,13 +49,16 @@ void Game::LoadingScreen(std::string nextScreen)
 // Загрузка геймплея
 void Game::LoadingPlay()
 {
-	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
 	textures["Oven"] = sf::Texture();
 	textures["Oven"].loadFromFile("Images/Oven.png");
 	textures["Chest"] = sf::Texture();
 	textures["Chest"].loadFromFile("Images/Chest.png");
 	textures["Workbench"] = sf::Texture();
 	textures["Workbench"].loadFromFile("Images/Workbench.png");
+	textures["Gress"] = sf::Texture();
+	textures["Gress"].loadFromFile("Images/Gress.png");
+	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Gress"]);
+	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
 
 	ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, textures["Oven"], sf::Vector2f(23, 20)));
 	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], sf::Vector2f(23, 21)));
@@ -88,8 +92,15 @@ void Game::DrawPlay()
 
 	// Сетка
 	for (int i = 0; i < field.size.x; i++)
+	{
 		for (int j = 0; j < field.size.y; j++)
+		{
 			field.Draw(cameraPosition, i, j);
+			//functions.DrawSprite(rw.get(), spriteGress, sf::Vector2f(i * field.sizeOne, j * field.sizeOne), sf::Vector2f(field.sizeOne, field.sizeOne));
+		}
+	}	
+			//field.Draw(cameraPosition, i, j);
+			
 
 	for (std::shared_ptr<StaingObject<OvenInventory>> oven : ovens)
 	{
