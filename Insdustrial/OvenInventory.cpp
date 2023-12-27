@@ -96,6 +96,11 @@ void OvenInventory::Burn(Inventory& playerInventory)
 	{
 		fuel -= 1;
 	}
+
+	if (fuel < 0)
+	{
+		fuel = 0;
+	}
 }
 
 void OvenInventory::Draw(Inventory& playerInventory)

@@ -67,9 +67,11 @@ private:
 	// Список верстаков
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches;
 
+	std::vector<std::shared_ptr<Object>> objects;
+
 	//std::map<std::string, sf::Texture> textures;
 	std::map<std::string, sf::Texture> textures;
-	sf::Sprite spriteGress;
+	sf::Sprite spriteGrass;
 	//std::map<std::string, sf::Texture*> textures;
 
 

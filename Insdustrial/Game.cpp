@@ -30,14 +30,16 @@ void Game::LoadingApp()
 	cameraPosition = sf::Vector2f(20, 20);
 
 	ovens = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
+
 	chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
 	workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
-	// objects = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
 
-	// for (int i = 0; i < ovens.size(); i++)
-	// {
-	// 	//objects.push_back(ovens[i]);
-	// }
+	objects = std::vector<std::shared_ptr<Object>>();
+
+	for (int i = 0; i < ovens.size(); i++)
+	{
+		//objects.push_back(*ovens[i]);
+	}
 
 }
 // Загрузка прогрессбарра геймплея
@@ -55,9 +57,9 @@ void Game::LoadingPlay()
 	textures["Chest"].loadFromFile("Images/Chest.png");
 	textures["Workbench"] = sf::Texture();
 	textures["Workbench"].loadFromFile("Images/Workbench.png");
-	textures["Gress"] = sf::Texture();
-	textures["Gress"].loadFromFile("Images/Gress.png");
-	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Gress"]);
+	textures["Grass"] = sf::Texture();
+	textures["Grass"].loadFromFile("Images/Grass.png");
+	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
 
 	ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, textures["Oven"], sf::Vector2f(23, 20)));
@@ -162,17 +164,17 @@ void Game::PutObject(sf::Vector2f position)
 	// Поставить печку
 	if (player.inventory.items[player.inventory.choseCell][3].number == 2)
 	{
-		ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, "Images/Oven.png", position));
+		ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, textures["Oven"], position));
 		//objects.push_back(ovens[ovens.size() - 1]);
 	}
 	else if (player.inventory.items[player.inventory.choseCell][3].number == 5)
 	{
-		chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, "Images/Chest.png", position));
+		chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], position));
 		//objects.push_back(chests[ovens.size() - 1]);
 	}
 	else if (player.inventory.items[player.inventory.choseCell][3].number == 8)
 	{
-		workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, "Images/Workbench.png", position));
+		workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], position));
 		//objects.push_back(chests[ovens.size() - 1]);
 	}
 }
