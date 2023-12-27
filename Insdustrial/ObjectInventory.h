@@ -9,10 +9,15 @@
 #include "Functions/Functions.h"
 #include "Functions/Button.h"
 
-#include "Inventory.h"
+//#include "Inventory.h"
 
 #include "StaticSprites.h"
 
+struct ItemStruct
+{
+	int number;
+	int quantity;
+};
 
 class ObjectInventory
 {
@@ -21,11 +26,14 @@ protected:
 	std::vector<Button> buttons;
 	// Окно
 	std::shared_ptr<sf::RenderWindow> rw;
+	// Функции
 	Functions functions;
 	StaticSprites itemsSprites;
 	// Позиция мыши
 	sf::Vector2i mousePosition;
 
-	virtual void Draw(Inventory& playerInventory) = 0;
+public:
+	void DrawItemName(std::vector<std::vector<ItemStruct>> items);
+
 };
 

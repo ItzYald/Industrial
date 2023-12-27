@@ -109,17 +109,17 @@ void OvenInventory::Draw(Inventory& playerInventory)
 	{
 		// Слот для того, что печем
 		buttons.push_back(Button(sf::Vector2f(460, 130), sf::Vector2f(64, 64), L"",
-			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
+			sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
 			sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 
 		// Слот для угля
 		buttons.push_back(Button(sf::Vector2f(460, 306), sf::Vector2f(64, 64), L"",
-			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
+			sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
 			sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 
 		// Слот для того, что получилось
 		buttons.push_back(Button(sf::Vector2f(670, 218), sf::Vector2f(64, 64), L"",
-			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
+			sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
 			sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 	}
 

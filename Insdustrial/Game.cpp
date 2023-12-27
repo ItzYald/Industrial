@@ -149,7 +149,7 @@ void Game::OvenInventoryFun()
 // Инвентарь сундука
 void Game::ChestInventoryFun()
 {
-	chests[player.whatNumberInventoryOpen]->inventory.Draw(player.inventory);
+	chests[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
 	CloseInventory();
 }
 // Инвентарь верстака

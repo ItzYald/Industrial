@@ -70,6 +70,11 @@ void Inventory::AddButtons(bool miniWorkbench)
 
 void Inventory::Draw()
 {
+	for (int i = 0; i < buttons.size(); i++)
+	{
+		buttons[i].Draw(*rw);
+	}
+
 	// Отрисовка спрайтов предметов
 	for (int i = 0; i < items.size(); i++)
 	{
@@ -89,22 +94,24 @@ void Inventory::Draw()
 	}
 
 	// Отрисовка описания предметов
-	for (int i = 0; i < items.size(); i++)
-	{
-		for (int j = 0; j < items[0].size(); j++)
-		{
-			int numberButton = i * items[0].size() + j;
-			if (items[i][j].number != 0 && buttons[numberButton].Aim(*rw))
-			{
-				sf::Vector2f positionInventory = buttons[numberButton].coords;
-				sf::String name = itemsSprites.GetName(items[i][j].number);
-				int sizeSimbol = 20;
-				functions.DrawRectangle(sf::Vector2f(positionInventory.x + 65, positionInventory.y),
-					sf::Vector2f(sizeSimbol * name.getSize() / 1.8 + 10, 35), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 2);
-				functions.PrintText(name, sf::Vector2f(positionInventory.x + 70, positionInventory.y), sizeSimbol, sf::Color(250, 250, 250));
-			}
-		}
-	}
+	//for (int i = 0; i < items.size(); i++)
+	//{
+	//	for (int j = 0; j < items[0].size(); j++)
+	//	{
+	//		int numberButton = i * items[0].size() + j;
+	//		if (items[i][j].number != 0 && buttons[numberButton].Aim(*rw))
+	//		{
+	//			sf::Vector2f positionInventory = buttons[numberButton].coords;
+	//			sf::String name = itemsSprites.GetName(items[i][j].number);
+	//			int sizeSimbol = 20;
+	//			functions.DrawRectangle(sf::Vector2f(positionInventory.x + 65, positionInventory.y),
+	//				sf::Vector2f(sizeSimbol * name.getSize() / 1.8 + 10, 35), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 2);
+	//			functions.PrintText(name, sf::Vector2f(positionInventory.x + 70, positionInventory.y), sizeSimbol, sf::Color(250, 250, 250));
+	//		}
+	//	}
+	//}
+
+	DrawItemName(items);
 
 	// Отрисовка предмета в мышке
 	if (mouseItem.number != 0)
@@ -126,11 +133,6 @@ void Inventory::Update()
 	mousePosition = sf::Mouse::getPosition(*rw);
 	// Отрисовать окно интерфейса
 	functions.Rectangle(rw.get(), sf::Vector2f(302, 400), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
-
-	for (int i = 0; i < buttons.size(); i++)
-	{
-		buttons[i].Draw(*rw);
-	}
 
 	// Два цикла по координатам инвентаря
 	for (int i = 0; i < items.size(); i++)
@@ -307,7 +309,6 @@ void Inventory::DrawMiniWorkbench()
 // Отрисовка нижней части инвентаря (во время геймплея)
 void Inventory::DrawNear(int mouseWheel)
 {
-	
 	functions.Rectangle(rw.get(), sf::Vector2f(302, 598), sf::Vector2f(676, 82), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 	
 	for (int i = 0; i < items.size(); i++)

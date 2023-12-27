@@ -11,29 +11,14 @@
 #include "Functions/Checks.h"
 
 #include "StaticSprites.h"
+#include "ObjectInventory.h"
 
-struct ItemStruct
-{
-	int number;
-	int quantity;
-};
-
-class Inventory
+class Inventory : public ObjectInventory
 {
 private:
-	// Список кнопок
-	std::vector<Button> buttons;
-	// Окно
-	std::shared_ptr<sf::RenderWindow> rw;
-	Functions functions;
-	StaticSprites itemsSprites;
 	std::vector<Checks> ch;
 
 public:
-
-	// Позиция мыши
-	sf::Vector2i mousePosition;
-
 	// Предметы в интерфейсе
 	std::vector<std::vector<ItemStruct>> items;
 	// Предметы в мини 

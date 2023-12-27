@@ -25,6 +25,7 @@ public:
 	ChestInventory(std::shared_ptr<sf::RenderWindow> _rw);
 
 	void Draw(Inventory& playerInventory);
+	void Update(Inventory& playerInventory);
 
 };
 
