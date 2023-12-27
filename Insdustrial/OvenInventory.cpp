@@ -19,7 +19,7 @@ OvenInventory::OvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
 
 }
 
-void OvenInventory::Burn(Inventory& playerInventory)
+void OvenInventory::Burn()
 {
 	functions.PrintText(std::to_string(whatBurn), sf::Vector2f(10, 10), 25, sf::Color::Red);
 	functions.PrintText(std::to_string(fuel), sf::Vector2f(10, 40), 25, sf::Color::Red);
@@ -105,6 +105,11 @@ void OvenInventory::Burn(Inventory& playerInventory)
 
 void OvenInventory::Draw(Inventory& playerInventory)
 {
+	DrawCommon(items);
+}
+
+void OvenInventory::Update(Inventory& playerInventory)
+{
 	if (buttons.size() < 1)
 	{
 		// Слот для того, что печем
@@ -138,16 +143,16 @@ void OvenInventory::Draw(Inventory& playerInventory)
 		//functions.PrintText(std::to_string((((float)fuel / (float)maxFuel) - 1) * 60.f), sf::Vector2f(480, 280), 25, sf::Color::Blue);
 	}
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < items.size(); i++)
 	{
-		buttons[i].Draw(*rw);
+		//buttons[i].Draw(*rw);
 
-		// Отрисовка предмета в ячейке 
-		if (items[i].number != 0)
-		{
-			itemsSprites.DrawItemSprite(rw.get(), items[i].number, buttons[i].coords, sf::Vector2f(4, 4));
-			functions.PrintText(std::to_string(items[i].quantity), sf::Vector2f(buttons[i].coords.x + 40, buttons[i].coords.y + 40), 20, sf::Color(250, 250, 250));
-		}
+		//// Отрисовка предмета в ячейке 
+		//if (items[i].number != 0)
+		//{
+		//	itemsSprites.DrawItemSprite(rw.get(), items[i].number, buttons[i].coords, sf::Vector2f(4, 4));
+		//	functions.PrintText(std::to_string(items[i].quantity), sf::Vector2f(buttons[i].coords.x + 40, buttons[i].coords.y + 40), 20, sf::Color(250, 250, 250));
+		//}
 
 		// Правой кнопкой мыши по слоту для взятия половины
 		if (buttons[i].CheckRight(*rw) && playerInventory.mouseItem.number == 0 && items[i].number != 0)
@@ -211,7 +216,7 @@ void OvenInventory::Draw(Inventory& playerInventory)
 			items[2].quantity = 0;
 		}
 	}
-	
+
+	Draw(playerInventory);
 	playerInventory.Update();
 }
-

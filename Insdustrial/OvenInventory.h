@@ -29,8 +29,9 @@ public:
 	OvenInventory(){ }
 	OvenInventory(std::shared_ptr<sf::RenderWindow> _rw);
 
-	void Burn(Inventory& playerInventory);
+	void Burn();
 	void Draw(Inventory& playerInventory);
+	void Update(Inventory& playerInventory);
 
 };
 

@@ -33,7 +33,8 @@ protected:
 	sf::Vector2i mousePosition;
 
 public:
-	void DrawItemName(std::vector<std::vector<ItemStruct>> items);
+	void DrawCommon(std::vector<std::vector<ItemStruct>> items);
+	void DrawCommon(std::vector<ItemStruct> items);
 
 };
 

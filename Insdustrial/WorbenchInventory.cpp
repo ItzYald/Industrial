@@ -161,7 +161,30 @@ void WorkbenchInventory::Craft()
 
 }
 
-void WorkbenchInventory::Draw(Inventory& playerInventory)
+void WorkbenchInventory::Draw()
+{
+	DrawCommon(items);
+
+	// Отрисовать созданный объект
+	buttons[9].Draw(*rw);
+	sf::Vector2f positionInventory = buttons[items.size()].coords;
+	itemsSprites.DrawItemSprite(rw.get(), madeItem.number, positionInventory, sf::Vector2f(4, 4));
+	functions.PrintText(std::to_string(madeItem.quantity), sf::Vector2f(positionInventory.x + 40, positionInventory.y + 40), 20, sf::Color(250, 250, 250));
+	// Название созданного предмета
+	if (madeItem.number != 0 && buttons[9].Aim(*rw))
+	{
+		// Позиция
+		sf::Vector2f positionInventory = buttons[9].coords;
+		// Получение названия
+		sf::String name = itemsSprites.GetName(madeItem.number);
+		int sizeSimbol = 20;
+		functions.DrawRectangle(sf::Vector2f(positionInventory.x + 65, positionInventory.y),
+			sf::Vector2f(sizeSimbol * name.getSize() / 1.8 + 10, 35), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 2);
+		functions.PrintText(name, sf::Vector2f(positionInventory.x + 70, positionInventory.y), sizeSimbol, sf::Color(250, 250, 250));
+	}
+}
+
+void WorkbenchInventory::Update(Inventory& playerInventory)
 {
 	if (buttons.size() < 1)
 	{
@@ -170,12 +193,12 @@ void WorkbenchInventory::Draw(Inventory& playerInventory)
 			for (int j = 0; j < items[0].size(); j++)
 			{
 				buttons.push_back(Button(sf::Vector2f(350 + 8 + i * 66, 130 + 8 + j * 66), sf::Vector2f(64, 64), L"",
-					sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
+					sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
 					sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 			}
 		}
 		buttons.push_back(Button(sf::Vector2f(700, 130 + 8 + 1 * 66), sf::Vector2f(64, 64), L"",
-			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(100, 100, 100), sf::Color::Transparent,
+			sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
 			sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 	}
 
@@ -260,24 +283,13 @@ void WorkbenchInventory::Draw(Inventory& playerInventory)
 				}
 			}
 
-			// Отрисовка
-			sf::Vector2f positionInventory = buttons[numberButton].coords;
-			if (items[i][j].number != 0)
-			{
-				itemsSprites.DrawItemSprite(rw.get(), items[i][j].number, positionInventory, sf::Vector2f(4, 4));
-				functions.PrintText(std::to_string(items[i][j].quantity), sf::Vector2f(positionInventory.x + 40, positionInventory.y + 40), 20, sf::Color(250, 250, 250));
-			}
+			if (items[i][j].quantity == 0)
+				items[i][j].number = 0;
+			if (items[i][j].number == 0)
+				items[i][j].quantity = 0;
 
-			buttons[numberButton].Draw(*rw);
 		}
 	}
-	// Отрисовать созданный объект
-	buttons[9].Draw(*rw);
-	sf::Vector2f positionInventory = buttons[9].coords;
-	itemsSprites.DrawItemSprite(rw.get(), madeItem.number, positionInventory, sf::Vector2f(4, 4));
-	functions.PrintText(std::to_string(madeItem.quantity), sf::Vector2f(positionInventory.x + 40, positionInventory.y + 40), 20, sf::Color(250, 250, 250));
-
-	Craft();
 
 	// Забрать созданный объект
 	if (buttons[9].CheckLeft(*rw) && madeItem.number != 0)
@@ -297,6 +309,11 @@ void WorkbenchInventory::Draw(Inventory& playerInventory)
 			}
 		}
 	}
+
+	Draw();
+
+	Craft();
+
 	playerInventory.Update();
 }
 

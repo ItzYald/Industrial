@@ -143,7 +143,7 @@ void Game::CloseInventory()
 // Интерфейс печки
 void Game::OvenInventoryFun()
 {
-	ovens[player.whatNumberInventoryOpen]->inventory.Draw(player.inventory);
+	ovens[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
 	CloseInventory();
 }
 // Инвентарь сундука
@@ -155,7 +155,7 @@ void Game::ChestInventoryFun()
 // Инвентарь верстака
 void Game::WorkbenchInventoryFunn()
 {
-	workbenches[player.whatNumberInventoryOpen]->inventory.Draw(player.inventory);
+	workbenches[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
 	CloseInventory();
 }
 // Поставить объект по определенным координатам
@@ -256,7 +256,7 @@ void Game::Play()
 	// Работа печек
 	for (int i = 0; i < ovens.size(); i++)
 	{
-		ovens[i]->inventory.Burn(player.inventory);
+		ovens[i]->inventory.Burn();
 	}
 
 	if (buttons.size() < 4)

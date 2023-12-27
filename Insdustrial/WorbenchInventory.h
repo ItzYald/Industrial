@@ -40,8 +40,10 @@ public:
 	void AddQuadroCraft(int craft1, int craft2, int craft3, int craft4, int result, int quantity);
 	// Проверка слотов крафта
 	void Craft();
-	// Отрисовка и работа с мышью
-	void Draw(Inventory& playerInventory);
+	// Отрисовка
+	void Draw();
+	// Работа интерфейса и мыши
+	void Update(Inventory& playerInventory);
 
 };
 

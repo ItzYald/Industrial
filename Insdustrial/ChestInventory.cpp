@@ -21,28 +21,7 @@ ChestInventory::ChestInventory(std::shared_ptr<sf::RenderWindow> _rw)
 
 void ChestInventory::Draw(Inventory& playerInventory)
 {
-	for (int i = 0; i < buttons.size(); i++)
-	{
-		buttons[i].Draw(*rw);
-	}
-
-	for (int i = 0; i < items.size(); i++)
-	{
-		for (int j = 0; j < items[0].size(); j++)
-		{
-			int numberButton = i * items[0].size() + j;
-			sf::Vector2f positionInventory = buttons[numberButton].coords;
-			if (items[i][j].number != 0)
-			{
-				itemsSprites.DrawItemSprite(rw.get(), items[i][j].number, positionInventory, sf::Vector2f(4, 4));
-				// Написать колличество
-				functions.PrintText(std::to_string(items[i][j].quantity),
-					sf::Vector2f(positionInventory.x + 35, positionInventory.y + 35),
-					25, sf::Color(250, 250, 250));
-			}
-		}
-	}
-	DrawItemName(items);
+	DrawCommon(items);
 }
 
 void ChestInventory::Update(Inventory& playerInventory)
