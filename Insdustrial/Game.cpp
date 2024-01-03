@@ -24,9 +24,6 @@ void Game::LoadingApp()
 	srand(time(NULL));
 
 	screen = "Меню";
-	//textures["Gress"] = sf::Texture();
-	//textures["Gress"].loadFromFile("Images/Gress.png");
-	//field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Gress"]);
 	cameraPosition = sf::Vector2f(20, 20);
 
 	ovens = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
@@ -34,12 +31,12 @@ void Game::LoadingApp()
 	chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
 	workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
 
-	objects = std::vector<std::shared_ptr<Object>>();
+	//objects = std::vector<std::shared_ptr<Object>>();
 
-	for (int i = 0; i < ovens.size(); i++)
-	{
-		//objects.push_back(*ovens[i]);
-	}
+	//for (int i = 0; i < ovens.size(); i++)
+	//{
+	//	//objects.push_back(*ovens[i]);
+	//}
 
 }
 // Загрузка прогрессбарра геймплея
@@ -51,14 +48,33 @@ void Game::LoadingScreen(std::string nextScreen)
 // Загрузка геймплея
 void Game::LoadingPlay()
 {
+	/// Текстуры:
+	// Печка
 	textures["Oven"] = sf::Texture();
 	textures["Oven"].loadFromFile("Images/Oven.png");
+	// Сундук
 	textures["Chest"] = sf::Texture();
 	textures["Chest"].loadFromFile("Images/Chest.png");
+	// Верстак
 	textures["Workbench"] = sf::Texture();
 	textures["Workbench"].loadFromFile("Images/Workbench.png");
+	// Трава
 	textures["Grass"] = sf::Texture();
 	textures["Grass"].loadFromFile("Images/Grass.png");
+	/// Текстурки проводов
+	// Медные
+	textures["CooperWire0"] = sf::Texture();
+	textures["CooperWire0"].loadFromFile("Images/Wires/CooperWire0.png");
+	textures["CooperWire1"] = sf::Texture();
+	textures["CooperWire1"].loadFromFile("Images/Wires/CooperWire1.png");
+	textures["CooperWire2"] = sf::Texture();
+	textures["CooperWire2"].loadFromFile("Images/Wires/CooperWire2.png");
+	textures["CooperWire3"] = sf::Texture();
+	textures["CooperWire3"].loadFromFile("Images/Wires/CooperWire3.png");
+	textures["CooperWire4"] = sf::Texture();
+	textures["CooperWire4"].loadFromFile("Images/Wires/CooperWire4.png");
+
+
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
 
@@ -70,15 +86,7 @@ void Game::LoadingPlay()
 // Выгрузка геймплея
 void Game::UnloadingPlay(std::string nextScreen)
 {
-	//delete textures["Oven"];
-	//delete textures["Chest"];
-	//delete textures["Workbench"];
-
-	
-
-	textures.erase("Oven");
-	textures.erase("Chest");
-	textures.erase("Workbench");
+	textures.clear();
 
 	ovens.clear();
 	chests.clear();
@@ -90,7 +98,7 @@ void Game::UnloadingPlay(std::string nextScreen)
 void Game::DrawPlay()
 {
 	// Белый экран
-	functions.Rectangle(rw.get(), sf::Vector2f(0, 0), sf::Vector2f(sizeW.x, sizeW.y), sf::Color(255, 255, 255));
+	functions.DrawRectangle(sf::Vector2f(0, 0), sf::Vector2f(sizeW.x, sizeW.y), sf::Color(255, 255, 255));
 
 	// Сетка
 	for (int i = 0; i < field.size.x; i++)
@@ -98,11 +106,8 @@ void Game::DrawPlay()
 		for (int j = 0; j < field.size.y; j++)
 		{
 			field.Draw(cameraPosition, i, j);
-			//functions.DrawSprite(rw.get(), spriteGress, sf::Vector2f(i * field.sizeOne, j * field.sizeOne), sf::Vector2f(field.sizeOne, field.sizeOne));
 		}
 	}	
-			//field.Draw(cameraPosition, i, j);
-			
 
 	for (std::shared_ptr<StaingObject<OvenInventory>> oven : ovens)
 	{
@@ -153,7 +158,7 @@ void Game::ChestInventoryFun()
 	CloseInventory();
 }
 // Инвентарь верстака
-void Game::WorkbenchInventoryFunn()
+void Game::WorkbenchInventoryFun()
 {
 	workbenches[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
 	CloseInventory();
@@ -300,7 +305,7 @@ void Game::Play()
 		// Инвентарь верстака
 		else if (player.whatTypeInventoryOpen == 3)
 		{
-			WorkbenchInventoryFunn();
+			WorkbenchInventoryFun();
 		}
 	}
 
@@ -327,7 +332,7 @@ void Game::Menu()
 			sf::Color(0, 255, 0), sf::Color::Transparent, 1, 2, 30));
 	}
 
-	functions.Rectangle(rw.get(), sf::Vector2f(200, 100), sf::Vector2f(980, 520), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 4);
+	functions.DrawRectangle(sf::Vector2f(200, 100), sf::Vector2f(980, 520), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 4);
 	functions.PrintText(L"Few Colors", sf::Vector2f(sizeW.x / 2.f, 100), 109, sf::Color(0, 255, 0), 1);
 
 	if (buttons[0].DrawCheckLeft(*rw))

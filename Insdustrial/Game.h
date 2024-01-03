@@ -67,12 +67,9 @@ private:
 	// Список верстаков
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches;
 
-	std::vector<std::shared_ptr<Object>> objects;
+	//std::vector<std::shared_ptr<Object>> objects;
 
-	//std::map<std::string, sf::Texture> textures;
 	std::map<std::string, sf::Texture> textures;
-	sf::Sprite spriteGrass;
-	//std::map<std::string, sf::Texture*> textures;
 
 
 	// Поле
@@ -100,7 +97,7 @@ public:
 	// Инвентарь сундука
 	void ChestInventoryFun();
 	// Инвентарь верстака
-	void WorkbenchInventoryFunn();
+	void WorkbenchInventoryFun();
 	// Поставить объект по определенным коодинатам
 	void PutObject(sf::Vector2f position);
 	// Геймплей

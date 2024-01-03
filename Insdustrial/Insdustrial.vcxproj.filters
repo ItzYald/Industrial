@@ -16,9 +16,6 @@
     <Filter Include="Исходные файлы\Functions">
       <UniqueIdentifier>{718b4266-b37c-4f37-a5b0-e45daab0ef5a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\Functions">
-      <UniqueIdentifier>{b330a75a-b0dc-461c-9480-5c8f5012fa0a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Исходные файлы\Inventories">
       <UniqueIdentifier>{b9f3fe4c-9feb-4eef-a5bf-8b536834c5cf}</UniqueIdentifier>
     </Filter>
@@ -30,6 +27,9 @@
     </Filter>
     <Filter Include="Исходные файлы\Sprites">
       <UniqueIdentifier>{79a900e3-1d5b-45bf-877d-5e159dc0f4b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Functions">
+      <UniqueIdentifier>{b330a75a-b0dc-461c-9480-5c8f5012fa0a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +84,12 @@
     <ClCompile Include="Player.cpp">
       <Filter>Исходные файлы\Sprites</Filter>
     </ClCompile>
+    <ClCompile Include="ElectrincObject.cpp">
+      <Filter>Исходные файлы\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="OvenCoalInventory.cpp">
+      <Filter>Исходные файлы\Inventories</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -133,6 +139,12 @@
     </ClInclude>
     <ClInclude Include="Wire.h">
       <Filter>Файлы заголовков\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="ElectrincObject.h">
+      <Filter>Файлы заголовков\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="OvenCoalInventory.h">
+      <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

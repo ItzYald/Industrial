@@ -1,7 +1,7 @@
 #include "Wire.h"
 
 Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
-	sf::Texture& texture1, sf::Texture& texture2, sf::Texture& texture3, sf::Texture& texture4,
+	sf::Texture& texture1, sf::Texture& texture2, sf::Texture& texture3, sf::Texture& texture4, sf::Texture& texture5,
 	sf::Vector2f _position)
 {
 	rw = _rw;
@@ -15,6 +15,7 @@ Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
 	sprites[1].setTexture(texture1);
 	sprites[2].setTexture(texture1);
 	sprites[3].setTexture(texture1);
+	sprites[4].setTexture(texture1);
 	position = _position;
 
 	numberSprite = 0;
@@ -52,37 +53,43 @@ void Wire::Draw(sf::Vector2f cameraPosition)
 	// Все 4 связи
 	if (connections[0] && connections[1] && connections[2] && connections[3])
 	{
-		numberSprite = 3;
+		numberSprite = 4;
 	}
 	// Связь сверху, справа и снизу
 	else if (connections[0] && connections[1] && connections[2])
 	{
-		numberSprite = 2;
+		numberSprite = 3;
 		sprites[numberSprite].setRotation(90);
 	}
 	// Связь справа, снизу и слева
 	else if (connections[1] && connections[2] && connections[3])
 	{
-		numberSprite = 2;
+		numberSprite = 3;
 		sprites[numberSprite].setRotation(180);
 	}
 	// Связь снизу, слева и сверху
 	else if (connections[2] && connections[3] && connections[0])
 	{
-		numberSprite = 2;
+		numberSprite = 3;
 		sprites[numberSprite].setRotation(270);
 	}
 	// Связь слева, сверху и справа
 	else if (connections[3] && connections[0] && connections[1])
 	{
-		numberSprite = 2;
+		numberSprite = 3;
 		sprites[numberSprite].setRotation(0);
 	}
-	// Связь сверху и слева
-	else if (connections[3] && connections[0] && connections[1])
+	// Связь сверху и справа
+	else if (connections[0] && connections[1])
 	{
-		numberSprite = 2;
+		numberSprite = 1;
 		sprites[numberSprite].setRotation(0);
+	}
+	// Связь справа и снизу
+	else if (connections[0] && connections[1])
+	{
+		numberSprite = 1;
+		sprites[numberSprite].setRotation(90);
 	}
 
 

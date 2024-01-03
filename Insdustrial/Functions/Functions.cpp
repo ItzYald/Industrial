@@ -6,27 +6,6 @@ Functions::Functions(std::shared_ptr<sf::RenderWindow> _rw)
 	rw = _rw;
 	text = sf::Text("", font, 25);
 }
-// Нарисовать прямоугольник (старый)
-void Functions::Rectangle(sf::RenderWindow* rw, sf::Vector2f pos, sf::Vector2f size, sf::Color col)
-{
-	sf::RectangleShape rect;
-	rect.setPosition(pos);
-	rect.setSize(size);
-	rect.setFillColor(col);
-	rw->draw(rect);
-}
-// Нарисовать прямоугольник с границей (старый)
-void Functions::Rectangle(sf::RenderWindow* rw, sf::Vector2f pos, sf::Vector2f size, sf::Color col, sf::Color col2, float size2)
-{
-	sf::RectangleShape rect;
-	rect = sf::RectangleShape();
-	rect.setPosition(pos);
-	rect.setSize(size);
-	rect.setFillColor(col);
-	rect.setOutlineColor(col2);
-	rect.setOutlineThickness(size2);
-	rw->draw(rect);
-}
 // Нарисовать прямоугольник
 void Functions::DrawRectangle(sf::Vector2f pos, sf::Vector2f size, sf::Color col)
 {
@@ -74,19 +53,18 @@ void Functions::DrawRectangleGradient(sf::Vector2f pos, sf::Vector2f size, sf::C
 		};
 		rw->draw(rectangle, 4, sf::Quads);
 	}
-
-	// rw->draw(rectangle, 4, sf::Quads);
 }
 // Нарисовать спрайт
-void Functions::DrawSprite(sf::RenderWindow* rw, sf::Sprite spr, sf::Vector2f pos, sf::Vector2f size)
+void Functions::DrawSprite(sf::Sprite spr, sf::Vector2f pos, sf::Vector2f size)
 {
 	if (pos.y != 0)
+	{
 		spr.setScale(size.x / spr.getTexture()->getSize().x, size.y / spr.getTexture()->getSize().y);
+	}
 	else
 	{
 		spr.setScale(size.x / spr.getTexture()->getSize().x, size.x / spr.getTexture()->getSize().x);
 	}
-
 
 	if (size.x < 0)
 	{
@@ -96,10 +74,11 @@ void Functions::DrawSprite(sf::RenderWindow* rw, sf::Sprite spr, sf::Vector2f po
 	{
 		spr.setPosition(pos.x, pos.y);
 	}
+
 	rw->draw(spr);
 }
 // Отрисовка спрайта с прозрачностью
-void Functions::DrawSprite(sf::RenderWindow* rw, sf::Sprite spr, sf::Vector2f pos, sf::Vector2f size, int transparent)
+void Functions::DrawSprite(sf::Sprite spr, sf::Vector2f pos, sf::Vector2f size, int transparent)
 {
 	spr.setScale(size.x / spr.getTexture()->getSize().x, size.y / spr.getTexture()->getSize().y);
 	if (size.x < 0)
@@ -110,7 +89,6 @@ void Functions::DrawSprite(sf::RenderWindow* rw, sf::Sprite spr, sf::Vector2f po
 	{
 		spr.setPosition(pos.x, pos.y);
 	}
-
 	spr.setColor(sf::Color(255, 255, 255, transparent));
 
 	rw->draw(spr);

@@ -24,6 +24,14 @@ public:
 	int IsBurn(int nuberItem);
 	// Получить название
 	sf::String GetName(int nuberItem);
+	~StaticSprites()
+	{
+		for (int i = 0; i < textures.size(); i++)
+		{
+			textures[i] = NULL;
+			delete textures[i];
+		}
+	}
 
 };
 

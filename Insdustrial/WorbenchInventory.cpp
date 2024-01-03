@@ -167,20 +167,23 @@ void WorkbenchInventory::Draw()
 
 	// Отрисовать созданный объект
 	buttons[9].Draw(*rw);
-	sf::Vector2f positionInventory = buttons[items.size()].coords;
+	sf::Vector2f positionInventory = buttons[items.size() * items[0].size()].coords;
 	itemsSprites.DrawItemSprite(rw.get(), madeItem.number, positionInventory, sf::Vector2f(4, 4));
-	functions.PrintText(std::to_string(madeItem.quantity), sf::Vector2f(positionInventory.x + 40, positionInventory.y + 40), 20, sf::Color(250, 250, 250));
 	// Название созданного предмета
-	if (madeItem.number != 0 && buttons[9].Aim(*rw))
+	if (madeItem.number != 0)
 	{
-		// Позиция
-		sf::Vector2f positionInventory = buttons[9].coords;
-		// Получение названия
-		sf::String name = itemsSprites.GetName(madeItem.number);
-		int sizeSimbol = 20;
-		functions.DrawRectangle(sf::Vector2f(positionInventory.x + 65, positionInventory.y),
-			sf::Vector2f(sizeSimbol * name.getSize() / 1.8 + 10, 35), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 2);
-		functions.PrintText(name, sf::Vector2f(positionInventory.x + 70, positionInventory.y), sizeSimbol, sf::Color(250, 250, 250));
+		functions.PrintText(std::to_string(madeItem.quantity), sf::Vector2f(positionInventory.x + 40, positionInventory.y + 40), 20, sf::Color(250, 250, 250));
+		if (buttons[9].Aim(*rw))
+		{
+			// Позиция
+			sf::Vector2f positionInventory = buttons[9].coords;
+			// Получение названия
+			sf::String name = itemsSprites.GetName(madeItem.number);
+			int sizeSimbol = 20;
+			functions.DrawRectangle(sf::Vector2f(positionInventory.x + 65, positionInventory.y),
+				sf::Vector2f(sizeSimbol * name.getSize() / 1.8 + 10, 35), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 2);
+			functions.PrintText(name, sf::Vector2f(positionInventory.x + 70, positionInventory.y), sizeSimbol, sf::Color(250, 250, 250));
+		}
 	}
 }
 
@@ -205,7 +208,7 @@ void WorkbenchInventory::Update(Inventory& playerInventory)
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
 	// Отрисовать окно интерфейса
-	functions.Rectangle(rw.get(), sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
+	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 
 	// Два цикла по координатам поля для крафта
 	for (int i = 0; i < items.size(); i++)

@@ -7,7 +7,7 @@
 
 #include "Object.h"
 
-class Wire : Object
+class Wire : public Sprite
 {
 public:
 	//  ол-во соединений между проводами и механизмами
@@ -21,7 +21,7 @@ public:
 
 	Wire(){ }
 	Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
-		sf::Texture& texture1, sf::Texture& texture2, sf::Texture& texture3, sf::Texture& texture4,
+		sf::Texture& texture1, sf::Texture& texture2, sf::Texture& texture3, sf::Texture& texture4, sf::Texture& texture5,
 		sf::Vector2f _position);
 
 	bool NearPlayer(sf::Vector2f playerPosition, int playerAngle);

@@ -91,7 +91,7 @@ void Inventory::Update()
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
 	// Отрисовать окно интерфейса
-	functions.Rectangle(rw.get(), sf::Vector2f(302, 400), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
+	functions.DrawRectangle(sf::Vector2f(302, 400), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 
 	// Два цикла по координатам инвентаря
 	for (int i = 0; i < items.size(); i++)
@@ -189,7 +189,7 @@ void Inventory::DrawMiniWorkbench()
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
 	// Отрисовать окно интерфейса
-	functions.Rectangle(rw.get(), sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
+	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 	
 	// Два цикла по координатам инвентаря
 	for (int i = 0; i < itemsMiniWorkbench.size(); i++)
@@ -268,7 +268,7 @@ void Inventory::DrawMiniWorkbench()
 // Отрисовка нижней части инвентаря (во время геймплея)
 void Inventory::DrawNear(int mouseWheel)
 {
-	functions.Rectangle(rw.get(), sf::Vector2f(302, 598), sf::Vector2f(676, 82), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
+	functions.DrawRectangle(sf::Vector2f(302, 598), sf::Vector2f(676, 82), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 	
 	for (int i = 0; i < items.size(); i++)
 	{

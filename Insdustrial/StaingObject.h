@@ -13,7 +13,7 @@
 #include "Inventory.h"
 
 template<class InventoryType>
-class StaingObject : Object
+class StaingObject : Sprite
 {
 public:
 

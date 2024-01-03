@@ -6,15 +6,12 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 
-#include "Functions/Functions.h"
-
 #include "Sprite.h"
 
 
 class Object : public Sprite
 {
 protected:
-	Functions functions;
 
 public:
 

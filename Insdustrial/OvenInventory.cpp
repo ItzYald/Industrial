@@ -19,12 +19,50 @@ OvenInventory::OvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
 
 }
 
+void OvenInventory::AllBurn()
+{
+	if (fuel > 0)
+	{
+		fuel -= 1;
+		if (itemsSprites.IsBurn(items[0].number))
+		{
+			whatBurn -= 1;
+			if (whatBurn == 0)
+			{
+				whatBurn = 120;
+				if (items[2].number == itemsSprites.IsBurn(items[0].number) && items[2].number != 0)
+				{
+					items[2].quantity += 1;
+				}
+				else
+				{
+					items[2].number = itemsSprites.IsBurn(items[0].number);
+					items[2].quantity = 1;
+				}
+
+				items[0].quantity -= 1;
+				if (items[0].quantity == 0)
+				{
+					items[0].number = 0;
+				}
+			}
+		}
+		else
+		{
+			whatBurn = 120;
+		}
+	}
+	else
+	{
+		if (whatBurn < 120)
+		{
+			whatBurn += 1;
+		}
+	}
+}
+
 void OvenInventory::Burn()
 {
-	functions.PrintText(std::to_string(whatBurn), sf::Vector2f(10, 10), 25, sf::Color::Red);
-	functions.PrintText(std::to_string(fuel), sf::Vector2f(10, 40), 25, sf::Color::Red);
-	functions.PrintText(std::to_string(maxFuel), sf::Vector2f(10, 70), 25, sf::Color::Red);
-
 	if (previousItemBurn != items[0].number)
 	{
 		whatBurn = 120;
@@ -43,54 +81,13 @@ void OvenInventory::Burn()
 				maxFuel = itemsSprites.IsFuel(items[1].number) * 60;
 				fuel = maxFuel;
 				items[1].quantity -= 1;
-				if (items[1].quantity == 0)
-				{
-					items[1].number = 0;
-				}
 			}
 			if (whatBurn <= 0)
 			{
 				whatBurn = 120;
 			}
 		}
-		if (fuel > 0)
-		{
-			fuel -= 1;
-			if (itemsSprites.IsBurn(items[0].number))
-			{
-				whatBurn -= 1;
-				if (whatBurn == 0)
-				{
-					whatBurn = 120;
-					if (items[2].number == itemsSprites.IsBurn(items[0].number) && items[2].number != 0)
-					{
-						items[2].quantity += 1;
-					}
-					else
-					{
-						items[2].number = itemsSprites.IsBurn(items[0].number);
-						items[2].quantity = 1;
-					}
-
-					items[0].quantity -= 1;
-					if (items[0].quantity == 0)
-					{
-						items[0].number = 0;
-					}
-				}
-			}
-			else
-			{
-				whatBurn = 120;
-			}
-		}
-		else
-		{
-			if (whatBurn < 120)
-			{
-				whatBurn += 1;
-			}
-		}
+		AllBurn();
 	}
 	else
 	{
@@ -131,12 +128,12 @@ void OvenInventory::Update(Inventory& playerInventory)
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
 	// Отрисовать окно интерфейса
-	functions.Rectangle(rw.get(), sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
+	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 	// Прогрессбар печки
-	functions.Rectangle(rw.get(), sf::Vector2f(550, 240), sf::Vector2f(90, 20), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
+	functions.DrawRectangle(sf::Vector2f(550, 240), sf::Vector2f(90, 20), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
 	functions.DrawRectangleGradient(sf::Vector2f(550, 240), sf::Vector2f((120 - whatBurn) * 0.75f, 20), sf::Color::Red, sf::Color(255, 200, 0));
 	// Топливо печки
-	functions.Rectangle(rw.get(), sf::Vector2f(480, 220), sf::Vector2f(30, 60), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
+	functions.DrawRectangle(sf::Vector2f(480, 220), sf::Vector2f(30, 60), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
 	if (maxFuel != 0)
 	{
 		functions.DrawRectangleGradient(sf::Vector2f(480, 280), sf::Vector2f(30, ((fuel / (float)maxFuel)) * -60), sf::Color::Red, sf::Color(255, 200, 1));
@@ -145,15 +142,6 @@ void OvenInventory::Update(Inventory& playerInventory)
 
 	for (int i = 0; i < items.size(); i++)
 	{
-		//buttons[i].Draw(*rw);
-
-		//// Отрисовка предмета в ячейке 
-		//if (items[i].number != 0)
-		//{
-		//	itemsSprites.DrawItemSprite(rw.get(), items[i].number, buttons[i].coords, sf::Vector2f(4, 4));
-		//	functions.PrintText(std::to_string(items[i].quantity), sf::Vector2f(buttons[i].coords.x + 40, buttons[i].coords.y + 40), 20, sf::Color(250, 250, 250));
-		//}
-
 		// Правой кнопкой мыши по слоту для взятия половины
 		if (buttons[i].CheckRight(*rw) && playerInventory.mouseItem.number == 0 && items[i].number != 0)
 		{
@@ -215,6 +203,11 @@ void OvenInventory::Update(Inventory& playerInventory)
 			items[2].number = 0;
 			items[2].quantity = 0;
 		}
+	}
+
+	if (items[1].quantity == 0)
+	{
+		items[1].number = 0;
 	}
 
 	Draw(playerInventory);

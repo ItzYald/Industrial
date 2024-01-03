@@ -1,0 +1,1 @@
+#include "OvenCoalInventory.h"

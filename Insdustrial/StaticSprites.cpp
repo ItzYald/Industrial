@@ -55,7 +55,8 @@ void StaticSprites::DrawItemSprite(sf::RenderWindow* rw, int numberItem, sf::Vec
 	sprites[numberItem].setPosition(position);
 	sprites[numberItem].setScale(scale);
 	rw->draw(sprites[numberItem]);
-
+	rw = NULL;
+	delete rw;
 }
 // Может использоваться как топливо
 int StaticSprites::IsFuel(int nuberItem)
