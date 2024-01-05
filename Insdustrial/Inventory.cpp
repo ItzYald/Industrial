@@ -13,6 +13,8 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw)
 	// Выбранная ячейка
 	choseCell = 0;
 
+	LoadColorInventoryFromFile();
+
 	// Ивентарь игрока
 	for (int i = 0; i < 10; i++)
 	{
@@ -50,8 +52,8 @@ void Inventory::AddButtons(bool miniWorkbench)
 		for (int j = 0; j < items[0].size(); j++)
 		{
 			buttons.push_back(Button(sf::Vector2f(300 + 8 + i * 66, 400 + 8 + j * 66), sf::Vector2f(64, 64), L"",
-				sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
-				sf::Color::Transparent, sf::Color::Transparent, 1, 4, 25));
+				colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
+				sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 		}
 	}
 	if (miniWorkbench)
@@ -61,8 +63,8 @@ void Inventory::AddButtons(bool miniWorkbench)
 			for (int j = 0; j < itemsMiniWorkbench[0].size(); j++)
 			{
 				buttons.push_back(Button(sf::Vector2f(600 + 8 + i * 66, 130 + 8 + j * 66), sf::Vector2f(64, 64), L"",
-					sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
-					sf::Color::Transparent, sf::Color::Transparent, 1, 4, 25));
+					colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
+					sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 			}
 		}
 	}
@@ -76,7 +78,7 @@ void Inventory::Draw()
 	if (mouseItem.number != 0)
 	{
 		itemsSprites.DrawItemSprite(rw.get(), mouseItem.number, sf::Vector2f(mousePosition.x, mousePosition.y), sf::Vector2f(4, 4));
-		functions.PrintText(std::to_string(mouseItem.quantity), sf::Vector2f(mousePosition.x + 40, mousePosition.y + 40), 20, sf::Color(250, 250, 250));
+		functions.PrintText(std::to_string(mouseItem.quantity), sf::Vector2f(mousePosition.x + 35, mousePosition.y + 35), 25, sf::Color(250, 250, 250));
 	}
 }
 
@@ -140,15 +142,18 @@ void Inventory::Update()
 			if (buttons[numberButton].CheckRight(*rw))
 			{
 				// Если в мыши есть предмет, а в ячейке нету
-				if (mouseItem.number != 0 && items[i][j].number == 0)
+				if (mouseItem.number != 0)
 				{
-					items[i][j].number = mouseItem.number;
-					items[i][j].quantity = 1;
-					mouseItem.quantity -= 1;
-					if (mouseItem.quantity == 0)
+					if (items[i][j].number == mouseItem.number)
 					{
-						mouseItem.number = 0;
+						items[i][j].quantity += 1;
 					}
+					if (items[i][j].number == 0)
+					{
+						items[i][j].number = mouseItem.number;
+						items[i][j].quantity = 1;
+					}
+					mouseItem.quantity -= 1;
 				}
 				// Если в мыши нет предмета, а в ячейке есть
 				if (mouseItem.number == 0 && items[i][j].number != 0)
@@ -172,6 +177,10 @@ void Inventory::Update()
 			if (items[i][j].quantity == 0)
 			{
 				items[i][j].number = 0;
+			}
+			if (mouseItem.quantity == 0)
+			{
+				mouseItem.number = 0;
 			}
 		}
 	}
@@ -279,12 +288,13 @@ void Inventory::DrawNear(int mouseWheel)
 		}
 
 		// Отрисовка
-		functions.DrawRectangle(sf::Vector2f(300 + 8 + i * 66, 400 + 8 + 3 * 66), sf::Vector2f(64, 64), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
+		functions.DrawRectangle(sf::Vector2f(300 + 8 + i * 66, 400 + 8 + 3 * 66), sf::Vector2f(64, 64), sf::Color(150, 150, 150), sf::Color(100, 100, 100), 2);
 		sf::Vector2f positionInventory = sf::Vector2f(300 + 8 + i * 66, 400 + 8 + 3 * 66);
 		if (items[i][3].number != 0)
 		{
 			itemsSprites.DrawItemSprite(rw.get(), items[i][3].number, positionInventory, sf::Vector2f(4, 4));
-			functions.PrintText(std::to_string(items[i][3].quantity), sf::Vector2f(positionInventory.x + 40, positionInventory.y + 40), 20, sf::Color(250, 250, 250));
+			// Колличество
+			functions.PrintText(std::to_string(items[i][3].quantity), sf::Vector2f(positionInventory.x + 35, positionInventory.y + 35), 25, sf::Color(250, 250, 250));
 		}
 
 	}

@@ -4,6 +4,7 @@ OvenInventory::OvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
 {
 	rw = _rw;
 	functions = Functions(rw);
+	LoadColorInventoryFromFile();
 
 	// 3 ячейки в инвентаре
 	items = std::vector<ItemStruct>();
@@ -111,17 +112,17 @@ void OvenInventory::Update(Inventory& playerInventory)
 	{
 		// Слот для того, что печем
 		buttons.push_back(Button(sf::Vector2f(460, 130), sf::Vector2f(64, 64), L"",
-			sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
+			colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 			sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 
 		// Слот для угля
 		buttons.push_back(Button(sf::Vector2f(460, 306), sf::Vector2f(64, 64), L"",
-			sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
+			colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 			sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 
 		// Слот для того, что получилось
 		buttons.push_back(Button(sf::Vector2f(670, 218), sf::Vector2f(64, 64), L"",
-			sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
+			colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 			sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 	}
 
@@ -137,29 +138,26 @@ void OvenInventory::Update(Inventory& playerInventory)
 	if (maxFuel != 0)
 	{
 		functions.DrawRectangleGradient(sf::Vector2f(480, 280), sf::Vector2f(30, ((fuel / (float)maxFuel)) * -60), sf::Color::Red, sf::Color(255, 200, 1));
-		//functions.PrintText(std::to_string((((float)fuel / (float)maxFuel) - 1) * 60.f), sf::Vector2f(480, 280), 25, sf::Color::Blue);
 	}
 
-	for (int i = 0; i < items.size(); i++)
+	// Правой кнопкой мыши по слоту для взятия половины результата
+	if (buttons[2].CheckRight(*rw) && playerInventory.mouseItem.number == 0 && items[2].number != 0)
 	{
-		// Правой кнопкой мыши по слоту для взятия половины
-		if (buttons[i].CheckRight(*rw) && playerInventory.mouseItem.number == 0 && items[i].number != 0)
+		playerInventory.mouseItem.number = items[2].number;
+		if (items[2].quantity == 1)
 		{
-			playerInventory.mouseItem.number = items[i].number;
-			if (items[i].quantity == 1)
-			{
-				playerInventory.mouseItem.quantity = 1;
-				items[i].number = 0;
-				items[i].quantity = 0;
-			}
-			else
-			{
-				playerInventory.mouseItem.quantity = items[i].quantity / 2;
-				items[i].quantity = items[i].quantity - playerInventory.mouseItem.quantity;
-			}
+			playerInventory.mouseItem.quantity = 1;
+			items[2].number = 0;
+			items[2].quantity = 0;
+		}
+		else
+		{
+			playerInventory.mouseItem.quantity = items[2].quantity / 2;
+			items[2].quantity = items[2].quantity - playerInventory.mouseItem.quantity;
 		}
 	}
-
+	
+	// Слот для топлива и слот для предмета
 	for (int i = 0; i < 2; i++)
 	{
 		// Левой кнопкой мыши по слоту
@@ -193,11 +191,46 @@ void OvenInventory::Update(Inventory& playerInventory)
 				items[i].quantity = 0;
 			}
 		}
+		// Правой кнопкой мыши по слоту
+		if (buttons[i].CheckRight(*rw))
+		{
+
+			// Если в мыши есть предмет, а в ячейке нету
+			if (playerInventory.mouseItem.number != 0)
+			{
+				if (items[i].number == playerInventory.mouseItem.number)
+				{
+					items[i].quantity += 1;
+				}
+				if (items[i].number == 0)
+				{
+					items[i].number = playerInventory.mouseItem.number;
+					items[i].quantity = 1;
+				}
+				playerInventory.mouseItem.quantity -= 1;
+			}
+			// Если в мыши нет предмета, а в ячейке есть
+			if (playerInventory.mouseItem.number == 0 && items[i].number != 0)
+			{
+				playerInventory.mouseItem.number = items[i].number;
+				if (items[i].quantity == 1)
+				{
+					playerInventory.mouseItem.quantity = 1;
+					items[i].number = 0;
+					items[i].quantity = 0;
+				}
+				else
+				{
+					playerInventory.mouseItem.quantity = items[i].quantity / 2;
+					items[i].quantity = items[i].quantity - playerInventory.mouseItem.quantity;
+				}
+			}
+		}
 	}
 	// Забрать изготовленный предметы
 	if (buttons[2].CheckLeft(*rw))
 	{
-		if (items[2].number != 0)
+		if (items[2].number != 0 && playerInventory.mouseItem.number == 0)
 		{
 			playerInventory.mouseItem = items[2];
 			items[2].number = 0;

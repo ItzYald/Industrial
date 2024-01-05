@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <string>
 
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
@@ -9,9 +10,9 @@
 #include "Functions/Functions.h"
 #include "Functions/Button.h"
 
-//#include "Inventory.h"
-
 #include "StaticSprites.h"
+
+#include <fstream>
 
 struct ItemStruct
 {
@@ -31,8 +32,12 @@ protected:
 	StaticSprites itemsSprites;
 	// Позиция мыши
 	sf::Vector2i mousePosition;
+	/// Цвета для интерфейса
+	// Список уветов
+	std::vector<sf::Color> colorsInventory;
 
 public:
+	void LoadColorInventoryFromFile();
 	void DrawCommon(std::vector<std::vector<ItemStruct>> items);
 	void DrawCommon(std::vector<ItemStruct> items);
 

@@ -4,6 +4,7 @@ ChestInventory::ChestInventory(std::shared_ptr<sf::RenderWindow> _rw)
 {
 	rw = _rw;
 	functions = Functions(rw);
+	LoadColorInventoryFromFile();
 
 	items = std::vector<std::vector<ItemStruct>>();
 
@@ -33,7 +34,7 @@ void ChestInventory::Update(Inventory& playerInventory)
 			for (int j = 0; j < items[0].size(); j++)
 			{
 				buttons.push_back(Button(sf::Vector2f(300 + 8 + i * 66, 110 + 8 + j * 66), sf::Vector2f(64, 64), L"",
-					sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
+					colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 					sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 			}
 		}
@@ -48,7 +49,8 @@ void ChestInventory::Update(Inventory& playerInventory)
 	{
 		for (int j = 0; j < items[0].size(); j++)
 		{
-			if (buttons[i * items[0].size() + j].CheckLeft(*rw))
+			int numberButton = i * items[0].size() + j;
+			if (buttons[numberButton].CheckLeft(*rw))
 			{
 				if (items[i][j].number != 0 && playerInventory.mouseItem.number != 0)
 				{
@@ -79,20 +81,39 @@ void ChestInventory::Update(Inventory& playerInventory)
 				}
 			}
 
-			if (buttons[i * items[0].size() + j].CheckRight(*rw) && playerInventory.mouseItem.number == 0 && items[i][j].number != 0)
+			if (buttons[numberButton].CheckRight(*rw))
 			{
-				playerInventory.mouseItem.number = items[i][j].number;
-				if (items[i][j].quantity == 1)
+				// Если в мыши есть предмет, а в ячейке нету
+				if (playerInventory.mouseItem.number != 0)
 				{
-					playerInventory.mouseItem.quantity = 1;
-					items[i][j].number = 0;
-					items[i][j].quantity = 0;
+					if (items[i][j].number == playerInventory.mouseItem.number)
+					{
+						items[i][j].quantity += 1;
+					}
+					if (items[i][j].number == 0)
+					{
+						items[i][j].number = playerInventory.mouseItem.number;
+						items[i][j].quantity = 1;
+					}
+					playerInventory.mouseItem.quantity -= 1;
 				}
-				else
+				// Если в мыши нет предмета, а в ячейке есть
+				if (playerInventory.mouseItem.number == 0 && items[i][j].number != 0)
 				{
-					playerInventory.mouseItem.quantity = items[i][j].quantity / 2;
-					items[i][j].quantity = items[i][j].quantity - playerInventory.mouseItem.quantity;
+					playerInventory.mouseItem.number = items[i][j].number;
+					if (items[i][j].quantity == 1)
+					{
+						playerInventory.mouseItem.quantity = 1;
+						items[i][j].number = 0;
+						items[i][j].quantity = 0;
+					}
+					else
+					{
+						playerInventory.mouseItem.quantity = items[i][j].quantity / 2;
+						items[i][j].quantity = items[i][j].quantity - playerInventory.mouseItem.quantity;
+					}
 				}
+
 			}
 
 		}

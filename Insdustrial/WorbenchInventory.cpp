@@ -5,6 +5,7 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw)
 	// Окно
 	rw = _rw;
 	functions = Functions(rw);
+	LoadColorInventoryFromFile();
 
 	// Предметы в поле для крафта
 	items = std::vector<std::vector<ItemStruct>>();
@@ -196,12 +197,12 @@ void WorkbenchInventory::Update(Inventory& playerInventory)
 			for (int j = 0; j < items[0].size(); j++)
 			{
 				buttons.push_back(Button(sf::Vector2f(350 + 8 + i * 66, 130 + 8 + j * 66), sf::Vector2f(64, 64), L"",
-					sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
+					colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 					sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 			}
 		}
 		buttons.push_back(Button(sf::Vector2f(700, 130 + 8 + 1 * 66), sf::Vector2f(64, 64), L"",
-			sf::Color(150, 150, 150), sf::Color(200, 200, 200), sf::Color(250, 250, 250), sf::Color::Transparent,
+			colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 			sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
 	}
 
