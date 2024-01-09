@@ -24,22 +24,22 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 
 	buttons = std::vector<Button>();
 
-	inventory.items[0][3].number = 1;
-	inventory.items[0][3].quantity = 15;
-	inventory.items[1][3].number = 2;
-	inventory.items[1][3].quantity = 20;
-	inventory.items[2][3].number = 3;
-	inventory.items[2][3].quantity = 10;
-	inventory.items[3][3].number = 5;
-	inventory.items[3][3].quantity = 2;
-	inventory.items[4][3].number = 4;
-	inventory.items[4][3].quantity = 10;
-	inventory.items[5][3].number = 8;
-	inventory.items[5][3].quantity = 10;
-	inventory.items[6][3].number = 7;
-	inventory.items[6][3].quantity = 10;
-	inventory.items[7][3].number = 9;
-	inventory.items[7][3].quantity = 10;
+	inventory.cells[0][3].item.number = 1;
+	inventory.cells[0][3].item.quantity = 15;
+	inventory.cells[1][3].item.number = 2;
+	inventory.cells[1][3].item.quantity = 20;
+	inventory.cells[2][3].item.number = 3;
+	inventory.cells[2][3].item.quantity = 10;
+	inventory.cells[3][3].item.number = 5;
+	inventory.cells[3][3].item.quantity = 2;
+	inventory.cells[4][3].item.number = 4;
+	inventory.cells[4][3].item.quantity = 10;
+	inventory.cells[5][3].item.number = 8;
+	inventory.cells[5][3].item.quantity = 10;
+	inventory.cells[6][3].item.number = 7;
+	inventory.cells[6][3].item.quantity = 10;
+	inventory.cells[7][3].item.number = 9;
+	inventory.cells[7][3].item.quantity = 10;
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -105,10 +105,10 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>>
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
 	{
-		if ((inventory.items[inventory.choseCell][3].number == 2 ||
-			inventory.items[inventory.choseCell][3].number == 5 || 
-			inventory.items[inventory.choseCell][3].number == 8) &&
-			inventory.items[inventory.choseCell][3].quantity > 0)
+		if ((inventory.cells[inventory.choseCell][3].item.number == 2 ||
+			inventory.cells[inventory.choseCell][3].item.number == 5 || 
+			inventory.cells[inventory.choseCell][3].item.number == 8) &&
+			inventory.cells[inventory.choseCell][3].item.quantity > 0)
 		{
 			bool isNear = false;
 			for (std::shared_ptr<StaingObject<OvenInventory>>& thisObject : ovens)
@@ -128,7 +128,7 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>>
 
 			if (!isNear)
 			{
-				inventory.items[inventory.choseCell][3].quantity -= 1;
+				inventory.cells[inventory.choseCell][3].item.quantity -= 1;
 				return true;
 			}
 		}

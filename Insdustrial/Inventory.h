@@ -19,8 +19,9 @@ private:
 	std::vector<Checks> ch;
 
 public:
-	// Предметы в интерфейсе
-	std::vector<std::vector<ItemStruct>> items;
+	std::vector<std::vector<CellInInventory>> cells;
+	std::vector<std::vector<CellInInventory>> cellsMiniWorkBench;
+
 	// Предметы в мини 
 	std::vector<std::vector<ItemStruct>> itemsMiniWorkbench;
 	// Предмет перетаскиваемый мышкой
@@ -37,11 +38,15 @@ public:
 	// Добавить кнопки
 	void AddButtons(bool miniWorkbench);
 	// Отрисовка инвентаря
+	//void Draw();
 	void Draw();
 	// Действия инвентаря
+	//void Update();
+
 	void Update();
 	// Отрисовка и действия внутреннего инвентаря (вместе с мини верстаком, который пока не работает)
 	void DrawMiniWorkbench();
+	void DrawMiniWorkbench2(){}
 	// Отрисовка нижней части инвентаря (во время геймплея)
 	void DrawNear(int mouseWheel);
 	

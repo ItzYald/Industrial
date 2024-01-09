@@ -167,17 +167,17 @@ void Game::WorkbenchInventoryFun()
 void Game::PutObject(sf::Vector2f position)
 {
 	// Поставить печку
-	if (player.inventory.items[player.inventory.choseCell][3].number == 2)
+	if (player.inventory.cells[player.inventory.choseCell][3].item.number == 2)
 	{
 		ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, textures["Oven"], position));
 		//objects.push_back(ovens[ovens.size() - 1]);
 	}
-	else if (player.inventory.items[player.inventory.choseCell][3].number == 5)
+	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 5)
 	{
 		chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], position));
 		//objects.push_back(chests[ovens.size() - 1]);
 	}
-	else if (player.inventory.items[player.inventory.choseCell][3].number == 8)
+	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 8)
 	{
 		workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], position));
 		//objects.push_back(chests[ovens.size() - 1]);

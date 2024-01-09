@@ -108,3 +108,42 @@ void ObjectInventory::DrawCommon(std::vector<ItemStruct> items)
 	}
 
 }
+
+void ObjectInventory::DrawCommon(std::vector<std::vector<CellInInventory>> cells)
+{
+	// Отрисовка спрайтов предметов
+	for (int i = 0; i < cells.size(); i++)
+	{
+		for (int j = 0; j < cells[0].size(); j++)
+		{
+			cells[i][j].button.Draw(*rw);
+			sf::Vector2f positionInventory = cells[i][j].button.coords;
+			if (cells[i][j].item.number != 0)
+			{
+				itemsSprites.DrawItemSprite(rw.get(), cells[i][j].item.number, positionInventory, sf::Vector2f(4, 4));
+				// Написать колличество
+				functions.PrintText(std::to_string(cells[i][j].item.quantity),
+					sf::Vector2f(positionInventory.x + 35, positionInventory.y + 35),
+					25, sf::Color(250, 250, 250));
+			}
+		}
+	}
+
+	// Отрисовка описания предметов
+	for (int i = 0; i < cells.size(); i++)
+	{
+		for (int j = 0; j < cells[0].size(); j++)
+		{
+			if (cells[i][j].item.number != 0 && cells[i][j].button.Aim(*rw))
+			{
+				sf::Vector2f positionInventory = cells[i][j].button.coords;
+				sf::String name = itemsSprites.GetName(cells[i][j].item.number);
+				int sizeSimbol = 20;
+				functions.DrawRectangle(sf::Vector2f(positionInventory.x + 65, positionInventory.y),
+					sf::Vector2f(sizeSimbol * name.getSize() / 1.8 + 10, 35), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 2);
+				functions.PrintText(name, sf::Vector2f(positionInventory.x + 70, positionInventory.y), sizeSimbol, sf::Color(250, 250, 250));
+			}
+		}
+	}
+
+}

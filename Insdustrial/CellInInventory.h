@@ -15,24 +15,25 @@ struct ItemStruct
 
 class CellInInventory
 {
+private:
+	std::shared_ptr<sf::RenderWindow> rw;
+	Functions functions;
+
 public:
-	int number;
-	int quantity;
+	// Можно ли класть в ячейку
+	bool put;
+	// Можно ли брать из ячейки
+	bool take;
+
+	ItemStruct item;
 	// Кнопка
 	Button button;
 	// Список цветов
 	std::vector<sf::Color> colorsInventory;
-	//CellInInventory()
-	//{
-	//	LoadColorInventoryFromFile();
-	//	button = Button(sf::Vector2f(100, 100), sf::Vector2f(64, 64), L"",
-	//		colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
-	//		sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25);
-	//}
-	CellInInventory(sf::Vector2f position);
+	CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put, bool _take);
 
 	void LoadColorInventoryFromFile();
-	void RightClick(){ }
+	void Update(ItemStruct& mouseItem);
 
 };
 

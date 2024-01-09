@@ -26,6 +26,7 @@ public:
 
 	void Draw(Inventory& playerInventory);
 	void Update(Inventory& playerInventory);
+	void Update2(Inventory& playerInventory);
 
 };
 

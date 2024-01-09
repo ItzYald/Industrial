@@ -124,3 +124,8 @@ void ChestInventory::Update(Inventory& playerInventory)
 
 	playerInventory.Update();
 }
+
+void ChestInventory::Update2(Inventory& playerInventory)
+{
+
+}
