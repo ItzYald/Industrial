@@ -35,10 +35,7 @@ public:
 	Inventory(std::shared_ptr<sf::RenderWindow> _rw);
 	// Удалить кнопки
 	void DeleteButtons();
-	// Добавить кнопки
-	void AddButtons(bool miniWorkbench);
 	// Отрисовка инвентаря
-	//void Draw();
 	void Draw();
 	// Действия инвентаря
 	void Update();

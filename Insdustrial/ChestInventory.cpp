@@ -7,13 +7,22 @@ ChestInventory::ChestInventory(std::shared_ptr<sf::RenderWindow> _rw)
 	LoadColorInventoryFromFile();
 
 	items = std::vector<std::vector<ItemStruct>>();
-
 	for (int i = 0; i < 10; i++)
 	{
 		items.push_back(std::vector<ItemStruct>());
 		for (int j = 0; j < 4; j++)
 		{
 			items[i].push_back(ItemStruct());
+		}
+	}
+
+	cells = std::vector<std::vector<CellInInventory>>();
+	for (int i = 0; i < 10; i++)
+	{
+		cells.push_back(std::vector<CellInInventory>());
+		for (int j = 0; j < 4; j++)
+		{
+			cells[i].push_back(CellInInventory(rw, sf::Vector2f(300 + 8 + i * 66, 110 + 8 + j * 66), true, true));
 		}
 	}
 

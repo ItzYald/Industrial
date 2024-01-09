@@ -48,31 +48,6 @@ void Inventory::DeleteButtons()
 	buttons.clear();
 }
 
-void Inventory::AddButtons(bool miniWorkbench)
-{
-	for (int i = 0; i < cells.size(); i++)
-	{
-		for (int j = 0; j < cells[0].size(); j++)
-		{
-			buttons.push_back(Button(sf::Vector2f(300 + 8 + i * 66, 400 + 8 + j * 66), sf::Vector2f(64, 64), L"",
-				colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
-				sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
-		}
-	}
-	if (miniWorkbench)
-	{
-		for (int i = 0; i < itemsMiniWorkbench.size(); i++)
-		{
-			for (int j = 0; j < itemsMiniWorkbench[0].size(); j++)
-			{
-				buttons.push_back(Button(sf::Vector2f(600 + 8 + i * 66, 130 + 8 + j * 66), sf::Vector2f(64, 64), L"",
-					colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
-					sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
-			}
-		}
-	}
-}
-
 void Inventory::Draw()
 {
 	DrawCommon(cells);
@@ -120,7 +95,6 @@ void Inventory::DrawMiniWorkbench()
 		}
 	}
 }
-
 // Отрисовка нижней части инвентаря (во время геймплея)
 void Inventory::DrawNear(int mouseWheel)
 {
