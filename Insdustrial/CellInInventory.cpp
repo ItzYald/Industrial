@@ -6,9 +6,6 @@ CellInInventory::CellInInventory(sf::Vector2f position)
 	button = Button(position, sf::Vector2f(64, 64), L"",
 		colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 		sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25);
-
-
-
 }
 
 void CellInInventory::LoadColorInventoryFromFile()

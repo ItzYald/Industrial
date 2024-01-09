@@ -30,6 +30,11 @@ public:
     sf::RectangleShape rect = sf::RectangleShape();
     sf::Text text;
 
+    Button()
+    {
+
+    }
+
     Button(sf::Vector2f _coords, sf::Vector2f _size,
         sf::String _message, sf::Color _color, sf::Color _activeColor, sf::Color _colorBorder,
         sf::Color _activeColorBorder, sf::Color _colorTitle, sf::Color _activeColorTitle,
