@@ -282,7 +282,7 @@ void Game::Play()
 		// Инвентарь игрока
 		if (player.whatTypeInventoryOpen == 0)
 		{
-			player.inventory.DrawMiniWorkbench2();
+			player.inventory.DrawMiniWorkbench();
 			player.inventory.Update();
 			if (ch[2].Check(sf::Keyboard::Key::Escape) || ch[3].Check(sf::Keyboard::Key::E))
 			{

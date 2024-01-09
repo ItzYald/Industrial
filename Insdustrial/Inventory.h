@@ -19,14 +19,14 @@ private:
 	std::vector<Checks> ch;
 
 public:
+	// Ячейки с предметами
 	std::vector<std::vector<CellInInventory>> cells;
+	// Ячейки с предметами маленького верстака
 	std::vector<std::vector<CellInInventory>> cellsMiniWorkbench;
 
-	// Предметы в мини 
-	std::vector<std::vector<ItemStruct>> itemsMiniWorkbench;
 	// Предмет перетаскиваемый мышкой
 	ItemStruct mouseItem;
-
+	// Выбранная ячейка (колесиком мыши)
 	int choseCell;	
 
 	// Не используется
@@ -41,12 +41,9 @@ public:
 	//void Draw();
 	void Draw();
 	// Действия инвентаря
-	//void Update();
-
 	void Update();
 	// Отрисовка и действия внутреннего инвентаря (вместе с мини верстаком, который пока не работает)
 	void DrawMiniWorkbench();
-	void DrawMiniWorkbench2();
 	// Отрисовка нижней части инвентаря (во время геймплея)
 	void DrawNear(int mouseWheel);
 	
