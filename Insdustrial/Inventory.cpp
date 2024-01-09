@@ -35,7 +35,7 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw)
 		{
 			cellsI.push_back(CellInInventory(rw, sf::Vector2f(600 + 8 + i * 66, 130 + 8 + j * 66), true, true));
 		}
-		cellsMiniWorkBench.push_back(cellsI);
+		cellsMiniWorkbench.push_back(cellsI);
 	}
 
 	for (int i = 0; i < 30; i++)
@@ -190,6 +190,24 @@ void Inventory::DrawMiniWorkbench()
 
 
 }
+
+void Inventory::DrawMiniWorkbench2()
+{
+	// Узнать координаты мыши
+	mousePosition = sf::Mouse::getPosition(*rw);
+	// Отрисовать окно интерфейса
+	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
+
+	for (int i = 0; i < cellsMiniWorkbench.size(); i++)
+	{
+		for (int j = 0; j < cellsMiniWorkbench[0].size(); j++)
+		{
+			cellsMiniWorkbench[i][j].Update(mouseItem);
+			DrawCommon(cellsMiniWorkbench);
+		}
+	}
+}
+
 // Отрисовка нижней части инвентаря (во время геймплея)
 void Inventory::DrawNear(int mouseWheel)
 {

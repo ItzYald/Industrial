@@ -20,7 +20,7 @@ private:
 
 public:
 	std::vector<std::vector<CellInInventory>> cells;
-	std::vector<std::vector<CellInInventory>> cellsMiniWorkBench;
+	std::vector<std::vector<CellInInventory>> cellsMiniWorkbench;
 
 	// Предметы в мини 
 	std::vector<std::vector<ItemStruct>> itemsMiniWorkbench;
@@ -46,7 +46,7 @@ public:
 	void Update();
 	// Отрисовка и действия внутреннего инвентаря (вместе с мини верстаком, который пока не работает)
 	void DrawMiniWorkbench();
-	void DrawMiniWorkbench2(){}
+	void DrawMiniWorkbench2();
 	// Отрисовка нижней части инвентаря (во время геймплея)
 	void DrawNear(int mouseWheel);
 	
