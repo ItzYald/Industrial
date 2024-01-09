@@ -95,7 +95,7 @@ void ObjectInventory::DrawCommon(std::vector<ItemStruct> items)
 			itemsSprites.DrawItemSprite(rw.get(), items[i].number, buttons[i].coords, sf::Vector2f(4, 4));
 			functions.PrintText(std::to_string(items[i].quantity), sf::Vector2f(buttons[i].coords.x + 35, buttons[i].coords.y + 35), 25, sf::Color(250, 250, 250));
 		}
-
+		// Отрисовка названия предмета
 		if (items[i].number != 0 && buttons[i].Aim(*rw))
 		{
 			sf::Vector2f positionInventory = buttons[i].coords;

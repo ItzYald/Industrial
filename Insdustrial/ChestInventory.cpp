@@ -89,16 +89,17 @@ void ChestInventory::Update(Inventory& playerInventory)
 					if (items[i][j].number == playerInventory.mouseItem.number)
 					{
 						items[i][j].quantity += 1;
+						playerInventory.mouseItem.quantity -= 1;
 					}
-					if (items[i][j].number == 0)
+					else if (items[i][j].number == 0)
 					{
 						items[i][j].number = playerInventory.mouseItem.number;
 						items[i][j].quantity = 1;
+						playerInventory.mouseItem.quantity -= 1;
 					}
-					playerInventory.mouseItem.quantity -= 1;
 				}
 				// Если в мыши нет предмета, а в ячейке есть
-				if (playerInventory.mouseItem.number == 0 && items[i][j].number != 0)
+				else if (items[i][j].number != 0)
 				{
 					playerInventory.mouseItem.number = items[i][j].number;
 					if (items[i][j].quantity == 1)

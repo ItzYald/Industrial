@@ -147,13 +147,14 @@ void Inventory::Update()
 					if (items[i][j].number == mouseItem.number)
 					{
 						items[i][j].quantity += 1;
+						mouseItem.quantity -= 1;
 					}
-					if (items[i][j].number == 0)
+					else if (items[i][j].number == 0)
 					{
 						items[i][j].number = mouseItem.number;
 						items[i][j].quantity = 1;
+						mouseItem.quantity -= 1;
 					}
-					mouseItem.quantity -= 1;
 				}
 				// Если в мыши нет предмета, а в ячейке есть
 				if (mouseItem.number == 0 && items[i][j].number != 0)

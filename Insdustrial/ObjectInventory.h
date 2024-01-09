@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
 
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
@@ -12,13 +13,13 @@
 
 #include "StaticSprites.h"
 
-#include <fstream>
+#include "CellInInventory.h"
 
-struct ItemStruct
-{
-	int number;
-	int quantity;
-};
+//struct ItemStruct
+//{
+//	int number;
+//	int quantity;
+//};
 
 class ObjectInventory
 {
@@ -33,7 +34,7 @@ protected:
 	// Позиция мыши
 	sf::Vector2i mousePosition;
 	/// Цвета для интерфейса
-	// Список уветов
+	// Список цветов
 	std::vector<sf::Color> colorsInventory;
 
 public:

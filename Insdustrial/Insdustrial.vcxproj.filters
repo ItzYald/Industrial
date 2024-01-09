@@ -87,8 +87,8 @@
     <ClCompile Include="ElectrincObject.cpp">
       <Filter>Исходные файлы\Sprites</Filter>
     </ClCompile>
-    <ClCompile Include="OvenCoalInventory.cpp">
-      <Filter>Исходные файлы\Inventories</Filter>
+    <ClCompile Include="CellInInventory.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,8 +143,8 @@
     <ClInclude Include="ElectrincObject.h">
       <Filter>Файлы заголовков\Sprites</Filter>
     </ClInclude>
-    <ClInclude Include="OvenCoalInventory.h">
-      <Filter>Файлы заголовков\Inventories</Filter>
+    <ClInclude Include="CellInInventory.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
