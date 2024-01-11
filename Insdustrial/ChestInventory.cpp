@@ -2,6 +2,7 @@
 
 ChestInventory::ChestInventory(std::shared_ptr<sf::RenderWindow> _rw)
 {
+	// Окно
 	rw = _rw;
 	functions = Functions(rw);
 	LoadColorInventoryFromFile();

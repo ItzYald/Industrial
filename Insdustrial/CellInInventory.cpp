@@ -5,6 +5,8 @@ CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vect
 	rw = _rw;
 	functions = Functions(rw);
 
+	itemsSprites = StaticSprites();
+
 	put = _put;
 	take = _take;
 
@@ -16,6 +18,24 @@ CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vect
 		colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 		sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25);
 }
+
+CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put)
+{
+	rw = _rw;
+	functions = Functions(rw);
+
+	put = _put;
+	take = true;
+
+	item.number = 0;
+	item.quantity = 0;
+
+	LoadColorInventoryFromFile();
+	button = Button(position, sf::Vector2f(64, 64), L"",
+		colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
+		sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25);
+}
+
 
 void CellInInventory::LoadColorInventoryFromFile()
 {
@@ -53,6 +73,47 @@ void CellInInventory::LoadColorInventoryFromFile()
 
 }
 
+void CellInInventory::DrawCell()
+{
+	button.Draw(*rw);
+	sf::Vector2f positionInventory = button.coords;
+	if (item.number != 0)
+	{
+		itemsSprites.DrawItemSprite(rw.get(), item.number, positionInventory, sf::Vector2f(4, 4));
+		// Написать колличество
+		functions.PrintText(std::to_string(item.quantity),
+			sf::Vector2f(positionInventory.x + 35, positionInventory.y + 35),
+			25, sf::Color(250, 250, 250));
+	}
+
+	if (item.number != 0 && button.Aim(*rw))
+	{
+		sf::Vector2f positionInventory = button.coords;
+		sf::String name = itemsSprites.GetName(item.number);
+		int sizeSimbol = 20;
+		functions.DrawRectangle(sf::Vector2f(positionInventory.x + 65, positionInventory.y),
+			sf::Vector2f(sizeSimbol * name.getSize() / 1.8 + 10, 35), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 2);
+		functions.PrintText(name, sf::Vector2f(positionInventory.x + 70, positionInventory.y), sizeSimbol, sf::Color(250, 250, 250));
+	}
+
+}
+
+bool CellInInventory::Take(ItemStruct& mouseItem)
+{
+	// Нажатие левой кнопки мыши
+	if (button.CheckLeft(*rw))
+	{
+		if (mouseItem.number == 0)
+		{
+			mouseItem = item;
+			item.number = 0;
+			item.quantity = 0;
+			return true;
+		}
+	}
+	return false;
+}
+
 void CellInInventory::Update(ItemStruct& mouseItem)
 {
 	// Нажатие левой кнопки мыши
@@ -61,19 +122,22 @@ void CellInInventory::Update(ItemStruct& mouseItem)
 		// Если и в мыши и в ячейке есть предмет
 		if (item.number != 0 && mouseItem.number != 0)
 		{
-			// Если предметы одинаковые - сложить
-			if (item.number == mouseItem.number)
+			if (put)
 			{
-				item.quantity += mouseItem.quantity;
-				mouseItem.number = 0;
-				mouseItem.quantity = 0;
-			}
-			// Если разные - поменять
-			else
-			{
-				ItemStruct intermediateItem = mouseItem;
-				mouseItem = item;
-				item = intermediateItem;
+				// Если предметы одинаковые - сложить
+				if (item.number == mouseItem.number)
+				{
+					item.quantity += mouseItem.quantity;
+					mouseItem.number = 0;
+					mouseItem.quantity = 0;
+				}
+				// Если разные - поменять
+				else
+				{
+					ItemStruct intermediateItem = mouseItem;
+					mouseItem = item;
+					item = intermediateItem;
+				}
 			}
 		}
 		// Если в ячейке есть предмет, а в мыше нету
@@ -84,7 +148,7 @@ void CellInInventory::Update(ItemStruct& mouseItem)
 			item.quantity = 0;
 		}
 		// Если предмет есть в мыши, но нету в ячейке
-		else if (mouseItem.number != 0)
+		else if (mouseItem.number != 0 && put)
 		{
 			item = mouseItem;
 			mouseItem.number = 0;
@@ -95,7 +159,7 @@ void CellInInventory::Update(ItemStruct& mouseItem)
 	if (button.CheckRight(*rw))
 	{
 		// Если в мыши есть предмет, а в ячейке нету
-		if (mouseItem.number != 0)
+		if (mouseItem.number != 0 && put)
 		{
 			if (item.number == mouseItem.number)
 			{

@@ -7,34 +7,43 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw)
 	functions = Functions(rw);
 	LoadColorInventoryFromFile();
 
-	// Предметы в поле для крафта
-	items = std::vector<std::vector<ItemStruct>>();
+	// Ячейки инвентаря
+	cells = std::vector< std::vector<CellInInventory>>();
 	for (int i = 0; i < 3; i++)
 	{
-		items.push_back(std::vector<ItemStruct>());
+		// Временный массив
+		auto cellsI = std::vector<CellInInventory>();
 		for (int j = 0; j < 3; j++)
 		{
-			items[i].push_back(ItemStruct());
+			cellsI.push_back(CellInInventory(rw, sf::Vector2f(350 + 8 + i * 66, 130 + 8 + j * 66), true));
 		}
+		cells.push_back(cellsI);
 	}
-	// Созданный предмет
-	madeItem = ItemStruct();
 	
+	// Созданный предмет
+	madeItemCell = CellInInventory(rw, sf::Vector2f(700, 130 + 8 + 1 * 66), false);
+
 	itemsSprites = StaticSprites();
 	// Какие есть крафты
 	collectionCraft = std::vector<std::vector<std::vector<int>>>();
 	collectionResult = std::vector<std::vector<int>>();
 
 	// Железный блок
-	AddCraft(4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 1);
+	AddCraft(
+		4, 4, 4,
+		4, 4, 4,
+		4, 4, 4,
+		6, 1);
 	// Доски
 	AddSingleCraft(7, 9, 4);
 	// Верстак
 	AddQuadroSimpleCraft(9, 8, 1);
 	// Сундук
-	AddCraft(9, 9, 9, 9, 0, 9, 9, 9, 9, 5, 1);
-
-
+	AddCraft(
+		9, 9, 9,
+		9, 0, 9,
+		9, 9, 9,
+		5, 1);
 }
 
 void WorkbenchInventory::AddCraft(
@@ -100,7 +109,7 @@ void WorkbenchInventory::AddQuadroCraft(int craft1, int craft2, int craft3, int 
 	AddCraft(0, 0, 0, 0, craft1, craft2, 0, craft3, craft4, result, quantity);
 }
 
-void WorkbenchInventory::Craft()
+void WorkbenchInventory::Craft2()
 {
 	// Если нет ни одного крафта, то сделать реузультат пустым
 	bool isAllCraft = true;
@@ -116,7 +125,7 @@ void WorkbenchInventory::Craft()
 			{
 				for (int k = 0; k < 3; k++)
 				{
-					if (collectionCraft[i][j][k] == items[j][k].number)
+					if (collectionCraft[i][j][k] == cells[j][k].item.number)
 					{
 						isCraft += 1;
 					}
@@ -130,10 +139,10 @@ void WorkbenchInventory::Craft()
 			if (isCraft == 9)
 			{
 				isAllCraft = false;
-				if (madeItem.number == 0)
+				if (madeItemCell.item.number == 0)
 				{
-					madeItem.number = collectionResult[i][0];
-					madeItem.quantity = collectionResult[i][1];
+					madeItemCell.item.number = collectionResult[i][0];
+					madeItemCell.item.quantity = collectionResult[i][1];
 				}
 			}
 		}
@@ -145,179 +154,61 @@ void WorkbenchInventory::Craft()
 
 	if (isAllCraft)
 	{
-		madeItem.number = 0;
-		madeItem.quantity = 0;
+		madeItemCell.item.number = 0;
+		madeItemCell.item.quantity = 0;
 	}
 
 	// Если тип пустой - сделать колличество 0
-	if (madeItem.number == 0)
+	if (madeItemCell.item.number == 0)
 	{
-		madeItem.quantity == 0;
+		madeItemCell.item.quantity == 0;
 	}
 	// Если колличество 0 - сделать тип пустой
-	if (madeItem.quantity == 0)
+	if (madeItemCell.item.quantity == 0)
 	{
-		madeItem.number = 0;
+		madeItemCell.item.number = 0;
 	}
 
 }
 
-void WorkbenchInventory::Draw()
+void WorkbenchInventory::Draw2()
 {
-	DrawCommon(items);
-
-	// Отрисовать созданный объект
-	buttons[9].Draw(*rw);
-	sf::Vector2f positionInventory = buttons[items.size() * items[0].size()].coords;
-	itemsSprites.DrawItemSprite(rw.get(), madeItem.number, positionInventory, sf::Vector2f(4, 4));
-	// Название созданного предмета
-	if (madeItem.number != 0)
-	{
-		functions.PrintText(std::to_string(madeItem.quantity), sf::Vector2f(positionInventory.x + 40, positionInventory.y + 40), 20, sf::Color(250, 250, 250));
-		if (buttons[9].Aim(*rw))
-		{
-			// Позиция
-			sf::Vector2f positionInventory = buttons[9].coords;
-			// Получение названия
-			sf::String name = itemsSprites.GetName(madeItem.number);
-			int sizeSimbol = 20;
-			functions.DrawRectangle(sf::Vector2f(positionInventory.x + 65, positionInventory.y),
-				sf::Vector2f(sizeSimbol * name.getSize() / 1.8 + 10, 35), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 2);
-			functions.PrintText(name, sf::Vector2f(positionInventory.x + 70, positionInventory.y), sizeSimbol, sf::Color(250, 250, 250));
-		}
-	}
+	DrawCommon(cells);
+	madeItemCell.DrawCell();
 }
 
-void WorkbenchInventory::Update(Inventory& playerInventory)
+void WorkbenchInventory::Update2(Inventory& playerInventory)
 {
-	if (buttons.size() < 1)
-	{
-		for (int i = 0; i < items.size(); i++)
-		{
-			for (int j = 0; j < items[0].size(); j++)
-			{
-				buttons.push_back(Button(sf::Vector2f(350 + 8 + i * 66, 130 + 8 + j * 66), sf::Vector2f(64, 64), L"",
-					colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
-					sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
-			}
-		}
-		buttons.push_back(Button(sf::Vector2f(700, 130 + 8 + 1 * 66), sf::Vector2f(64, 64), L"",
-			colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
-			sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25));
-	}
-
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
 	// Отрисовать окно интерфейса
 	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 
-	// Два цикла по координатам поля для крафта
-	for (int i = 0; i < items.size(); i++)
+	// Два цикла по координатам инвентаря
+	for (int i = 0; i < cells.size(); i++)
 	{
-		for (int j = 0; j < items[0].size(); j++)
+		for (int j = 0; j < cells[0].size(); j++)
 		{
-
-			int numberButton = i * items[0].size() + j;
-			// Нажатие левой кнопки мыши
-			if (buttons[numberButton].CheckLeft(*rw))
-			{
-				// Если и в мыши и в ячейке есть предмет
-				if (items[i][j].number != 0 && playerInventory.mouseItem.number != 0)
-				{
-					// Если предметы одинаковые - сложить
-					if (items[i][j].number == playerInventory.mouseItem.number)
-					{
-						items[i][j].quantity += playerInventory.mouseItem.quantity;
-						playerInventory.mouseItem.number = 0;
-						playerInventory.mouseItem.quantity = 0;
-					}
-					// Если разные - поменять
-					else
-					{
-						ItemStruct intermediateItem = playerInventory.mouseItem;
-						playerInventory.mouseItem = items[i][j];
-						items[i][j] = intermediateItem;
-					}
-				}
-				// Если в ячейке есть предмет, а в мыше нету
-				else if (items[i][j].number != 0)
-				{
-					playerInventory.mouseItem = items[i][j];
-					items[i][j].number = 0;
-					items[i][j].quantity = 0;
-				}
-				// Если предмет есть в мыши, но нету в ячейке
-				else if (playerInventory.mouseItem.number != 0)
-				{
-
-					items[i][j] = playerInventory.mouseItem;
-					playerInventory.mouseItem.number = 0;
-					playerInventory.mouseItem.quantity = 0;
-				}
-			}
-			// Нажатие правой кнопки мыши
-			if (buttons[numberButton].CheckRight(*rw))
-			{
-				// Если в мыши есть предмет, а в ячейке нету
-				if (playerInventory.mouseItem.number != 0 && items[i][j].number == 0)
-				{
-					items[i][j].number = playerInventory.mouseItem.number;
-					items[i][j].quantity = 1;
-					playerInventory.mouseItem.quantity -= 1;
-					if (playerInventory.mouseItem.quantity == 0)
-					{
-						playerInventory.mouseItem.number = 0;
-					}
-				}
-				// Если в мыши нет предмета, а в ячейке есть
-				if (playerInventory.mouseItem.number == 0 && items[i][j].number != 0)
-				{
-					playerInventory.mouseItem.number = items[i][j].number;
-					if (items[i][j].quantity == 1)
-					{
-						playerInventory.mouseItem.quantity = 1;
-						items[i][j].number = 0;
-						items[i][j].quantity = 0;
-					}
-					else
-					{
-						playerInventory.mouseItem.quantity = items[i][j].quantity / 2;
-						items[i][j].quantity = items[i][j].quantity - playerInventory.mouseItem.quantity;
-					}
-				}
-			}
-
-			if (items[i][j].quantity == 0)
-				items[i][j].number = 0;
-			if (items[i][j].number == 0)
-				items[i][j].quantity = 0;
-
+			cells[i][j].Update(playerInventory.mouseItem);
 		}
 	}
 
-	// Забрать созданный объект
-	if (buttons[9].CheckLeft(*rw) && madeItem.number != 0)
+	if (madeItemCell.Take(playerInventory.mouseItem))
 	{
-		playerInventory.mouseItem = madeItem;
-		madeItem.number = 0;
-		madeItem.quantity = 0;
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				items[i][j].quantity -= 1;
-				if (items[i][j].quantity == 0)
+				cells[i][j].item.quantity -= 1;
+				if (cells[i][j].item.quantity == 0)
 				{
-					items[i][j].number = 0;
+					cells[i][j].item.number = 0;
 				}
 			}
 		}
 	}
 
-	Draw();
-
-	Craft();
-
+	Craft2();
+	Draw2();
 	playerInventory.Update();
 }
-

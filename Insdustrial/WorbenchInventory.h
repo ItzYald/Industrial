@@ -17,10 +17,10 @@
 class WorkbenchInventory : ObjectInventory
 {
 public:
-	// Предметы в поле для крафта
-	std::vector<std::vector<ItemStruct>> items;
+	// Ячейки с предметами
+	std::vector<std::vector<CellInInventory>> cells;
 	// Результат (полученный предмет)
-	ItemStruct madeItem;
+	CellInInventory madeItemCell;
 	// Какие есть крафты
 	std::vector<std::vector<std::vector<int>>> collectionCraft;
 	std::vector<std::vector<int>> collectionResult;
@@ -39,11 +39,11 @@ public:
 	// Добавить четверной крафт (где только 4 РАЗЛИЧНЫХ предмета используется, но можно в 4 вариантах разложить)
 	void AddQuadroCraft(int craft1, int craft2, int craft3, int craft4, int result, int quantity);
 	// Проверка слотов крафта
-	void Craft();
+	void Craft2();
 	// Отрисовка
-	void Draw();
+	void Draw2();
 	// Работа интерфейса и мыши
-	void Update(Inventory& playerInventory);
+	void Update2(Inventory& playerInventory);
 
 };
 

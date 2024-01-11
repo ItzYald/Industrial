@@ -15,12 +15,6 @@
 
 #include "CellInInventory.h"
 
-//struct ItemStruct
-//{
-//	int number;
-//	int quantity;
-//};
-
 class ObjectInventory
 {
 protected:
@@ -30,19 +24,20 @@ protected:
 	std::shared_ptr<sf::RenderWindow> rw;
 	// Функции
 	Functions functions;
-	StaticSprites itemsSprites;
 	// Позиция мыши
 	sf::Vector2i mousePosition;
 	/// Цвета для интерфейса
 	// Список цветов
 	std::vector<sf::Color> colorsInventory;
 
+	StaticSprites itemsSprites;
+
 public:
 	void LoadColorInventoryFromFile();
 	void DrawCommon(std::vector<std::vector<ItemStruct>> items);
 	void DrawCommon(std::vector<ItemStruct> items);
 	void DrawCommon(std::vector<std::vector<CellInInventory>> cells);
-	void DrawCommon(std::vector<CellInInventory> cells){}
+	void DrawCommon(std::vector<CellInInventory> cells);
 
 };
 

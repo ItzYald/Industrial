@@ -88,7 +88,7 @@
       <Filter>Исходные файлы\Sprites</Filter>
     </ClCompile>
     <ClCompile Include="CellInInventory.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Inventories</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,7 +144,7 @@
       <Filter>Файлы заголовков\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="CellInInventory.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,6 @@
 #include "Wire.h"
 #include "Field.h"
 #include "Player.h"
-#include "Inventory.h"
 #include "Object.h"
 #include "StaingObject.h"
 // Инвентари

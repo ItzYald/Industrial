@@ -4,6 +4,8 @@
 #include <string>
 #include <fstream>
 
+#include "StaticSprites.h"
+
 #include "Functions/Functions.h"
 #include "Functions/Button.h"
 
@@ -18,6 +20,9 @@ class CellInInventory
 private:
 	std::shared_ptr<sf::RenderWindow> rw;
 	Functions functions;
+	StaticSprites itemsSprites;
+
+protected:
 
 public:
 	// Можно ли класть в ячейку
@@ -30,9 +35,17 @@ public:
 	Button button;
 	// Список цветов
 	std::vector<sf::Color> colorsInventory;
+	CellInInventory(){ }
 	CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put, bool _take);
+	CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put);
 
 	void LoadColorInventoryFromFile();
+
+	// Отрисовать ячейку
+	void DrawCell();
+	// Взять из ячейки
+	bool Take(ItemStruct& mouseItem);
+	// Каждый кадр
 	void Update(ItemStruct& mouseItem);
 
 };
