@@ -7,12 +7,6 @@ OvenInventory::OvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
 	LoadColorInventoryFromFile();
 
 	// 3 €чейки в инвентаре
-	items = std::vector<ItemStruct>();
-	items.push_back(ItemStruct());
-	items.push_back(ItemStruct());
-	items.push_back(ItemStruct());
-
-	// 3 €чейки в инвентаре
 	cells = std::vector<CellInInventory>();
 	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 130), true, true));
 	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 306), true, true));
@@ -27,6 +21,10 @@ OvenInventory::OvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
 
 void OvenInventory::AllBurn()
 {
+	if (previousItemBurn2 != cells[0].item.number)
+	{
+		whatBurn = 120;
+	}
 	if (fuel > 0)
 	{
 		fuel -= 1;
@@ -69,10 +67,10 @@ void OvenInventory::AllBurn()
 
 void OvenInventory::Burn()
 {
-	if (previousItemBurn2 != cells[0].item.number)
-	{
-		whatBurn = 120;
-	}
+	//if (previousItemBurn2 != cells[0].item.number)
+	//{
+	//	whatBurn = 120;
+	//}
 	previousItemBurn2 = cells[0].item.number;
 
 	if (cells[2].item.number == 0 || cells[2].item.number == itemsSprites.IsBurn(cells[0].item.number))
@@ -103,6 +101,14 @@ void OvenInventory::Burn()
 	if (fuel < 0)
 	{
 		fuel = 0;
+	}
+}
+
+void OvenInventory::Burn2()
+{
+	if (itemsSprites.IsBurn(cells[0].item.number)
+	{
+
 	}
 }
 

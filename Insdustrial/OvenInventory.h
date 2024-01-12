@@ -17,24 +17,24 @@
 class OvenInventory : public ObjectInventory
 {
 	// Топливо
-	int fuel;
+	//int fuel;
 	// Максимальное топливо
 	int maxFuel;
 	// Сколько осталось гореть
 	int whatBurn;
-	int previousItemBurn;
 	int previousItemBurn2;
 
 public:
+	int fuel;
 	// Ячейки с предметами
 	std::vector<CellInInventory> cells;
-	std::vector<ItemStruct> items;
 
 	OvenInventory(){ }
 	OvenInventory(std::shared_ptr<sf::RenderWindow> _rw);
 
 	void AllBurn();
 	void Burn();
+	void Burn2();
 	void Draw();
 	void Update(Inventory& playerInventory);
 

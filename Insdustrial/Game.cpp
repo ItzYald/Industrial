@@ -172,11 +172,13 @@ void Game::PutObject(sf::Vector2f position)
 		ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, textures["Oven"], position));
 		//objects.push_back(ovens[ovens.size() - 1]);
 	}
+	// Поставить сундук
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 5)
 	{
 		chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], position));
 		//objects.push_back(chests[ovens.size() - 1]);
 	}
+	// Поставить верстак
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 8)
 	{
 		workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], position));
@@ -262,6 +264,7 @@ void Game::Play()
 	for (int i = 0; i < ovens.size(); i++)
 	{
 		ovens[i]->inventory.Burn();
+		//ovens[i]->inventory.fuel += 1;
 	}
 
 	if (buttons.size() < 4)
