@@ -99,7 +99,7 @@ void Player::Update()
 	}
 }
 // Проверить наличие объекта перед игроком
-bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>>& ovens,
+bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>& ovens,
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests, 
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches)
 {
@@ -111,7 +111,7 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>>
 			inventory.cells[inventory.choseCell][3].item.quantity > 0)
 		{
 			bool isNear = false;
-			for (std::shared_ptr<StaingObject<OvenInventory>>& thisObject : ovens)
+			for (std::shared_ptr<StaingObject<CoalOvenInventory>>& thisObject : ovens)
 			{
 				isNear = thisObject->NearPlayer(position, angle);
 			}

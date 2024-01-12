@@ -16,6 +16,7 @@
 // Инвентари
 #include "ChestInventory.h"
 #include "OvenInventory.h"
+#include "CoalOvenInventory.h"
 #include "WorbenchInventory.h"
 
 class Player : public Sprite
@@ -46,7 +47,7 @@ public:
 	//Каждый кадр
 	void Update();
 	// Проверить наличие объекта перед игроком
-	bool PutObject(std::vector<std::shared_ptr<StaingObject<OvenInventory>>>& ovens,
+	bool PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>& ovens,
 		std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests,
 		std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches);
 	// Отрисовка

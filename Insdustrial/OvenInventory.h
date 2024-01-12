@@ -16,27 +16,21 @@
 
 class OvenInventory : public ObjectInventory
 {
+protected:
 	// Топливо
-	//int fuel;
-	// Максимальное топливо
-	int maxFuel;
+	int fuel;
 	// Сколько осталось гореть
 	int whatBurn;
 	int previousItemBurn2;
-
-public:
-	int fuel;
 	// Ячейки с предметами
 	std::vector<CellInInventory> cells;
 
-	OvenInventory(){ }
-	OvenInventory(std::shared_ptr<sf::RenderWindow> _rw);
+public:
 
 	void AllBurn();
-	void Burn();
-	void Burn2();
-	void Draw();
-	void Update(Inventory& playerInventory);
+	virtual void Burn() = 0;
+	virtual void Draw() = 0;
+	virtual void Update(Inventory& playerInventory) = 0;
 
 };
 

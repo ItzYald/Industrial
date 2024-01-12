@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClCompile Include="CellInInventory.cpp" />
     <ClCompile Include="ChestInventory.cpp" />
+    <ClCompile Include="CoalOvenInventory.cpp" />
     <ClCompile Include="ElectrincObject.cpp" />
     <ClCompile Include="Functions\Button.cpp" />
     <ClCompile Include="Functions\Checks.cpp" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="CellInInventory.h" />
     <ClInclude Include="ChestInventory.h" />
+    <ClInclude Include="CoalOvenInventory.h" />
     <ClInclude Include="ElectrincObject.h" />
     <ClInclude Include="Functions\Button.h" />
     <ClInclude Include="Functions\Checks.h" />

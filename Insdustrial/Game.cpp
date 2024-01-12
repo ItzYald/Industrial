@@ -26,7 +26,7 @@ void Game::LoadingApp()
 	screen = "Меню";
 	cameraPosition = sf::Vector2f(20, 20);
 
-	ovens = std::vector<std::shared_ptr<StaingObject<OvenInventory>>>();
+	ovens = std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>();
 
 	chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
 	workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
@@ -78,7 +78,7 @@ void Game::LoadingPlay()
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
 
-	ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, textures["Oven"], sf::Vector2f(23, 20)));
+	ovens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], sf::Vector2f(23, 20)));
 	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], sf::Vector2f(23, 21)));
 	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], sf::Vector2f(23, 22)));
 	screen = "Игра";
@@ -109,7 +109,7 @@ void Game::DrawPlay()
 		}
 	}	
 
-	for (std::shared_ptr<StaingObject<OvenInventory>> oven : ovens)
+	for (std::shared_ptr<StaingObject<CoalOvenInventory>> oven : ovens)
 	{
 		oven->Draw(cameraPosition);
 	}
@@ -169,7 +169,7 @@ void Game::PutObject(sf::Vector2f position)
 	// Поставить печку
 	if (player.inventory.cells[player.inventory.choseCell][3].item.number == 2)
 	{
-		ovens.push_back(std::make_shared<StaingObject<OvenInventory>>(rw, field.sizeOne, textures["Oven"], position));
+		ovens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], position));
 		//objects.push_back(ovens[ovens.size() - 1]);
 	}
 	// Поставить сундук

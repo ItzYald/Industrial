@@ -90,6 +90,9 @@
     <ClCompile Include="CellInInventory.cpp">
       <Filter>Исходные файлы\Inventories</Filter>
     </ClCompile>
+    <ClCompile Include="CoalOvenInventory.cpp">
+      <Filter>Исходные файлы\Inventories</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -144,6 +147,9 @@
       <Filter>Файлы заголовков\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="CellInInventory.h">
+      <Filter>Файлы заголовков\Inventories</Filter>
+    </ClInclude>
+    <ClInclude Include="CoalOvenInventory.h">
       <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
   </ItemGroup>

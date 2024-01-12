@@ -19,6 +19,7 @@
 #include "StaingObject.h"
 // Инвентари
 #include "OvenInventory.h"
+#include "CoalOvenInventory.h"
 #include "ChestInventory.h"
 #include "WorbenchInventory.h"
 
@@ -60,7 +61,7 @@ private:
 	// Список всех объектов
 	// std::vector<std::shared_ptr<StaingObject<OvenInventory>>> objects;
 	// Список печек
-	std::vector<std::shared_ptr<StaingObject<OvenInventory>>> ovens;
+	std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>> ovens;
 	// Список сундуков
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests;
 	// Список верстаков
