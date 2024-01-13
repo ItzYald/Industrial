@@ -188,6 +188,12 @@ void Game::PutObject(sf::Vector2f position)
 		coalOvens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], position));
 		//objects.push_back(ovens[ovens.size() - 1]);
 	}
+	// Поставить верстак
+	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 11)
+	{
+		electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["Workbench"], position));
+		//objects.push_back(chests[ovens.size() - 1]);
+	}
 	// Поставить сундук
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 5)
 	{
@@ -209,7 +215,7 @@ void Game::Drive()
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	bool nearObject = player.PutObject(coalOvens, chests, workbenches);
+	bool nearObject = player.PutObject(coalOvens, electricOvens, chests, workbenches);
 	if (nearObject)
 	{
 		switch (player.angle)

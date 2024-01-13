@@ -134,6 +134,12 @@ sf::String StaticSprites::GetName(int numberItem)
 	case 9:
 		return L"Доски";
 		break;
+	case 10:
+		return L"Редстоун";
+		break;
+	case 11:
+		return L"Электропеч";
+		break;
 	default:
 		return L"";
 		break;
