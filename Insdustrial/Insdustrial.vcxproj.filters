@@ -31,6 +31,12 @@
     <Filter Include="Файлы заголовков\Functions">
       <UniqueIdentifier>{b330a75a-b0dc-461c-9480-5c8f5012fa0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Inventories\OvenInventories">
+      <UniqueIdentifier>{a6dc6331-3a20-4879-8394-f66bd0327235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Inventories\OvenInventories">
+      <UniqueIdentifier>{579a1259-c78e-4d6e-b27e-143a07ddac37}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Insdustrial.cpp">
@@ -55,9 +61,6 @@
       <Filter>Исходные файлы\Functions</Filter>
     </ClCompile>
     <ClCompile Include="ObjectInventory.cpp">
-      <Filter>Исходные файлы\Inventories</Filter>
-    </ClCompile>
-    <ClCompile Include="OvenInventory.cpp">
       <Filter>Исходные файлы\Inventories</Filter>
     </ClCompile>
     <ClCompile Include="WorbenchInventory.cpp">
@@ -91,7 +94,13 @@
       <Filter>Исходные файлы\Inventories</Filter>
     </ClCompile>
     <ClCompile Include="CoalOvenInventory.cpp">
-      <Filter>Исходные файлы\Inventories</Filter>
+      <Filter>Исходные файлы\Inventories\OvenInventories</Filter>
+    </ClCompile>
+    <ClCompile Include="OvenInventory.cpp">
+      <Filter>Исходные файлы\Inventories\OvenInventories</Filter>
+    </ClCompile>
+    <ClCompile Include="ElectricOvenInventory.cpp">
+      <Filter>Исходные файлы\Inventories\OvenInventories</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,9 +126,6 @@
       <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
     <ClInclude Include="ObjectInventory.h">
-      <Filter>Файлы заголовков\Inventories</Filter>
-    </ClInclude>
-    <ClInclude Include="OvenInventory.h">
       <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
     <ClInclude Include="Inventory.h">
@@ -150,6 +156,12 @@
       <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
     <ClInclude Include="CoalOvenInventory.h">
+      <Filter>Файлы заголовков\Inventories\OvenInventories</Filter>
+    </ClInclude>
+    <ClInclude Include="OvenInventory.h">
+      <Filter>Файлы заголовков\Inventories\OvenInventories</Filter>
+    </ClInclude>
+    <ClInclude Include="ElectricOvenInventory.h">
       <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
   </ItemGroup>

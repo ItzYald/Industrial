@@ -4,8 +4,6 @@
 class CoalOvenInventory : public OvenInventory
 {
 private:
-	// Максимальное топливо (для отрисовки сколько осталось топлива)
-	int maxFuel;
 
 public:
 	CoalOvenInventory(){}

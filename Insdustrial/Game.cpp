@@ -26,7 +26,8 @@ void Game::LoadingApp()
 	screen = "Меню";
 	cameraPosition = sf::Vector2f(20, 20);
 
-	ovens = std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>();
+	coalOvens = std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>();
+	electricOvens = std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>();
 
 	chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
 	workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
@@ -51,13 +52,16 @@ void Game::LoadingPlay()
 	/// Текстуры:
 	// Печка
 	textures["Oven"] = sf::Texture();
-	textures["Oven"].loadFromFile("Images/Oven.png");
+	textures["Oven"].loadFromFile("Images/Objects/Oven.png");
+	// Электропечка
+	textures["ElectricOven"] = sf::Texture();
+	textures["ElectricOven"].loadFromFile("Images/Objects/ElectricOven.png");
 	// Сундук
 	textures["Chest"] = sf::Texture();
-	textures["Chest"].loadFromFile("Images/Chest.png");
+	textures["Chest"].loadFromFile("Images/Objects/Chest.png");
 	// Верстак
 	textures["Workbench"] = sf::Texture();
-	textures["Workbench"].loadFromFile("Images/Workbench.png");
+	textures["Workbench"].loadFromFile("Images/Objects/Workbench.png");
 	// Трава
 	textures["Grass"] = sf::Texture();
 	textures["Grass"].loadFromFile("Images/Grass.png");
@@ -78,7 +82,8 @@ void Game::LoadingPlay()
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
 
-	ovens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], sf::Vector2f(23, 20)));
+	coalOvens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], sf::Vector2f(23, 20)));
+	electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], sf::Vector2f(23, 19)));
 	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], sf::Vector2f(23, 21)));
 	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], sf::Vector2f(23, 22)));
 	screen = "Игра";
@@ -88,7 +93,8 @@ void Game::UnloadingPlay(std::string nextScreen)
 {
 	textures.clear();
 
-	ovens.clear();
+	coalOvens.clear();
+	electricOvens.clear();
 	chests.clear();
 	workbenches.clear();
 
@@ -108,15 +114,22 @@ void Game::DrawPlay()
 			field.Draw(cameraPosition, i, j);
 		}
 	}	
-
-	for (std::shared_ptr<StaingObject<CoalOvenInventory>> oven : ovens)
+	// Отрисовка угольных печей
+	for (std::shared_ptr<StaingObject<CoalOvenInventory>> oven : coalOvens)
 	{
 		oven->Draw(cameraPosition);
 	}
+	// Отрисовка электрических печей
+	for (std::shared_ptr<StaingObject<ElectricOvenInventory>> oven : electricOvens)
+	{
+		oven->Draw(cameraPosition);
+	}
+	// Отрисовка сундуков
 	for (std::shared_ptr<StaingObject<ChestInventory>> chest : chests)
 	{
 		chest->Draw(cameraPosition);
 	}
+	// Отрисовка верстаков
 	for (std::shared_ptr<StaingObject<WorkbenchInventory>> worbenche : workbenches)
 	{
 		worbenche->Draw(cameraPosition);
@@ -133,12 +146,15 @@ void Game::CloseInventory()
 		switch (player.whatTypeInventoryOpen)
 		{
 		case 1:
-			ovens[player.whatNumberInventoryOpen]->isOpenInventory = false;
+			coalOvens[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		case 2:
-			chests[player.whatNumberInventoryOpen]->isOpenInventory = false;
+			electricOvens[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		case 3:
+			chests[player.whatNumberInventoryOpen]->isOpenInventory = false;
+			break;
+		case 4:
 			workbenches[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		}
@@ -148,7 +164,7 @@ void Game::CloseInventory()
 // Интерфейс печки
 void Game::OvenInventoryFun()
 {
-	ovens[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+	coalOvens[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
 	CloseInventory();
 }
 // Инвентарь сундука
@@ -169,7 +185,7 @@ void Game::PutObject(sf::Vector2f position)
 	// Поставить печку
 	if (player.inventory.cells[player.inventory.choseCell][3].item.number == 2)
 	{
-		ovens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], position));
+		coalOvens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], position));
 		//objects.push_back(ovens[ovens.size() - 1]);
 	}
 	// Поставить сундук
@@ -193,7 +209,7 @@ void Game::Drive()
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	bool nearObject = player.PutObject(ovens, chests, workbenches);
+	bool nearObject = player.PutObject(coalOvens, chests, workbenches);
 	if (nearObject)
 	{
 		switch (player.angle)
@@ -213,14 +229,27 @@ void Game::Drive()
 		}
 	}
 
-	for (int i = 0; i < ovens.size(); i++)
+	for (int i = 0; i < coalOvens.size(); i++)
 	{
-		ovens[i]->Update(player.position, player.angle);
-		if (ovens[i]->isOpenInventory)
+		coalOvens[i]->Update(player.position, player.angle);
+		if (coalOvens[i]->isOpenInventory)
 		{
 			player.inventory.DeleteButtons();
 			player.isOpenInventory = true;
 			player.whatTypeInventoryOpen = 1;
+			player.whatNumberInventoryOpen = i;
+			break;
+		}
+	}
+
+	for (int i = 0; i < electricOvens.size(); i++)
+	{
+		electricOvens[i]->Update(player.position, player.angle);
+		if (electricOvens[i]->isOpenInventory)
+		{
+			player.inventory.DeleteButtons();
+			player.isOpenInventory = true;
+			player.whatTypeInventoryOpen = 2;
 			player.whatNumberInventoryOpen = i;
 			break;
 		}
@@ -233,7 +262,7 @@ void Game::Drive()
 		{
 			player.inventory.DeleteButtons();
 			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 2;
+			player.whatTypeInventoryOpen = 3;
 			player.whatNumberInventoryOpen = i;
 			break;
 		}
@@ -246,7 +275,7 @@ void Game::Drive()
 		{
 			player.inventory.DeleteButtons();
 			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 3;
+			player.whatTypeInventoryOpen = 4;
 			player.whatNumberInventoryOpen = i;
 			break;
 		}
@@ -261,9 +290,16 @@ void Game::Play()
 	DrawPlay();
 
 	// Работа печек
-	for (int i = 0; i < ovens.size(); i++)
+	for (int i = 0; i < coalOvens.size(); i++)
 	{
-		ovens[i]->inventory.Burn();
+		coalOvens[i]->inventory.Burn();
+		//ovens[i]->inventory.fuel += 1;
+	}
+
+	// Работа электропечек
+	for (int i = 0; i < electricOvens.size(); i++)
+	{
+		electricOvens[i]->inventory.Burn();
 		//ovens[i]->inventory.fuel += 1;
 	}
 
@@ -290,7 +326,7 @@ void Game::Play()
 			if (ch[2].Check(sf::Keyboard::Key::Escape) || ch[3].Check(sf::Keyboard::Key::E))
 			{
 				player.isOpenInventory = false;
-				ovens[player.whatNumberInventoryOpen]->isOpenInventory = false;
+				coalOvens[player.whatNumberInventoryOpen]->isOpenInventory = false;
 				chests[player.whatNumberInventoryOpen]->isOpenInventory = false;
 				workbenches[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			}
@@ -298,15 +334,21 @@ void Game::Play()
 		// Инвентарь печки
 		else if (player.whatTypeInventoryOpen == 1)
 		{
-			OvenInventoryFun();
+			coalOvens[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+			CloseInventory();
+		}
+		else if (player.whatTypeInventoryOpen == 2)
+		{
+			electricOvens[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+			CloseInventory();
 		}
 		// Инвентарь сундука
-		else if (player.whatTypeInventoryOpen == 2)
+		else if (player.whatTypeInventoryOpen == 3)
 		{
 			ChestInventoryFun();
 		}
 		// Инвентарь верстака
-		else if (player.whatTypeInventoryOpen == 3)
+		else if (player.whatTypeInventoryOpen == 4)
 		{
 			WorkbenchInventoryFun();
 		}

@@ -18,8 +18,8 @@
 #include "Object.h"
 #include "StaingObject.h"
 // Инвентари
-#include "OvenInventory.h"
 #include "CoalOvenInventory.h"
+#include "ElectricOvenInventory.h"
 #include "ChestInventory.h"
 #include "WorbenchInventory.h"
 
@@ -61,7 +61,9 @@ private:
 	// Список всех объектов
 	// std::vector<std::shared_ptr<StaingObject<OvenInventory>>> objects;
 	// Список печек
-	std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>> ovens;
+	std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>> coalOvens;
+
+	std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>> electricOvens;
 	// Список сундуков
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests;
 	// Список верстаков
@@ -94,6 +96,8 @@ public:
 	void CloseInventory();
 	// Интерфейс Печки
 	void OvenInventoryFun();
+	// Интерфейс ЭлектроПечки
+	void ElectricOvenInventoryFun(){ }
 	// Инвентарь сундука
 	void ChestInventoryFun();
 	// Инвентарь верстака

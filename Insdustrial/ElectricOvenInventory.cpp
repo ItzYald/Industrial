@@ -1,6 +1,8 @@
+#include "ElectricOvenInventory.h"
+
 #include "CoalOvenInventory.h"
 
-CoalOvenInventory::CoalOvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
+ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
 {
 	rw = _rw;
 	functions = Functions(rw);
@@ -12,47 +14,41 @@ CoalOvenInventory::CoalOvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
 	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 306), true));
 	cells.push_back(CellInInventory(rw, sf::Vector2f(670, 218), false));
 
-	fuel = 0;
+	fuel = 10;
 	whatBurn = 120;
-	maxFuel = 0;
+	maxFuel = 500;
 
 	itemsSprites = StaticSprites();
 }
 
-void CoalOvenInventory::Burn()
+void ElectricOvenInventory::Burn()
 {
-	if (itemsSprites.IsFuel(cells[1].item.number) && itemsSprites.IsBurn(cells[0].item.number))
+	if (cells[1].item.number == 10 && fuel < maxFuel)
 	{
-		if (fuel <= 0)
+		fuel += 4;
+		cells[1].item.quantity -= 1;
+		if (fuel > maxFuel)
 		{
-			maxFuel = itemsSprites.IsFuel(cells[1].item.number) * 60;
 			fuel = maxFuel;
-			cells[1].item.quantity -= 1;
-		}
-		if (whatBurn <= 0)
-		{
-			whatBurn = 120;
 		}
 	}
 
 	AllBurn();
-	
-	fuel -= 1;
 }
 
-void CoalOvenInventory::Draw()
+void ElectricOvenInventory::Draw()
 {
 	AllDraw();
 	// Топливо печки
-	functions.DrawRectangle(sf::Vector2f(480, 220), sf::Vector2f(30, 60), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
+	functions.DrawRectangle(sf::Vector2f(400, 180), sf::Vector2f(30, 140), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
 	if (maxFuel != 0)
 	{
-		functions.DrawRectangleGradient(sf::Vector2f(480, 280), sf::Vector2f(30, ((fuel / (float)maxFuel)) * -60), sf::Color::Red, sf::Color(255, 200, 1));
+		functions.DrawRectangleGradient(sf::Vector2f(400, 320), sf::Vector2f(30, ((fuel / (float)maxFuel)) * -140), sf::Color::Red, sf::Color(255, 200, 1));
 	}
 
 }
 
-void CoalOvenInventory::Update(Inventory& playerInventory)
+void ElectricOvenInventory::Update(Inventory& playerInventory)
 {
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);

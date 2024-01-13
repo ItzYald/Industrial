@@ -70,7 +70,6 @@ public:
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
 		{
 			isOpenInventory = NearPlayer(playerPosition, playerAngle);
-			//playerInventory.DeleteButtons();
 		}
 	}
 	/// <summary>Отрисовка</summary>
