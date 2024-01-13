@@ -191,7 +191,7 @@ void Game::PutObject(sf::Vector2f position)
 	// Поставить верстак
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 11)
 	{
-		electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["Workbench"], position));
+		electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], position));
 		//objects.push_back(chests[ovens.size() - 1]);
 	}
 	// Поставить сундук
