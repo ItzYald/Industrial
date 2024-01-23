@@ -162,7 +162,7 @@
       <Filter>Файлы заголовков\Inventories\OvenInventories</Filter>
     </ClInclude>
     <ClInclude Include="ElectricOvenInventory.h">
-      <Filter>Файлы заголовков\Inventories</Filter>
+      <Filter>Файлы заголовков\Inventories\OvenInventories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -16,7 +16,6 @@ template<class InventoryType>
 class StaingObject : Sprite
 {
 public:
-
 	// Открыт ли инт
 	bool isOpenInventory;
 	// Инвентарь (каждый раз разный)
