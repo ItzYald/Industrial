@@ -140,6 +140,7 @@
     <ClCompile Include="Functions\Button.cpp" />
     <ClCompile Include="Functions\Checks.cpp" />
     <ClCompile Include="Functions\Functions.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="ObjectInventory.cpp" />
     <ClCompile Include="StaingObject.cpp" />
     <ClCompile Include="Field.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Functions\Button.h" />
     <ClInclude Include="Functions\Checks.h" />
     <ClInclude Include="Functions\Functions.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="ObjectInventory.h" />
     <ClInclude Include="StaingObject.h" />
     <ClInclude Include="Field.h" />

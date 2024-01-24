@@ -123,7 +123,7 @@ sf::String StaticSprites::GetName(int numberItem)
 		return L"Cундук";
 		break;
 	case 6:
-		return L"Железный слиток";
+		return L"Железный блок";
 		break;
 	case 7:
 		return L"Древесина";
