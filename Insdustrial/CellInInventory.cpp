@@ -10,9 +10,12 @@ CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vect
 	put = _put;
 	take = _take;
 
-	item.number = 0;
-	item.quantity = 0;
+	//item.number = 0;
+	//item.quantity = 0;
 
+	item = Item(0, 0);
+
+	
 	LoadColorInventoryFromFile();
 	button = Button(position, sf::Vector2f(64, 64), L"",
 		colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
@@ -27,8 +30,10 @@ CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vect
 	put = _put;
 	take = true;
 
-	item.number = 0;
-	item.quantity = 0;
+	//item.number = 0;
+	//item.quantity = 0;
+
+	item = Item(0, 0);
 
 	LoadColorInventoryFromFile();
 	button = Button(position, sf::Vector2f(64, 64), L"",
@@ -89,7 +94,7 @@ void CellInInventory::DrawCell()
 	if (item.number != 0 && button.Aim(*rw))
 	{
 		sf::Vector2f positionInventory = button.coords;
-		sf::String name = itemsSprites.GetName(item.number);
+		sf::String name = item.name;
 		int sizeSimbol = 20;
 		functions.DrawRectangle(sf::Vector2f(positionInventory.x + 65, positionInventory.y),
 			sf::Vector2f(sizeSimbol * name.getSize() / 1.8 + 10, 35), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 2);
@@ -98,7 +103,7 @@ void CellInInventory::DrawCell()
 
 }
 
-bool CellInInventory::Take(ItemStruct& mouseItem)
+bool CellInInventory::Take(Item& mouseItem)
 {
 	// Нажатие левой кнопки мыши
 	if (button.CheckLeft(*rw))
@@ -114,7 +119,7 @@ bool CellInInventory::Take(ItemStruct& mouseItem)
 	return false;
 }
 
-void CellInInventory::Update(ItemStruct& mouseItem)
+void CellInInventory::Update(Item& mouseItem)
 {
 	// Нажатие левой кнопки мыши
 	if (button.CheckLeft(*rw))
@@ -134,13 +139,13 @@ void CellInInventory::Update(ItemStruct& mouseItem)
 				// Если разные - поменять
 				else
 				{
-					ItemStruct intermediateItem = mouseItem;
+					Item intermediateItem = mouseItem;
 					mouseItem = item;
 					item = intermediateItem;
 				}
 			}
 		}
-		// Если в ячейке есть предмет, а в мыше нету
+		// Если в ячейке есть предмет, а в мышке нету
 		else if (item.number != 0)
 		{
 			mouseItem = item;

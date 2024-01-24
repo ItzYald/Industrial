@@ -6,14 +6,10 @@
 
 #include "StaticSprites.h"
 
+#include "Item.h"
+
 #include "Functions/Functions.h"
 #include "Functions/Button.h"
-
-struct ItemStruct
-{
-	int number;
-	int quantity;
-};
 
 class CellInInventory
 {
@@ -30,7 +26,8 @@ public:
 	// Можно ли брать из ячейки
 	bool take;
 
-	ItemStruct item;
+	//ItemStruct item;
+	Item item;
 	// Кнопка
 	Button button;
 	// Список цветов
@@ -44,9 +41,9 @@ public:
 	// Отрисовать ячейку
 	void DrawCell();
 	// Взять из ячейки
-	bool Take(ItemStruct& mouseItem);
+	bool Take(Item& mouseItem);
 	// Каждый кадр
-	void Update(ItemStruct& mouseItem);
+	void Update(Item& mouseItem);
 
 };
 

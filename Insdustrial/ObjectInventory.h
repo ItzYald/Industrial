@@ -34,8 +34,6 @@ protected:
 
 public:
 	void LoadColorInventoryFromFile();
-	void DrawCommon(std::vector<std::vector<ItemStruct>> items);
-	void DrawCommon(std::vector<ItemStruct> items);
 	void DrawCommon(std::vector<std::vector<CellInInventory>> cells);
 	void DrawCommon(std::vector<CellInInventory> cells);
 

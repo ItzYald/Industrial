@@ -24,26 +24,27 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 
 	buttons = std::vector<Button>();
 
-	inventory.cells[0][3].item.number = 1;
+	inventory.cells[0][3].item.NumberUpdate(1);
 	inventory.cells[0][3].item.quantity = 15;
-	inventory.cells[1][3].item.number = 2;
+	inventory.cells[1][3].item.NumberUpdate(2);
 	inventory.cells[1][3].item.quantity = 20;
-	inventory.cells[2][3].item.number = 3;
+	inventory.cells[2][3].item.NumberUpdate(3);
 	inventory.cells[2][3].item.quantity = 10;
-	inventory.cells[3][3].item.number = 5;
+	inventory.cells[3][3].item.NumberUpdate(5);
 	inventory.cells[3][3].item.quantity = 2;
-	inventory.cells[4][3].item.number = 4;
+	inventory.cells[4][3].item.NumberUpdate(4);
 	inventory.cells[4][3].item.quantity = 10;
-	inventory.cells[5][3].item.number = 8;
+	inventory.cells[5][3].item.NumberUpdate(8);
 	inventory.cells[5][3].item.quantity = 10;
-	inventory.cells[6][3].item.number = 7;
+	inventory.cells[6][3].item.NumberUpdate(7);
 	inventory.cells[6][3].item.quantity = 10;
-	inventory.cells[7][3].item.number = 9;
+	inventory.cells[7][3].item.NumberUpdate(9);
 	inventory.cells[7][3].item.quantity = 10;
-	inventory.cells[8][3].item.number = 10;
+	inventory.cells[8][3].item.NumberUpdate(10);
 	inventory.cells[8][3].item.quantity = 60;
-	inventory.cells[9][3].item.number = 11;
+	inventory.cells[9][3].item.NumberUpdate(11);
 	inventory.cells[9][3].item.quantity = 14;
+
 
 	for (int i = 0; i < 30; i++)
 	{

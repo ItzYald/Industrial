@@ -25,7 +25,7 @@ public:
 	std::vector<std::vector<CellInInventory>> cellsMiniWorkbench;
 
 	// Предмет перетаскиваемый мышкой
-	ItemStruct mouseItem;
+	Item mouseItem;
 	// Выбранная ячейка (колесиком мыши)
 	int choseCell;	
 

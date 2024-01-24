@@ -18,12 +18,7 @@ public:
 	sf::Sprite GetSprite(int numberItem);
 	sf::Texture GetTexture(int numberItem);
 	void DrawItemSprite(sf::RenderWindow* rw, int numberItem, sf::Vector2f position, sf::Vector2f scale);
-	// Может использоваться как топливо
-	int IsFuel(int nuberItem);
-	// Можно переплавить / сжечь
-	int IsBurn(int nuberItem);
-	// Получить название
-	sf::String GetName(int nuberItem);
+	// Деструктор
 	~StaticSprites()
 	{
 		for (int i = 0; i < textures.size(); i++)

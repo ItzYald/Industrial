@@ -5,7 +5,7 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw)
 	// Узнать координаты мыши
 	mousePosition = sf::Vector2i();
 	// Предмет перетаскиваемый мышкой
-	mouseItem = ItemStruct();
+	mouseItem = Item(0, 0);
 	itemsSprites = StaticSprites();
 	rw = _rw;
 	functions = Functions(rw);

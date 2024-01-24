@@ -16,6 +16,7 @@ public:
 	// Может ли быть топливом и сколько даст топлива
 	int isFuel;
 	
+	Item(){}
 	Item(int _number, int _quantity);
 
 	/// <summary>Обновление id предмета</summary>

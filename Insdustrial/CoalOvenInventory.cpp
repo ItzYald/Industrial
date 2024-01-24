@@ -21,11 +21,12 @@ CoalOvenInventory::CoalOvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
 
 void CoalOvenInventory::Burn()
 {
-	if (itemsSprites.IsFuel(cells[1].item.number) && itemsSprites.IsBurn(cells[0].item.number))
+	//if (itemsSprites.IsFuel(cells[1].item.number) && itemsSprites.IsBurn(cells[0].item.number))
+	if (cells[1].item.isFuel && cells[0].item.isBurn)
 	{
 		if (fuel <= 0)
 		{
-			maxFuel = itemsSprites.IsFuel(cells[1].item.number) * 60;
+			maxFuel = cells[1].item.isFuel * 60;
 			fuel = maxFuel;
 			cells[1].item.quantity -= 1;
 		}
