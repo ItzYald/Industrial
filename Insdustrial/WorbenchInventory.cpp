@@ -109,7 +109,7 @@ void WorkbenchInventory::AddQuadroCraft(int craft1, int craft2, int craft3, int 
 	AddCraft(0, 0, 0, 0, craft1, craft2, 0, craft3, craft4, result, quantity);
 }
 
-void WorkbenchInventory::Craft2()
+void WorkbenchInventory::Craft()
 {
 	// Если нет ни одного крафта, то сделать реузультат пустым
 	bool isAllCraft = true;
@@ -154,8 +154,7 @@ void WorkbenchInventory::Craft2()
 
 	if (isAllCraft)
 	{
-		madeItemCell.item.number = 0;
-		madeItemCell.item.quantity = 0;
+		madeItemCell.item.NumberUpdate(0);
 	}
 
 	// Если тип пустой - сделать колличество 0
@@ -166,18 +165,18 @@ void WorkbenchInventory::Craft2()
 	// Если колличество 0 - сделать тип пустой
 	if (madeItemCell.item.quantity == 0)
 	{
-		madeItemCell.item.number = 0;
+		madeItemCell.item.NumberUpdate(0);
 	}
 
 }
 
-void WorkbenchInventory::Draw2()
+void WorkbenchInventory::Draw()
 {
 	DrawCommon(cells);
 	madeItemCell.DrawCell();
 }
 
-void WorkbenchInventory::Update2(Inventory& playerInventory)
+void WorkbenchInventory::Update(Inventory& playerInventory)
 {
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
@@ -208,7 +207,7 @@ void WorkbenchInventory::Update2(Inventory& playerInventory)
 		}
 	}
 
-	Craft2();
-	Draw2();
+	Craft();
+	Draw();
 	playerInventory.Update();
 }

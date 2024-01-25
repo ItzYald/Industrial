@@ -16,7 +16,7 @@ ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _
 
 	fuel = 0;
 	whatBurn = 120;
-	maxFuel = 500;
+	maxFuel = 3600;
 
 	itemsSprites = StaticSprites();
 }
@@ -25,7 +25,7 @@ void ElectricOvenInventory::Burn()
 {
 	if (cells[1].item.number == 10 && fuel < maxFuel)
 	{
-		fuel += 4;
+		fuel += 10;
 		cells[1].item.quantity -= 1;
 		if (fuel > maxFuel)
 		{
@@ -34,6 +34,10 @@ void ElectricOvenInventory::Burn()
 	}
 
 	AllBurn();
+	if (cells[0].item.isBurn && fuel > 0)
+	{
+		fuel -= 1;
+	}
 	functions.PrintText(std::to_string(fuel), sf::Vector2f(10, 100), 20, sf::Color::Red);
 }
 

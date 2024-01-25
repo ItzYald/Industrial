@@ -176,7 +176,7 @@ void Game::ChestInventoryFun()
 // Инвентарь верстака
 void Game::WorkbenchInventoryFun()
 {
-	workbenches[player.whatNumberInventoryOpen]->inventory.Update2(player.inventory);
+	workbenches[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
 	CloseInventory();
 }
 // Поставить объект по определенным координатам

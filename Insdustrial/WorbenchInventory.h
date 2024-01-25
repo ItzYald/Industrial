@@ -39,11 +39,11 @@ public:
 	// Добавить четверной крафт (где только 4 РАЗЛИЧНЫХ предмета используется, но можно в 4 вариантах разложить)
 	void AddQuadroCraft(int craft1, int craft2, int craft3, int craft4, int result, int quantity);
 	// Проверка слотов крафта
-	void Craft2();
+	void Craft();
 	// Отрисовка
-	void Draw2();
+	void Draw();
 	// Работа интерфейса и мыши
-	void Update2(Inventory& playerInventory);
+	void Update(Inventory& playerInventory);
 
 };
 
