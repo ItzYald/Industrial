@@ -37,6 +37,9 @@
     <Filter Include="Файлы заголовков\Inventories\OvenInventories">
       <UniqueIdentifier>{579a1259-c78e-4d6e-b27e-143a07ddac37}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Sprites\InventoryObject">
+      <UniqueIdentifier>{dcd88059-b19e-444c-8fe0-1cc46ecf58a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Insdustrial.cpp">
@@ -72,22 +75,13 @@
     <ClCompile Include="Inventory.cpp">
       <Filter>Исходные файлы\Inventories</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Исходные файлы\Sprites</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>Исходные файлы\Sprites</Filter>
-    </ClCompile>
-    <ClCompile Include="StaingObject.cpp">
       <Filter>Исходные файлы\Sprites</Filter>
     </ClCompile>
     <ClCompile Include="Wire.cpp">
       <Filter>Исходные файлы\Sprites</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Исходные файлы\Sprites</Filter>
-    </ClCompile>
-    <ClCompile Include="ElectrincObject.cpp">
       <Filter>Исходные файлы\Sprites</Filter>
     </ClCompile>
     <ClCompile Include="CellInInventory.cpp">
@@ -104,6 +98,12 @@
     </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ElectrincObject.cpp">
+      <Filter>Исходные файлы\Sprites\InventoryObject</Filter>
+    </ClCompile>
+    <ClCompile Include="StaingObject.cpp">
+      <Filter>Исходные файлы\Sprites\InventoryObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,9 +136,6 @@
     </ClInclude>
     <ClInclude Include="WorbenchInventory.h">
       <Filter>Файлы заголовков\Inventories</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Файлы заголовков\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Файлы заголовков\Sprites</Filter>

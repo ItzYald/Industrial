@@ -9,7 +9,8 @@
 #include "Functions/Functions.h"
 #include "Functions/Checks.h"
 
-#include "Object.h"
+#include "Sprite.h"
+
 #include "Inventory.h"
 
 template<class InventoryType>

@@ -141,7 +141,7 @@ void WorkbenchInventory::Craft()
 				isAllCraft = false;
 				if (madeItemCell.item.number == 0)
 				{
-					madeItemCell.item.number = collectionResult[i][0];
+					madeItemCell.item.NumberUpdate(collectionResult[i][0]);
 					madeItemCell.item.quantity = collectionResult[i][1];
 				}
 			}

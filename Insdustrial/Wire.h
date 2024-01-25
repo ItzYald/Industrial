@@ -1,11 +1,12 @@
 #pragma once
 #include <iostream>
 #include <vector>
+
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 
-#include "Object.h"
+#include "Sprite.h"
 
 class Wire : public Sprite
 {

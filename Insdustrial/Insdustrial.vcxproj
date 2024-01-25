@@ -146,7 +146,6 @@
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Insdustrial.cpp" />
-    <ClCompile Include="Object.cpp" />
     <ClCompile Include="OvenInventory.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -169,7 +168,6 @@
     <ClInclude Include="StaingObject.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Object.h" />
     <ClInclude Include="OvenInventory.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Sprite.h" />
