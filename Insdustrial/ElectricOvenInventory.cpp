@@ -14,7 +14,7 @@ ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _
 	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 306), true));
 	cells.push_back(CellInInventory(rw, sf::Vector2f(670, 218), false));
 
-	fuel = 10;
+	fuel = 0;
 	whatBurn = 120;
 	maxFuel = 500;
 
@@ -34,6 +34,7 @@ void ElectricOvenInventory::Burn()
 	}
 
 	AllBurn();
+	functions.PrintText(std::to_string(fuel), sf::Vector2f(10, 100), 20, sf::Color::Red);
 }
 
 void ElectricOvenInventory::Draw()

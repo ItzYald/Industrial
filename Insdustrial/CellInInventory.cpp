@@ -105,14 +105,13 @@ void CellInInventory::DrawCell()
 
 bool CellInInventory::Take(Item& mouseItem)
 {
-	// Нажатие левой кнопки мыши
+	//  Взять предмет левой кнопкой мыши
 	if (button.CheckLeft(*rw))
 	{
 		if (mouseItem.number == 0)
 		{
 			mouseItem = item;
-			item.number = 0;
-			item.quantity = 0;
+			item.NumberUpdate(0);
 			return true;
 		}
 	}
@@ -133,8 +132,7 @@ void CellInInventory::Update(Item& mouseItem)
 				if (item.number == mouseItem.number)
 				{
 					item.quantity += mouseItem.quantity;
-					mouseItem.number = 0;
-					mouseItem.quantity = 0;
+					mouseItem.NumberUpdate(0);
 				}
 				// Если разные - поменять
 				else
@@ -149,15 +147,13 @@ void CellInInventory::Update(Item& mouseItem)
 		else if (item.number != 0)
 		{
 			mouseItem = item;
-			item.number = 0;
-			item.quantity = 0;
+			item.NumberUpdate(0);
 		}
 		// Если предмет есть в мыши, но нету в ячейке
 		else if (mouseItem.number != 0 && put)
 		{
 			item = mouseItem;
-			mouseItem.number = 0;
-			mouseItem.quantity = 0;
+			mouseItem.NumberUpdate(0);
 		}
 	}
 	// Нажатие правой кнопки мыши
@@ -173,7 +169,7 @@ void CellInInventory::Update(Item& mouseItem)
 			}
 			else if (item.number == 0)
 			{
-				item.number = mouseItem.number;
+				item.NumberUpdate(mouseItem.number);
 				item.quantity = 1;
 				mouseItem.quantity -= 1;
 			}
@@ -185,8 +181,7 @@ void CellInInventory::Update(Item& mouseItem)
 			if (item.quantity == 1)
 			{
 				mouseItem.quantity = 1;
-				item.number = 0;
-				item.quantity = 0;
+				item.NumberUpdate(0);
 			}
 			else
 			{
@@ -199,10 +194,10 @@ void CellInInventory::Update(Item& mouseItem)
 	// Если колличество 0 - сделать пустой
 	if (item.quantity == 0)
 	{
-		item.number = 0;
+		item.NumberUpdate(0);
 	}
 	if (mouseItem.quantity == 0)
 	{
-		mouseItem.number = 0;
+		mouseItem.NumberUpdate(0);
 	}
 }

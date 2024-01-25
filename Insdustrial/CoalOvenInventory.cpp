@@ -21,7 +21,6 @@ CoalOvenInventory::CoalOvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
 
 void CoalOvenInventory::Burn()
 {
-	//if (itemsSprites.IsFuel(cells[1].item.number) && itemsSprites.IsBurn(cells[0].item.number))
 	if (cells[1].item.isFuel && cells[0].item.isBurn)
 	{
 		if (fuel <= 0)

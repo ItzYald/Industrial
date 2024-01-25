@@ -29,7 +29,8 @@ public:
 	// Выбранная ячейка (колесиком мыши)
 	int choseCell;	
 
-	// Не используется
+
+	// Базовый конструктор
 	Inventory(){ }
 	// Конструктор
 	Inventory(std::shared_ptr<sf::RenderWindow> _rw);
