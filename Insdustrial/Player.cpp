@@ -24,25 +24,27 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 
 	buttons = std::vector<Button>();
 
-	inventory.cells[0][3].item.NumberUpdate(1);
-	inventory.cells[0][3].item.quantity = 15;
+	inventory.cells[0][2].item.NumberUpdate(1);
+	inventory.cells[0][2].item.quantity = 15;
 	inventory.cells[1][3].item.NumberUpdate(2);
 	inventory.cells[1][3].item.quantity = 20;
-	inventory.cells[2][3].item.NumberUpdate(3);
-	inventory.cells[2][3].item.quantity = 10;
+	inventory.cells[2][2].item.NumberUpdate(3);
+	inventory.cells[2][2].item.quantity = 10;
 	inventory.cells[3][3].item.NumberUpdate(5);
 	inventory.cells[3][3].item.quantity = 2;
-	inventory.cells[4][3].item.NumberUpdate(4);
-	inventory.cells[4][3].item.quantity = 10;
+	inventory.cells[4][2].item.NumberUpdate(4);
+	inventory.cells[4][2].item.quantity = 10;
 	inventory.cells[5][3].item.NumberUpdate(8);
 	inventory.cells[5][3].item.quantity = 10;
-	inventory.cells[6][3].item.NumberUpdate(7);
-	inventory.cells[6][3].item.quantity = 10;
-	inventory.cells[7][3].item.NumberUpdate(9);
-	inventory.cells[7][3].item.quantity = 10;
-	inventory.cells[8][3].item.NumberUpdate(10);
-	inventory.cells[8][3].item.quantity = 60;
+	inventory.cells[6][2].item.NumberUpdate(7);
+	inventory.cells[6][2].item.quantity = 10;
+	inventory.cells[7][2].item.NumberUpdate(9);
+	inventory.cells[7][2].item.quantity = 10;
+	inventory.cells[8][2].item.NumberUpdate(10);
+	inventory.cells[8][2].item.quantity = 60;
 	inventory.cells[9][3].item.NumberUpdate(11);
+	inventory.cells[9][3].item.quantity = 14;
+	inventory.cells[9][3].item.NumberUpdate(12);
 	inventory.cells[9][3].item.quantity = 14;
 
 

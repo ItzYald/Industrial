@@ -51,6 +51,9 @@ void Item::NumberUpdate(int _number)
 	case 11:
 		name = L"Электропеч";
 		break;
+	case 12:
+		name = L"Медный провод";
+		break;
 	default:
 		break;
 	}

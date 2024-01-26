@@ -7,6 +7,7 @@ Game::Game(sf::RenderWindow& _rw)
 	functions = Functions(rw);
 	sizeW = _rw.getSize();
 	screen = "ЗагрузкаПриложения1";
+	mouseWheel = 0;
 }
 // Отображение загрузки приложения
 void Game::LoadingApp1()

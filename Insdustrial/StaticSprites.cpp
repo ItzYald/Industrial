@@ -5,7 +5,7 @@ StaticSprites::StaticSprites()
 	textures = std::vector<sf::Texture*>();
 	sprites = std::vector<sf::Sprite>();
 	
-	for (int i = 0; i < 12; i++)
+	for (int i = 0; i < 13; i++)
 	{
 		textures.push_back(new sf::Texture());
 		sprites.push_back(sf::Sprite());
@@ -35,8 +35,10 @@ StaticSprites::StaticSprites()
 	textures[10]->loadFromFile("Images/Redstone.png");
 	// Электропеч
 	textures[11]->loadFromFile("Images/Objects/ElectricOven.png");
+	// Медный провод
+	textures[12]->loadFromFile("Images/Wires/CooperWire1.png");
 
-	for (int i = 0; i < 12; i++)
+	for (int i = 0; i < 13; i++)
 	{
 		sprites[i].setTexture(*textures[i]);
 	}

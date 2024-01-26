@@ -198,10 +198,13 @@ void WorkbenchInventory::Update(Inventory& playerInventory)
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				cells[i][j].item.quantity -= 1;
-				if (cells[i][j].item.quantity == 0)
+				if (cells[i][j].item.number != 0)
 				{
-					cells[i][j].item.number = 0;
+					cells[i][j].item.quantity -= 1;
+					if (cells[i][j].item.quantity == 0)
+					{
+						cells[i][j].item.NumberUpdate(0);
+					}
 				}
 			}
 		}
