@@ -95,14 +95,6 @@ public:
 	void DrawPlay();
 	// Закрыть
 	void CloseInventory();
-	// Интерфейс Печки
-	void OvenInventoryFun();
-	// Интерфейс ЭлектроПечки
-	void ElectricOvenInventoryFun(){ }
-	// Инвентарь сундука
-	void ChestInventoryFun();
-	// Инвентарь верстака
-	void WorkbenchInventoryFun();
 	// Поставить объект по определенным коодинатам
 	void PutObject(sf::Vector2f position);
 	// Геймплей

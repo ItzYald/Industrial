@@ -175,24 +175,6 @@ void Game::CloseInventory()
 		player.buttons.clear();
 	}
 }
-// Интерфейс печки
-void Game::OvenInventoryFun()
-{
-	coalOvens[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-	CloseInventory();
-}
-// Инвентарь сундука
-void Game::ChestInventoryFun()
-{
-	chests[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-	CloseInventory();
-}
-// Инвентарь верстака
-void Game::WorkbenchInventoryFun()
-{
-	workbenches[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-	CloseInventory();
-}
 // Поставить объект по определенным координатам
 void Game::PutObject(sf::Vector2f position)
 {
@@ -397,12 +379,14 @@ void Game::Play()
 		// Инвентарь сундука
 		else if (player.whatTypeInventoryOpen == 3)
 		{
-			ChestInventoryFun();
+			chests[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+			CloseInventory();
 		}
 		// Инвентарь верстака
 		else if (player.whatTypeInventoryOpen == 4)
 		{
-			WorkbenchInventoryFun();
+			workbenches[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+			CloseInventory();
 		}
 	}
 
