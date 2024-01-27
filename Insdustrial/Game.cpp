@@ -106,6 +106,7 @@ void Game::UnloadingPlay(std::string nextScreen)
 	electricOvens.clear();
 	chests.clear();
 	workbenches.clear();
+	wires.clear();
 
 	screen = nextScreen;
 }
@@ -256,7 +257,7 @@ void Game::Drive()
 			break;
 		}
 	}
-
+	// Работа угольных печей
 	for (int i = 0; i < coalOvens.size(); i++)
 	{
 		coalOvens[i]->Update(player.position, player.angle);
@@ -269,7 +270,7 @@ void Game::Drive()
 			break;
 		}
 	}
-
+	// Работа электрических печей
 	for (int i = 0; i < electricOvens.size(); i++)
 	{
 		electricOvens[i]->Update(player.position, player.angle);
@@ -282,7 +283,7 @@ void Game::Drive()
 			break;
 		}
 	}
-
+	// Работа сундуков
 	for (int i = 0; i < chests.size(); i++)
 	{
 		chests[i]->Update(player.position, player.angle);
@@ -295,7 +296,7 @@ void Game::Drive()
 			break;
 		}
 	}
-
+	// Работа верстаков
 	for (int i = 0; i < workbenches.size(); i++)
 	{
 		workbenches[i]->Update(player.position, player.angle);
@@ -306,6 +307,29 @@ void Game::Drive()
 			player.whatTypeInventoryOpen = 4;
 			player.whatNumberInventoryOpen = i;
 			break;
+		}
+	}
+	// Работа проводов
+	for (int i = 0; i < wires.size(); i++)
+	{
+		for (int j = 0; j < wires.size(); j++)
+		{
+			if (wires[i]->position.x + 1 == wires[j]->position.x && wires[i]->position.y == wires[j]->position.y)
+			{
+				wires[i]->connections[1] = true;
+			}
+			if (wires[i]->position.x - 1 == wires[j]->position.x && wires[i]->position.y == wires[j]->position.y)
+			{
+				wires[i]->connections[3] = true;
+			}
+			if (wires[i]->position.x == wires[j]->position.x && wires[i]->position.y + 1 == wires[j]->position.y)
+			{
+				wires[i]->connections[2] = true;
+			}
+			if (wires[i]->position.x == wires[j]->position.x && wires[i]->position.y - 1 == wires[j]->position.y)
+			{
+				wires[i]->connections[0] = true;
+			}
 		}
 	}
 
