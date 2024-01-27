@@ -61,12 +61,14 @@ private:
 	// std::vector<std::shared_ptr<StaingObject<OvenInventory>>> objects;
 	// Список печек
 	std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>> coalOvens;
-
+	// Список электрических печек
 	std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>> electricOvens;
 	// Список сундуков
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests;
 	// Список верстаков
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches;
+	// Список проводов
+	std::vector<std::shared_ptr<Wire>> wires;
 
 	//std::vector<std::shared_ptr<Object>> objects;
 

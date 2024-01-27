@@ -33,6 +33,8 @@ void Game::LoadingApp()
 	chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
 	workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
 
+	wires = std::vector<std::shared_ptr<Wire>>();
+
 	//objects = std::vector<std::shared_ptr<Object>>();
 
 	//for (int i = 0; i < ovens.size(); i++)
@@ -87,6 +89,12 @@ void Game::LoadingPlay()
 	electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], sf::Vector2f(23, 19)));
 	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], sf::Vector2f(23, 21)));
 	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], sf::Vector2f(23, 22)));
+
+	wires.push_back(std::make_shared<Wire>(
+		rw, field.sizeOne,
+		textures["CooperWire0"], textures["CooperWire1"], textures["CooperWire2"], textures["CooperWire3"], textures["CooperWire4"],
+		sf::Vector2f(10, 10)));
+
 	screen = "Игра";
 }
 // Выгрузка геймплея
@@ -131,9 +139,13 @@ void Game::DrawPlay()
 		chest->Draw(cameraPosition);
 	}
 	// Отрисовка верстаков
-	for (std::shared_ptr<StaingObject<WorkbenchInventory>> worbenche : workbenches)
+	for (std::shared_ptr<StaingObject<WorkbenchInventory>> worbench : workbenches)
 	{
-		worbenche->Draw(cameraPosition);
+		worbench->Draw(cameraPosition);
+	}
+	for (std::shared_ptr<Wire> wire : wires)
+	{
+		wire->Draw(cameraPosition);
 	}
 	player.Draw(cameraPosition);
 }
@@ -207,6 +219,15 @@ void Game::PutObject(sf::Vector2f position)
 		workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], position));
 		//objects.push_back(chests[ovens.size() - 1]);
 	}
+	// Поставить медный провод
+	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 12)
+	{
+		wires.push_back(std::make_shared<Wire>(
+			rw, field.sizeOne,
+			textures["CooperWire0"], textures["CooperWire1"], textures["CooperWire2"], textures["CooperWire3"], textures["CooperWire4"],
+			position));
+		//objects.push_back(chests[ovens.size() - 1]);
+	}
 }
 // Геймплей
 void Game::Drive()
@@ -216,7 +237,7 @@ void Game::Drive()
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	bool nearObject = player.PutObject(coalOvens, electricOvens, chests, workbenches);
+	bool nearObject = player.PutObject(coalOvens, electricOvens, chests, workbenches, wires);
 	if (nearObject)
 	{
 		switch (player.angle)

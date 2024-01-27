@@ -12,15 +12,17 @@ Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
 		sprites.push_back(sf::Sprite());
 	}
 	sprites[0].setTexture(texture1);
-	sprites[1].setTexture(texture1);
-	sprites[2].setTexture(texture1);
-	sprites[3].setTexture(texture1);
-	sprites[4].setTexture(texture1);
+	sprites[1].setTexture(texture2);
+	sprites[2].setTexture(texture3);
+	sprites[3].setTexture(texture4);
+	sprites[4].setTexture(texture5);
 	position = _position;
 
-	numberSprite = 0;
-
-	sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
+	numberSprite = 1;
+	for (int i = 0; i < sprites.size(); i++)
+	{
+		sprites[i].setScale(fieldSizeOne / sprites[i].getTexture()->getSize().x, fieldSizeOne / sprites[i].getTexture()->getSize().y);
+	}
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -30,16 +32,13 @@ Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
 
 bool Wire::NearPlayer(sf::Vector2f playerPosition, int playerAngle)
 {
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
-	//{
-	//	if ((playerPosition.x == position.x && playerPosition.y == position.y + 1 && playerAngle == 2) ||
-	//		(playerPosition.x == position.x && playerPosition.y == position.y - 1 && playerAngle == 0) ||
-	//		(playerPosition.x == position.x + 1 && playerPosition.y == position.y && playerAngle == 1) ||
-	//		(playerPosition.x == position.x - 1 && playerPosition.y == position.y && playerAngle == 3))
-	//	{
-	//		
-	//	}
-	//}
+	if (((int)playerPosition.x == position.x && (int)playerPosition.y == position.y + 1 && playerAngle == 0) ||
+		((int)playerPosition.x == position.x && (int)playerPosition.y == position.y - 1 && playerAngle == 2) ||
+		((int)playerPosition.x == position.x + 1 && (int)playerPosition.y == position.y && playerAngle == 3) ||
+		((int)playerPosition.x == position.x - 1 && (int)playerPosition.y == position.y && playerAngle == 1))
+	{
+		return true;
+	}
 	return false;
 }
 

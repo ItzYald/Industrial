@@ -40,6 +40,9 @@
     <Filter Include="Исходные файлы\Sprites\InventoryObject">
       <UniqueIdentifier>{dcd88059-b19e-444c-8fe0-1cc46ecf58a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\Sprites\InventoryObject">
+      <UniqueIdentifier>{dd98de04-58bb-47c3-b1f4-95f0e110ff8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Insdustrial.cpp">
@@ -143,13 +146,7 @@
     <ClInclude Include="Sprite.h">
       <Filter>Файлы заголовков\Sprites</Filter>
     </ClInclude>
-    <ClInclude Include="StaingObject.h">
-      <Filter>Файлы заголовков\Sprites</Filter>
-    </ClInclude>
     <ClInclude Include="Wire.h">
-      <Filter>Файлы заголовков\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="ElectrincObject.h">
       <Filter>Файлы заголовков\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="CellInInventory.h">
@@ -166,6 +163,12 @@
     </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="StaingObject.h">
+      <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ElectrincObject.h">
+      <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

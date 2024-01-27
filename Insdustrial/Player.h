@@ -18,6 +18,7 @@
 #include "ElectricOvenInventory.h"
 #include "ChestInventory.h"
 #include "WorbenchInventory.h"
+#include "Wire.h"
 
 class Player : public Sprite
 {
@@ -50,7 +51,8 @@ public:
 	bool PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>& ovens,
 		std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>& electricOvens,
 		std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests,
-		std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches);
+		std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
+		std::vector< std::shared_ptr<Wire>>& wires);
 	// Отрисовка
 	void Draw(sf::Vector2f cameraPosition);
 };

@@ -109,20 +109,23 @@ void Player::Update()
 bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>& ovens,
 	std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>& electricOvens,
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests, 
-	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches)
+	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
+	std::vector< std::shared_ptr<Wire>>& wires)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
 	{
 		if ((inventory.cells[inventory.choseCell][3].item.number == 2 ||
 			inventory.cells[inventory.choseCell][3].item.number == 5 || 
 			inventory.cells[inventory.choseCell][3].item.number == 8 ||
-			inventory.cells[inventory.choseCell][3].item.number == 11) &&
+			inventory.cells[inventory.choseCell][3].item.number == 11 ||
+			inventory.cells[inventory.choseCell][3].item.number == 12) &&
 			inventory.cells[inventory.choseCell][3].item.quantity > 0)
 		{
 			bool isNear = false;
 			for (std::shared_ptr<StaingObject<CoalOvenInventory>>& thisObject : ovens)
 			{
-				isNear = thisObject->NearPlayer(position, angle);
+				if (!isNear)
+					isNear = thisObject->NearPlayer(position, angle);
 			}
 			for (std::shared_ptr<StaingObject<ElectricOvenInventory>>& thisObject : electricOvens)
 			{
@@ -135,6 +138,11 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventor
 					isNear = thisObject->NearPlayer(position, angle);
 			}
 			for (std::shared_ptr<StaingObject<WorkbenchInventory>>& thisObject : workbenches)
+			{
+				if (!isNear)
+					isNear = thisObject->NearPlayer(position, angle);
+			}
+			for (std::shared_ptr<Wire>& thisObject : wires)
 			{
 				if (!isNear)
 					isNear = thisObject->NearPlayer(position, angle);
