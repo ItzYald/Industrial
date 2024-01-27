@@ -35,7 +35,7 @@ public:
 	CellInInventory(){ }
 	CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put, bool _take);
 	CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put);
-
+	// Загрузка настроек цвета интерфейса из файла
 	void LoadColorInventoryFromFile();
 
 	// Отрисовать ячейку

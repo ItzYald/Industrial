@@ -33,8 +33,12 @@ protected:
 	StaticSprites itemsSprites;
 
 public:
+	// Загрузка настроек цвета интерфейса из файла
 	void LoadColorInventoryFromFile();
+	// Общая отрисовка ячеек в инвентаре (для всех у кого есть список клеток)
+	// Для двумерных списков
 	void DrawCommon(std::vector<std::vector<CellInInventory>> cells);
+	// Для одномерных списков
 	void DrawCommon(std::vector<CellInInventory> cells);
 
 };

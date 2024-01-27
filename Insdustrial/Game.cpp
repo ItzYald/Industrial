@@ -116,7 +116,7 @@ void Game::DrawPlay()
 	// Белый экран
 	functions.DrawRectangle(sf::Vector2f(0, 0), sf::Vector2f(sizeW.x, sizeW.y), sf::Color(255, 255, 255));
 
-	// Сетка
+	// Отрисовка сетки
 	for (int i = 0; i < field.size.x; i++)
 	{
 		for (int j = 0; j < field.size.y; j++)
@@ -144,10 +144,12 @@ void Game::DrawPlay()
 	{
 		worbench->Draw(cameraPosition);
 	}
+	// Отрисовка проводов
 	for (std::shared_ptr<Wire> wire : wires)
 	{
 		wire->Draw(cameraPosition);
 	}
+	// Отрисовка игрока
 	player.Draw(cameraPosition);
 }
 // Закрыть инвентарь
