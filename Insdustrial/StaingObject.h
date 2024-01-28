@@ -14,7 +14,7 @@
 #include "Inventory.h"
 
 template<class InventoryType>
-class StaingObject : Sprite
+class StaingObject : public Sprite
 {
 public:
 	// Открыт ли инт

@@ -31,6 +31,26 @@ Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
 	}
 }
 
+void Wire::CheckConnections(sf::Vector2f positionSeconObject) 
+{
+	if (position.x + 1 == positionSeconObject.x && position.y == positionSeconObject.y)
+	{
+		connections[1] = true;
+	}
+	if (position.x - 1 == positionSeconObject.x && position.y == positionSeconObject.y)
+	{
+		connections[3] = true;
+	}
+	if (position.x == positionSeconObject.x && position.y + 1 == positionSeconObject.y)
+	{
+		connections[2] = true;
+	}
+	if (position.x == positionSeconObject.x && position.y - 1 == positionSeconObject.y)
+	{
+		connections[0] = true;
+	}
+}
+
 bool Wire::NearPlayer(sf::Vector2f playerPosition, int playerAngle)
 {
 	if (((int)playerPosition.x == position.x && (int)playerPosition.y == position.y + 1 && playerAngle == 0) ||
@@ -109,6 +129,12 @@ void Wire::Draw(sf::Vector2f cameraPosition)
 		numberSprite = 1;
 		sprites[numberSprite].setRotation(90);
 	}
+	// Связь справа и слева
+	if (!connections[0] && connections[1] && !connections[2] && connections[3])
+	{
+		numberSprite = 1;
+		sprites[numberSprite].setRotation(0);
+	}
 	// Связь сверху
 	if (connections[0] && !connections[1] && !connections[2] && !connections[3])
 	{
@@ -153,8 +179,8 @@ void Wire::Draw(sf::Vector2f cameraPosition)
 
 	rw->draw(sprites[numberSprite]);
 	sf::Vector2f realPosition = sf::Vector2f(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
-	functions.PrintText(std::to_string((int)connections[0]), sf::Vector2f(realPosition.x + 20, realPosition.y), 15, sf::Color::Blue);
-	functions.PrintText(std::to_string((int)connections[1]), sf::Vector2f(realPosition.x + 40, realPosition.y + 20), 15, sf::Color::Blue);
-	functions.PrintText(std::to_string((int)connections[2]), sf::Vector2f(realPosition.x + 20, realPosition.y + 40), 15, sf::Color::Blue);
-	functions.PrintText(std::to_string((int)connections[3]), sf::Vector2f(realPosition.x, realPosition.y + 20), 15, sf::Color::Blue);
+	//functions.PrintText(std::to_string((int)connections[0]), sf::Vector2f(realPosition.x + 20, realPosition.y), 15, sf::Color::Blue);
+	//functions.PrintText(std::to_string((int)connections[1]), sf::Vector2f(realPosition.x + 40, realPosition.y + 20), 15, sf::Color::Blue);
+	//functions.PrintText(std::to_string((int)connections[2]), sf::Vector2f(realPosition.x + 20, realPosition.y + 40), 15, sf::Color::Blue);
+	//functions.PrintText(std::to_string((int)connections[3]), sf::Vector2f(realPosition.x, realPosition.y + 20), 15, sf::Color::Blue);
 }

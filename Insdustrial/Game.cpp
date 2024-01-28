@@ -296,25 +296,17 @@ void Game::Drive()
 	// Работа проводов
 	for (int i = 0; i < wires.size(); i++)
 	{
+		// Проверка на соединения c проводами
 		for (int j = 0; j < wires.size(); j++)
 		{
-			if (wires[i]->position.x + 1 == wires[j]->position.x && wires[i]->position.y == wires[j]->position.y)
-			{
-				wires[i]->connections[1] = true;
-			}
-			if (wires[i]->position.x - 1 == wires[j]->position.x && wires[i]->position.y == wires[j]->position.y)
-			{
-				wires[i]->connections[3] = true;
-			}
-			if (wires[i]->position.x == wires[j]->position.x && wires[i]->position.y + 1 == wires[j]->position.y)
-			{
-				wires[i]->connections[2] = true;
-			}
-			if (wires[i]->position.x == wires[j]->position.x && wires[i]->position.y - 1 == wires[j]->position.y)
-			{
-				wires[i]->connections[0] = true;
-			}
+			wires[i]->CheckConnections(wires[j]->position);
 		}
+
+		for (int j = 0; j < electricOvens.size(); j++)
+		{
+			wires[i]->CheckConnections(electricOvens[j]->position);
+		}
+
 	}
 
 	cameraPosition = sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2));

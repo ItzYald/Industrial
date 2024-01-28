@@ -26,6 +26,7 @@ public:
 		sf::Vector2f _position);
 
 	bool NearPlayer(sf::Vector2f playerPosition, int playerAngle);
+	void CheckConnections(sf::Vector2f positionSeconObject);
 	void Update(sf::Vector2f playerPosition, int playerAngle);
 	void Draw(sf::Vector2f cameraPosition);
 };
