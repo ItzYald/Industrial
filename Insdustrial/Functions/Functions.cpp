@@ -43,6 +43,7 @@ void Functions::DrawRectangleGradient(sf::Vector2f pos, sf::Vector2f size, sf::C
 	}
 	else
 	{
+
 		sf::Vertex rectangle[] =
 		{
 			sf::Vertex(pos, colorA),

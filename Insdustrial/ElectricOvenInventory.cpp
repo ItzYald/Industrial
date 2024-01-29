@@ -48,7 +48,7 @@ void ElectricOvenInventory::Draw()
 	functions.DrawRectangle(sf::Vector2f(400, 180), sf::Vector2f(30, 140), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
 	if (maxFuel != 0)
 	{
-		functions.DrawRectangleGradient(sf::Vector2f(400, 320), sf::Vector2f(30, ((fuel / (float)maxFuel)) * -140), sf::Color::Red, sf::Color(255, 200, 1));
+		functions.DrawRectangleGradient(sf::Vector2f(400, 320), sf::Vector2f(30, ((fuel / (float)maxFuel)) * -140), sf::Color::Red, sf::Color(255, 200, 0));
 	}
 
 }
