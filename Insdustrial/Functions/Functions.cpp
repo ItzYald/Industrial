@@ -30,7 +30,6 @@ void Functions::DrawRectangle(sf::Vector2f pos, sf::Vector2f size, sf::Color col
 // Нарисовать прямоугольник с градиентом
 void Functions::DrawRectangleGradient(sf::Vector2f pos, sf::Vector2f size, sf::Color colorA, sf::Color colorB, bool gorizontal)
 {
-	// sf::Vertex rectangle[];
 	if (gorizontal == 1)
 	{
 		sf::Vertex rectangle[] =
