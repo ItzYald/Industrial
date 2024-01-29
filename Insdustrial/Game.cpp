@@ -468,15 +468,6 @@ void Game::Next()
 	clock.restart();
 	mouseWheel = 0;
 }
-// Круг
-void Game::Circle(sf::Vector2f pos, sf::Vector2f size, sf::Color col)
-{
-	circle = sf::CircleShape(1);
-	circle.setFillColor(col);
-	circle.setScale(size);
-	circle.setPosition(pos);
-	rw->draw(circle);
-}
 // Событие мыши
 void Game::Mouse(sf::Event& e, sf::RenderWindow& rw)
 {

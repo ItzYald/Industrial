@@ -28,8 +28,6 @@ class Game
 private:
 	//// Обязательные
 	std::shared_ptr<sf::RenderWindow> rw;
-	// Круг
-	sf::CircleShape circle;
 	// Какой экран
 	sf::String screen;
 	// Размер дисплея
@@ -105,8 +103,6 @@ public:
 	void Menu();
 	// Следуюущий кадр
 	void Next();
-	// Нарисовать круг
-	void Circle(sf::Vector2f pos, sf::Vector2f size, sf::Color col);
 	// Событие мыши
 	void Mouse(sf::Event& e, sf::RenderWindow& rw);
 	// Прокручено колесико мыши

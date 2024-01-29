@@ -30,7 +30,7 @@ void Functions::DrawRectangle(sf::Vector2f pos, sf::Vector2f size, sf::Color col
 // Нарисовать прямоугольник с градиентом
 void Functions::DrawRectangleGradient(sf::Vector2f pos, sf::Vector2f size, sf::Color colorA, sf::Color colorB, bool gorizontal)
 {
-	if (gorizontal == 1)
+	if (gorizontal)
 	{
 		sf::Vertex rectangle[] =
 		{
@@ -52,6 +52,16 @@ void Functions::DrawRectangleGradient(sf::Vector2f pos, sf::Vector2f size, sf::C
 		};
 		rw->draw(rectangle, 4, sf::Quads);
 	}
+}
+// Круг
+void Functions::Circle(sf::Vector2f pos, sf::Vector2f size, sf::Color col)
+{
+	sf::CircleShape circle;
+	circle = sf::CircleShape(1);
+	circle.setFillColor(col);
+	circle.setScale(size);
+	circle.setPosition(pos);
+	rw->draw(circle);
 }
 // Нарисовать спрайт
 void Functions::DrawSprite(sf::Sprite spr, sf::Vector2f pos, sf::Vector2f size)

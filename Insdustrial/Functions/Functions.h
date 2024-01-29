@@ -22,6 +22,8 @@ public:
 	void DrawRectangle(sf::Vector2f pos, sf::Vector2f size, sf::Color col, sf::Color col2, float size2);
 	// Нарисовать прямоугольник с градиентом
 	void DrawRectangleGradient(sf::Vector2f pos, sf::Vector2f size, sf::Color colorA, sf::Color colorB, bool gorizontal = 1);
+	// Нарисовать круг
+	void Circle(sf::Vector2f pos, sf::Vector2f size, sf::Color col);
 	// Нарисовать спрайт
 	void DrawSprite(sf::Sprite spr, sf::Vector2f pos, sf::Vector2f size);
 	// Нарисовать спрайт с прозрачностью
