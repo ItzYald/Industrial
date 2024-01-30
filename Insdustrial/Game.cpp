@@ -81,6 +81,10 @@ void Game::LoadingPlay()
 	textures["CooperWire4"] = sf::Texture();
 	textures["CooperWire4"].loadFromFile("Images/Wires/CooperWire4.png");
 
+	textures["CooperWire"] = sf::Texture();
+	textures["CooperWire"].loadFromFile("Images/Wires/CooperWire.png");
+
+
 
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
@@ -90,10 +94,12 @@ void Game::LoadingPlay()
 	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], sf::Vector2f(23, 21)));
 	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], sf::Vector2f(23, 22)));
 
-	wires.push_back(std::make_shared<Wire>(
-		rw, field.sizeOne,
-		textures["CooperWire0"], textures["CooperWire1"], textures["CooperWire2"], textures["CooperWire3"], textures["CooperWire4"],
-		sf::Vector2f(10, 10)));
+	//wires.push_back(std::make_shared<Wire>(
+	//	rw, field.sizeOne,
+	//	textures["CooperWire0"], textures["CooperWire1"], textures["CooperWire2"], textures["CooperWire3"], textures["CooperWire4"],
+	//	sf::Vector2f(10, 10)));
+
+	wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["CooperWire"], sf::Vector2f(10, 10)));
 
 	screen = "Игра";
 }
@@ -207,10 +213,11 @@ void Game::PutObject(sf::Vector2f position)
 	// Поставить медный провод
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 12)
 	{
-		wires.push_back(std::make_shared<Wire>(
-			rw, field.sizeOne,
-			textures["CooperWire0"], textures["CooperWire1"], textures["CooperWire2"], textures["CooperWire3"], textures["CooperWire4"],
-			position));
+		//wires.push_back(std::make_shared<Wire>(
+		//	rw, field.sizeOne,
+		//	textures["CooperWire0"], textures["CooperWire1"], textures["CooperWire2"], textures["CooperWire3"], textures["CooperWire4"],
+		//	position));
+		wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["CooperWire"], position));
 		//objects.push_back(chests[ovens.size() - 1]);
 	}
 }
@@ -294,19 +301,24 @@ void Game::Drive()
 		}
 	}
 	// Работа проводов
-	for (int i = 0; i < wires.size(); i++)
+	//for (int i = 0; i < wires.size(); i++)
+	//{
+	//	// Проверка на соединения c проводами
+	//	for (int j = 0; j < wires.size(); j++)
+	//	{
+	//		wires[i]->CheckConnections(wires[j]->position);
+	//	}
+	//
+	//	for (int j = 0; j < electricOvens.size(); j++)
+	//	{
+	//		wires[i]->CheckConnections(electricOvens[j]->position);
+	//	}
+	//
+	//}
+	// Работа проводов
+	for (std::shared_ptr<Wire> wire : wires)
 	{
-		// Проверка на соединения c проводами
-		for (int j = 0; j < wires.size(); j++)
-		{
-			wires[i]->CheckConnections(wires[j]->position);
-		}
-
-		for (int j = 0; j < electricOvens.size(); j++)
-		{
-			wires[i]->CheckConnections(electricOvens[j]->position);
-		}
-
+		wire->Update(player.position, player.angle);
 	}
 
 	cameraPosition = sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2));

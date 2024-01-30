@@ -36,7 +36,7 @@ StaticSprites::StaticSprites()
 	// Электропеч
 	textures[11]->loadFromFile("Images/Objects/ElectricOven.png");
 	// Медный провод
-	textures[12]->loadFromFile("Images/Wires/CooperWire1.png");
+	textures[12]->loadFromFile("Images/Wires/CooperWire.png");
 
 	for (int i = 0; i < 13; i++)
 	{
