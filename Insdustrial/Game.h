@@ -68,6 +68,8 @@ private:
 	// Список проводов
 	std::vector<std::shared_ptr<Wire>> wires;
 
+	std::vector<std::vector<int>> wiresOnField;
+
 	//std::vector<std::shared_ptr<Object>> objects;
 
 	std::map<std::string, sf::Texture> textures;

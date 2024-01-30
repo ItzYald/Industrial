@@ -34,6 +34,7 @@ void Game::LoadingApp()
 	workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
 
 	wires = std::vector<std::shared_ptr<Wire>>();
+	wiresOnField = std::vector<std::vector<int>>();
 
 	//objects = std::vector<std::shared_ptr<Object>>();
 
@@ -94,6 +95,15 @@ void Game::LoadingPlay()
 	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], sf::Vector2f(23, 21)));
 	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], sf::Vector2f(23, 22)));
 
+	for (int i = 0; i < field.size.x; i++)
+	{
+		wiresOnField.push_back(std::vector<int>());
+		for (int j = 0; j < field.size.y; j++)
+		{
+			wiresOnField[i].push_back(-1);
+		}
+	}
+
 	//wires.push_back(std::make_shared<Wire>(
 	//	rw, field.sizeOne,
 	//	textures["CooperWire0"], textures["CooperWire1"], textures["CooperWire2"], textures["CooperWire3"], textures["CooperWire4"],
@@ -128,6 +138,14 @@ void Game::DrawPlay()
 		for (int j = 0; j < field.size.y; j++)
 		{
 			field.Draw(cameraPosition, i, j);
+			sf::Vector2f position = sf::Vector2f(field.sizeOne * (i - cameraPosition.x), field.sizeOne * (j - cameraPosition.y));
+			if (position.x < sizeW.x && position.y < sizeW.y && position.x + field.sizeOne > 0 && position.y + field.sizeOne > 0)
+			{
+				functions.PrintText(
+					std::to_string(wiresOnField[i][j]),
+					position,
+					15, sf::Color::Blue);
+			}
 		}
 	}	
 	// Отрисовка угольных печей
@@ -315,10 +333,21 @@ void Game::Drive()
 	//	}
 	//
 	//}
-	// Работа проводов
-	for (std::shared_ptr<Wire> wire : wires)
+	
+	for (int i = 0; i < wiresOnField.size(); i++)
 	{
-		wire->Update(player.position, player.angle);
+		for (int j = 0; j < wiresOnField[i].size(); j++)
+		{
+			wiresOnField[i][j] = -1;
+		}
+	}
+	// Работа проводов
+	for (int i = 0; i < wires.size(); i++)
+	{
+		
+		wiresOnField[wires[i]->position.x][wires[i]->position.y] = i;
+		wires[i]->Update(player.position, player.angle);
+
 	}
 
 	cameraPosition = sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2));

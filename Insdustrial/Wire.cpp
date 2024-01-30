@@ -42,6 +42,7 @@ Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture
 	newSprite.setScale(fieldSizeOne / newSprite.getTexture()->getSize().x, fieldSizeOne / newSprite.getTexture()->getSize().y);
 
 	position = _position;
+	energy = 0;
 
 	turn = 0;
 
@@ -251,7 +252,8 @@ void Wire::Draw(sf::Vector2f cameraPosition)
 	}
 
 	rw->draw(newSprite);
-	//sf::Vector2f realPosition = sf::Vector2f(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
+	sf::Vector2f realPosition = sf::Vector2f(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
+	functions.PrintText(std::to_string(energy), sf::Vector2f(realPosition.x + 40, realPosition.y + 40), 15, sf::Color::Red);
 	//functions.PrintText(std::to_string((int)connections[0]), sf::Vector2f(realPosition.x + 20, realPosition.y), 15, sf::Color::Blue);
 	//functions.PrintText(std::to_string((int)connections[1]), sf::Vector2f(realPosition.x + 40, realPosition.y + 20), 15, sf::Color::Blue);
 	//functions.PrintText(std::to_string((int)connections[2]), sf::Vector2f(realPosition.x + 20, realPosition.y + 40), 15, sf::Color::Blue);

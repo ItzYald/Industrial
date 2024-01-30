@@ -20,6 +20,8 @@ public:
 
 	sf::Sprite newSprite;
 
+	int energy;
+
 	// Номер оотрисовываемого спрайта (в зависимости от связей)
 	int numberSprite;
 
