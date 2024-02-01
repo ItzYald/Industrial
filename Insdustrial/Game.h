@@ -67,6 +67,8 @@ private:
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches;
 	// Список проводов
 	std::vector<std::shared_ptr<Wire>> wires;
+	// Список хранилищ энергии
+	
 
 	//std::vector<std::shared_ptr<Object>> objects;
 
