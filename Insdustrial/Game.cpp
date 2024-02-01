@@ -92,7 +92,7 @@ void Game::LoadingPlay()
 	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], sf::Vector2f(23, 21)));
 	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], sf::Vector2f(23, 22)));
 
-	wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["CooperWire"], sf::Vector2f(15, 15)));
+	wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["CooperWire"], sf::Vector2f(20, 15)));
 
 	screen = "Игра";
 }
@@ -212,7 +212,12 @@ void Game::TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition)
 {
 	if (field.wires[nextPosition.x][nextPosition.y] != -1)
 	{
-		wires[field.wires[nextPosition.x][nextPosition.y]]->energy = 1;
+		wires[field.wires[nextPosition.x][nextPosition.y]]->energy = wires[field.wires[originalPosition.x][originalPosition.y]]->energy;
+		wires[field.wires[originalPosition.x][originalPosition.y]]->energy = 0;
+	}
+	else if (field.electricOvens[nextPosition.x][nextPosition.y] != -1)
+	{
+		electricOvens[field.electricOvens[nextPosition.x][nextPosition.y]]->inventory.fuel += wires[field.wires[originalPosition.x][originalPosition.y]]->energy;
 		wires[field.wires[originalPosition.x][originalPosition.y]]->energy = 0;
 	}
 }
@@ -259,7 +264,11 @@ void Game::Drive()
 	// Работа электрических печей
 	for (int i = 0; i < electricOvens.size(); i++)
 	{
+		// Обновление массива с указанием номера электропечей в массиве по координатам
+		field.electricOvens[electricOvens[i]->position.x][electricOvens[i]->position.y] = i;
+		// Обновление электропечей
 		electricOvens[i]->Update(player.position, player.angle);
+		// Если инвентарь открыт
 		if (electricOvens[i]->isOpenInventory)
 		{
 			player.inventory.DeleteButtons();
@@ -296,9 +305,37 @@ void Game::Drive()
 		}
 	}
 	// Работа проводов
-	
+	for (int i = 0; i < wires.size(); i++)
+	{
+		// Обновление массива с указанием номера проводов в массиве по координатам
+		field.wires[wires[i]->position.x][wires[i]->position.y] = i;
+		wires[i]->Update(player.position, player.angle);
+	}
+
+	cameraPosition = sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2));
+}
+// Игра
+void Game::Play()
+{
+	// Отрисовать игру
+	DrawPlay();
+
+	// Работа печек
+	for (int i = 0; i < coalOvens.size(); i++)
+	{
+		coalOvens[i]->inventory.Burn();
+		//ovens[i]->inventory.fuel += 1;
+	}
+
+	// Работа электропечек
+	for (int i = 0; i < electricOvens.size(); i++)
+	{
+		electricOvens[i]->inventory.Burn();
+		//ovens[i]->inventory.fuel += 1;
+	}
+
 	wires[0]->energy = 1;
-	// Работа проводов
+	// Передача энергии проводами
 	for (int i = 0; i < field.wires.size(); i++)
 	{
 		for (int j = 0; j < field.wires[i].size(); j++)
@@ -325,35 +362,6 @@ void Game::Drive()
 				TransEnergy(sf::Vector2i(i, j), sf::Vector2i(i - 1, j));
 			}
 		}
-		
-	}
-	// Работа проводов
-	for (int i = 0; i < wires.size(); i++)
-	{
-		field.wires[wires[i]->position.x][wires[i]->position.y] = i;
-		wires[i]->Update(player.position, player.angle);
-	}
-
-	cameraPosition = sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2));
-}
-// Игра
-void Game::Play()
-{
-	// Отрисовать игру
-	DrawPlay();
-
-	// Работа печек
-	for (int i = 0; i < coalOvens.size(); i++)
-	{
-		coalOvens[i]->inventory.Burn();
-		//ovens[i]->inventory.fuel += 1;
-	}
-
-	// Работа электропечек
-	for (int i = 0; i < electricOvens.size(); i++)
-	{
-		electricOvens[i]->inventory.Burn();
-		//ovens[i]->inventory.fuel += 1;
 	}
 
 	if (buttons.size() < 4)

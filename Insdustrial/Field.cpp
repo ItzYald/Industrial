@@ -11,9 +11,11 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _siz
 	for (int i = 0; i < size.x; i++)
 	{
 		wires.push_back(std::vector<int>());
+		electricOvens.push_back(std::vector<int>());
 		for (int j = 0; j < size.y; j++)
 		{
 			wires[i].push_back(-1);
+			electricOvens[i].push_back(-1);
 		}
 	}
 

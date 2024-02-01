@@ -14,7 +14,7 @@ public:
 	std::shared_ptr<sf::RenderWindow> rw;
 	// Размер поля (кол-во клеток)
 	sf::Vector2i size;
-
+	// Спрайт травы
 	sf::Sprite sprite;
 	// Размер одной клетки
 	int sizeOne;
@@ -22,7 +22,9 @@ public:
 	sf::Vector2u sizeW;
 	// Список с указанием номеров проводов в массиве проводов нахожящихся по определенным координатам
 	std::vector<std::vector<int>> wires;
-
+	// Список с указанием номеров электропечек в массиве электропечек нахожящихся по определенным координатам
+	std::vector<std::vector<int>> electricOvens;
+	// Фнкции отрисовки (прямоугольник, круг, текст, спрайт...)
 	Functions functions;
 
 	Field(){ }
