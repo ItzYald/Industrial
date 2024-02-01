@@ -20,13 +20,23 @@ public:
 	int sizeOne;
 	// Размер окна
 	sf::Vector2u sizeW;
+	// Список с указанием номеров проводов в массиве проводов нахожящихся по определенным координатам
+	std::vector<std::vector<int>> wires;
 
 	Functions functions;
 
 	Field(){ }
+	/// <summary>Конструктор</summary>
+	/// <param name="_rw">Окно</param>
+	/// <param name="_size">Размер поля (кол-во клеток)</param>
+	/// <param name="_sizeOne">Размер одной клетки</param>
+	/// <param name="_sizeW">Размер окна</param>
+	/// <param name="texture">Текстурка травы</param>
 	Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _sizeOne, sf::Vector2u _sizeW, sf::Texture& texture);
-
-	void Draw(sf::Vector2f cameraPosition, int i, int j);
+	/// <summary>Отрисовка травы</summary>
+	/// <param name="cameraPosition">Позиция камеры</param>
+	void Draw(sf::Vector2f cameraPosition);
+	// А я кстати не помню что это, так что возможно скоро удалю
 	sf::Vector2i WhatActive(sf::Vector2i mousePosition);
 
 

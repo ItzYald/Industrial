@@ -68,8 +68,6 @@ private:
 	// Список проводов
 	std::vector<std::shared_ptr<Wire>> wires;
 
-	std::vector<std::vector<int>> wiresOnField;
-
 	//std::vector<std::shared_ptr<Object>> objects;
 
 	std::map<std::string, sf::Texture> textures;
@@ -81,11 +79,11 @@ private:
 public:
 	Game(){ }
 	Game(sf::RenderWindow& _rw);
-	// Прогрессбарр загрузки приложения
+	// Прогрессбарр (надпись) загрузки приложения
 	void LoadingApp1();
 	// Загрузка приложения
 	void LoadingApp();
-	// Прогрессбарр загрузки геймплея
+	// Прогрессбарр (надпись) загрузки геймплея
 	void LoadingScreen(std::string nextScreen);
 	// Загрузка геймплея
 	void LoadingPlay();
@@ -97,6 +95,10 @@ public:
 	void CloseInventory();
 	// Поставить объект по определенным коодинатам
 	void PutObject(sf::Vector2f position);
+	/// <summary>Передать энергию проводу</summary>
+	/// <param name="originalPosition">Позиция провода который передает энергию</param>
+	/// <param name="nextPosition">Позиция провода, которому передают энергию</param>
+	void TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition);
 	// Геймплей
 	void Drive();
 	// Игра

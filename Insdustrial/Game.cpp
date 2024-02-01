@@ -34,7 +34,6 @@ void Game::LoadingApp()
 	workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
 
 	wires = std::vector<std::shared_ptr<Wire>>();
-	wiresOnField = std::vector<std::vector<int>>();
 
 	//objects = std::vector<std::shared_ptr<Object>>();
 
@@ -85,8 +84,6 @@ void Game::LoadingPlay()
 	textures["CooperWire"] = sf::Texture();
 	textures["CooperWire"].loadFromFile("Images/Wires/CooperWire.png");
 
-
-
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20));
 
@@ -95,21 +92,7 @@ void Game::LoadingPlay()
 	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], sf::Vector2f(23, 21)));
 	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], sf::Vector2f(23, 22)));
 
-	for (int i = 0; i < field.size.x; i++)
-	{
-		wiresOnField.push_back(std::vector<int>());
-		for (int j = 0; j < field.size.y; j++)
-		{
-			wiresOnField[i].push_back(-1);
-		}
-	}
-
-	//wires.push_back(std::make_shared<Wire>(
-	//	rw, field.sizeOne,
-	//	textures["CooperWire0"], textures["CooperWire1"], textures["CooperWire2"], textures["CooperWire3"], textures["CooperWire4"],
-	//	sf::Vector2f(10, 10)));
-
-	wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["CooperWire"], sf::Vector2f(10, 10)));
+	wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["CooperWire"], sf::Vector2f(15, 15)));
 
 	screen = "Игра";
 }
@@ -131,23 +114,8 @@ void Game::DrawPlay()
 {
 	// Белый экран
 	functions.DrawRectangle(sf::Vector2f(0, 0), sf::Vector2f(sizeW.x, sizeW.y), sf::Color(255, 255, 255));
-
-	// Отрисовка сетки
-	for (int i = 0; i < field.size.x; i++)
-	{
-		for (int j = 0; j < field.size.y; j++)
-		{
-			field.Draw(cameraPosition, i, j);
-			sf::Vector2f position = sf::Vector2f(field.sizeOne * (i - cameraPosition.x), field.sizeOne * (j - cameraPosition.y));
-			if (position.x < sizeW.x && position.y < sizeW.y && position.x + field.sizeOne > 0 && position.y + field.sizeOne > 0)
-			{
-				functions.PrintText(
-					std::to_string(wiresOnField[i][j]),
-					position,
-					15, sf::Color::Blue);
-			}
-		}
-	}	
+	// Отрисовка поля
+	field.Draw(cameraPosition);
 	// Отрисовка угольных печей
 	for (std::shared_ptr<StaingObject<CoalOvenInventory>> oven : coalOvens)
 	{
@@ -239,6 +207,15 @@ void Game::PutObject(sf::Vector2f position)
 		//objects.push_back(chests[ovens.size() - 1]);
 	}
 }
+
+void Game::TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition)
+{
+	if (field.wires[nextPosition.x][nextPosition.y] != -1)
+	{
+		wires[field.wires[nextPosition.x][nextPosition.y]]->energy = 1;
+		wires[field.wires[originalPosition.x][originalPosition.y]]->energy = 0;
+	}
+}
 // Геймплей
 void Game::Drive()
 {
@@ -319,35 +296,42 @@ void Game::Drive()
 		}
 	}
 	// Работа проводов
-	//for (int i = 0; i < wires.size(); i++)
-	//{
-	//	// Проверка на соединения c проводами
-	//	for (int j = 0; j < wires.size(); j++)
-	//	{
-	//		wires[i]->CheckConnections(wires[j]->position);
-	//	}
-	//
-	//	for (int j = 0; j < electricOvens.size(); j++)
-	//	{
-	//		wires[i]->CheckConnections(electricOvens[j]->position);
-	//	}
-	//
-	//}
 	
-	for (int i = 0; i < wiresOnField.size(); i++)
+	wires[0]->energy = 1;
+	// Работа проводов
+	for (int i = 0; i < field.wires.size(); i++)
 	{
-		for (int j = 0; j < wiresOnField[i].size(); j++)
+		for (int j = 0; j < field.wires[i].size(); j++)
 		{
-			wiresOnField[i][j] = -1;
+			if (field.wires[i][j] == -1)
+			{
+				continue;
+			}
+			if (wires[field.wires[i][j]]->energy == 0)
+			{
+				continue;
+			}
+			switch (wires[field.wires[i][j]]->turn)
+			{
+			case 0:
+				TransEnergy(sf::Vector2i(i, j), sf::Vector2i(i, j - 1));
+				break;
+			case 1:
+				TransEnergy(sf::Vector2i(i, j), sf::Vector2i(i + 1, j));
+				break;
+			case 2:
+				TransEnergy(sf::Vector2i(i, j), sf::Vector2i(i, j + 1));
+			case 3:
+				TransEnergy(sf::Vector2i(i, j), sf::Vector2i(i - 1, j));
+			}
 		}
+		
 	}
 	// Работа проводов
 	for (int i = 0; i < wires.size(); i++)
 	{
-		
-		wiresOnField[wires[i]->position.x][wires[i]->position.y] = i;
+		field.wires[wires[i]->position.x][wires[i]->position.y] = i;
 		wires[i]->Update(player.position, player.angle);
-
 	}
 
 	cameraPosition = sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2));
