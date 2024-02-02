@@ -102,10 +102,13 @@
     <ClCompile Include="Item.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="ElectrincObject.cpp">
+    <ClCompile Include="StaingObject.cpp">
       <Filter>Исходные файлы\Sprites\InventoryObject</Filter>
     </ClCompile>
-    <ClCompile Include="StaingObject.cpp">
+    <ClCompile Include="EnergyStorageInventory.cpp">
+      <Filter>Исходные файлы\Inventories</Filter>
+    </ClCompile>
+    <ClCompile Include="EnergyStorageSprite.cpp">
       <Filter>Исходные файлы\Sprites\InventoryObject</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,7 +170,10 @@
     <ClInclude Include="StaingObject.h">
       <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
     </ClInclude>
-    <ClInclude Include="ElectrincObject.h">
+    <ClInclude Include="EnergyStorageInventory.h">
+      <Filter>Файлы заголовков\Inventories</Filter>
+    </ClInclude>
+    <ClInclude Include="EnergyStorageSprite.h">
       <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
     </ClInclude>
   </ItemGroup>

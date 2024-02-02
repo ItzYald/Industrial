@@ -8,6 +8,7 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
+
 #include "Functions/Functions.h"
 #include "Functions/Button.h"
 #include "Functions/Checks.h"
@@ -21,6 +22,9 @@
 #include "ElectricOvenInventory.h"
 #include "ChestInventory.h"
 #include "WorbenchInventory.h"
+#include "EnergyStorageInventory.h"
+
+#include "EnergyStorageSprite.h"
 
 
 class Game
@@ -55,8 +59,6 @@ private:
 	// Игрок
 	Player player;
 
-	// Список всех объектов
-	// std::vector<std::shared_ptr<StaingObject<OvenInventory>>> objects;
 	// Список печек
 	std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>> coalOvens;
 	// Список электрических печек
@@ -65,13 +67,13 @@ private:
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests;
 	// Список верстаков
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches;
+	// Список хранилищ энергии
+	std::vector<std::shared_ptr<EnergyStorageSprite>> energyStorages;
+
 	// Список проводов
 	std::vector<std::shared_ptr<Wire>> wires;
-	// Список хранилищ энергии
 	
-
-	//std::vector<std::shared_ptr<Object>> objects;
-
+	// Список всех текстур
 	std::map<std::string, sf::Texture> textures;
 
 
@@ -97,12 +99,15 @@ public:
 	void CloseInventory();
 	// Поставить объект по определенным коодинатам
 	void PutObject(sf::Vector2f position);
-	/// <summary>Передать энергию проводу</summary>
-	/// <param name="originalPosition">Позиция провода который передает энергию</param>
-	/// <param name="nextPosition">Позиция провода, которому передают энергию</param>
-	void TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition);
 	// Геймплей
 	void Drive();
+	/// <summary>Перенос энергию между проводами и устройставми между собой</summary>
+	/// <param name="originalPosition">Позиция первого устройства, который передает энергию</param>
+	/// <param name="nextPosition">Позиция второго устройства, которому передают энергию</param>
+	void TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition);
+	/// <summary>Проверка поворота устройста для понятия, куда отправлять энергию</summary>
+	/// <param name="turn">Поворот объекта</param>
+	sf::Vector2i CheckTurnEnergy(int turn);
 	// Игра
 	void Play();
 	// Меню

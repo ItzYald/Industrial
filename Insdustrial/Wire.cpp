@@ -1,45 +1,14 @@
 #include "Wire.h"
 
-Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
-	sf::Texture& texture0, sf::Texture& texture1, sf::Texture& texture2, sf::Texture& texture3, sf::Texture& texture4,
-	sf::Vector2f _position)
-{
-	rw = _rw;
-	fieldSizeOne = _fieldSizeOne;
-	sprites = std::vector<sf::Sprite>();
-	functions = Functions(rw);
-	for (int i = 0; i < 5; i++)
-	{
-		sprites.push_back(sf::Sprite());
-	}
-	sprites[0].setTexture(texture0);
-	sprites[1].setTexture(texture1);
-	sprites[2].setTexture(texture2);
-	sprites[3].setTexture(texture3);
-	sprites[4].setTexture(texture4);
-	position = _position;
-
-	numberSprite = 1;
-	for (int i = 0; i < sprites.size(); i++)
-	{
-		sprites[i].setScale(fieldSizeOne / sprites[i].getTexture()->getSize().x, fieldSizeOne / sprites[i].getTexture()->getSize().y);
-	}
-
-	for (int i = 0; i < 30; i++)
-	{
-		ch.push_back(Checks());
-	}
-}
-
 Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture& texture, sf::Vector2f _position)
 {
 	rw = _rw;
 	fieldSizeOne = _fieldSizeOne;
 	functions = Functions(rw);
 
-	newSprite = sf::Sprite();
-	newSprite.setTexture(texture);
-	newSprite.setScale(fieldSizeOne / newSprite.getTexture()->getSize().x, fieldSizeOne / newSprite.getTexture()->getSize().y);
+	sprite = sf::Sprite();
+	sprite.setTexture(texture);
+	sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
 
 	position = _position;
 	energy = 0;
@@ -219,39 +188,39 @@ void Wire::Draw(sf::Vector2f cameraPosition)
 {
 	if (turn == 0)
 	{
-		newSprite.setRotation(0);
+		sprite.setRotation(0);
 	}
 	if (turn == 1)
 	{
-		newSprite.setRotation(90);
+		sprite.setRotation(90);
 	}
 	if (turn == 2)
 	{
-		newSprite.setRotation(180);
+		sprite.setRotation(180);
 	}
 	if (turn == 3)
 	{
-		newSprite.setRotation(270);
+		sprite.setRotation(270);
 	}
 
 	// Задать позицию
-	newSprite.setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
+	sprite.setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
 
 	// Сдвиг для компенсации вращения
-	if (newSprite.getRotation() == 90)
+	if (sprite.getRotation() == 90)
 	{
-		newSprite.setPosition(newSprite.getPosition().x + fieldSizeOne, newSprite.getPosition().y);
+		sprite.setPosition(sprite.getPosition().x + fieldSizeOne, sprite.getPosition().y);
 	}
-	else if (newSprite.getRotation() == 180)
+	else if (sprite.getRotation() == 180)
 	{
-		newSprite.setPosition(newSprite.getPosition().x + fieldSizeOne, newSprite.getPosition().y + fieldSizeOne);
+		sprite.setPosition(sprite.getPosition().x + fieldSizeOne, sprite.getPosition().y + fieldSizeOne);
 	}
-	else if (newSprite.getRotation() == 270)
+	else if (sprite.getRotation() == 270)
 	{
-		newSprite.setPosition(newSprite.getPosition().x, newSprite.getPosition().y + fieldSizeOne);
+		sprite.setPosition(sprite.getPosition().x, sprite.getPosition().y + fieldSizeOne);
 	}
 
-	rw->draw(newSprite);
+	rw->draw(sprite);
 	sf::Vector2f realPosition = sf::Vector2f(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
 	functions.PrintText(std::to_string(energy), sf::Vector2f(realPosition.x + 40, realPosition.y + 40), 15, sf::Color::Red);
 	//functions.PrintText(std::to_string((int)connections[0]), sf::Vector2f(realPosition.x + 20, realPosition.y), 15, sf::Color::Blue);
