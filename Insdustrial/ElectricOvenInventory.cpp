@@ -2,11 +2,11 @@
 
 #include "CoalOvenInventory.h"
 
-ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _rw)
+ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory)
 {
 	rw = _rw;
 	functions = Functions(rw);
-	LoadColorInventoryFromFile();
+	colorsInventory = _colorsInventory;
 
 	// 3 €чейки в инвентаре
 	cells = std::vector<CellInInventory>();

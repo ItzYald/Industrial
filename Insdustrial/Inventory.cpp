@@ -1,6 +1,6 @@
 #include "Inventory.h"
 
-Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw)
+Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory)
 {
 	// Узнать координаты мыши
 	mousePosition = sf::Vector2i();
@@ -12,7 +12,7 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw)
 	// Выбранная ячейка
 	choseCell = 0;
 
-	LoadColorInventoryFromFile();
+	colorsInventory = _colorsInventory;
 
 	// Ячейки инвентаря
 	cells = std::vector< std::vector<CellInInventory>>();

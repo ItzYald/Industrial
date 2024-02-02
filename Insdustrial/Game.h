@@ -59,6 +59,9 @@ private:
 	// Игрок
 	Player player;
 
+	// Стандартные цвета для приложения
+	std::vector<sf::Color> colorsInventory;
+
 	// Список печек
 	std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>> coalOvens;
 	// Список электрических печек
@@ -82,6 +85,8 @@ private:
 
 public:
 	Game(){ }
+	/// <summary>Конструктор</summary>
+	/// <param name="_rw">Окно</param>
 	Game(sf::RenderWindow& _rw);
 	// Прогрессбарр (надпись) загрузки приложения
 	void LoadingApp1();
@@ -89,6 +94,8 @@ public:
 	void LoadingApp();
 	// Прогрессбарр (надпись) загрузки геймплея
 	void LoadingScreen(std::string nextScreen);
+	// Загрузка настроек цвета интерфейса из файла
+	void LoadColorInventoryFromFile();
 	// Загрузка геймплея
 	void LoadingPlay();
 	// Выгрузка геймплея

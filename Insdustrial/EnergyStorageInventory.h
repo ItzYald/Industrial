@@ -16,7 +16,7 @@ public:
 	EnergyStorageInventory(){ }
 	/// <summary>Конструктор</summary>
 	/// <param name="_rw">Окно</param>
-	EnergyStorageInventory(std::shared_ptr<sf::RenderWindow> _rw);
+	EnergyStorageInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory);
 	// Отрисовка инвентаря
 	void Draw();
 	// Работа инвентаря

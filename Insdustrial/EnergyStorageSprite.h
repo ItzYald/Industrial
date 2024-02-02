@@ -9,8 +9,8 @@ public:
 	int turn;
 
 	EnergyStorageSprite(){ }
-	EnergyStorageSprite(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture& _texture, sf::Vector2f _position)
-		: StaingObject(_rw, _fieldSizeOne, _texture, _position)
+	EnergyStorageSprite(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture& _texture, sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
+		: StaingObject(_rw, _fieldSizeOne, _texture, _position, _colorsInventory)
 	{
 		turn = 0;
 	}

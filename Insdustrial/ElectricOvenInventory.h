@@ -6,7 +6,7 @@ class ElectricOvenInventory : public OvenInventory
 {
 public:
 	ElectricOvenInventory(){ }
-	ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _rw);
+	ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory);
 
 	void Burn();
 	void Draw();

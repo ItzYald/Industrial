@@ -23,8 +23,14 @@ public:
 	InventoryType inventory;
 
 	StaingObject(){}
+	/// <summaryКонструктор</summary>
+	/// <param name="_rw">Окно</param>
+	/// <param name="_fieldSizeOne">Размер одной ячейки</param>
+	/// <param name="_texture">Ссылка на текстуру</param>
+	/// <param name="_position">Позиция</param>
 
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture &_texture, sf::Vector2f _position)
+	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture& _texture,
+		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
 	{
 		rw = _rw;
 		fieldSizeOne = _fieldSizeOne;
@@ -35,7 +41,7 @@ public:
 
 		isOpenInventory = false;
 
-		inventory = InventoryType(rw);
+		inventory = InventoryType(rw, _colorsInventory);
 
 		sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
 

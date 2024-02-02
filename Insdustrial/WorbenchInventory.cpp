@@ -1,11 +1,11 @@
 #include "WorbenchInventory.h"
 
-WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw)
+WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory)
 {
 	// Окно
 	rw = _rw;
 	functions = Functions(rw);
-	LoadColorInventoryFromFile();
+	colorsInventory = _colorsInventory;
 
 	// Ячейки инвентаря
 	cells = std::vector< std::vector<CellInInventory>>();

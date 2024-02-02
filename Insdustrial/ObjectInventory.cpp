@@ -2,6 +2,7 @@
 
 void ObjectInventory::LoadColorInventoryFromFile()
 {
+	std::cout << "lol" << std::endl;
 	colorsInventory.clear();
 	// Файл с цветами
 	std::fstream colorFile("Files/ColorInventory.txt");

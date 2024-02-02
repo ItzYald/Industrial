@@ -38,7 +38,8 @@ public:
 	float run;
 
 	Player(){ }
-	Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::string imageFileName, sf::Vector2f _position);
+	Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
+		std::string imageFileName, sf::Vector2f _position, std::vector<sf::Color> _colorsInventory);
 
 	std::vector<Button> buttons;
 

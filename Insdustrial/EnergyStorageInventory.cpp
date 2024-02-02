@@ -1,11 +1,11 @@
 #include "EnergyStorageInventory.h"
 
 
-EnergyStorageInventory::EnergyStorageInventory(std::shared_ptr<sf::RenderWindow> _rw)
+EnergyStorageInventory::EnergyStorageInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory)
 {
 	rw = _rw;
 	functions = Functions(rw);
-	LoadColorInventoryFromFile();
+	colorsInventory = _colorsInventory;
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -31,6 +31,16 @@ void EnergyStorageInventory::Update(Inventory& playerInventory)
 	mousePosition = sf::Mouse::getPosition(*rw);
 	// Отрисовать окно интерфейса
 	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
+
+	if (energy > maxEnergy)
+	{
+		energy = maxEnergy;
+	}
+	if (energy < 0)
+	{
+		energy = 0;
+	}
+
 	Draw();
 	playerInventory.Update();
 }
