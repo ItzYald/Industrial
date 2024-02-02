@@ -7,6 +7,8 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _siz
 	sprite = sf::Sprite(texture);
 
 	wires = std::vector<std::vector<int>>();
+	electricOvens = std::vector<std::vector<int>>();
+	energyStorages = std::vector<std::vector<int>>();
 
 	for (int i = 0; i < size.x; i++)
 	{

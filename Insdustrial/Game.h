@@ -104,7 +104,8 @@ public:
 	/// <summary>Перенос энергию между проводами и устройставми между собой</summary>
 	/// <param name="originalPosition">Позиция первого устройства, который передает энергию</param>
 	/// <param name="nextPosition">Позиция второго устройства, которому передают энергию</param>
-	void TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition);
+	/// <param name="typeObject">Тип устройства, которое передает энергию (0 - провод, 1 - хранилище)</param>
+	void TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition, int typeObject);
 	/// <summary>Проверка поворота устройста для понятия, куда отправлять энергию</summary>
 	/// <param name="turn">Поворот объекта</param>
 	sf::Vector2i CheckTurnEnergy(int turn);
