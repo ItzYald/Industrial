@@ -394,7 +394,7 @@ void Game::Play()
 	}
 
 	//wires[0]->energy = 1;
-	energyStorages[0]->inventory.energy = 1;
+	energyStorages[0]->inventory.energy += 10;
 	// Передача энергии проводами
 	for (int i = 0; i < field.size.x; i++)
 	{
