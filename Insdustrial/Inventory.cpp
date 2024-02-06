@@ -109,7 +109,7 @@ void Inventory::DrawNear(int mouseWheel)
 		}
 
 		// Отрисовка
-		functions.DrawRectangle(sf::Vector2f(300 + 8 + i * 66, 400 + 8 + 3 * 66), sf::Vector2f(64, 64), sf::Color(150, 150, 150), sf::Color(100, 100, 100), 2);
+		functions.DrawRectangle(sf::Vector2f(300 + 8 + i * 66, 400 + 8 + 3 * 66), sf::Vector2f(64, 64), colorsInventory[0], colorsInventory[2], 2);
 		sf::Vector2f positionInventory = sf::Vector2f(300 + 8 + i * 66, 400 + 8 + 3 * 66);
 		if (cells[i][3].item.number != 0)
 		{
