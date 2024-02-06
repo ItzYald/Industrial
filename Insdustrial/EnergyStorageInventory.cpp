@@ -18,10 +18,22 @@ EnergyStorageInventory::EnergyStorageInventory(std::shared_ptr<sf::RenderWindow>
 
 void EnergyStorageInventory::Draw()
 {
-	functions.DrawRectangle(sf::Vector2f(400, 180), sf::Vector2f(30, 140), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
+	functions.DrawRectangle(sf::Vector2f(400, 150), sf::Vector2f(30, 200), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
 	if (maxEnergy != 0)
 	{
-		functions.DrawRectangleGradient(sf::Vector2f(400, 320), sf::Vector2f(30, ((energy / (float)maxEnergy)) * -200), sf::Color::Red, sf::Color(255, 200, 0));
+		functions.DrawRectangleGradient(sf::Vector2f(400, 350), sf::Vector2f(30, ((energy / (float)maxEnergy)) * -200), sf::Color::Red, sf::Color(255, 200, 0));
+	}
+}
+
+void EnergyStorageInventory::Next()
+{
+	if (energy > maxEnergy)
+	{
+		energy = maxEnergy;
+	}
+	else if (energy < 0)
+	{
+		energy = 0;
 	}
 }
 
@@ -31,15 +43,6 @@ void EnergyStorageInventory::Update(Inventory& playerInventory)
 	mousePosition = sf::Mouse::getPosition(*rw);
 	// Отрисовать окно интерфейса
 	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
-
-	if (energy > maxEnergy)
-	{
-		energy = maxEnergy;
-	}
-	if (energy < 0)
-	{
-		energy = 0;
-	}
 
 	Draw();
 	playerInventory.Update();

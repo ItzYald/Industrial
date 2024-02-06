@@ -345,8 +345,8 @@ void Game::Drive()
 		field.wires[wires[i]->position.x][wires[i]->position.y] = i;
 		wires[i]->Update(player.position, player.angle);
 	}
-
-	cameraPosition = sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2));
+	// Смещение камеры
+	cameraPosition -= (cameraPosition - sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2))) * 0.04f;
 }
 // Перенос энергию между проводами и устройставми
 void Game::TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition, int typeObject)
@@ -417,18 +417,24 @@ void Game::Play()
 	DrawPlay();
 
 	// Работа печек
-	for (int i = 0; i < coalOvens.size(); i++)
+	for (auto coalOven : coalOvens)
 	{
-		coalOvens[i]->inventory.Burn();
+		coalOven->inventory.Burn();
 	}
 
 	// Работа электропечек
-	for (int i = 0; i < electricOvens.size(); i++)
+	for (auto electricOven : electricOvens)
 	{
-		electricOvens[i]->inventory.Burn();
+		electricOven->inventory.Burn();
 	}
 
-	//wires[0]->energy = 1;
+	// Работа энергитического хранилища
+	for (auto energyStorage : energyStorages)
+	{
+		energyStorage->inventory.Next();
+	}
+
+	// Для теста
 	energyStorages[0]->inventory.energy += 10;
 	// Передача энергии проводами
 	for (int i = 0; i < field.size.x; i++)
