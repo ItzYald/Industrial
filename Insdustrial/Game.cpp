@@ -99,7 +99,7 @@ void Game::LoadingPlay()
 	textures["Grass"].loadFromFile("Images/Grass.png");
 	// Хранилище энергии
 	textures["EnergyStorage"] = sf::Texture();
-	textures["EnergyStorage"].loadFromFile("Images/Wires/CooperWire4.png");
+	textures["EnergyStorage"].loadFromFile("Images/EnergyStorage.png");
 	/// Текстурки проводов
 	// Медные
 	textures["CooperWire0"] = sf::Texture();
@@ -129,7 +129,7 @@ void Game::LoadingPlay()
 
 	screen = "Игра";
 }
-// Выгрузка геймплея
+
 void Game::UnloadingPlay(std::string nextScreen)
 {
 	textures.clear();

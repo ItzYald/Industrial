@@ -98,7 +98,11 @@ public:
 	void LoadColorInventoryFromFile();
 	// Загрузка геймплея
 	void LoadingPlay();
-	// Выгрузка геймплея
+	/// <summary>
+	/// Выгрузка геймплея из памяти
+	/// (очистка массивов и обнуление картинок)
+	/// </summary>
+	/// <param name="nextScreen">Экран в который переходит после выгрузки геймплея</param>
 	void UnloadingPlay(std::string nextScreen);
 	// Отрисовка игрового поля
 	void DrawPlay();

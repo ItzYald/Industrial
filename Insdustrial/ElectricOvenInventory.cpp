@@ -39,6 +39,12 @@ void ElectricOvenInventory::Burn()
 		fuel -= 1;
 	}
 	functions.PrintText(std::to_string(fuel), sf::Vector2f(10, 100), 20, sf::Color::Red);
+
+	if (fuel > maxFuel)
+	{
+		fuel = maxFuel;
+	}
+
 }
 
 void ElectricOvenInventory::Draw()
