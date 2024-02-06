@@ -1,12 +1,12 @@
 #include "Inventory.h"
 
-Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory)
+Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures)
 {
 	// Узнать координаты мыши
 	mousePosition = sf::Vector2i();
 	// Предмет перетаскиваемый мышкой
 	mouseItem = Item(0, 0);
-	itemsSprites = StaticSprites();
+	itemsSprites = StaticSprites(_textures);
 	rw = _rw;
 	functions = Functions(rw);
 	// Выбранная ячейка
@@ -22,7 +22,7 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Colo
 		auto cellsI = std::vector<CellInInventory>();
 		for (int j = 0; j < 4; j++)
 		{
-			cellsI.push_back(CellInInventory(rw, sf::Vector2f(300 + 8 + i * 66, 400 + 8 + j * 66), true, true));
+			cellsI.push_back(CellInInventory(rw, sf::Vector2f(300 + 8 + i * 66, 400 + 8 + j * 66), true, _textures));
 		}
 		cells.push_back(cellsI);
 	}
@@ -33,7 +33,7 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Colo
 		auto cellsI = std::vector<CellInInventory>();
 		for (int j = 0; j < 2; j++)
 		{
-			cellsI.push_back(CellInInventory(rw, sf::Vector2f(600 + 8 + i * 66, 130 + 8 + j * 66), true, true));
+			cellsI.push_back(CellInInventory(rw, sf::Vector2f(600 + 8 + i * 66, 130 + 8 + j * 66), true, _textures));
 		}
 		cellsMiniWorkbench.push_back(cellsI);
 	}
@@ -105,7 +105,7 @@ void Inventory::DrawNear(int mouseWheel)
 		// Если 0 - сделать пустым
 		if (cells[i][3].item.quantity == 0)
 		{
-			cells[i][3].item.number = 0;
+			cells[i][3].item.NumberUpdate(0);
 		}
 
 		// Отрисовка

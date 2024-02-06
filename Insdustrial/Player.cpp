@@ -1,6 +1,7 @@
 #include "Player.h"
 
-Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::string imageFileName, sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
+Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::string imageFileName, sf::Vector2f _position,
+	std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures)
 {
 	rw = _rw;
 	fieldSizeOne = _fieldSizeOne;
@@ -16,7 +17,7 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 
 	run = 0;
 
-	inventory = Inventory(rw, _colorsInventory);
+	inventory = Inventory(rw, _colorsInventory, _textures);
 
 	sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
 

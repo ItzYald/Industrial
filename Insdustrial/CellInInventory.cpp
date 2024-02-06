@@ -1,20 +1,16 @@
 #include "CellInInventory.h"
 
-CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put, bool _take)
+CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put, bool _take, std::vector<sf::Texture>& _textures)
 {
 	rw = _rw;
 	functions = Functions(rw);
 
-	itemsSprites = StaticSprites();
+	itemsSprites = StaticSprites(_textures);
 
 	put = _put;
 	take = _take;
 
-	//item.number = 0;
-	//item.quantity = 0;
-
 	item = Item(0, 0);
-
 	
 	LoadColorInventoryFromFile();
 	button = Button(position, sf::Vector2f(64, 64), L"",
@@ -22,16 +18,15 @@ CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vect
 		sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25);
 }
 
-CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put)
+CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put, std::vector<sf::Texture>& _textures)
 {
 	rw = _rw;
 	functions = Functions(rw);
 
+	itemsSprites = StaticSprites(_textures);
+
 	put = _put;
 	take = true;
-
-	//item.number = 0;
-	//item.quantity = 0;
 
 	item = Item(0, 0);
 

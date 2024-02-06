@@ -10,23 +10,13 @@ class StaticSprites
 {
 public:
 	// Конструктор
-	StaticSprites();
+	StaticSprites(){}
+	StaticSprites(std::vector<sf::Texture>& _textures);
 
-	std::vector<sf::Texture*> textures;
 	std::vector<sf::Sprite> sprites;
 
 	sf::Sprite GetSprite(int numberItem);
-	sf::Texture GetTexture(int numberItem);
 	void DrawItemSprite(sf::RenderWindow* rw, int numberItem, sf::Vector2f position, sf::Vector2f scale);
-	// Деструктор
-	~StaticSprites()
-	{
-		for (int i = 0; i < textures.size(); i++)
-		{
-			textures[i] = NULL;
-			delete textures[i];
-		}
-	}
 
 };
 

@@ -33,8 +33,8 @@ public:
 	// Список цветов
 	std::vector<sf::Color> colorsInventory;
 	CellInInventory(){ }
-	CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put, bool _take);
-	CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put);
+	CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put, bool _take, std::vector<sf::Texture>& _textures);
+	CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put, std::vector<sf::Texture>& _textures);
 	// Загрузка настроек цвета интерфейса из файла
 	void LoadColorInventoryFromFile();
 

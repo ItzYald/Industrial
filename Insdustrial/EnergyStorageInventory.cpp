@@ -1,7 +1,7 @@
 #include "EnergyStorageInventory.h"
 
 
-EnergyStorageInventory::EnergyStorageInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, int type)
+EnergyStorageInventory::EnergyStorageInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, int type, std::vector<sf::Texture>& _textures)
 {
 	rw = _rw;
 	functions = Functions(rw);

@@ -1,6 +1,6 @@
 #include "WorbenchInventory.h"
 
-WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory)
+WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures)
 {
 	// Окно
 	rw = _rw;
@@ -15,15 +15,15 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, st
 		auto cellsI = std::vector<CellInInventory>();
 		for (int j = 0; j < 3; j++)
 		{
-			cellsI.push_back(CellInInventory(rw, sf::Vector2f(350 + 8 + i * 66, 130 + 8 + j * 66), true));
+			cellsI.push_back(CellInInventory(rw, sf::Vector2f(350 + 8 + i * 66, 130 + 8 + j * 66), true, _textures));
 		}
 		cells.push_back(cellsI);
 	}
-	
-	// Созданный предмет
-	madeItemCell = CellInInventory(rw, sf::Vector2f(700, 130 + 8 + 1 * 66), false);
 
-	itemsSprites = StaticSprites();
+	// Созданный предмет
+	madeItemCell = CellInInventory(rw, sf::Vector2f(700, 130 + 8 + 1 * 66), false, _textures);
+
+	itemsSprites = StaticSprites(_textures);
 	// Какие есть крафты
 	collectionCraft = std::vector<std::vector<std::vector<int>>>();
 	collectionResult = std::vector<std::vector<int>>();

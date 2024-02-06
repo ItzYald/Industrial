@@ -26,7 +26,7 @@ public:
 	std::vector<std::vector<int>> collectionResult;
 
 	WorkbenchInventory(){}
-	WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory);
+	WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures);
 
 	// Добавить новый крафт (в начале программы для сокращения кода)
 	void AddCraft(

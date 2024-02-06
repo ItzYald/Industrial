@@ -23,8 +23,7 @@ class ChestInventory : ObjectInventory
 public:
 
 	ChestInventory(){}
-	//ChestInventory(std::shared_ptr<sf::RenderWindow> _rw);
-	ChestInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory);
+	ChestInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures);
 
 	// Работа с ячейками
 	void Update(Inventory& playerInventory);

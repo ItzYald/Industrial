@@ -78,6 +78,8 @@ private:
 	
 	// Список всех текстур
 	std::map<std::string, sf::Texture> textures;
+	// Список текстур предметов (в инвентаре)
+	std::vector<sf::Texture> itemTextures;
 
 
 	// Поле

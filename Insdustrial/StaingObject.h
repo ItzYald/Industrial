@@ -51,6 +51,29 @@ public:
 		}
 	}
 
+	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
+		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures,
+		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
+	{
+		rw = _rw;
+		fieldSizeOne = _fieldSizeOne;
+		sprite.setTexture(_texture);
+		position = _position;
+
+		functions = Functions(rw);
+
+		isOpenInventory = false;
+
+		inventory = InventoryType(rw, _colorsInventory, _itemTextures);
+
+		sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
+
+		for (int i = 0; i < 30; i++)
+		{
+			ch.push_back(Checks());
+		}
+	}
+
 	/// <summary>Проверка игрока рядом</summary>
 	/// <param name="playerPosition">Позиция игрока</param>
 	/// <param name="playerAngle">Куда повернут игрок</param>

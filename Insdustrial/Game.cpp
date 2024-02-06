@@ -80,6 +80,7 @@ void Game::LoadColorInventoryFromFile()
 // Загрузка геймплея
 void Game::LoadingPlay()
 {
+	// Загрузка цветов интерфейса
 	LoadColorInventoryFromFile();
 	/// Текстуры:
 	// Печка
@@ -102,28 +103,53 @@ void Game::LoadingPlay()
 	textures["EnergyStorage"].loadFromFile("Images/EnergyStorage.png");
 	/// Текстурки проводов
 	// Медные
-	textures["CooperWire0"] = sf::Texture();
-	textures["CooperWire0"].loadFromFile("Images/Wires/CooperWire0.png");
-	textures["CooperWire1"] = sf::Texture();
-	textures["CooperWire1"].loadFromFile("Images/Wires/CooperWire1.png");
-	textures["CooperWire2"] = sf::Texture();
-	textures["CooperWire2"].loadFromFile("Images/Wires/CooperWire2.png");
-	textures["CooperWire3"] = sf::Texture();
-	textures["CooperWire3"].loadFromFile("Images/Wires/CooperWire3.png");
-	textures["CooperWire4"] = sf::Texture();
-	textures["CooperWire4"].loadFromFile("Images/Wires/CooperWire4.png");
-
 	textures["CooperWire"] = sf::Texture();
 	textures["CooperWire"].loadFromFile("Images/Wires/CooperWire.png");
 
-	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
-	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20), colorsInventory);
+	// Текстуры предметов
+	for (int i = 0; i < 14; i++)
+	{
+		itemTextures.push_back(sf::Texture());
+	}
 
-	coalOvens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], sf::Vector2f(23, 20), colorsInventory));
-	electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], sf::Vector2f(23, 19), colorsInventory));
-	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], sf::Vector2f(23, 21), colorsInventory));
-	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], sf::Vector2f(23, 22), colorsInventory));
-	energyStorages.push_back(std::make_shared<EnergyStorageSprite>(rw, field.sizeOne, textures["EnergyStorage"], sf::Vector2f(22, 20), colorsInventory, 0));
+	// Пустой слот
+	itemTextures[0].loadFromFile("Images/Empty.png");
+	// Железная руда
+	itemTextures[1].loadFromFile("Images/IronOre.png");
+	// Печка
+	itemTextures[2].loadFromFile("Images/Objects/Oven.png");
+	// Уголь
+	itemTextures[3].loadFromFile("Images/Coal.png");
+	// Железный слиток
+	itemTextures[4].loadFromFile("Images/IronIngot.png");
+	// Сундук
+	itemTextures[5].loadFromFile("Images/Objects/Chest.png");
+	// Железный блок
+	itemTextures[6].loadFromFile("Images/IronBlock.png");
+	// Древесина
+	itemTextures[7].loadFromFile("Images/Wood.png");
+	// Верстак
+	itemTextures[8].loadFromFile("Images/Objects/WorkBench.png");
+	// Доски
+	itemTextures[9].loadFromFile("Images/Planks.png");
+	// Редстоун
+	itemTextures[10].loadFromFile("Images/Redstone.png");
+	// Электропеч
+	itemTextures[11].loadFromFile("Images/Objects/ElectricOven.png");
+	// Медный провод
+	itemTextures[12].loadFromFile("Images/Wires/CooperWire.png");
+	// Энергохранилище
+	itemTextures[13].loadFromFile("Images/EnergyStorage.png");
+
+
+	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
+	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20), colorsInventory, itemTextures);
+
+	coalOvens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], itemTextures, sf::Vector2f(23, 20), colorsInventory));
+	electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], itemTextures, sf::Vector2f(23, 19), colorsInventory));
+	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], itemTextures, sf::Vector2f(23, 21), colorsInventory));
+	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], itemTextures, sf::Vector2f(23, 22), colorsInventory));
+	energyStorages.push_back(std::make_shared<EnergyStorageSprite>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 0));
 
 	wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["CooperWire"], sf::Vector2f(20, 15)));
 
@@ -133,6 +159,7 @@ void Game::LoadingPlay()
 void Game::UnloadingPlay(std::string nextScreen)
 {
 	textures.clear();
+	itemTextures.clear();
 
 	coalOvens.clear();
 	electricOvens.clear();
@@ -217,27 +244,27 @@ void Game::PutObject(sf::Vector2f position)
 	// Поставить печку
 	if (player.inventory.cells[player.inventory.choseCell][3].item.number == 2)
 	{
-		coalOvens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], position, colorsInventory));
+		coalOvens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], itemTextures, position, colorsInventory));
 	}
 	// Поставить верстак
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 11)
 	{
-		electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], position, colorsInventory));
+		electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], itemTextures, position, colorsInventory));
 	}
 	// Поставить сундук
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 5)
 	{
-		chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], position, colorsInventory));
+		chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], itemTextures, position, colorsInventory));
 	}
 	// Поставить верстак
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 8)
 	{
-		workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], position, colorsInventory));
+		workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], itemTextures, position, colorsInventory));
 	}
 	// Поставить энергохранилище
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 13)
 	{
-		energyStorages.push_back(std::make_shared<EnergyStorageSprite>(rw, field.sizeOne, textures["EnergyStorage"], position, colorsInventory, 1));
+		energyStorages.push_back(std::make_shared<EnergyStorageSprite>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1));
 	}
 	// Поставить медный провод
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 12)

@@ -9,7 +9,7 @@ public:
 	int turn;
 
 	EnergyStorageSprite(){ }
-	EnergyStorageSprite(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture& _texture, sf::Vector2f _position, std::vector<sf::Color> _colorsInventory, int type)
+	EnergyStorageSprite(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture& _texture, std::vector<sf::Texture>& _textures, sf::Vector2f _position, std::vector<sf::Color> _colorsInventory, int type)
 	{
 		rw = _rw;
 		fieldSizeOne = _fieldSizeOne;
@@ -20,7 +20,7 @@ public:
 
 		isOpenInventory = false;
 
-		inventory = EnergyStorageInventory(rw, _colorsInventory, type);
+		inventory = EnergyStorageInventory(rw, _colorsInventory, type, _textures);
 
 		sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
 

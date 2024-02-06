@@ -39,7 +39,8 @@ public:
 
 	Player(){ }
 	Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
-		std::string imageFileName, sf::Vector2f _position, std::vector<sf::Color> _colorsInventory);
+		std::string imageFileName, sf::Vector2f _position,
+		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures);
 
 	std::vector<Button> buttons;
 

@@ -2,7 +2,7 @@
 
 #include "CoalOvenInventory.h"
 
-ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory)
+ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures)
 {
 	rw = _rw;
 	functions = Functions(rw);
@@ -10,15 +10,15 @@ ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _
 
 	// 3 €чейки в инвентаре
 	cells = std::vector<CellInInventory>();
-	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 130), true));
-	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 306), true));
-	cells.push_back(CellInInventory(rw, sf::Vector2f(670, 218), false));
+	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 130), true, _textures));
+	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 306), true, _textures));
+	cells.push_back(CellInInventory(rw, sf::Vector2f(670, 218), false, _textures));
 
 	fuel = 0;
 	whatBurn = 120;
 	maxFuel = 3600;
 
-	itemsSprites = StaticSprites();
+	itemsSprites = StaticSprites(_textures);
 }
 
 void ElectricOvenInventory::Burn()
