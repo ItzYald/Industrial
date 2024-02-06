@@ -123,7 +123,7 @@ void Game::LoadingPlay()
 	electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], sf::Vector2f(23, 19), colorsInventory));
 	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], sf::Vector2f(23, 21), colorsInventory));
 	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], sf::Vector2f(23, 22), colorsInventory));
-	energyStorages.push_back(std::make_shared<EnergyStorageSprite>(rw, field.sizeOne, textures["EnergyStorage"], sf::Vector2f(22, 20), colorsInventory));
+	energyStorages.push_back(std::make_shared<EnergyStorageSprite>(rw, field.sizeOne, textures["EnergyStorage"], sf::Vector2f(22, 20), colorsInventory, 0));
 
 	wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["CooperWire"], sf::Vector2f(20, 15)));
 
@@ -233,6 +233,11 @@ void Game::PutObject(sf::Vector2f position)
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 8)
 	{
 		workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], position, colorsInventory));
+	}
+	// Поставить энергохранилище
+	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 13)
+	{
+		energyStorages.push_back(std::make_shared<EnergyStorageSprite>(rw, field.sizeOne, textures["EnergyStorage"], position, 1));
 	}
 	// Поставить медный провод
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 12)
@@ -373,6 +378,7 @@ void Game::TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition,
 	{
 		return;
 	}
+
 	if (field.wires[nextPosition.x][nextPosition.y] != -1)
 	{
 		wires[field.wires[nextPosition.x][nextPosition.y]]->energy = *energy;

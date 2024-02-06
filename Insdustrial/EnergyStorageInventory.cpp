@@ -1,7 +1,7 @@
 #include "EnergyStorageInventory.h"
 
 
-EnergyStorageInventory::EnergyStorageInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory)
+EnergyStorageInventory::EnergyStorageInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, int type)
 {
 	rw = _rw;
 	functions = Functions(rw);
@@ -12,8 +12,16 @@ EnergyStorageInventory::EnergyStorageInventory(std::shared_ptr<sf::RenderWindow>
 		ch.push_back(Checks());
 	}
 
+	if (type == 0)
+	{
+		maxEnergy = 10000;
+	}
+	else if (type == 1)
+	{
+		maxEnergy = 100000;
+	}
+
 	energy = 0;
-	maxEnergy = 10000;
 }
 
 void EnergyStorageInventory::Draw()
@@ -22,6 +30,7 @@ void EnergyStorageInventory::Draw()
 	if (maxEnergy != 0)
 	{
 		functions.DrawRectangleGradient(sf::Vector2f(400, 350), sf::Vector2f(30, ((energy / (float)maxEnergy)) * -200), sf::Color::Red, sf::Color(255, 200, 0));
+		functions.PrintText(std::to_string(energy) + " / " + std::to_string(maxEnergy) + " en", sf::Vector2f(600, 200), 25, sf::Color(colorsInventory[0]));
 	}
 }
 

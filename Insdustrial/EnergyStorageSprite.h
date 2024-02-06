@@ -9,9 +9,25 @@ public:
 	int turn;
 
 	EnergyStorageSprite(){ }
-	EnergyStorageSprite(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture& _texture, sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
-		: StaingObject(_rw, _fieldSizeOne, _texture, _position, _colorsInventory)
+	EnergyStorageSprite(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture& _texture, sf::Vector2f _position, std::vector<sf::Color> _colorsInventory, int type)
 	{
+		rw = _rw;
+		fieldSizeOne = _fieldSizeOne;
+		sprite.setTexture(_texture);
+		position = _position;
+
+		functions = Functions(rw);
+
+		isOpenInventory = false;
+
+		inventory = EnergyStorageInventory(rw, _colorsInventory, type);
+
+		sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
+
+		for (int i = 0; i < 30; i++)
+		{
+			ch.push_back(Checks());
+		}
 		turn = 0;
 	}
 
