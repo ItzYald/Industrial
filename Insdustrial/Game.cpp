@@ -280,7 +280,7 @@ void Game::Drive()
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	bool nearObject = player.PutObject(coalOvens, electricOvens, chests, workbenches, wires);
+	bool nearObject = player.PutObject(coalOvens, electricOvens, chests, workbenches, wires, energyStorages);
 	if (nearObject)
 	{
 		switch (player.angle)
@@ -408,7 +408,7 @@ void Game::TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition,
 
 	if (field.wires[nextPosition.x][nextPosition.y] != -1)
 	{
-		wires[field.wires[nextPosition.x][nextPosition.y]]->energy = *energy;
+		wires[field.wires[nextPosition.x][nextPosition.y]]->energy += *energy;
 		*energy = 0;
 	}
 	else if (field.electricOvens[nextPosition.x][nextPosition.y] != -1)
@@ -418,10 +418,11 @@ void Game::TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition,
 	}
 	else if (field.energyStorages[nextPosition.x][nextPosition.y] != -1)
 	{
-		electricOvens[field.electricOvens[nextPosition.x][nextPosition.y]]->inventory.fuel += *energy;
+
+		energyStorages[field.energyStorages[nextPosition.x][nextPosition.y]]->inventory.energy += *energy;
 		*energy = 0;
 	}
-	energy = nullptr;
+	energy = NULL;
 	delete energy;
 }
 

@@ -47,6 +47,8 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 	inventory.cells[9][3].item.quantity = 14;
 	inventory.cells[9][3].item.NumberUpdate(12);
 	inventory.cells[9][3].item.quantity = 14;
+	inventory.cells[8][1].item.NumberUpdate(13);
+	inventory.cells[8][1].item.quantity = 20;
 
 
 	for (int i = 0; i < 30; i++)
@@ -106,12 +108,13 @@ void Player::Update()
 		whatTypeInventoryOpen = 0;
 	}
 }
-// Проверить наличие объекта перед игроком
+
 bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>& ovens,
 	std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>& electricOvens,
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests, 
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
-	std::vector< std::shared_ptr<Wire>>& wires)
+	std::vector<std::shared_ptr<Wire>>& wires, 
+	std::vector<std::shared_ptr<EnergyStorageSprite>>& energyStorages)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
 	{
@@ -119,7 +122,8 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventor
 			inventory.cells[inventory.choseCell][3].item.number == 5 || 
 			inventory.cells[inventory.choseCell][3].item.number == 8 ||
 			inventory.cells[inventory.choseCell][3].item.number == 11 ||
-			inventory.cells[inventory.choseCell][3].item.number == 12) &&
+			inventory.cells[inventory.choseCell][3].item.number == 12 ||
+			inventory.cells[inventory.choseCell][3].item.number == 13) &&
 			inventory.cells[inventory.choseCell][3].item.quantity > 0)
 		{
 			bool isNear = false;
@@ -144,6 +148,11 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventor
 					isNear = thisObject->NearPlayer(position, angle);
 			}
 			for (std::shared_ptr<Wire>& thisObject : wires)
+			{
+				if (!isNear)
+					isNear = thisObject->NearPlayer(position, angle);
+			}
+			for (std::shared_ptr<EnergyStorageSprite>& thisObject : energyStorages)
 			{
 				if (!isNear)
 					isNear = thisObject->NearPlayer(position, angle);
