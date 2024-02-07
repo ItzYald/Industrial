@@ -44,6 +44,12 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, st
 		9, 0, 9,
 		9, 9, 9,
 		5, 1);
+	// Ёлектропеч
+	AddCraft(
+		4, 4, 4,
+		4, 2, 4,
+		4, 4, 4,
+		11, 1);
 }
 
 void WorkbenchInventory::AddCraft(
