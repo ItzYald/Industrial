@@ -50,6 +50,8 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 	inventory.cells[9][3].item.quantity = 14;
 	inventory.cells[8][1].item.NumberUpdate(13);
 	inventory.cells[8][1].item.quantity = 20;
+	inventory.cells[8][0].item.NumberUpdate(14);
+	inventory.cells[8][0].item.quantity = 20;
 
 
 	for (int i = 0; i < 30; i++)
@@ -124,7 +126,8 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventor
 			inventory.cells[inventory.choseCell][3].item.number == 8 ||
 			inventory.cells[inventory.choseCell][3].item.number == 11 ||
 			inventory.cells[inventory.choseCell][3].item.number == 12 ||
-			inventory.cells[inventory.choseCell][3].item.number == 13) &&
+			inventory.cells[inventory.choseCell][3].item.number == 13 ||
+			inventory.cells[inventory.choseCell][3].item.number == 15) &&
 			inventory.cells[inventory.choseCell][3].item.quantity > 0)
 		{
 			bool isNear = false;

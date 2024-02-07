@@ -50,6 +50,18 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, st
 		4, 2, 4,
 		4, 4, 4,
 		11, 1);
+	// Медный провод
+	AddCraft(
+		0, 14, 0,
+		0, 14, 0,
+		0, 14, 0,
+		12, 3);
+	// Железный провод
+	AddCraft(
+		0, 4, 0,
+		0, 4, 0,
+		0, 4, 0,
+		15, 3);
 }
 
 void WorkbenchInventory::AddCraft(
