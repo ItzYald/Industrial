@@ -7,8 +7,6 @@
 class OvenInventory : public ObjectInventory
 {
 protected:
-	// Максимальное топливо (для отрисовки сколько осталось топлива)
-	int maxFuel;
 	// Сколько осталось гореть
 	int whatBurn;
 	int previousItemBurn2;
@@ -16,6 +14,8 @@ protected:
 	std::vector<CellInInventory> cells;
 
 public:
+	// Максимальное топливо (для отрисовки сколько осталось топлива)
+	int maxFuel;
 	// Топливо
 	int fuel;
 	// Процесс работы для любой печки (угольной или электрической)

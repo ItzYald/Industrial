@@ -44,7 +44,7 @@ private:
 	sf::Vector2i mousePosition;
 	// Колесико мыши
 	int mouseWheel;
-	//
+	
 	std::vector<Checks> ch;
 	// Функции
 	Functions functions;
@@ -114,11 +114,16 @@ public:
 	void PutObject(sf::Vector2f position);
 	// Геймплей
 	void Drive();
-	/// <summary>Перенос энергию между проводами и устройставми между собой</summary>
+	/// <summary>Передать энеригю</summary>
+	/// <param name="nextPosition">Позиция объекта, которому передать энергию</param>
+	/// <param name="energy">Какую энергию передать</param>
+	/// <param name="power">Сколько передать энергии</param>
+	void TransEnergy(sf::Vector2i nextPosition, int& energy, int power);
+	/// <summary>Какую энергию передавать</summary>
 	/// <param name="originalPosition">Позиция первого устройства, который передает энергию</param>
 	/// <param name="nextPosition">Позиция второго устройства, которому передают энергию</param>
 	/// <param name="typeObject">Тип устройства, которое передает энергию (0 - провод, 1 - хранилище)</param>
-	void TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition, int typeObject);
+	void CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPosition, int typeObject);
 	/// <summary>Проверка поворота устройста для понятия, куда отправлять энергию</summary>
 	/// <param name="turn">Поворот объекта</param>
 	sf::Vector2i CheckTurnEnergy(int turn);

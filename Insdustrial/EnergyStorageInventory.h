@@ -3,16 +3,21 @@
 #include "Functions/Checks.h"
 #include "Inventory.h"
 
+
 class EnergyStorageInventory : public ObjectInventory
 {
 private:
+	// Окно
 	std::shared_ptr<sf::RenderWindow> rw;
-	// Максимальная энергия, которую вмещает
-	int maxEnergy;
 	std::vector<Checks> ch;
 
 public:
+	// Максимальная энергия, которую вмещает
+	int maxEnergy;
+	// Количество энергии
 	int energy;
+	// То, сколько энегии может передать
+	int power;
 	// Базовый конструктор
 	EnergyStorageInventory(){ }
 	/// <summary>Конструктор</summary>

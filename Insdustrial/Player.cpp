@@ -14,7 +14,8 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 	isOpenInventory = false;
 	whatTypeInventoryOpen = 0;
 	whatNumberInventoryOpen = 0;
-
+	
+	// Скорость бега
 	run = 0;
 
 	inventory = Inventory(rw, _colorsInventory, _textures);
@@ -95,7 +96,7 @@ void Player::Move()
 		run = 0.06f;
 	}
 }
-// То, что игрок делает каждый кадр
+
 void Player::Update()
 {
 	if (!isOpenInventory)

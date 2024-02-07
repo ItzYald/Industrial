@@ -1,6 +1,6 @@
 #include "Wire.h"
 
-Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture& texture, sf::Vector2f _position)
+Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture& texture, sf::Vector2f _position, int _type)
 {
 	rw = _rw;
 	fieldSizeOne = _fieldSizeOne;
@@ -8,12 +8,25 @@ Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture
 
 	sprite = sf::Sprite();
 	sprite.setTexture(texture);
-	sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
+	sprite.setScale(fieldSizeOne / (float)sprite.getTexture()->getSize().x, fieldSizeOne / (float)sprite.getTexture()->getSize().y);
 
 	position = _position;
 	energy = 0;
 
 	turn = 0;
+
+	// Если медный
+	if (_type == 0)
+	{
+		maxEnergy = 10;
+		power = 10;
+	}
+	// Если стальной
+	else if (_type == 1)
+	{
+		power = 100;
+		maxEnergy = 100;
+	}
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -188,19 +201,19 @@ void Wire::Draw(sf::Vector2f cameraPosition)
 {
 	if (turn == 0)
 	{
-		sprite.setRotation(0);
+		sprite.setRotation(180);
 	}
 	if (turn == 1)
 	{
-		sprite.setRotation(90);
+		sprite.setRotation(270);
 	}
 	if (turn == 2)
 	{
-		sprite.setRotation(180);
+		sprite.setRotation(0);
 	}
 	if (turn == 3)
 	{
-		sprite.setRotation(270);
+		sprite.setRotation(90);
 	}
 
 	// Задать позицию

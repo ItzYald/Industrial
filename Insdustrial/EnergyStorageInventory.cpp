@@ -15,10 +15,12 @@ EnergyStorageInventory::EnergyStorageInventory(std::shared_ptr<sf::RenderWindow>
 	if (type == 0)
 	{
 		maxEnergy = 10000;
+		power = 10;
 	}
 	else if (type == 1)
 	{
 		maxEnergy = 100000;
+		power = 100;
 	}
 
 	energy = 0;

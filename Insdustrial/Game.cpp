@@ -104,7 +104,7 @@ void Game::LoadingPlay()
 	/// Текстурки проводов
 	// Медные
 	textures["CooperWire"] = sf::Texture();
-	textures["CooperWire"].loadFromFile("Images/Wires/CooperWire.png");
+	textures["CooperWire"].loadFromFile("Images/Wires/CooperWireOn.png");
 
 	// Текстуры предметов
 	for (int i = 0; i < 14; i++)
@@ -137,7 +137,7 @@ void Game::LoadingPlay()
 	// Электропеч
 	itemTextures[11].loadFromFile("Images/Objects/ElectricOven.png");
 	// Медный провод
-	itemTextures[12].loadFromFile("Images/Wires/CooperWire.png");
+	itemTextures[12].loadFromFile("Images/Wires/CooperWireOn.png");
 	// Энергохранилище
 	itemTextures[13].loadFromFile("Images/EnergyStorage.png");
 
@@ -151,7 +151,7 @@ void Game::LoadingPlay()
 	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], itemTextures, sf::Vector2f(23, 22), colorsInventory));
 	energyStorages.push_back(std::make_shared<EnergyStorageSprite>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 0));
 
-	wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["CooperWire"], sf::Vector2f(20, 15)));
+	wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["CooperWire"], sf::Vector2f(20, 15), 0));
 
 	screen = "Игра";
 }
@@ -269,7 +269,7 @@ void Game::PutObject(sf::Vector2f position)
 	// Поставить медный провод
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 12)
 	{
-		wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["CooperWire"], position));
+		wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["CooperWire"], position, 0));
 	}
 }
 // Геймплей
@@ -380,18 +380,63 @@ void Game::Drive()
 	// Смещение камеры
 	cameraPosition -= (cameraPosition - sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2))) * 0.04f;
 }
-// Перенос энергию между проводами и устройставми
-void Game::TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition, int typeObject)
+
+void Game::TransEnergy(sf::Vector2i nextPosition, int& energy, int power)
 {
-	// Ссылка на энергию объекта, который ее передает
-	int* energy;
+	if (field.wires[nextPosition.x][nextPosition.y] != -1)
+	{
+		std::shared_ptr<Wire> thisWire = wires[field.wires[nextPosition.x][nextPosition.y]];
+		if (thisWire->energy + power > thisWire->maxEnergy)
+		{
+			energy -= thisWire->maxEnergy - thisWire->energy;
+			thisWire->energy = thisWire->maxEnergy;
+		}
+		else
+		{
+			thisWire->energy += power;
+			energy -= power;
+		}
+	}
+	else if (field.electricOvens[nextPosition.x][nextPosition.y] != -1)
+	{
+		ElectricOvenInventory& thisOvenInventory = electricOvens[field.electricOvens[nextPosition.x][nextPosition.y]]->inventory;
+		if (thisOvenInventory.fuel + power > thisOvenInventory.maxFuel)
+		{
+			energy -= thisOvenInventory.maxFuel - thisOvenInventory.fuel;
+			thisOvenInventory.fuel = thisOvenInventory.maxFuel;
+		}
+		else
+		{
+			thisOvenInventory.fuel += power;
+			energy -= power;
+		}
+	}
+	else if (field.energyStorages[nextPosition.x][nextPosition.y] != -1)
+	{
+		EnergyStorageInventory& thisEnergyStorage = energyStorages[field.energyStorages[nextPosition.x][nextPosition.y]]->inventory;
+		if (thisEnergyStorage.energy + power > thisEnergyStorage.maxEnergy)
+		{
+			energy -= thisEnergyStorage.maxEnergy - thisEnergyStorage.energy;
+			thisEnergyStorage.energy = thisEnergyStorage.maxEnergy;
+		}
+		else
+		{
+			thisEnergyStorage.energy += power;
+			energy -= power;
+		}
+	}
+}
+
+void Game::CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPosition, int typeObject)
+{
 	if (typeObject == 0)
 	{
 		if (field.wires[originalPosition.x][originalPosition.y] == -1)
 		{
 			return;
 		}
-		energy = &wires[field.wires[originalPosition.x][originalPosition.y]]->energy;
+		TransEnergy(nextPosition, wires[field.wires[originalPosition.x][originalPosition.y]]->energy,
+			wires[field.wires[originalPosition.x][originalPosition.y]]->power);
 	}
 	else if (typeObject == 1)
 	{
@@ -399,31 +444,13 @@ void Game::TransEnergy(sf::Vector2i originalPosition, sf::Vector2i nextPosition,
 		{
 			return;
 		}
-		energy = &energyStorages[field.energyStorages[originalPosition.x][originalPosition.y]]->inventory.energy;
+		TransEnergy(nextPosition, energyStorages[field.energyStorages[originalPosition.x][originalPosition.y]]->inventory.energy,
+			energyStorages[field.energyStorages[originalPosition.x][originalPosition.y]]->inventory.power);
 	}
 	else
 	{
 		return;
 	}
-
-	if (field.wires[nextPosition.x][nextPosition.y] != -1)
-	{
-		wires[field.wires[nextPosition.x][nextPosition.y]]->energy += *energy;
-		*energy = 0;
-	}
-	else if (field.electricOvens[nextPosition.x][nextPosition.y] != -1)
-	{
-		electricOvens[field.electricOvens[nextPosition.x][nextPosition.y]]->inventory.fuel += *energy;
-		*energy = 0;
-	}
-	else if (field.energyStorages[nextPosition.x][nextPosition.y] != -1)
-	{
-
-		energyStorages[field.energyStorages[nextPosition.x][nextPosition.y]]->inventory.energy += *energy;
-		*energy = 0;
-	}
-	energy = NULL;
-	delete energy;
 }
 
 sf::Vector2i Game::CheckTurnEnergy(int turn)
@@ -481,7 +508,7 @@ void Game::Play()
 				{
 					// Сдвиг относительно объекта (куда он повернут)
 					sf::Vector2i shift = CheckTurnEnergy(wires[field.wires[i][j]]->turn);
-					TransEnergy(sf::Vector2i(i, j), sf::Vector2i(i + shift.x, j + shift.y), 0);
+					CheckTypeTrans(sf::Vector2i(i, j), sf::Vector2i(i + shift.x, j + shift.y), 0);
 				}
 			}
 			if (field.energyStorages[i][j] != -1)
@@ -490,7 +517,7 @@ void Game::Play()
 				{
 					// Сдвиг относительно объекта (куда он повернут)
 					sf::Vector2i shift = CheckTurnEnergy(energyStorages[field.energyStorages[i][j]]->turn);
-					TransEnergy(sf::Vector2i(i, j), sf::Vector2i(i + shift.x, j + shift.y), 1);
+					CheckTypeTrans(sf::Vector2i(i, j), sf::Vector2i(i + shift.x, j + shift.y), 1);
 				}
 			}
 		}
