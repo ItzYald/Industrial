@@ -23,7 +23,6 @@ void OvenInventory::AllBurn()
 					}
 					else
 					{
-						//cells[2].item.number = cells[0].item.isBurn;
 						cells[2].item.NumberUpdate(cells[0].item.isBurn);
 						cells[2].item.quantity = 1;
 					}
@@ -31,7 +30,6 @@ void OvenInventory::AllBurn()
 					cells[0].item.quantity -= 1;
 					if (cells[0].item.quantity == 0)
 					{
-						//cells[0].item.number = 0;
 						cells[0].item.NumberUpdate(0);
 					}
 				}

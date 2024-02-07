@@ -17,6 +17,7 @@ public:
 
 	sf::Sprite GetSprite(int numberItem);
 	void DrawItemSprite(sf::RenderWindow* rw, int numberItem, sf::Vector2f position, sf::Vector2f scale);
+	void DrawItemSprite(sf::RenderWindow* rw, int numberItem, sf::Vector2f position, int sizeOne);
 
 };
 

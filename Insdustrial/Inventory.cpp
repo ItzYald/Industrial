@@ -55,7 +55,7 @@ void Inventory::Draw()
 	// Отрисовка предмета в мышке
 	if (mouseItem.number != 0)
 	{
-		itemsSprites.DrawItemSprite(rw.get(), mouseItem.number, sf::Vector2f(mousePosition.x, mousePosition.y), sf::Vector2f(4, 4));
+		itemsSprites.DrawItemSprite(rw.get(), mouseItem.number, sf::Vector2f(mousePosition.x, mousePosition.y), 64);
 		functions.PrintText(std::to_string(mouseItem.quantity), sf::Vector2f(mousePosition.x + 35, mousePosition.y + 35), 25, sf::Color(250, 250, 250));
 	}
 }
@@ -108,15 +108,7 @@ void Inventory::DrawNear(int mouseWheel)
 			cells[i][3].item.NumberUpdate(0);
 		}
 
-		// Отрисовка
-		functions.DrawRectangle(sf::Vector2f(300 + 8 + i * 66, 400 + 8 + 3 * 66), sf::Vector2f(64, 64), colorsInventory[0], colorsInventory[2], 2);
-		sf::Vector2f positionInventory = sf::Vector2f(300 + 8 + i * 66, 400 + 8 + 3 * 66);
-		if (cells[i][3].item.number != 0)
-		{
-			itemsSprites.DrawItemSprite(rw.get(), cells[i][3].item.number, positionInventory, sf::Vector2f(4, 4));
-			// Колличество
-			functions.PrintText(std::to_string(cells[i][3].item.quantity), sf::Vector2f(positionInventory.x + 35, positionInventory.y + 35), 25, sf::Color(250, 250, 250));
-		}
+		cells[i][3].DrawCell();
 
 	}
 

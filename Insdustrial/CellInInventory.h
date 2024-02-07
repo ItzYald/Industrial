@@ -40,6 +40,8 @@ public:
 
 	// ќтрисовать €чейку
 	void DrawCell();
+
+	void DrawName();
 	// ¬з€ть из €чейки
 	bool Take(Item& mouseItem);
 	//  аждый кадр

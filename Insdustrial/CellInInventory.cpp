@@ -36,7 +36,6 @@ CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vect
 		sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25);
 }
 
-
 void CellInInventory::LoadColorInventoryFromFile()
 {
 	colorsInventory.clear();
@@ -79,13 +78,18 @@ void CellInInventory::DrawCell()
 	sf::Vector2f positionInventory = button.coords;
 	if (item.number != 0)
 	{
-		itemsSprites.DrawItemSprite(rw.get(), item.number, positionInventory, sf::Vector2f(4, 4));
+		itemsSprites.DrawItemSprite(rw.get(), item.number, positionInventory, 64);
 		// Написать колличество
 		functions.PrintText(std::to_string(item.quantity),
 			sf::Vector2f(positionInventory.x + 35, positionInventory.y + 35),
 			25, sf::Color(250, 250, 250));
 	}
 
+}
+
+void CellInInventory::DrawName()
+{
+	// Отрисовка названия
 	if (item.number != 0 && button.Aim(*rw))
 	{
 		sf::Vector2f positionInventory = button.coords;
@@ -95,7 +99,6 @@ void CellInInventory::DrawCell()
 			sf::Vector2f(sizeSimbol * name.getSize() / 1.8 + 10, 35), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 2);
 		functions.PrintText(name, sf::Vector2f(positionInventory.x + 70, positionInventory.y), sizeSimbol, sf::Color(250, 250, 250));
 	}
-
 }
 
 bool CellInInventory::Take(Item& mouseItem)
