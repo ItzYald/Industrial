@@ -105,6 +105,9 @@ void Game::LoadingPlay()
 	// Медные
 	textures["CooperWire"] = sf::Texture();
 	textures["CooperWire"].loadFromFile("Images/Wires/CooperWireOn.png");
+	// Железные
+	textures["CooperWire"] = sf::Texture();
+	textures["CooperWire"].loadFromFile("Images/Wires/CooperWireOn.png");
 
 	// Текстуры предметов
 	for (int i = 0; i < 14; i++)
@@ -383,46 +386,73 @@ void Game::Drive()
 
 void Game::TransEnergy(sf::Vector2i nextPosition, int& energy, int power)
 {
+	// Если на месте стоит провод
 	if (field.wires[nextPosition.x][nextPosition.y] != -1)
 	{
 		std::shared_ptr<Wire> thisWire = wires[field.wires[nextPosition.x][nextPosition.y]];
-		if (thisWire->energy + power > thisWire->maxEnergy)
+		if (energy - power < 0)
 		{
-			energy -= thisWire->maxEnergy - thisWire->energy;
-			thisWire->energy = thisWire->maxEnergy;
+			thisWire->energy += energy;
+			energy = 0;
 		}
 		else
 		{
-			thisWire->energy += power;
-			energy -= power;
+			if (thisWire->energy + power > thisWire->maxEnergy)
+			{
+				energy -= thisWire->maxEnergy - thisWire->energy;
+				thisWire->energy = thisWire->maxEnergy;
+			}
+			else
+			{
+				thisWire->energy += power;
+				energy -= power;
+			}
 		}
 	}
+	// Если на месте стоит электропечка
 	else if (field.electricOvens[nextPosition.x][nextPosition.y] != -1)
 	{
 		ElectricOvenInventory& thisOvenInventory = electricOvens[field.electricOvens[nextPosition.x][nextPosition.y]]->inventory;
-		if (thisOvenInventory.fuel + power > thisOvenInventory.maxFuel)
+		if (energy - power < 0)
 		{
-			energy -= thisOvenInventory.maxFuel - thisOvenInventory.fuel;
-			thisOvenInventory.fuel = thisOvenInventory.maxFuel;
+			thisOvenInventory.fuel += energy;
+			energy = 0;
 		}
 		else
 		{
-			thisOvenInventory.fuel += power;
-			energy -= power;
+			if (thisOvenInventory.fuel + power > thisOvenInventory.maxFuel)
+			{
+				energy -= thisOvenInventory.maxFuel - thisOvenInventory.fuel;
+				thisOvenInventory.fuel = thisOvenInventory.maxFuel;
+			}
+			else
+			{
+				thisOvenInventory.fuel += power;
+				energy -= power;
+			}
 		}
 	}
+	// Если на месте стоит энергохранилище
 	else if (field.energyStorages[nextPosition.x][nextPosition.y] != -1)
 	{
 		EnergyStorageInventory& thisEnergyStorage = energyStorages[field.energyStorages[nextPosition.x][nextPosition.y]]->inventory;
-		if (thisEnergyStorage.energy + power > thisEnergyStorage.maxEnergy)
+		if (energy - power < 0)
 		{
-			energy -= thisEnergyStorage.maxEnergy - thisEnergyStorage.energy;
-			thisEnergyStorage.energy = thisEnergyStorage.maxEnergy;
+			thisEnergyStorage.energy += energy;
+			energy = 0;
 		}
 		else
 		{
-			thisEnergyStorage.energy += power;
-			energy -= power;
+			if (thisEnergyStorage.energy + power > thisEnergyStorage.maxEnergy)
+			{
+				energy -= thisEnergyStorage.maxEnergy - thisEnergyStorage.energy;
+				thisEnergyStorage.energy = thisEnergyStorage.maxEnergy;
+			}
+			else
+			{
+				thisEnergyStorage.energy += power;
+				energy -= power;
+			}
 		}
 	}
 }
@@ -489,14 +519,14 @@ void Game::Play()
 		electricOven->inventory.Burn();
 	}
 
-	// Работа энергитического хранилища
+	// Работа энергитического хранилищав
 	for (auto energyStorage : energyStorages)
 	{
 		energyStorage->inventory.Next();
 	}
 
 	// Для теста
-	energyStorages[0]->inventory.energy += 10;
+	energyStorages[0]->inventory.energy += 1;
 	// Передача энергии проводами
 	for (int i = 0; i < field.size.x; i++)
 	{
