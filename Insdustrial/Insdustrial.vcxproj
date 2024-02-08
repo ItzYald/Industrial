@@ -137,7 +137,7 @@
     <ClCompile Include="CoalOvenInventory.cpp" />
     <ClCompile Include="ElectricOvenInventory.cpp" />
     <ClCompile Include="EnergyStorageInventory.cpp" />
-    <ClCompile Include="EnergyStorageSprite.cpp" />
+    <ClCompile Include="EnergySprite.cpp" />
     <ClCompile Include="Functions\Button.cpp" />
     <ClCompile Include="Functions\Checks.cpp" />
     <ClCompile Include="Functions\Functions.cpp" />
@@ -161,7 +161,7 @@
     <ClInclude Include="CoalOvenInventory.h" />
     <ClInclude Include="ElectricOvenInventory.h" />
     <ClInclude Include="EnergyStorageInventory.h" />
-    <ClInclude Include="EnergyStorageSprite.h" />
+    <ClInclude Include="EnergySprite.h" />
     <ClInclude Include="Functions\Button.h" />
     <ClInclude Include="Functions\Checks.h" />
     <ClInclude Include="Functions\Functions.h" />

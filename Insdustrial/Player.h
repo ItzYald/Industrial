@@ -19,12 +19,14 @@
 #include "ChestInventory.h"
 #include "WorbenchInventory.h"
 #include "Wire.h"
-#include "EnergyStorageSprite.h"
+#include "EnergySprite.h"
 
 class Player : public Sprite
 {
 private:
 	Functions functions;
+	// Скорость ходьбы/бега
+	float run;
 
 public:
 	// Инвентарь
@@ -35,8 +37,6 @@ public:
 	bool isOpenInventory;
 	int whatTypeInventoryOpen;
 	int whatNumberInventoryOpen;
-
-	float run;
 
 	Player(){ }
 	/// <summary>Конструктор</summary>
@@ -50,8 +50,6 @@ public:
 		std::string imageFileName, sf::Vector2f _position,
 		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures);
 
-	std::vector<Button> buttons;
-
 
 	// Ходьба игрока
 	void Move();
@@ -63,7 +61,7 @@ public:
 		std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests,
 		std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
 		std::vector<std::shared_ptr<Wire>>& wires,
-		std::vector<std::shared_ptr<EnergyStorageSprite>>& energyStorages);
+		std::vector<std::shared_ptr<EnergySprite<EnergyStorageInventory>>>& energyStorages);
 	// Отрисовка
 	void Draw(sf::Vector2f cameraPosition);
 };

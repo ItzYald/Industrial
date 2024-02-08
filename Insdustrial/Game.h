@@ -24,7 +24,7 @@
 #include "WorbenchInventory.h"
 #include "EnergyStorageInventory.h"
 
-#include "EnergyStorageSprite.h"
+#include "EnergySprite.h"
 
 
 class Game
@@ -71,7 +71,7 @@ private:
 	// Список верстаков
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches;
 	// Список хранилищ энергии
-	std::vector<std::shared_ptr<EnergyStorageSprite>> energyStorages;
+	std::vector<std::shared_ptr<EnergySprite<EnergyStorageInventory>>> energyStorages;
 
 	// Список проводов
 	std::vector<std::shared_ptr<Wire>> wires;
@@ -137,7 +137,5 @@ public:
 	void Mouse(sf::Event& e, sf::RenderWindow& rw);
 	// Прокручено колесико мыши
 	void MouseWheelScrolled(int _mouseWheel);
-
-	void EndProgramm(){}
 };
 

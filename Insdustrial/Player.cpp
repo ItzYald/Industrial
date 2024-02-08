@@ -24,8 +24,6 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 
 	angle = 0.06f;
 
-	buttons = std::vector<Button>();
-
 	inventory.cells[0][2].item.NumberUpdate(1);
 	inventory.cells[0][2].item.quantity = 15;
 	inventory.cells[1][3].item.NumberUpdate(2);
@@ -117,7 +115,7 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventor
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests, 
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
 	std::vector<std::shared_ptr<Wire>>& wires, 
-	std::vector<std::shared_ptr<EnergyStorageSprite>>& energyStorages)
+	std::vector<std::shared_ptr<EnergySprite<EnergyStorageInventory>>>& energyStorages)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
 	{
@@ -156,7 +154,7 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventor
 				if (!isNear)
 					isNear = thisObject->NearPlayer(position, angle);
 			}
-			for (std::shared_ptr<EnergyStorageSprite>& thisObject : energyStorages)
+			for (std::shared_ptr<EnergySprite<EnergyStorageInventory>>& thisObject : energyStorages)
 			{
 				if (!isNear)
 					isNear = thisObject->NearPlayer(position, angle);

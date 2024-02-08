@@ -13,14 +13,14 @@
 
 #include "Inventory.h"
 
-template<class InventoryType>
+template<class T>
 class StaingObject : public Sprite
 {
 public:
 	// Открыт ли инт
 	bool isOpenInventory;
 	// Инвентарь (каждый раз разный)
-	InventoryType inventory;
+	T inventory;
 
 	StaingObject(){}
 	/// <summaryКонструктор</summary>
@@ -41,7 +41,7 @@ public:
 
 		isOpenInventory = false;
 
-		inventory = InventoryType(rw, _colorsInventory);
+		inventory = T(rw, _colorsInventory);
 
 		sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
 
@@ -64,7 +64,7 @@ public:
 
 		isOpenInventory = false;
 
-		inventory = InventoryType(rw, _colorsInventory, _itemTextures);
+		inventory = T(rw, _colorsInventory, _itemTextures);
 
 		sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
 

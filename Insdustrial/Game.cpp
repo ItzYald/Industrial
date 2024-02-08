@@ -156,7 +156,7 @@ void Game::LoadingPlay()
 	electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], itemTextures, sf::Vector2f(23, 19), colorsInventory));
 	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], itemTextures, sf::Vector2f(23, 21), colorsInventory));
 	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], itemTextures, sf::Vector2f(23, 22), colorsInventory));
-	energyStorages.push_back(std::make_shared<EnergyStorageSprite>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 0));
+	energyStorages.push_back(std::make_shared<EnergySprite<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 0));
 
 	screen = "Игра";
 }
@@ -240,7 +240,7 @@ void Game::CloseInventory()
 			energyStorages[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		}
-		player.buttons.clear();
+		player.inventory.DeleteButtons();
 	}
 }
 // Поставить объект по определенным координатам
@@ -269,7 +269,7 @@ void Game::PutObject(sf::Vector2f position)
 	// Поставить энергохранилище
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 13)
 	{
-		energyStorages.push_back(std::make_shared<EnergyStorageSprite>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1));
+		energyStorages.push_back(std::make_shared<EnergySprite<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1));
 	}
 	// Поставить медный провод
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 12)
@@ -574,9 +574,10 @@ void Game::Play()
 	if (buttons.size() < 4)
 	{
 		// Кнопка выйти
-		buttons.push_back(Button(sf::Vector2f(1000, 600), sf::Vector2f(90, 60), L"Выйти",
-			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(0, 255, 0), sf::Color::Transparent,
-			sf::Color(0, 255, 0), sf::Color::Transparent, 1, 2, 25));
+		buttons.push_back(Button(sf::Vector2f(1000, 608), sf::Vector2f(128, 64), L"Выйти",
+			colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
+			sf::Color(255, 255, 255), sf::Color::Transparent, sf::Vector2f(128 / 2 - 35, 12), 4, 25));
+
 	}
 
 	if (!player.isOpenInventory)
