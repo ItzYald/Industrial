@@ -7,6 +7,8 @@ Game::Game(sf::RenderWindow& _rw)
 	functions = Functions(rw);
 	sizeW = _rw.getSize();
 	screen = "ЭкранЗагрузкиПриложения";
+	font.loadFromFile("Font/Undertale-Font.ttf");
+
 	coalOvens = std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>();
 	electricOvens = std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>();
 
@@ -16,7 +18,6 @@ Game::Game(sf::RenderWindow& _rw)
 	energyHandGenerators = std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>>();
 
 	wires = std::vector<std::shared_ptr<Wire>>();
-	font.loadFromFile("Font/Undertale-Font.ttf");
 }
 // Загрузка приложения
 void Game::LoadingApp()
@@ -107,7 +108,7 @@ void Game::LoadingPlay()
 	textures["IronWire"].loadFromFile("Images/Wires/IronWireOn.png");
 
 	// Текстуры предметов
-	for (int i = 0; i < 16; i++)
+	for (int i = 0; i < 17; i++)
 	{
 		itemTextures.push_back(sf::Texture());
 	}
@@ -144,6 +145,8 @@ void Game::LoadingPlay()
 	itemTextures[14].loadFromFile("Images/CooperIngot.png");
 	// Железный провод
 	itemTextures[15].loadFromFile("Images/Wires/IronWireOn.png");
+	// Ручной энергогенератор
+	itemTextures[16].loadFromFile("Images/Objects/EnergyHandGenerator.png");
 
 
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
@@ -648,7 +651,7 @@ void Game::Menu()
 	}
 
 	functions.DrawRectangle(sf::Vector2f(200, 100), sf::Vector2f(980, 520), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 4);
-	functions.PrintText(L"Few Colors", sf::Vector2f(sizeW.x / 2.f, 100), 109, sf::Color(0, 255, 0), 1);
+	functions.PrintText(L"Industrial", sf::Vector2f(sizeW.x / 2.f, 100), 109, sf::Color(0, 255, 0), 1);
 
 	if (buttons[0].DrawCheckLeft(*rw))
 	{

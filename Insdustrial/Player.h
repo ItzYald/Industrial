@@ -20,6 +20,7 @@
 #include "WorbenchInventory.h"
 #include "Wire.h"
 #include "EnergySprite.h"
+#include "EnergyHandGeneratorInventory.h"
 
 class Player : public Sprite
 {
@@ -61,7 +62,8 @@ public:
 		std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests,
 		std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
 		std::vector<std::shared_ptr<Wire>>& wires,
-		std::vector<std::shared_ptr<EnergySprite<EnergyStorageInventory>>>& energyStorages);
+		std::vector<std::shared_ptr<EnergySprite<EnergyStorageInventory>>>& energyStorages,
+		std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>>& energyHandGenerators);
 	// Отрисовка
 	void Draw(sf::Vector2f cameraPosition);
 };

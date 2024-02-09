@@ -106,7 +106,6 @@ void Functions::DrawSprite(sf::Sprite spr, sf::Vector2f pos, sf::Vector2f size, 
 
 void Functions::PrintText(sf::String mes, sf::Vector2f pos, int size, sf::Color col, int center)
 {
-	// text = sf::Text(mes, font, size);
 	text.setFont(font);
 	text.setCharacterSize(size);
 	text.setString(mes);

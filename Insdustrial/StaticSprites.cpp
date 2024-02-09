@@ -27,6 +27,4 @@ void StaticSprites::DrawItemSprite(sf::RenderWindow* rw, int numberItem, sf::Vec
 	sprites[numberItem].setScale(fieldSizeOne / (float)sprites[numberItem].getTexture()->getSize().x,
 		fieldSizeOne / (float)sprites[numberItem].getTexture()->getSize().y);
 	rw->draw(sprites[numberItem]);
-	//rw = NULL;
-	//delete rw;
 }
