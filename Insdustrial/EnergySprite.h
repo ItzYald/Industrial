@@ -27,8 +27,8 @@ public:
 		StaingObject<T>::inventory = T(StaingObject<T>::rw, _colorsInventory, type, _textures);
 
 		StaingObject<T>::sprite.setScale(
-			StaingObject<T>::fieldSizeOne / StaingObject<T>::sprite.getTexture()->getSize().x,
-			StaingObject<T>::fieldSizeOne / StaingObject<T>::sprite.getTexture()->getSize().y);
+			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().x,
+			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().y);
 
 		for (int i = 0; i < 30; i++)
 		{

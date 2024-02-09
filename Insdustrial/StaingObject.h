@@ -66,7 +66,7 @@ public:
 
 		inventory = T(rw, _colorsInventory, _itemTextures);
 
-		sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
+		sprite.setScale(fieldSizeOne / (float)sprite.getTexture()->getSize().x, fieldSizeOne / (float)sprite.getTexture()->getSize().y);
 
 		for (int i = 0; i < 30; i++)
 		{
