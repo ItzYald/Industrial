@@ -280,6 +280,11 @@ void Game::PutObject(sf::Vector2f position)
 	{
 		energyStorages.push_back(std::make_shared<EnergySprite<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1000, 10));
 	}
+	// Поставить энергохранилище
+	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 16)
+	{
+		energyHandGenerators.push_back(std::make_shared<EnergySprite<EnergyHandGeneratorInventory>>(rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, position, colorsInventory, 100, 10));
+	}
 	// Поставить медный провод
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 12)
 	{
@@ -299,7 +304,7 @@ void Game::Drive()
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	bool nearObject = player.PutObject(coalOvens, electricOvens, chests, workbenches, wires, energyStorages);
+	bool nearObject = player.PutObject(coalOvens, electricOvens, chests, workbenches, wires, energyStorages, energyHandGenerators);
 	if (nearObject)
 	{
 		switch (player.angle)

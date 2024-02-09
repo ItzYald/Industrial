@@ -118,54 +118,61 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventor
 	std::vector<std::shared_ptr<EnergySprite<EnergyStorageInventory>>>& energyStorages,
 	std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>>& energyHandGenerators)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
 	{
-		if ((inventory.cells[inventory.choseCell][3].item.number == 2 ||
-			inventory.cells[inventory.choseCell][3].item.number == 5 || 
-			inventory.cells[inventory.choseCell][3].item.number == 8 ||
-			inventory.cells[inventory.choseCell][3].item.number == 11 ||
-			inventory.cells[inventory.choseCell][3].item.number == 12 ||
-			inventory.cells[inventory.choseCell][3].item.number == 13 ||
-			inventory.cells[inventory.choseCell][3].item.number == 15) &&
-			inventory.cells[inventory.choseCell][3].item.quantity > 0)
+		return false;
+	}
+	if ((inventory.cells[inventory.choseCell][3].item.number == 2 ||
+		inventory.cells[inventory.choseCell][3].item.number == 5 || 
+		inventory.cells[inventory.choseCell][3].item.number == 8 ||
+		inventory.cells[inventory.choseCell][3].item.number == 11 ||
+		inventory.cells[inventory.choseCell][3].item.number == 12 ||
+		inventory.cells[inventory.choseCell][3].item.number == 13 ||
+		inventory.cells[inventory.choseCell][3].item.number == 15 ||
+		inventory.cells[inventory.choseCell][3].item.number == 16) &&
+		inventory.cells[inventory.choseCell][3].item.quantity > 0)
+	{
+		bool isNear = false;
+		for (std::shared_ptr<StaingObject<CoalOvenInventory>>& thisObject : ovens)
 		{
-			bool isNear = false;
-			for (std::shared_ptr<StaingObject<CoalOvenInventory>>& thisObject : ovens)
-			{
-				if (!isNear)
-					isNear = thisObject->NearPlayer(position, angle);
-			}
-			for (std::shared_ptr<StaingObject<ElectricOvenInventory>>& thisObject : electricOvens)
-			{
-				if (!isNear)
-					isNear = thisObject->NearPlayer(position, angle);
-			}
-			for (std::shared_ptr<StaingObject<ChestInventory>>& thisObject : chests)
-			{
-				if (!isNear)
-					isNear = thisObject->NearPlayer(position, angle);
-			}
-			for (std::shared_ptr<StaingObject<WorkbenchInventory>>& thisObject : workbenches)
-			{
-				if (!isNear)
-					isNear = thisObject->NearPlayer(position, angle);
-			}
-			for (std::shared_ptr<Wire>& thisObject : wires)
-			{
-				if (!isNear)
-					isNear = thisObject->NearPlayer(position, angle);
-			}
-			for (std::shared_ptr<EnergySprite<EnergyStorageInventory>>& thisObject : energyStorages)
-			{
-				if (!isNear)
-					isNear = thisObject->NearPlayer(position, angle);
-			}
-
 			if (!isNear)
-			{
-				inventory.cells[inventory.choseCell][3].item.quantity -= 1;
-				return true;
-			}
+				isNear = thisObject->NearPlayer(position, angle);
+		}
+		for (std::shared_ptr<StaingObject<ElectricOvenInventory>>& thisObject : electricOvens)
+		{
+			if (!isNear)
+				isNear = thisObject->NearPlayer(position, angle);
+		}
+		for (std::shared_ptr<StaingObject<ChestInventory>>& thisObject : chests)
+		{
+			if (!isNear)
+				isNear = thisObject->NearPlayer(position, angle);
+		}
+		for (std::shared_ptr<StaingObject<WorkbenchInventory>>& thisObject : workbenches)
+		{
+			if (!isNear)
+				isNear = thisObject->NearPlayer(position, angle);
+		}
+		for (std::shared_ptr<Wire>& thisObject : wires)
+		{
+			if (!isNear)
+				isNear = thisObject->NearPlayer(position, angle);
+		}
+		for (std::shared_ptr<EnergySprite<EnergyStorageInventory>>& thisObject : energyStorages)
+		{
+			if (!isNear)
+				isNear = thisObject->NearPlayer(position, angle);
+		}
+		for (std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>& thisObject : energyHandGenerators)
+		{
+			if (!isNear)
+				isNear = thisObject->NearPlayer(position, angle);
+		}
+
+		if (!isNear)
+		{
+			inventory.cells[inventory.choseCell][3].item.quantity -= 1;
+			return true;
 		}
 	}
 	return false;

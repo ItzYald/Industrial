@@ -56,14 +56,10 @@ void Wire::CheckConnections(sf::Vector2f positionSeconObject)
 
 bool Wire::NearPlayer(sf::Vector2f playerPosition, int playerAngle)
 {
-	if (((int)playerPosition.x == position.x && (int)playerPosition.y == position.y + 1 && playerAngle == 0) ||
+	return (((int)playerPosition.x == position.x && (int)playerPosition.y == position.y + 1 && playerAngle == 0) ||
 		((int)playerPosition.x == position.x && (int)playerPosition.y == position.y - 1 && playerAngle == 2) ||
 		((int)playerPosition.x == position.x + 1 && (int)playerPosition.y == position.y && playerAngle == 3) ||
-		((int)playerPosition.x == position.x - 1 && (int)playerPosition.y == position.y && playerAngle == 1))
-	{
-		return true;
-	}
-	return false;
+		((int)playerPosition.x == position.x - 1 && (int)playerPosition.y == position.y && playerAngle == 1));
 }
 
 void Wire::Update(sf::Vector2f playerPosition, int playerAngle)
