@@ -43,6 +43,12 @@
     <Filter Include="Файлы заголовков\Sprites\InventoryObject">
       <UniqueIdentifier>{dd98de04-58bb-47c3-b1f4-95f0e110ff8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Inventories\EnergyInventories">
+      <UniqueIdentifier>{36296919-60d5-4a33-a41e-ae94db471d66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Inventories\EnergyInventories">
+      <UniqueIdentifier>{1d1caf1a-bd30-4dc4-bb9d-bc5d9212465d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Insdustrial.cpp">
@@ -105,11 +111,14 @@
     <ClCompile Include="StaingObject.cpp">
       <Filter>Исходные файлы\Sprites\InventoryObject</Filter>
     </ClCompile>
-    <ClCompile Include="EnergyStorageInventory.cpp">
-      <Filter>Исходные файлы\Inventories</Filter>
-    </ClCompile>
     <ClCompile Include="EnergySprite.cpp">
       <Filter>Исходные файлы\Sprites\InventoryObject</Filter>
+    </ClCompile>
+    <ClCompile Include="EnergyStorageInventory.cpp">
+      <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>
+    </ClCompile>
+    <ClCompile Include="EnergyHandGeneratorInventory.cpp">
+      <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,11 +179,14 @@
     <ClInclude Include="StaingObject.h">
       <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
     </ClInclude>
-    <ClInclude Include="EnergyStorageInventory.h">
-      <Filter>Файлы заголовков\Inventories</Filter>
-    </ClInclude>
     <ClInclude Include="EnergySprite.h">
       <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EnergyStorageInventory.h">
+      <Filter>Файлы заголовков\Inventories\EnergyInventories</Filter>
+    </ClInclude>
+    <ClInclude Include="EnergyHandGeneratorInventory.h">
+      <Filter>Файлы заголовков\Inventories\EnergyInventories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

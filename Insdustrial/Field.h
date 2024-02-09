@@ -26,6 +26,8 @@ public:
 	std::vector<std::vector<int>> electricOvens;
 	// —писок с указанием номеров электропечек в массиве электропечек нахож€щихс€ по определенным координатам
 	std::vector<std::vector<int>> energyStorages;
+	// —писок с указанием номеров электропечек в массиве электропечек нахож€щихс€ по определенным координатам
+	std::vector<std::vector<int>> energyHandGenerators;
 
 	// ‘нкции отрисовки (пр€моугольник, круг, текст, спрайт...)
 	Functions functions;

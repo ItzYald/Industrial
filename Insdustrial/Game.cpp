@@ -7,10 +7,18 @@ Game::Game(sf::RenderWindow& _rw)
 	functions = Functions(rw);
 	sizeW = _rw.getSize();
 	screen = "ЗагрузкаПриложения1";
-	mouseWheel = 0;
+	coalOvens = std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>();
+	electricOvens = std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>();
+
+	chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
+	workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
+
+	energyHandGenerators = std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>>();
+
+	wires = std::vector<std::shared_ptr<Wire>>();
 }
 // Отображение загрузки приложения
-void Game::LoadingApp1()
+void Game::LoadingAppScreen()
 {
 	font.loadFromFile("Font/Undertale-Font.ttf");
 	functions.PrintText(L"Загрузка...", sf::Vector2f(sizeW.x / 2 - 100, 300), 25, sf::Color::Green);
@@ -19,6 +27,7 @@ void Game::LoadingApp1()
 // Загрузка приложения
 void Game::LoadingApp()
 {
+	mouseWheel = 0;
 	for (int i = 0; i < 30; i++)
 		ch.push_back(Checks());
 
@@ -26,15 +35,6 @@ void Game::LoadingApp()
 
 	screen = "Меню";
 	cameraPosition = sf::Vector2f(20, 20);
-
-	coalOvens = std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>();
-	electricOvens = std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>();
-
-	chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
-	workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
-
-	wires = std::vector<std::shared_ptr<Wire>>();
-
 }
 // Загрузка прогрессбарра геймплея
 void Game::LoadingScreen(std::string nextScreen)
@@ -157,6 +157,7 @@ void Game::LoadingPlay()
 	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], itemTextures, sf::Vector2f(23, 21), colorsInventory));
 	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], itemTextures, sf::Vector2f(23, 22), colorsInventory));
 	energyStorages.push_back(std::make_shared<EnergySprite<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 0));
+	energyHandGenerators.push_back(std::make_shared<EnergySprite<EnergyHandGeneratorInventory>>(rw, field.sizeOne, textures["ElectricOven"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 0));
 
 	screen = "Игра";
 }
@@ -207,6 +208,11 @@ void Game::DrawPlay()
 	{
 		energyStorage->Draw(cameraPosition);
 	}
+	// Отрисовка ручных генераторов
+	for (std::shared_ptr<StaingObject<EnergyHandGeneratorInventory>> energyHandGenerator : energyHandGenerators)
+	{
+		energyHandGenerator->Draw(cameraPosition);
+	}
 	// Отрисовка проводов
 	for (std::shared_ptr<Wire> wire : wires)
 	{
@@ -238,6 +244,9 @@ void Game::CloseInventory()
 			break;
 		case 5:
 			energyStorages[player.whatNumberInventoryOpen]->isOpenInventory = false;
+			break;
+		case 6:
+			energyHandGenerators[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		}
 		player.inventory.DeleteButtons();
@@ -380,6 +389,21 @@ void Game::Drive()
 			break;
 		}
 	}
+	// Работа хранилищ энергии
+	for (int i = 0; i < energyHandGenerators.size(); i++)
+	{
+		// Обновление массива с указанием номера проводов в массиве по координатам
+		field.energyHandGenerators[energyHandGenerators[i]->position.x][energyHandGenerators[i]->position.y] = i;
+		energyHandGenerators[i]->Update(player.position, player.angle);
+		if (energyHandGenerators[i]->isOpenInventory)
+		{
+			player.inventory.DeleteButtons();
+			player.isOpenInventory = true;
+			player.whatTypeInventoryOpen = 6;
+			player.whatNumberInventoryOpen = i;
+			break;
+		}
+	}
 	// Работа проводов
 	for (int i = 0; i < wires.size(); i++)
 	{
@@ -391,87 +415,50 @@ void Game::Drive()
 	cameraPosition -= (cameraPosition - sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2))) * 0.04f;
 }
 
-void Game::TransEnergy(sf::Vector2i nextPosition, int& energy, int power)
+void Game::TransEnergy(int& originalEnergy, int power, int& nextEnergy, int nextMaxEnergy)
+{
+	if (originalEnergy - power < 0)
+	{
+		if (nextEnergy + power > nextMaxEnergy)
+			nextEnergy = nextMaxEnergy;
+		else
+			nextEnergy += power;
+		originalEnergy = 0;
+	}
+	else
+	{
+		if (nextEnergy + power > nextMaxEnergy)
+		{
+			originalEnergy -= nextMaxEnergy - nextEnergy;
+			nextEnergy = nextMaxEnergy;
+		}
+		else
+		{
+			nextEnergy += power;
+			originalEnergy -= power;
+		}
+	}
+}
+
+void Game::CheckNextEnergyObject(sf::Vector2i nextPosition, int& energy, int power)
 {
 	// Если на месте стоит провод
 	if (field.wires[nextPosition.x][nextPosition.y] != -1)
 	{
 		std::shared_ptr<Wire> thisWire = wires[field.wires[nextPosition.x][nextPosition.y]];
-		if (energy - power < 0)
-		{
-			if (thisWire->energy + power > thisWire->maxEnergy)
-				thisWire->energy = thisWire->maxEnergy;
-			else
-				thisWire->energy += power;
-			energy = 0;
-		}
-		else
-		{
-			if (thisWire->energy + power > thisWire->maxEnergy)
-			{
-				energy -= thisWire->maxEnergy - thisWire->energy;
-				thisWire->energy = thisWire->maxEnergy;
-			}
-			else
-			{
-				thisWire->energy += power;
-				energy -= power;
-			}
-		}
+		TransEnergy(energy, power, thisWire->energy, thisWire->maxEnergy);
 	}
 	// Если на месте стоит электропечка
 	else if (field.electricOvens[nextPosition.x][nextPosition.y] != -1)
 	{
 		ElectricOvenInventory& thisOvenInventory = electricOvens[field.electricOvens[nextPosition.x][nextPosition.y]]->inventory;
-		if (energy - power < 0)
-		{
-			thisOvenInventory.fuel += energy;
-			if (energy - power < 0)
-			{
-				if (thisOvenInventory.fuel + power > thisOvenInventory.maxFuel)
-					thisOvenInventory.fuel = thisOvenInventory.maxFuel;
-				else
-					thisOvenInventory.fuel += power;
-				energy = 0;
-			}
-			energy = 0;
-		}
-		else
-		{
-			if (thisOvenInventory.fuel + power > thisOvenInventory.maxFuel)
-			{
-				energy -= thisOvenInventory.maxFuel - thisOvenInventory.fuel;
-				thisOvenInventory.fuel = thisOvenInventory.maxFuel;
-			}
-			else
-			{
-				thisOvenInventory.fuel += power;
-				energy -= power;
-			}
-		}
+		TransEnergy(energy, power, thisOvenInventory.fuel, thisOvenInventory.maxFuel);
 	}
 	// Если на месте стоит энергохранилище
 	else if (field.energyStorages[nextPosition.x][nextPosition.y] != -1)
 	{
 		EnergyStorageInventory& thisEnergyStorage = energyStorages[field.energyStorages[nextPosition.x][nextPosition.y]]->inventory;
-		if (energy - power < 0)
-		{
-			thisEnergyStorage.energy += energy;
-			energy = 0;
-		}
-		else
-		{
-			if (thisEnergyStorage.energy + power > thisEnergyStorage.maxEnergy)
-			{
-				energy -= thisEnergyStorage.maxEnergy - thisEnergyStorage.energy;
-				thisEnergyStorage.energy = thisEnergyStorage.maxEnergy;
-			}
-			else
-			{
-				thisEnergyStorage.energy += power;
-				energy -= power;
-			}
-		}
+		TransEnergy(energy, power, thisEnergyStorage.energy, thisEnergyStorage.maxEnergy);
 	}
 }
 
@@ -483,7 +470,7 @@ void Game::CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPositi
 		{
 			return;
 		}
-		TransEnergy(nextPosition, wires[field.wires[originalPosition.x][originalPosition.y]]->energy,
+		CheckNextEnergyObject(nextPosition, wires[field.wires[originalPosition.x][originalPosition.y]]->energy,
 			wires[field.wires[originalPosition.x][originalPosition.y]]->power);
 	}
 	else if (typeObject == 1)
@@ -492,8 +479,17 @@ void Game::CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPositi
 		{
 			return;
 		}
-		TransEnergy(nextPosition, energyStorages[field.energyStorages[originalPosition.x][originalPosition.y]]->inventory.energy,
+		CheckNextEnergyObject(nextPosition, energyStorages[field.energyStorages[originalPosition.x][originalPosition.y]]->inventory.energy,
 			energyStorages[field.energyStorages[originalPosition.x][originalPosition.y]]->inventory.power);
+	}
+	else if (typeObject == 2)
+	{
+		if (field.energyHandGenerators[originalPosition.x][originalPosition.y] == -1)
+		{
+			return;
+		}
+		CheckNextEnergyObject(nextPosition, energyHandGenerators[field.energyHandGenerators[originalPosition.x][originalPosition.y]]->inventory.energy,
+			energyHandGenerators[field.energyHandGenerators[originalPosition.x][originalPosition.y]]->inventory.power);
 	}
 	else
 	{
@@ -530,44 +526,55 @@ void Game::Play()
 	{
 		coalOven->inventory.Burn();
 	}
-
 	// Работа электропечек
 	for (auto electricOven : electricOvens)
 	{
 		electricOven->inventory.Burn();
 	}
-
 	// Работа энергитического хранилищав
 	for (auto energyStorage : energyStorages)
 	{
 		energyStorage->inventory.Next();
 	}
-
-	// Для теста
-	energyStorages[0]->inventory.energy += 1;
-	// Передача энергии проводами
+	// Передача энергии
 	for (int i = 0; i < field.size.x; i++)
 	{
 		for (int j = 0; j < field.size.y; j++)
 		{
+			sf::Vector2i shift;
+			int typeObject = -1;
+			// Если на координатах провод
 			if (field.wires[i][j] != -1)
 			{
 				if (wires[field.wires[i][j]]->energy != 0)
 				{
 					// Сдвиг относительно объекта (куда он повернут)
-					sf::Vector2i shift = CheckTurnEnergy(wires[field.wires[i][j]]->turn);
-					CheckTypeTrans(sf::Vector2i(i, j), sf::Vector2i(i + shift.x, j + shift.y), 0);
+					shift = CheckTurnEnergy(wires[field.wires[i][j]]->turn);
+					typeObject = 0;
 				}
 			}
+			// Если на координатах энергохранилие
 			if (field.energyStorages[i][j] != -1)
 			{
 				if (energyStorages[field.energyStorages[i][j]]->inventory.energy != 0)
 				{
 					// Сдвиг относительно объекта (куда он повернут)
-					sf::Vector2i shift = CheckTurnEnergy(energyStorages[field.energyStorages[i][j]]->turn);
-					CheckTypeTrans(sf::Vector2i(i, j), sf::Vector2i(i + shift.x, j + shift.y), 1);
+					shift = CheckTurnEnergy(energyStorages[field.energyStorages[i][j]]->turn);
+					typeObject = 1;
 				}
 			}
+			// Если на координатах ручной энергогенератор
+			if (field.energyHandGenerators[i][j] != -1)
+			{
+				if (energyHandGenerators[field.energyHandGenerators[i][j]]->inventory.energy != 0)
+				{
+					// Сдвиг относительно объекта (куда он повернут)
+					shift = CheckTurnEnergy(energyHandGenerators[field.energyHandGenerators[i][j]]->turn);
+					typeObject = 2;
+				}
+			}
+			if (typeObject != -1)
+				CheckTypeTrans(sf::Vector2i(i, j), sf::Vector2i(i + shift.x, j + shift.y), typeObject);
 		}
 	}
 
@@ -577,7 +584,6 @@ void Game::Play()
 		buttons.push_back(Button(sf::Vector2f(1000, 608), sf::Vector2f(128, 64), L"Выйти",
 			colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 			sf::Color(255, 255, 255), sf::Color::Transparent, sf::Vector2f(128 / 2 - 35, 12), 4, 25));
-
 	}
 
 	if (!player.isOpenInventory)
@@ -587,52 +593,42 @@ void Game::Play()
 	}
 	else
 	{
-		// Инвентарь игрока
-		if (player.whatTypeInventoryOpen == 0)
+		switch (player.whatTypeInventoryOpen)
 		{
+		// Инвентарь игрока
+		case 0:
 			player.inventory.DrawMiniWorkbench();
 			player.inventory.Update();
-			if (ch[2].Check(sf::Keyboard::Key::Escape) || ch[3].Check(sf::Keyboard::Key::E))
-			{
-				player.isOpenInventory = false;
-				coalOvens[player.whatNumberInventoryOpen]->isOpenInventory = false;
-				chests[player.whatNumberInventoryOpen]->isOpenInventory = false;
-				workbenches[player.whatNumberInventoryOpen]->isOpenInventory = false;
-			}
-		}
-		// Инвентарь печки
-		else if (player.whatTypeInventoryOpen == 1)
-		{
+			break;
+		// Инвентарь угольной печки
+		case 1:
 			coalOvens[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			CloseInventory();
-		}
-		else if (player.whatTypeInventoryOpen == 2)
-		{
+			break;
+		// Инвентарь электропечки
+		case 2:
 			electricOvens[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			CloseInventory();
-		}
+			break;
 		// Инвентарь сундука
-		else if (player.whatTypeInventoryOpen == 3)
-		{
+		case 3:
 			chests[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			CloseInventory();
-		}
-		// Инвентарь верстака
-		else if (player.whatTypeInventoryOpen == 4)
-		{
+			break;
+		// Инвентар верстака
+		case 4:
 			workbenches[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			CloseInventory();
-		}
-		// Инвентарь хранилища энергии
-		else if (player.whatTypeInventoryOpen == 5)
-		{
+			break;
+		// Инвентарь энергетического хранилища
+		case 5:
 			energyStorages[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			CloseInventory();
+			break;
+		// Инвентарь ручного генератора
+		case 6:
+			energyHandGenerators[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+			break;
 		}
+		CloseInventory();
 	}
 
 	// Кнопка выйти
-	buttons[0].Draw(*rw);
 	if (buttons[0].DrawCheckLeft(*rw))
 	{
 		screen = "ВыгрузочныйЭкранМеню";
@@ -683,7 +679,7 @@ void Game::Next()
 	}
 	else if (screen == "ЗагрузкаПриложения1")
 	{
-		LoadingApp1();
+		LoadingAppScreen();
 	}
 	else if (screen == "ЗагрузкаПриложения")
 	{

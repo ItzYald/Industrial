@@ -9,17 +9,20 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _siz
 	wires = std::vector<std::vector<int>>();
 	electricOvens = std::vector<std::vector<int>>();
 	energyStorages = std::vector<std::vector<int>>();
+	energyHandGenerators = std::vector<std::vector<int>>();
 
 	for (int i = 0; i < size.x; i++)
 	{
 		wires.push_back(std::vector<int>());
 		electricOvens.push_back(std::vector<int>());
 		energyStorages.push_back(std::vector<int>());
+		energyHandGenerators.push_back(std::vector<int>());
 		for (int j = 0; j < size.y; j++)
 		{
 			wires[i].push_back(-1);
 			electricOvens[i].push_back(-1);
 			energyStorages[i].push_back(-1);
+			energyHandGenerators[i].push_back(-1);
 		}
 	}
 
@@ -35,8 +38,6 @@ void Field::Draw(sf::Vector2f cameraPosition)
 			// Отрисовка травы
 			if (position.x < sizeW.x && position.y < sizeW.y && position.x + sizeOne > 0 && position.y + sizeOne > 0)
 				functions.DrawSprite(sprite, position, sf::Vector2f(sizeOne, sizeOne));
-			//if (position.x < sizeW.x && position.y < sizeW.y && position.x + sizeOne > 0 && position.y + sizeOne > 0)
-			//	functions.PrintText(std::to_string(wiresOnField[i][j]), position, 15, sf::Color::Blue);
 		}
 	}
 }
