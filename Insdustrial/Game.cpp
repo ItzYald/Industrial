@@ -275,7 +275,7 @@ void Game::PutObject(sf::Vector2f position)
 	// Поставить энергохранилище
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 13)
 	{
-		energyStorages.push_back(std::make_shared<EnergySprite<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1));
+		energyStorages.push_back(std::make_shared<EnergySprite<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1000, 10));
 	}
 	// Поставить медный провод
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 12)

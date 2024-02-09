@@ -1,31 +1,6 @@
 #include "EnergyStorageInventory.h"
 
 
-EnergyStorageInventory::EnergyStorageInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, int type, std::vector<sf::Texture>& _textures)
-{
-	rw = _rw;
-	functions = Functions(rw);
-	colorsInventory = _colorsInventory;
-
-	for (int i = 0; i < 30; i++)
-	{
-		ch.push_back(Checks());
-	}
-
-	if (type == 0)
-	{
-		maxEnergy = 10000;
-		power = 10;
-	}
-	else if (type == 1)
-	{
-		maxEnergy = 100000;
-		power = 100;
-	}
-
-	energy = 0;
-}
-
 EnergyStorageInventory::EnergyStorageInventory(
 	std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
 	int _maxEnergy, int _power, std::vector<sf::Texture>& _textures)

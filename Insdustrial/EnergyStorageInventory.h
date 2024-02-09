@@ -22,9 +22,10 @@ public:
 	EnergyStorageInventory(){ }
 	/// <summary>Конструктор</summary>
 	/// <param name="_rw">Окно</param>
-	EnergyStorageInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
-		int type, std::vector<sf::Texture>& _textures);
-	
+	/// <param name="_colorsInventory">Базовые цвета интерфейса</param>
+	/// <param name="_maxEnergy">Максимально вместимая энергия</param>
+	/// <param name="_power">Максимально выдаваемая энегия</param>
+	/// <param name="_textures">Список текстур</param>
 	EnergyStorageInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
 		int _maxEnergy, int _power, std::vector<sf::Texture>& _textures);
 	// Отрисовка инвентаря
