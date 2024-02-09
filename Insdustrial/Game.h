@@ -93,8 +93,6 @@ public:
 	/// <summary>Конструктор</summary>
 	/// <param name="_rw">Окно</param>
 	Game(sf::RenderWindow& _rw);
-	// Прогрессбарр (надпись) загрузки приложения
-	void LoadingAppScreen();
 	// Загрузка приложения
 	void LoadingApp();
 	// Прогрессбарр (надпись) загрузки геймплея

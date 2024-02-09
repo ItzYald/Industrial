@@ -26,6 +26,22 @@ EnergyStorageInventory::EnergyStorageInventory(std::shared_ptr<sf::RenderWindow>
 	energy = 0;
 }
 
+EnergyStorageInventory::EnergyStorageInventory(
+	std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
+	int _maxEnergy, int _power, std::vector<sf::Texture>& _textures)
+	: maxEnergy(_maxEnergy), power(_power)
+{
+	rw = _rw;
+	functions = Functions(rw);
+	colorsInventory = _colorsInventory;
+
+	for (int i = 0; i < 30; i++)
+	{
+		ch.push_back(Checks());
+	}
+	energy = 0;
+}
+
 void EnergyStorageInventory::Draw()
 {
 	functions.DrawRectangle(sf::Vector2f(400, 150), sf::Vector2f(30, 200), sf::Color::Transparent, sf::Color(100, 100, 100), 2);

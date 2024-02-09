@@ -32,6 +32,9 @@ void EnergyHandGeneratorInventory::Update(Inventory& playerInventory)
 		energy += 1;
 	}
 
+	if (energy > maxEnergy)
+		energy = maxEnergy;
+
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
 	// Отрисовать окно интерфейса

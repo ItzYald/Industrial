@@ -6,7 +6,7 @@ Game::Game(sf::RenderWindow& _rw)
 	rw = std::shared_ptr<sf::RenderWindow>(&_rw);
 	functions = Functions(rw);
 	sizeW = _rw.getSize();
-	screen = "ЗагрузкаПриложения1";
+	screen = "ЭкранЗагрузкиПриложения";
 	coalOvens = std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>();
 	electricOvens = std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>();
 
@@ -16,13 +16,7 @@ Game::Game(sf::RenderWindow& _rw)
 	energyHandGenerators = std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>>();
 
 	wires = std::vector<std::shared_ptr<Wire>>();
-}
-// Отображение загрузки приложения
-void Game::LoadingAppScreen()
-{
 	font.loadFromFile("Font/Undertale-Font.ttf");
-	functions.PrintText(L"Загрузка...", sf::Vector2f(sizeW.x / 2 - 100, 300), 25, sf::Color::Green);
-	screen = "ЗагрузкаПриложения";
 }
 // Загрузка приложения
 void Game::LoadingApp()
@@ -159,8 +153,8 @@ void Game::LoadingPlay()
 	electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], itemTextures, sf::Vector2f(23, 19), colorsInventory));
 	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], itemTextures, sf::Vector2f(23, 21), colorsInventory));
 	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], itemTextures, sf::Vector2f(23, 22), colorsInventory));
-	energyStorages.push_back(std::make_shared<EnergySprite<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 0));
-	energyHandGenerators.push_back(std::make_shared<EnergySprite<EnergyHandGeneratorInventory>>(rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 0));
+	energyStorages.push_back(std::make_shared<EnergySprite<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
+	energyHandGenerators.push_back(std::make_shared<EnergySprite<EnergyHandGeneratorInventory>>(rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10));
 
 	screen = "Игра";
 }
@@ -680,9 +674,9 @@ void Game::Next()
 	{
 		Play();
 	}
-	else if (screen == "ЗагрузкаПриложения1")
+	else if (screen == "ЭкранЗагрузкиПриложения")
 	{
-		LoadingAppScreen();
+		LoadingScreen("ЗагрузкаПриложения");
 	}
 	else if (screen == "ЗагрузкаПриложения")
 	{
