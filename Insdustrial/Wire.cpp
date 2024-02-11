@@ -197,19 +197,19 @@ void Wire::Draw(sf::Vector2f cameraPosition)
 {
 	if (turn == 0)
 	{
-		sprite.setRotation(180);
+		sprite.setRotation(0);
 	}
 	if (turn == 1)
 	{
-		sprite.setRotation(270);
+		sprite.setRotation(90);
 	}
 	if (turn == 2)
 	{
-		sprite.setRotation(0);
+		sprite.setRotation(180);
 	}
 	if (turn == 3)
 	{
-		sprite.setRotation(90);
+		sprite.setRotation(270);
 	}
 
 	// Задать позицию
@@ -231,7 +231,7 @@ void Wire::Draw(sf::Vector2f cameraPosition)
 
 	rw->draw(sprite);
 	sf::Vector2f realPosition = sf::Vector2f(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
-	functions.PrintText(std::to_string(energy), sf::Vector2f(realPosition.x + 40, realPosition.y + 40), 15, sf::Color::Red);
+	functions.PrintText(std::to_string((int)energy), sf::Vector2f(realPosition.x + 40, realPosition.y + 40), 15, sf::Color::Red);
 	//functions.PrintText(std::to_string((int)connections[0]), sf::Vector2f(realPosition.x + 20, realPosition.y), 15, sf::Color::Blue);
 	//functions.PrintText(std::to_string((int)connections[1]), sf::Vector2f(realPosition.x + 40, realPosition.y + 20), 15, sf::Color::Blue);
 	//functions.PrintText(std::to_string((int)connections[2]), sf::Vector2f(realPosition.x + 20, realPosition.y + 40), 15, sf::Color::Blue);

@@ -24,6 +24,7 @@
 #include "WorbenchInventory.h"
 #include "EnergyStorageInventory.h"
 #include "EnergyHandGeneratorInventory.h"
+#include "EnergyCoalGeneratorInventory.h"
 
 #include "EnergySprite.h"
 
@@ -75,6 +76,8 @@ private:
 	std::vector<std::shared_ptr<EnergySprite<EnergyStorageInventory>>> energyStorages;
 	// Список ручных энергогенераторов
 	std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>> energyHandGenerators;
+	// Список ручных энергогенераторов
+	std::vector<std::shared_ptr<EnergySprite<EnergyCoalGeneratorInventory>>> energyCoalGenerators;
 
 	// Список проводов
 	std::vector<std::shared_ptr<Wire>> wires;
@@ -120,12 +123,12 @@ public:
 	/// <param name="power">Скорость передвчи энергии</param>
 	/// <param name="nextEnergy">Ссылка на энергию того, которому передают</param>
 	/// <param name="nextMaxEnergy">Максимальная энегрия объекта, которому передают</param>
-	void TransEnergy(int &originalEnergy, int power, int& nextEnergy, int nextMaxEnergy);
+	void TransEnergy(float &originalEnergy, int power, float& nextEnergy, int nextMaxEnergy);
 	/// <summary>Какому объекту передать энергию</summary>
 	/// <param name="nextPosition">Позиция объекта, которому передать энергию</param>
 	/// <param name="energy">Какую энергию передать</param>
 	/// <param name="power">Сколько передать энергии</param>
-	void CheckNextEnergyObject(sf::Vector2i nextPosition, int& energy, int power);
+	void CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int power);
 	/// <summary>Какую энергию передавать</summary>
 	/// <param name="originalPosition">Позиция первого устройства, который передает энергию</param>
 	/// <param name="nextPosition">Позиция второго устройства, которому передают энергию</param>

@@ -10,6 +10,7 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _siz
 	electricOvens = std::vector<std::vector<int>>();
 	energyStorages = std::vector<std::vector<int>>();
 	energyHandGenerators = std::vector<std::vector<int>>();
+	energyCoalGenerators = std::vector<std::vector<int>>();
 
 	for (int i = 0; i < size.x; i++)
 	{
@@ -17,12 +18,14 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _siz
 		electricOvens.push_back(std::vector<int>());
 		energyStorages.push_back(std::vector<int>());
 		energyHandGenerators.push_back(std::vector<int>());
+		energyCoalGenerators.push_back(std::vector<int>());
 		for (int j = 0; j < size.y; j++)
 		{
 			wires[i].push_back(-1);
 			electricOvens[i].push_back(-1);
 			energyStorages[i].push_back(-1);
 			energyHandGenerators[i].push_back(-1);
+			energyCoalGenerators[i].push_back(-1);
 		}
 	}
 

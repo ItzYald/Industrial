@@ -65,7 +65,7 @@ void ElectricOvenInventory::Update(Inventory& playerInventory)
 	// Отрисовать окно интерфейса
 	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 
-	// Два цикла по координатам инвентаря
+	// Цикл по координатам инвентаря
 	for (int i = 0; i < cells.size(); i++)
 	{
 		cells[i].Update(playerInventory.mouseItem);

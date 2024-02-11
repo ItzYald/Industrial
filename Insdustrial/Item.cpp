@@ -66,7 +66,5 @@ void Item::NumberUpdate(int _number)
 	case 16:
 		name = L"Ручной энергогенератор";
 		break;
-	default:
-		break;
 	}
 }

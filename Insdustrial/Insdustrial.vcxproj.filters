@@ -60,9 +60,6 @@
     <ClCompile Include="Field.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="StaticSprites.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Functions\Functions.cpp">
       <Filter>Исходные файлы\Functions</Filter>
     </ClCompile>
@@ -119,6 +116,12 @@
     </ClCompile>
     <ClCompile Include="EnergyHandGeneratorInventory.cpp">
       <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>
+    </ClCompile>
+    <ClCompile Include="EnergyCoalGeneratorInventory.cpp">
+      <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticSprites.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +189,9 @@
       <Filter>Файлы заголовков\Inventories\EnergyInventories</Filter>
     </ClInclude>
     <ClInclude Include="EnergyHandGeneratorInventory.h">
+      <Filter>Файлы заголовков\Inventories\EnergyInventories</Filter>
+    </ClInclude>
+    <ClInclude Include="EnergyCoalGeneratorInventory.h">
       <Filter>Файлы заголовков\Inventories\EnergyInventories</Filter>
     </ClInclude>
   </ItemGroup>

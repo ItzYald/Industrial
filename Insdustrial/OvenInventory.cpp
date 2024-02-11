@@ -2,11 +2,11 @@
 
 void OvenInventory::AllBurn()
 {
-	if (previousItemBurn2 != cells[0].item.number)
+	if (previousItemBurn != cells[0].item.number)
 	{
 		whatBurn = 120;
 	}
-	previousItemBurn2 = cells[0].item.number;
+	previousItemBurn = cells[0].item.number;
 	if (cells[2].item.number == 0 || cells[2].item.number == cells[0].item.isBurn)
 	{
 		if (fuel > 0)

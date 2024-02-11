@@ -10,7 +10,7 @@ void EnergyHandGeneratorInventory::Draw()
 		functions.DrawRectangleGradient(
 			sf::Vector2f(400, 350), sf::Vector2f(30, (energy / (float)maxEnergy) * -200),
 			sf::Color::Red, sf::Color(255, 200, 0));
-		functions.PrintText(std::to_string(energy) + " / " + std::to_string(maxEnergy) + " en",
+		functions.PrintText(std::to_string((int)energy) + " / " + std::to_string(maxEnergy) + " en",
 			sf::Vector2f(450, 330), 20, sf::Color(colorsInventory[0]));
 	}
 	
