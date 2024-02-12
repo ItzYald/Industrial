@@ -26,6 +26,7 @@ public:
     int fontSize;
     sf::Font font;
     int center;
+    bool click;
 
     sf::Vector2f mouseCoords;
     bool buttonLeftPressed;

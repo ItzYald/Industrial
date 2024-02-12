@@ -16,6 +16,7 @@ Button::Button(sf::Vector2f _coords, sf::Vector2f _size, sf::String _message,
     font.loadFromFile("Font/Undertale-Font.ttf");
     buttonLeftPressed = false;
     buttonRightPressed = false;
+    click = false;
 }
 
 
@@ -36,6 +37,7 @@ Button::Button(sf::Vector2f _coords, sf::Vector2f _size,
     downColor = sf::Color::Transparent;
     downColorBorder = sf::Color::Transparent;
     downColorTitle = sf::Color::Transparent;
+    click = false;
 }
 
 Button::Button(sf::Vector2f _coords, sf::Vector2f _size,
@@ -55,11 +57,12 @@ Button::Button(sf::Vector2f _coords, sf::Vector2f _size,
     downColor = sf::Color::Transparent;
     downColorBorder = sf::Color::Transparent;
     downColorTitle = sf::Color::Transparent;
+    click = false;
 }
 // Только отрисовать
 void Button::Draw(sf::RenderWindow& rw)
 {
-    bool click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+    click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
     mouseCoords = (sf::Vector2f)sf::Mouse::getPosition(rw);
 
     Rectangle(rw, 0);
@@ -95,7 +98,7 @@ bool Button::DrawCheckLeft(sf::RenderWindow& rw)
 // Проверить на отжатие
 bool Button::CheckLeft(sf::RenderWindow& rw)
 {
-    bool click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+    click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
     mouseCoords = (sf::Vector2f)sf::Mouse::getPosition(rw);
 
     if (Aim(rw))
@@ -121,7 +124,7 @@ bool Button::CheckLeft(sf::RenderWindow& rw)
 // Проверить нажатие левой кнопки мыши
 bool Button::CheckRight(sf::RenderWindow& rw)
 {
-    bool click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
+    click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
     mouseCoords = (sf::Vector2f)sf::Mouse::getPosition(rw);
 
     if (Aim(rw))
@@ -147,7 +150,7 @@ bool Button::CheckRight(sf::RenderWindow& rw)
 
 bool Button::CheckDown(sf::RenderWindow& rw)
 {
-    bool click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+    click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
     if (Aim(rw) && click)
     {
         return true;
@@ -174,7 +177,8 @@ bool Button::Aim(sf::RenderWindow& rw)
 
 void Button::PrintText(sf::RenderWindow& rw, sf::String mes, sf::Vector2f pos, int _size, sf::Color col, int center)
 {
-    text = sf::Text(mes, font, _size);
+    //text = sf::Text(mes, font, _size);
+    text.setString(mes);
     text.setFont(font);
     text.setCharacterSize(_size);
     if (center == 0)
@@ -195,7 +199,6 @@ void Button::PrintText(sf::RenderWindow& rw, sf::String mes, sf::Vector2f pos, i
 
 void Button::Rectangle(sf::RenderWindow& rw, int status)
 {
-    rect = sf::RectangleShape();
     rect.setPosition(coords);
     rect.setSize(size);
     if (status == 0)

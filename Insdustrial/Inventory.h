@@ -34,8 +34,6 @@ public:
 	Inventory(){ }
 	// Конструктор
 	Inventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures);
-	// Удалить кнопки
-	void DeleteButtons();
 	// Отрисовка инвентаря
 	void Draw();
 	// Действия инвентаря

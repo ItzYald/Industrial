@@ -112,7 +112,7 @@ void Game::LoadingPlay()
 	textures["IronWire"].loadFromFile("Images/Wires/IronWireOn.png");
 
 	// Текстуры предметов
-	for (int i = 0; i < 17; i++)
+	for (int i = 0; i < 19; i++)
 	{
 		itemTextures.push_back(sf::Texture());
 	}
@@ -151,6 +151,10 @@ void Game::LoadingPlay()
 	itemTextures[15].loadFromFile("Images/Wires/IronWireOn.png");
 	// Ручной энергогенератор
 	itemTextures[16].loadFromFile("Images/Objects/EnergyHandGenerator.png");
+	// Угольный энергогенератор
+	itemTextures[17].loadFromFile("Images/Objects/Chest.png");
+	// Корпус механнизма
+	itemTextures[18].loadFromFile("Images/Objects/ElectricOven.png");
 
 
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
@@ -262,7 +266,7 @@ void Game::CloseInventory()
 			energyCoalGenerators[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		}
-		player.inventory.DeleteButtons();
+		//player.inventory.DeleteButtons();
 	}
 }
 // Поставить объект по определенным координатам
@@ -298,6 +302,11 @@ void Game::PutObject(sf::Vector2f position)
 	{
 		energyHandGenerators.push_back(std::make_shared<EnergySprite<EnergyHandGeneratorInventory>>(rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, position, colorsInventory, 100, 10));
 	}
+	// Поставить ручной энергогенератор
+	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 17)
+	{
+		energyCoalGenerators.push_back(std::make_shared<EnergySprite<EnergyCoalGeneratorInventory>>(rw, field.sizeOne, textures["Chest"], itemTextures, position, colorsInventory, 100, 10));
+	}
 	// Поставить медный провод
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 12)
 	{
@@ -317,7 +326,8 @@ void Game::Drive()
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	bool nearObject = player.PutObject(coalOvens, electricOvens, chests, workbenches, wires, energyStorages, energyHandGenerators);
+	bool nearObject = player.PutObject(
+		coalOvens, electricOvens, chests, workbenches, wires, energyStorages, energyHandGenerators, energyCoalGenerators);
 	if (nearObject)
 	{
 		switch (player.angle)
@@ -342,7 +352,6 @@ void Game::Drive()
 		coalOvens[i]->Update(player.position, player.angle);
 		if (coalOvens[i]->isOpenInventory)
 		{
-			player.inventory.DeleteButtons();
 			player.isOpenInventory = true;
 			player.whatTypeInventoryOpen = 1;
 			player.whatNumberInventoryOpen = i;
@@ -359,7 +368,6 @@ void Game::Drive()
 		// Если инвентарь открыт
 		if (electricOvens[i]->isOpenInventory)
 		{
-			player.inventory.DeleteButtons();
 			player.isOpenInventory = true;
 			player.whatTypeInventoryOpen = 2;
 			player.whatNumberInventoryOpen = i;
@@ -372,7 +380,6 @@ void Game::Drive()
 		chests[i]->Update(player.position, player.angle);
 		if (chests[i]->isOpenInventory)
 		{
-			player.inventory.DeleteButtons();
 			player.isOpenInventory = true;
 			player.whatTypeInventoryOpen = 3;
 			player.whatNumberInventoryOpen = i;
@@ -385,7 +392,6 @@ void Game::Drive()
 		workbenches[i]->Update(player.position, player.angle);
 		if (workbenches[i]->isOpenInventory)
 		{
-			player.inventory.DeleteButtons();
 			player.isOpenInventory = true;
 			player.whatTypeInventoryOpen = 4;
 			player.whatNumberInventoryOpen = i;
@@ -400,7 +406,6 @@ void Game::Drive()
 		energyStorages[i]->Update(player.position, player.angle);
 		if (energyStorages[i]->isOpenInventory)
 		{
-			player.inventory.DeleteButtons();
 			player.isOpenInventory = true;
 			player.whatTypeInventoryOpen = 5;
 			player.whatNumberInventoryOpen = i;
@@ -415,7 +420,6 @@ void Game::Drive()
 		energyHandGenerators[i]->Update(player.position, player.angle);
 		if (energyHandGenerators[i]->isOpenInventory)
 		{
-			player.inventory.DeleteButtons();
 			player.isOpenInventory = true;
 			player.whatTypeInventoryOpen = 6;
 			player.whatNumberInventoryOpen = i;
@@ -430,7 +434,6 @@ void Game::Drive()
 		energyCoalGenerators[i]->Update(player.position, player.angle);
 		if (energyCoalGenerators[i]->isOpenInventory)
 		{
-			player.inventory.DeleteButtons();
 			player.isOpenInventory = true;
 			player.whatTypeInventoryOpen = 7;
 			player.whatNumberInventoryOpen = i;
@@ -562,32 +565,9 @@ sf::Vector2i Game::CheckTurnEnergy(int turn)
 		break;
 	}
 }
-// Игра
-void Game::Play()
-{
-	// Отрисовать игру
-	DrawPlay();
 
-	// Работа печек
-	for (auto coalOven : coalOvens)
-	{
-		coalOven->inventory.Burn();
-	}
-	// Работа электропечек
-	for (auto electricOven : electricOvens)
-	{
-		electricOven->inventory.Burn();
-	}
-	// Работа энергитического хранилищав
-	for (auto energyStorage : energyStorages)
-	{
-		energyStorage->inventory.Next();
-	}
-	// Работа угольного энергогенератора хранилищав
-	for (auto energyCoalGenerator : energyCoalGenerators)
-	{
-		energyCoalGenerator->inventory.Next();
-	}
+void Game::WhatObjectTransEnergy()
+{
 	// Передача энергии
 	for (int i = 0; i < field.size.x; i++)
 	{
@@ -639,6 +619,36 @@ void Game::Play()
 				CheckTypeTrans(sf::Vector2i(i, j), sf::Vector2i(i + shift.x, j + shift.y), typeObject);
 		}
 	}
+
+}
+// Игра
+void Game::Play()
+{
+	// Отрисовать игру
+	DrawPlay();
+
+	// Работа печек
+	for (auto coalOven : coalOvens)
+	{
+		coalOven->inventory.Burn();
+	}
+	// Работа электропечек
+	for (auto electricOven : electricOvens)
+	{
+		electricOven->inventory.Burn();
+	}
+	// Работа энергитического хранилищав
+	for (auto energyStorage : energyStorages)
+	{
+		energyStorage->inventory.Next();
+	}
+	// Работа угольного энергогенератора хранилищав
+	for (auto energyCoalGenerator : energyCoalGenerators)
+	{
+		energyCoalGenerator->inventory.Next();
+	}
+
+	WhatObjectTransEnergy();
 
 	if (buttons.size() < 4)
 	{

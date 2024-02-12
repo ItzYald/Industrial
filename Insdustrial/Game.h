@@ -137,6 +137,8 @@ public:
 	/// <summary>Проверка поворота устройста для понятия, куда отправлять энергию</summary>
 	/// <param name="turn">Поворот объекта</param>
 	sf::Vector2i CheckTurnEnergy(int turn);
+
+	void WhatObjectTransEnergy();
 	// Игра
 	void Play();
 	// Меню

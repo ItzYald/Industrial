@@ -43,11 +43,6 @@ Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Colo
 
 }
 
-void Inventory::DeleteButtons()
-{
-	buttons.clear();
-}
-
 void Inventory::Draw()
 {
 	DrawCommon(cells);

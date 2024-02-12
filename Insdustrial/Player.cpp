@@ -24,32 +24,34 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 
 	angle = 0.06f;
 
-	inventory.cells[0][2].item.NumberUpdate(1);
-	inventory.cells[0][2].item.quantity = 15;
-	inventory.cells[1][3].item.NumberUpdate(2);
-	inventory.cells[1][3].item.quantity = 20;
-	inventory.cells[2][2].item.NumberUpdate(3);
-	inventory.cells[2][2].item.quantity = 10;
-	inventory.cells[3][3].item.NumberUpdate(5);
-	inventory.cells[3][3].item.quantity = 2;
-	inventory.cells[4][2].item.NumberUpdate(4);
-	inventory.cells[4][2].item.quantity = 10;
-	inventory.cells[5][3].item.NumberUpdate(8);
-	inventory.cells[5][3].item.quantity = 10;
-	inventory.cells[6][2].item.NumberUpdate(7);
-	inventory.cells[6][2].item.quantity = 10;
-	inventory.cells[7][2].item.NumberUpdate(9);
-	inventory.cells[7][2].item.quantity = 10;
-	inventory.cells[8][2].item.NumberUpdate(10);
-	inventory.cells[8][2].item.quantity = 60;
-	inventory.cells[9][3].item.NumberUpdate(11);
-	inventory.cells[9][3].item.quantity = 14;
-	inventory.cells[9][3].item.NumberUpdate(12);
-	inventory.cells[9][3].item.quantity = 14;
-	inventory.cells[8][1].item.NumberUpdate(13);
-	inventory.cells[8][1].item.quantity = 20;
-	inventory.cells[8][0].item.NumberUpdate(14);
-	inventory.cells[8][0].item.quantity = 20;
+	inventory.cells[0][0].item.NumberUpdate(1);
+	inventory.cells[0][0].item.quantity = 15;
+	inventory.cells[1][0].item.NumberUpdate(2);
+	inventory.cells[1][0].item.quantity = 20;
+	inventory.cells[2][0].item.NumberUpdate(3);
+	inventory.cells[2][0].item.quantity = 10;
+	inventory.cells[3][0].item.NumberUpdate(5);
+	inventory.cells[3][0].item.quantity = 2;
+	inventory.cells[4][0].item.NumberUpdate(4);
+	inventory.cells[4][0].item.quantity = 10;
+	inventory.cells[5][0].item.NumberUpdate(8);
+	inventory.cells[5][0].item.quantity = 10;
+	inventory.cells[6][0].item.NumberUpdate(7);
+	inventory.cells[6][0].item.quantity = 10;
+	inventory.cells[7][0].item.NumberUpdate(9);
+	inventory.cells[7][0].item.quantity = 10;
+	inventory.cells[8][0].item.NumberUpdate(10);
+	inventory.cells[8][0].item.quantity = 60;
+	inventory.cells[9][0].item.NumberUpdate(11);
+	inventory.cells[9][0].item.quantity = 14;
+	inventory.cells[0][1].item.NumberUpdate(12);
+	inventory.cells[0][1].item.quantity = 14;
+	inventory.cells[1][1].item.NumberUpdate(13);
+	inventory.cells[1][1].item.quantity = 20;
+	inventory.cells[2][1].item.NumberUpdate(14);
+	inventory.cells[2][1].item.quantity = 20;
+	inventory.cells[3][1].item.NumberUpdate(17);
+	inventory.cells[3][1].item.quantity = 20;
 
 
 	for (int i = 0; i < 30; i++)
@@ -116,7 +118,8 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventor
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
 	std::vector<std::shared_ptr<Wire>>& wires, 
 	std::vector<std::shared_ptr<EnergySprite<EnergyStorageInventory>>>& energyStorages,
-	std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>>& energyHandGenerators)
+	std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>>& energyHandGenerators,
+	std::vector<std::shared_ptr<EnergySprite<EnergyCoalGeneratorInventory>>>& energyCoalGenerators)
 {
 	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
 	{
@@ -129,7 +132,8 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventor
 		inventory.cells[inventory.choseCell][3].item.number == 12 ||
 		inventory.cells[inventory.choseCell][3].item.number == 13 ||
 		inventory.cells[inventory.choseCell][3].item.number == 15 ||
-		inventory.cells[inventory.choseCell][3].item.number == 16) &&
+		inventory.cells[inventory.choseCell][3].item.number == 16 || 
+		inventory.cells[inventory.choseCell][3].item.number == 17) &&
 		inventory.cells[inventory.choseCell][3].item.quantity > 0)
 	{
 		bool isNear = false;
@@ -164,6 +168,11 @@ bool Player::PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventor
 				isNear = thisObject->NearPlayer(position, angle);
 		}
 		for (std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>& thisObject : energyHandGenerators)
+		{
+			if (!isNear)
+				isNear = thisObject->NearPlayer(position, angle);
+		}
+		for (std::shared_ptr<EnergySprite<EnergyCoalGeneratorInventory>>& thisObject : energyCoalGenerators)
 		{
 			if (!isNear)
 				isNear = thisObject->NearPlayer(position, angle);
