@@ -38,6 +38,38 @@ public:
 		turn = 0;
 	}
 
+	EnergySprite(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
+		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures, sf::Vector2f _position,
+		std::vector<sf::Color> _colorsInventory, int _maxFuel, int _power,
+		std::map<std::string, sf::Texture>& _texturesInInventory)
+	{
+		StaingObject<T>::rw = _rw;
+		StaingObject<T>::fieldSizeOne = _fieldSizeOne;
+		StaingObject<T>::sprite.setTexture(_texture);
+		StaingObject<T>::position = _position;
+
+		StaingObject<T>::functions = Functions(StaingObject<T>::rw);
+
+		StaingObject<T>::isOpenInventory = false;
+
+		StaingObject<T>::inventory =
+			T(StaingObject<T>::rw, _colorsInventory, _maxFuel, _power, _itemTextures, _texturesInInventory);
+
+		//StaingObject<T>::inventory =
+		//	T(StaingObject<T>::rw, _colorsInventory, _maxFuel, _power, _itemTextures);
+
+		StaingObject<T>::sprite.setScale(
+			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().x,
+			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().y);
+
+		for (int i = 0; i < 30; i++)
+		{
+			StaingObject<T>::ch.push_back(Checks());
+		}
+		turn = 0;
+	}
+
+
 	void Update(sf::Vector2f playerPosition, int playerAngle)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
@@ -108,9 +140,6 @@ public:
 		sf::Vector2f realPosition = sf::Vector2f(
 			StaingObject<T>::fieldSizeOne * (StaingObject<T>::position.x - cameraPosition.x),
 			StaingObject<T>::fieldSizeOne * (StaingObject<T>::position.y - cameraPosition.y));
-		StaingObject<T>::functions.PrintText(
-			std::to_string(StaingObject<T>::inventory.energy),
-			sf::Vector2f(realPosition.x + 40, realPosition.y + 40), 15, sf::Color::Red);
 	}
 
 };

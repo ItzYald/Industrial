@@ -187,10 +187,6 @@ void Wire::Update(sf::Vector2f playerPosition, int playerAngle)
 //
 //	rw->draw(sprites[numberSprite]);
 //	//sf::Vector2f realPosition = sf::Vector2f(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
-//	//functions.PrintText(std::to_string((int)connections[0]), sf::Vector2f(realPosition.x + 20, realPosition.y), 15, sf::Color::Blue);
-//	//functions.PrintText(std::to_string((int)connections[1]), sf::Vector2f(realPosition.x + 40, realPosition.y + 20), 15, sf::Color::Blue);
-//	//functions.PrintText(std::to_string((int)connections[2]), sf::Vector2f(realPosition.x + 20, realPosition.y + 40), 15, sf::Color::Blue);
-//	//functions.PrintText(std::to_string((int)connections[3]), sf::Vector2f(realPosition.x, realPosition.y + 20), 15, sf::Color::Blue);
 //}
 
 void Wire::Draw(sf::Vector2f cameraPosition)
@@ -231,9 +227,4 @@ void Wire::Draw(sf::Vector2f cameraPosition)
 
 	rw->draw(sprite);
 	sf::Vector2f realPosition = sf::Vector2f(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
-	functions.PrintText(std::to_string((int)energy), sf::Vector2f(realPosition.x + 40, realPosition.y + 40), 15, sf::Color::Red);
-	//functions.PrintText(std::to_string((int)connections[0]), sf::Vector2f(realPosition.x + 20, realPosition.y), 15, sf::Color::Blue);
-	//functions.PrintText(std::to_string((int)connections[1]), sf::Vector2f(realPosition.x + 40, realPosition.y + 20), 15, sf::Color::Blue);
-	//functions.PrintText(std::to_string((int)connections[2]), sf::Vector2f(realPosition.x + 20, realPosition.y + 40), 15, sf::Color::Blue);
-	//functions.PrintText(std::to_string((int)connections[3]), sf::Vector2f(realPosition.x, realPosition.y + 20), 15, sf::Color::Blue);
 }

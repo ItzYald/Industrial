@@ -102,7 +102,7 @@ void Game::LoadingPlay()
 	textures["EnergyHandGenerator"].loadFromFile("Images/Objects/EnergyHandGenerator.png");
 	// Угольный энергогенератор
 	textures["EnergyCoalGenerator"] = sf::Texture();
-	textures["EnergyCoalGenerator"].loadFromFile("Images/Objects/Chest.png");
+	textures["EnergyCoalGenerator"].loadFromFile("Images/Objects/EnergyCoalGenerator.png");
 	/// Текстурки проводов
 	// Медные
 	textures["CooperWire"] = sf::Texture();
@@ -110,6 +110,12 @@ void Game::LoadingPlay()
 	// Железные
 	textures["IronWire"] = sf::Texture();
 	textures["IronWire"].loadFromFile("Images/Wires/IronWireOn.png");
+	/// Иконки в инвентаре
+	// Иконка ручной генерации энергии
+	texturesInInventory["HandGenerate"] = sf::Texture();
+	texturesInInventory["HandGenerate"].loadFromFile(
+		"Images/IconsInInventory/IconEnergyHandGeneratorInInventory.png");
+
 
 	// Текстуры предметов
 	for (int i = 0; i < 19; i++)
@@ -152,21 +158,28 @@ void Game::LoadingPlay()
 	// Ручной энергогенератор
 	itemTextures[16].loadFromFile("Images/Objects/EnergyHandGenerator.png");
 	// Угольный энергогенератор
-	itemTextures[17].loadFromFile("Images/Objects/Chest.png");
+	itemTextures[17].loadFromFile("Images/Objects/EnergyCoalGenerator.png");
 	// Корпус механнизма
-	itemTextures[18].loadFromFile("Images/Objects/ElectricOven.png");
+	itemTextures[18].loadFromFile("Images/Objects/MechanismBody.png");
 
 
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20), colorsInventory, itemTextures);
 
-	coalOvens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], itemTextures, sf::Vector2f(23, 20), colorsInventory));
-	electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], itemTextures, sf::Vector2f(23, 19), colorsInventory));
-	chests.push_back(std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], itemTextures, sf::Vector2f(23, 21), colorsInventory));
-	workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], itemTextures, sf::Vector2f(23, 22), colorsInventory));
-	energyStorages.push_back(std::make_shared<EnergySprite<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
-	energyHandGenerators.push_back(std::make_shared<EnergySprite<EnergyHandGeneratorInventory>>(rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10));
-	energyCoalGenerators.push_back(std::make_shared<EnergySprite<EnergyCoalGeneratorInventory>>(rw, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, sf::Vector2f(21, 18), colorsInventory, 100, 10));
+	coalOvens.push_back(
+		std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], itemTextures, sf::Vector2f(23, 20), colorsInventory));
+	electricOvens.push_back(
+		std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], itemTextures, sf::Vector2f(23, 19), colorsInventory));
+	chests.push_back(
+		std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], itemTextures, sf::Vector2f(23, 21), colorsInventory));
+	workbenches.push_back(
+		std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], itemTextures, sf::Vector2f(23, 22), colorsInventory));
+	energyStorages.push_back(
+		std::make_shared<EnergySprite<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
+	energyHandGenerators.push_back(
+		std::make_shared<EnergySprite<EnergyHandGeneratorInventory>>(rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, texturesInInventory));
+	energyCoalGenerators.push_back(
+		std::make_shared<EnergySprite<EnergyCoalGeneratorInventory>>(rw, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, sf::Vector2f(21, 18), colorsInventory, 100, 10));
 
 	screen = "Игра";
 }
@@ -175,6 +188,7 @@ void Game::UnloadingPlay(std::string nextScreen)
 {
 	textures.clear();
 	itemTextures.clear();
+	texturesInInventory.clear();
 
 	coalOvens.clear();
 	electricOvens.clear();
@@ -182,6 +196,8 @@ void Game::UnloadingPlay(std::string nextScreen)
 	workbenches.clear();
 	wires.clear();
 	energyStorages.clear();
+	energyHandGenerators.clear();
+	energyCoalGenerators.clear();
 
 	screen = nextScreen;
 }
@@ -305,7 +321,7 @@ void Game::PutObject(sf::Vector2f position)
 	// Поставить ручной энергогенератор
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 17)
 	{
-		energyCoalGenerators.push_back(std::make_shared<EnergySprite<EnergyCoalGeneratorInventory>>(rw, field.sizeOne, textures["Chest"], itemTextures, position, colorsInventory, 100, 10));
+		energyCoalGenerators.push_back(std::make_shared<EnergySprite<EnergyCoalGeneratorInventory>>(rw, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, position, colorsInventory, 100, 10));
 	}
 	// Поставить медный провод
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 12)

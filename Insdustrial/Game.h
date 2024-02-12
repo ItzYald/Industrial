@@ -86,6 +86,8 @@ private:
 	std::map<std::string, sf::Texture> textures;
 	// Список текстур предметов (в инвентаре)
 	std::vector<sf::Texture> itemTextures;
+	// Список текстур иконок в инвентаре
+	std::map<std::string, sf::Texture> texturesInInventory;
 
 
 	// Поле
@@ -137,7 +139,7 @@ public:
 	/// <summary>Проверка поворота устройста для понятия, куда отправлять энергию</summary>
 	/// <param name="turn">Поворот объекта</param>
 	sf::Vector2i CheckTurnEnergy(int turn);
-
+	/// Какой объект находится по координатам (будет передавать энергию)
 	void WhatObjectTransEnergy();
 	// Игра
 	void Play();
