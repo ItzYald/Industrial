@@ -175,7 +175,7 @@ void CellInInventory::Update(Item& mouseItem)
 		// Если в мыши нет предмета, а в ячейке есть
 		if (mouseItem.number == 0 && item.number != 0)
 		{
-			mouseItem.number = item.number;
+			mouseItem.NumberUpdate(item.number);
 			if (item.quantity == 1)
 			{
 				mouseItem.quantity = 1;

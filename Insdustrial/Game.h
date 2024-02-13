@@ -57,6 +57,9 @@ private:
 
 	// Позиция камеры
 	sf::Vector2f cameraPosition;
+	// Позиция мышки по сетке
+	sf::Vector2i mousePositionGrid;
+	const float maxMouseDistance = 4.2f;
 
 	// Игрок
 	Player player;
@@ -73,7 +76,7 @@ private:
 	// Список верстаков
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches;
 	// Список хранилищ энергии
-	std::vector<std::shared_ptr<EnergySprite<EnergyStorageInventory>>> energyStorages;
+	std::vector<std::shared_ptr<StaingObject<EnergyStorageInventory>>> energyStorages;
 	// Список ручных энергогенераторов
 	std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>> energyHandGenerators;
 	// Список ручных энергогенераторов
@@ -114,6 +117,8 @@ public:
 	void UnloadingPlay(std::string nextScreen);
 	// Отрисовка игрового поля
 	void DrawPlay();
+
+	void DrawDrive();
 	// Закрыть
 	void CloseInventory();
 	// Поставить объект по определенным коодинатам

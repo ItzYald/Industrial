@@ -17,6 +17,7 @@ template<class T>
 class StaingObject : public Sprite
 {
 public:
+	int turn;
 	// Открыт ли инт
 	bool isOpenInventory;
 	// Инвентарь (каждый раз разный)
@@ -28,28 +29,6 @@ public:
 	/// <param name="_fieldSizeOne">Размер одной ячейки</param>
 	/// <param name="_texture">Ссылка на текстуру</param>
 	/// <param name="_position">Позиция</param>
-
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture& _texture,
-		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
-	{
-		rw = _rw;
-		fieldSizeOne = _fieldSizeOne;
-		sprite.setTexture(_texture);
-		position = _position;
-
-		functions = Functions(rw);
-
-		isOpenInventory = false;
-
-		inventory = T(rw, _colorsInventory);
-
-		sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
-
-		for (int i = 0; i < 30; i++)
-		{
-			ch.push_back(Checks());
-		}
-	}
 
 	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
 		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures,
@@ -63,6 +42,8 @@ public:
 		functions = Functions(rw);
 
 		isOpenInventory = false;
+
+		turn = 0;
 
 		inventory = T(rw, _colorsInventory, _itemTextures);
 
@@ -88,6 +69,8 @@ public:
 
 		isOpenInventory = false;
 
+		turn = 0;
+
 		inventory = T(rw, _colorsInventory, _itemTextures, _texturesInInventory);
 
 		sprite.setScale(fieldSizeOne / (float)sprite.getTexture()->getSize().x, fieldSizeOne / (float)sprite.getTexture()->getSize().y);
@@ -97,6 +80,64 @@ public:
 			ch.push_back(Checks());
 		}
 	}
+
+	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
+		sf::Texture& _texture, std::vector<sf::Texture>& _textures, sf::Vector2f _position,
+		std::vector<sf::Color> _colorsInventory, int _maxFuel, int _power)
+	{
+		StaingObject<T>::rw = _rw;
+		StaingObject<T>::fieldSizeOne = _fieldSizeOne;
+		StaingObject<T>::sprite.setTexture(_texture);
+		StaingObject<T>::position = _position;
+
+		StaingObject<T>::functions = Functions(StaingObject<T>::rw);
+
+		StaingObject<T>::isOpenInventory = false;
+
+		StaingObject<T>::inventory = T(StaingObject<T>::rw, _colorsInventory, _maxFuel, _power, _textures);
+
+		StaingObject<T>::sprite.setScale(
+			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().x,
+			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().y);
+
+		for (int i = 0; i < 30; i++)
+		{
+			StaingObject<T>::ch.push_back(Checks());
+		}
+		turn = 0;
+	}
+
+	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
+		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures, sf::Vector2f _position,
+		std::vector<sf::Color> _colorsInventory, int _maxFuel, int _power,
+		std::map<std::string, sf::Texture>& _texturesInInventory)
+	{
+		StaingObject<T>::rw = _rw;
+		StaingObject<T>::fieldSizeOne = _fieldSizeOne;
+		StaingObject<T>::sprite.setTexture(_texture);
+		StaingObject<T>::position = _position;
+
+		StaingObject<T>::functions = Functions(StaingObject<T>::rw);
+
+		StaingObject<T>::isOpenInventory = false;
+
+		StaingObject<T>::inventory =
+			T(StaingObject<T>::rw, _colorsInventory, _maxFuel, _power, _itemTextures, _texturesInInventory);
+
+		//StaingObject<T>::inventory =
+		//	T(StaingObject<T>::rw, _colorsInventory, _maxFuel, _power, _itemTextures);
+
+		StaingObject<T>::sprite.setScale(
+			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().x,
+			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().y);
+
+		for (int i = 0; i < 30; i++)
+		{
+			StaingObject<T>::ch.push_back(Checks());
+		}
+		turn = 0;
+	}
+
 
 	/// <summary>Проверка игрока рядом</summary>
 	/// <param name="playerPosition">Позиция игрока</param>
@@ -118,20 +159,79 @@ public:
 	/// </summary>
 	/// <param name="playerPosition">Позиция игрока</param>
 	/// <param name="playerAngle">Куда повернут игрок</param>
-	void Update(sf::Vector2f playerPosition, int playerAngle)
+	void Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, int playerAngle)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			isOpenInventory = NearPlayer(playerPosition, playerAngle);
+			isOpenInventory = (position == (sf::Vector2f)mousePositionGrid);
+		}
+		if (ch[0].Check(sf::Keyboard::Key::R))
+		{
+			if ((position == (sf::Vector2f)mousePositionGrid))
+			{
+				if (turn < 3)
+					turn += 1;
+				else
+					turn = 0;
+			}
 		}
 	}
 	/// <summary>Отрисовка</summary>
 	/// <param name="cameraPosition">Позиция камеры</param>
 	void Draw(sf::Vector2f cameraPosition)
 	{
-		sprite.setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
+		// Если повернут вверх
+		if (turn == 0)
+		{
+			sprite.setRotation(0);
+		}
+		// Если повернут вправо
+		if (turn == 1)
+		{
+			sprite.setRotation(90);
+		}
+		// Если повернут вниз
+		if (turn == 2)
+		{
+			sprite.setRotation(180);
+		}
+		// Если повернут влево
+		if (turn == 3)
+		{
+			sprite.setRotation(270);
+		}
+
+		// Задать позицию
+		sprite.setPosition(
+			fieldSizeOne * (position.x - cameraPosition.x),
+			fieldSizeOne * (position.y - cameraPosition.y));
+
+		// Сдвиг для компенсации вращения
+		if (sprite.getRotation() == 90)
+		{
+			sprite.setPosition(
+				sprite.getPosition().x + fieldSizeOne,
+				sprite.getPosition().y);
+		}
+		else if (sprite.getRotation() == 180)
+		{
+			sprite.setPosition(
+				sprite.getPosition().x + fieldSizeOne,
+				sprite.getPosition().y + fieldSizeOne);
+		}
+		else if (sprite.getRotation() == 270)
+		{
+			sprite.setPosition(
+				sprite.getPosition().x,
+				sprite.getPosition().y + fieldSizeOne);
+		}
+
 		rw->draw(sprite);
+		sf::Vector2f realPosition = sf::Vector2f(
+			fieldSizeOne * (position.x - cameraPosition.x),
+			fieldSizeOne * (position.y - cameraPosition.y));
 	}
+
 
 };
 

@@ -58,12 +58,12 @@ public:
 	//Каждый кадр
 	void Update();
 	// Проверить наличие объекта перед игроком
-	bool PutObject(std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>& ovens,
+	bool PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>& ovens,
 		std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>& electricOvens,
 		std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests,
 		std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
 		std::vector<std::shared_ptr<Wire>>& wires,
-		std::vector<std::shared_ptr<EnergySprite<EnergyStorageInventory>>>& energyStorages,
+		std::vector<std::shared_ptr<StaingObject<EnergyStorageInventory>>>& energyStorages,
 		std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>>& energyHandGenerators,
 		std::vector<std::shared_ptr<EnergySprite<EnergyCoalGeneratorInventory>>>& energyCoalGenerators);
 	// Отрисовка

@@ -114,7 +114,7 @@ void Game::LoadingPlay()
 	// Иконка ручной генерации энергии
 	texturesInInventory["HandGenerate"] = sf::Texture();
 	texturesInInventory["HandGenerate"].loadFromFile(
-		"Images/IconsInInventory/IconEnergyHandGeneratorInInventory.png");
+		"Images/IconsInInventory/IconEnergyHandGenerator.png");
 
 
 	// Текстуры предметов
@@ -175,7 +175,7 @@ void Game::LoadingPlay()
 	workbenches.push_back(
 		std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], itemTextures, sf::Vector2f(23, 22), colorsInventory));
 	energyStorages.push_back(
-		std::make_shared<EnergySprite<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
+		std::make_shared<StaingObject<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
 	energyHandGenerators.push_back(
 		std::make_shared<EnergySprite<EnergyHandGeneratorInventory>>(rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, texturesInInventory));
 	energyCoalGenerators.push_back(
@@ -251,6 +251,15 @@ void Game::DrawPlay()
 	// Отрисовка игрока
 	player.Draw(cameraPosition);
 }
+
+void Game::DrawDrive()
+{
+	// Отрисовка ячейки, накоторой мышка
+	functions.DrawRectangle(sf::Vector2f(
+		field.sizeOne * (mousePositionGrid.x - cameraPosition.x),
+		field.sizeOne * (mousePositionGrid.y - cameraPosition.y)),
+		sf::Vector2f(field.sizeOne, field.sizeOne), sf::Color(200, 200, 200, 100), sf::Color(150, 150, 150), 2);
+}
 // Закрыть инвентарь
 void Game::CloseInventory()
 {
@@ -311,7 +320,7 @@ void Game::PutObject(sf::Vector2f position)
 	// Поставить энергохранилище
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 13)
 	{
-		energyStorages.push_back(std::make_shared<EnergySprite<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1000, 10));
+		energyStorages.push_back(std::make_shared<StaingObject<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1000, 10));
 	}
 	// Поставить ручной энергогенератор
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 16)
@@ -337,35 +346,43 @@ void Game::PutObject(sf::Vector2f position)
 // Геймплей
 void Game::Drive()
 {
+	// Временная переменная для проверки расстояния до игрока
+	sf::Vector2i m = sf::Vector2i(
+		mousePosition.x / (float)field.sizeOne + cameraPosition.x,
+		mousePosition.y / (float)field.sizeOne + cameraPosition.y);
+
+	float mouseDistance = std::sqrt((m.x - player.position.x) * (m.x - player.position.x) +
+		(m.y - player.position.y) * (m.y - player.position.y));
+
+	if (mouseDistance > maxMouseDistance)
+	{
+		mousePositionGrid = sf::Vector2i(
+			(player.position.x + (m.x - player.position.x) / (mouseDistance / maxMouseDistance)),
+			(player.position.y + (m.y - player.position.y) / (mouseDistance / maxMouseDistance)));
+	}
+	else
+	{
+		mousePositionGrid = m;
+	}
+
+	DrawDrive();
+
 	// То, что делает игрок каждый кадр
 	player.Update();
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	bool nearObject = player.PutObject(
+	bool nearObject = player.PutObject(mousePositionGrid,
 		coalOvens, electricOvens, chests, workbenches, wires, energyStorages, energyHandGenerators, energyCoalGenerators);
 	if (nearObject)
 	{
-		switch (player.angle)
-		{
-		case 0:
-			PutObject(sf::Vector2f((int)player.position.x, (int)player.position.y - 1));
-			break;
-		case 1:
-			PutObject(sf::Vector2f((int)player.position.x + 1, (int)player.position.y));
-			break;
-		case 2:
-			PutObject(sf::Vector2f((int)player.position.x, (int)player.position.y + 1));
-			break;
-		case 3:
-			PutObject(sf::Vector2f((int)player.position.x - 1, (int)player.position.y));
-			break;
-		}
+		PutObject((sf::Vector2f)mousePositionGrid);
 	}
+
 	// Работа угольных печей
 	for (int i = 0; i < coalOvens.size(); i++)
 	{
-		coalOvens[i]->Update(player.position, player.angle);
+		coalOvens[i]->Update(mousePositionGrid, player.position, player.angle);
 		if (coalOvens[i]->isOpenInventory)
 		{
 			player.isOpenInventory = true;
@@ -380,7 +397,7 @@ void Game::Drive()
 		// Обновление массива с указанием номера электропечей в массиве по координатам
 		field.electricOvens[electricOvens[i]->position.x][electricOvens[i]->position.y] = i;
 		// Обновление электропечей
-		electricOvens[i]->Update(player.position, player.angle);
+		electricOvens[i]->Update(mousePositionGrid, player.position, player.angle);
 		// Если инвентарь открыт
 		if (electricOvens[i]->isOpenInventory)
 		{
@@ -393,7 +410,7 @@ void Game::Drive()
 	// Работа сундуков
 	for (int i = 0; i < chests.size(); i++)
 	{
-		chests[i]->Update(player.position, player.angle);
+		chests[i]->Update(mousePositionGrid, player.position, player.angle);
 		if (chests[i]->isOpenInventory)
 		{
 			player.isOpenInventory = true;
@@ -405,7 +422,7 @@ void Game::Drive()
 	// Работа верстаков
 	for (int i = 0; i < workbenches.size(); i++)
 	{
-		workbenches[i]->Update(player.position, player.angle);
+		workbenches[i]->Update(mousePositionGrid, player.position, player.angle);
 		if (workbenches[i]->isOpenInventory)
 		{
 			player.isOpenInventory = true;
@@ -419,7 +436,7 @@ void Game::Drive()
 	{
 		// Обновление массива с указанием номера проводов в массиве по координатам
 		field.energyStorages[energyStorages[i]->position.x][energyStorages[i]->position.y] = i;
-		energyStorages[i]->Update(player.position, player.angle);
+		energyStorages[i]->Update(mousePositionGrid, player.position, player.angle);
 		if (energyStorages[i]->isOpenInventory)
 		{
 			player.isOpenInventory = true;
@@ -433,7 +450,7 @@ void Game::Drive()
 	{
 		// Обновление массива с указанием номера проводов в массиве по координатам
 		field.energyHandGenerators[energyHandGenerators[i]->position.x][energyHandGenerators[i]->position.y] = i;
-		energyHandGenerators[i]->Update(player.position, player.angle);
+		energyHandGenerators[i]->Update(mousePositionGrid, player.position, player.angle);
 		if (energyHandGenerators[i]->isOpenInventory)
 		{
 			player.isOpenInventory = true;
@@ -447,7 +464,7 @@ void Game::Drive()
 	{
 		// Обновление массива с указанием номера проводов в массиве по координатам
 		field.energyCoalGenerators[energyCoalGenerators[i]->position.x][energyCoalGenerators[i]->position.y] = i;
-		energyCoalGenerators[i]->Update(player.position, player.angle);
+		energyCoalGenerators[i]->Update(mousePositionGrid, player.position, player.angle);
 		if (energyCoalGenerators[i]->isOpenInventory)
 		{
 			player.isOpenInventory = true;
@@ -464,7 +481,8 @@ void Game::Drive()
 		wires[i]->Update(player.position, player.angle);
 	}
 	// Смещение камеры
-	cameraPosition -= (cameraPosition - sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2))) * 0.04f;
+	//cameraPosition -= (cameraPosition - sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2))) * 0.04f;
+	cameraPosition = sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2));
 }
 
 void Game::TransEnergy(float& originalEnergy, int power, float& nextEnergy, int nextMaxEnergy)
