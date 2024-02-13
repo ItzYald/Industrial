@@ -161,7 +161,7 @@ public:
 	/// <param name="playerAngle">Куда повернут игрок</param>
 	void Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, int playerAngle)
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
 			isOpenInventory = (position == (sf::Vector2f)mousePositionGrid);
 		}
