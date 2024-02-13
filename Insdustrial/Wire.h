@@ -43,7 +43,7 @@ public:
 	/// <returns>Есть или нет</returns>
 	bool NearPlayer(sf::Vector2f playerPosition, int playerAngle);
 	void CheckConnections(sf::Vector2f positionSeconObject);
-	void Update(sf::Vector2f playerPosition, int playerAngle);
+	void Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, int playerAngle);
 	/// <summary>Отрисовка</summary>
 	/// <param name="cameraPosition">Смещение камеры</param>
 	void Draw(sf::Vector2f cameraPosition);

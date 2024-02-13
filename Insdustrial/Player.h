@@ -19,7 +19,6 @@
 #include "ChestInventory.h"
 #include "WorbenchInventory.h"
 #include "Wire.h"
-#include "EnergySprite.h"
 #include "EnergyHandGeneratorInventory.h"
 #include "EnergyCoalGeneratorInventory.h"
 
@@ -64,8 +63,8 @@ public:
 		std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
 		std::vector<std::shared_ptr<Wire>>& wires,
 		std::vector<std::shared_ptr<StaingObject<EnergyStorageInventory>>>& energyStorages,
-		std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>>& energyHandGenerators,
-		std::vector<std::shared_ptr<EnergySprite<EnergyCoalGeneratorInventory>>>& energyCoalGenerators);
+		std::vector<std::shared_ptr<StaingObject<EnergyHandGeneratorInventory>>>& energyHandGenerators,
+		std::vector<std::shared_ptr<StaingObject<EnergyCoalGeneratorInventory>>>& energyCoalGenerators);
 	// Отрисовка
 	void Draw(sf::Vector2f cameraPosition);
 };

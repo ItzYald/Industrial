@@ -26,8 +26,6 @@
 #include "EnergyHandGeneratorInventory.h"
 #include "EnergyCoalGeneratorInventory.h"
 
-#include "EnergySprite.h"
-
 
 class Game
 {
@@ -78,9 +76,9 @@ private:
 	// Список хранилищ энергии
 	std::vector<std::shared_ptr<StaingObject<EnergyStorageInventory>>> energyStorages;
 	// Список ручных энергогенераторов
-	std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>> energyHandGenerators;
+	std::vector<std::shared_ptr<StaingObject<EnergyHandGeneratorInventory>>> energyHandGenerators;
 	// Список ручных энергогенераторов
-	std::vector<std::shared_ptr<EnergySprite<EnergyCoalGeneratorInventory>>> energyCoalGenerators;
+	std::vector<std::shared_ptr<StaingObject<EnergyCoalGeneratorInventory>>> energyCoalGenerators;
 
 	// Список проводов
 	std::vector<std::shared_ptr<Wire>> wires;

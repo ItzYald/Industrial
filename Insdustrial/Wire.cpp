@@ -62,11 +62,11 @@ bool Wire::NearPlayer(sf::Vector2f playerPosition, int playerAngle)
 		((int)playerPosition.x == position.x - 1 && (int)playerPosition.y == position.y && playerAngle == 1));
 }
 
-void Wire::Update(sf::Vector2f playerPosition, int playerAngle)
+void Wire::Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, int playerAngle)
 {
 	if (ch[0].Check(sf::Keyboard::Key::R))
 	{
-		if (NearPlayer(playerPosition, playerAngle))
+		if ((position == (sf::Vector2f)mousePositionGrid))
 		{
 			if (turn < 3)
 				turn += 1;

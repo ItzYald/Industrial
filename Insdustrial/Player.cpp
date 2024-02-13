@@ -118,8 +118,8 @@ bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_p
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
 	std::vector<std::shared_ptr<Wire>>& wires, 
 	std::vector<std::shared_ptr<StaingObject<EnergyStorageInventory>>>& energyStorages,
-	std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>>& energyHandGenerators,
-	std::vector<std::shared_ptr<EnergySprite<EnergyCoalGeneratorInventory>>>& energyCoalGenerators)
+	std::vector<std::shared_ptr<StaingObject<EnergyHandGeneratorInventory>>>& energyHandGenerators,
+	std::vector<std::shared_ptr<StaingObject<EnergyCoalGeneratorInventory>>>& energyCoalGenerators)
 {
 	//if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
 	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -175,13 +175,13 @@ bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_p
 				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
 				//isNear = thisObject->NearPlayer(position, angle);
 		}
-		for (std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>& thisObject : energyHandGenerators)
+		for (std::shared_ptr<StaingObject<EnergyHandGeneratorInventory>>& thisObject : energyHandGenerators)
 		{
 			if (!isNear)
 				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
 				//isNear = thisObject->NearPlayer(position, angle);
 		}
-		for (std::shared_ptr<EnergySprite<EnergyCoalGeneratorInventory>>& thisObject : energyCoalGenerators)
+		for (std::shared_ptr<StaingObject<EnergyCoalGeneratorInventory>>& thisObject : energyCoalGenerators)
 		{
 			if (!isNear)
 				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);

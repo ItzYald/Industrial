@@ -15,8 +15,8 @@ Game::Game(sf::RenderWindow& _rw)
 	chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
 	workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
 
-	energyHandGenerators = std::vector<std::shared_ptr<EnergySprite<EnergyHandGeneratorInventory>>>();
-	energyCoalGenerators = std::vector<std::shared_ptr<EnergySprite<EnergyCoalGeneratorInventory>>>();
+	energyHandGenerators = std::vector<std::shared_ptr<StaingObject<EnergyHandGeneratorInventory>>>();
+	energyCoalGenerators = std::vector<std::shared_ptr<StaingObject<EnergyCoalGeneratorInventory>>>();
 
 	wires = std::vector<std::shared_ptr<Wire>>();
 }
@@ -177,9 +177,9 @@ void Game::LoadingPlay()
 	energyStorages.push_back(
 		std::make_shared<StaingObject<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
 	energyHandGenerators.push_back(
-		std::make_shared<EnergySprite<EnergyHandGeneratorInventory>>(rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, texturesInInventory));
+		std::make_shared<StaingObject<EnergyHandGeneratorInventory>>(rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, texturesInInventory));
 	energyCoalGenerators.push_back(
-		std::make_shared<EnergySprite<EnergyCoalGeneratorInventory>>(rw, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, sf::Vector2f(21, 18), colorsInventory, 100, 10));
+		std::make_shared<StaingObject<EnergyCoalGeneratorInventory>>(rw, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, sf::Vector2f(21, 18), colorsInventory, 100, 10));
 
 	screen = "Игра";
 }
@@ -325,12 +325,12 @@ void Game::PutObject(sf::Vector2f position)
 	// Поставить ручной энергогенератор
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 16)
 	{
-		energyHandGenerators.push_back(std::make_shared<EnergySprite<EnergyHandGeneratorInventory>>(rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, position, colorsInventory, 100, 10));
+		energyHandGenerators.push_back(std::make_shared<StaingObject<EnergyHandGeneratorInventory>>(rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, position, colorsInventory, 100, 10));
 	}
 	// Поставить ручной энергогенератор
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 17)
 	{
-		energyCoalGenerators.push_back(std::make_shared<EnergySprite<EnergyCoalGeneratorInventory>>(rw, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, position, colorsInventory, 100, 10));
+		energyCoalGenerators.push_back(std::make_shared<StaingObject<EnergyCoalGeneratorInventory>>(rw, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, position, colorsInventory, 100, 10));
 	}
 	// Поставить медный провод
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 12)
@@ -478,7 +478,7 @@ void Game::Drive()
 	{
 		// Обновление массива с указанием номера проводов в массиве по координатам
 		field.wires[wires[i]->position.x][wires[i]->position.y] = i;
-		wires[i]->Update(player.position, player.angle);
+		wires[i]->Update(mousePositionGrid, player.position, player.angle);
 	}
 	// Смещение камеры
 	//cameraPosition -= (cameraPosition - sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2))) * 0.04f;

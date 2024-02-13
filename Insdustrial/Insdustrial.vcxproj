@@ -139,7 +139,6 @@
     <ClCompile Include="EnergyCoalGeneratorInventory.cpp" />
     <ClCompile Include="EnergyHandGeneratorInventory.cpp" />
     <ClCompile Include="EnergyStorageInventory.cpp" />
-    <ClCompile Include="EnergySprite.cpp" />
     <ClCompile Include="Functions\Button.cpp" />
     <ClCompile Include="Functions\Checks.cpp" />
     <ClCompile Include="Functions\Functions.cpp" />
@@ -165,7 +164,6 @@
     <ClInclude Include="EnergyCoalGeneratorInventory.h" />
     <ClInclude Include="EnergyHandGeneratorInventory.h" />
     <ClInclude Include="EnergyStorageInventory.h" />
-    <ClInclude Include="EnergySprite.h" />
     <ClInclude Include="Functions\Button.h" />
     <ClInclude Include="Functions\Checks.h" />
     <ClInclude Include="Functions\Functions.h" />

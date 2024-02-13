@@ -108,9 +108,6 @@
     <ClCompile Include="StaingObject.cpp">
       <Filter>Исходные файлы\Sprites\InventoryObject</Filter>
     </ClCompile>
-    <ClCompile Include="EnergySprite.cpp">
-      <Filter>Исходные файлы\Sprites\InventoryObject</Filter>
-    </ClCompile>
     <ClCompile Include="EnergyStorageInventory.cpp">
       <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>
     </ClCompile>
@@ -180,9 +177,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="StaingObject.h">
-      <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
-    </ClInclude>
-    <ClInclude Include="EnergySprite.h">
       <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
     </ClInclude>
     <ClInclude Include="EnergyStorageInventory.h">
