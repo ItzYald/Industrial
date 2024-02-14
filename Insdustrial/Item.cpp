@@ -46,7 +46,7 @@ void Item::NumberUpdate(int _number)
 		isFuel = 1;
 		break;
 	case 10:
-		name = L"Редстоун";
+		name = L"Аккумулятор";
 		break;
 	case 11:
 		name = L"Электропеч";

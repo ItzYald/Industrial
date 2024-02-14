@@ -118,7 +118,7 @@ void Game::LoadingPlay()
 
 
 	// Текстуры предметов
-	for (int i = 0; i < 19; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		itemTextures.push_back(sf::Texture());
 	}
@@ -143,8 +143,8 @@ void Game::LoadingPlay()
 	itemTextures[8].loadFromFile("Images/Objects/WorkBench.png");
 	// Доски
 	itemTextures[9].loadFromFile("Images/Planks.png");
-	// Редстоун
-	itemTextures[10].loadFromFile("Images/Redstone.png");
+	// Корпус механнизма
+	itemTextures[10].loadFromFile("Images/Accumulator.png");
 	// Электропеч
 	itemTextures[11].loadFromFile("Images/Objects/ElectricOven.png");
 	// Медный провод

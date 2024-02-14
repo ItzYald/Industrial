@@ -64,9 +64,9 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, st
 		15, 3);
 	// Железный провод
 	AddCraft(
-		0, 9, 9,
-		4, 9, 9,
-		0, 9, 9,
+		0, 4, 0,
+		9, 9, 9,
+		9, 9, 9,
 		16, 1);
 	// Корпус механизма
 	AddCraft(
@@ -91,20 +91,38 @@ void WorkbenchInventory::AddCraft(
 	for (int j = 0; j < 3; j++)
 	{
 		// Другой временный массив
+		//std::vector<int> mas2 = std::vector<int>();
+		//mas2.push_back(craft1);
+		//mas2.push_back(craft2);
+		//mas2.push_back(craft3);
+		//mas.push_back(mas2);
+		//mas2.clear();
+		//mas2.push_back(craft4);
+		//mas2.push_back(craft5);
+		//mas2.push_back(craft6);
+		//mas.push_back(mas2);
+		//mas2.clear();
+		//mas2.push_back(craft7);
+		//mas2.push_back(craft8);
+		//mas2.push_back(craft9);
+		//mas.push_back(mas2);
+		//mas2.clear();
+
+		// Другой временный массив
 		std::vector<int> mas2 = std::vector<int>();
-		mas2.push_back(craft1);
-		mas2.push_back(craft2);
 		mas2.push_back(craft3);
-		mas.push_back(mas2);
-		mas2.clear();
-		mas2.push_back(craft4);
-		mas2.push_back(craft5);
 		mas2.push_back(craft6);
+		mas2.push_back(craft9);
 		mas.push_back(mas2);
 		mas2.clear();
-		mas2.push_back(craft7);
+		mas2.push_back(craft2);
+		mas2.push_back(craft5);
 		mas2.push_back(craft8);
-		mas2.push_back(craft9);
+		mas.push_back(mas2);
+		mas2.clear();
+		mas2.push_back(craft1);
+		mas2.push_back(craft4);
+		mas2.push_back(craft7);
 		mas.push_back(mas2);
 		mas2.clear();
 	}

@@ -1,7 +1,5 @@
 #include "ElectricOvenInventory.h"
 
-#include "CoalOvenInventory.h"
-
 ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures)
 {
 	rw = _rw;
@@ -23,15 +21,16 @@ ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _
 
 void ElectricOvenInventory::Burn()
 {
-	if (cells[1].item.number == 10 && fuel < maxFuel)
-	{
-		fuel += 10;
-		cells[1].item.quantity -= 1;
-		if (fuel > maxFuel)
-		{
-			fuel = maxFuel;
-		}
-	}
+	// Раньше был редстоун, но его больше нет
+	//if (cells[1].item.number == 10 && fuel < maxFuel)
+	//{
+	//	fuel += 10;
+	//	cells[1].item.quantity -= 1;
+	//	if (fuel > maxFuel)
+	//	{
+	//		fuel = maxFuel;
+	//	}
+	//}
 
 	AllBurn();
 	if (cells[0].item.isBurn && fuel > 0)
