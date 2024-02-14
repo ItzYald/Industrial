@@ -51,18 +51,12 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, st
 		4, 4, 4,
 		11, 1);
 	// Медный провод
-	AddCraft(
-		0, 14, 0,
-		0, 14, 0,
-		0, 14, 0,
-		12, 3);
+	AddVecticalCraft(14, 14, 14, 12, 3);
 	// Железный провод
-	AddCraft(
-		0, 4, 0,
-		0, 4, 0,
-		0, 4, 0,
-		15, 3);
-	// Железный провод
+	AddVecticalCraft(4, 4, 4, 15, 3);
+	// Оловяный провод
+	AddVecticalCraft(19, 19, 19, 20, 3);
+	// Ручной энергогенератор
 	AddCraft(
 		0, 4, 0,
 		9, 9, 9,
@@ -161,6 +155,25 @@ void WorkbenchInventory::AddQuadroCraft(int craft1, int craft2, int craft3, int 
 	AddCraft(0, craft1, craft2, 0, craft3, craft4, 0, 0, 0, result, quantity);
 	AddCraft(0, 0, 0, craft1, craft2, 0, craft3, craft4, 0, result, quantity);
 	AddCraft(0, 0, 0, 0, craft1, craft2, 0, craft3, craft4, result, quantity);
+}
+
+void WorkbenchInventory::AddVecticalCraft(int craft1, int craft2, int craft3, int result, int quantity)
+{
+	AddCraft(
+		0, craft1, 0,
+		0, craft2, 0,
+		0, craft3, 0,
+		result, quantity);
+	AddCraft(
+		craft1, 0, 0,
+		craft2, 0, 0,
+		craft3, 0, 0,
+		result, quantity);
+	AddCraft(
+		0, 0, craft1,
+		0, 0, craft2,
+		0, 0, craft3,
+		result, quantity);
 }
 
 void WorkbenchInventory::Craft()

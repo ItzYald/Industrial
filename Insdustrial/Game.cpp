@@ -110,6 +110,9 @@ void Game::LoadingPlay()
 	// Железные
 	textures["IronWire"] = sf::Texture();
 	textures["IronWire"].loadFromFile("Images/Wires/IronWireOn.png");
+	// Оловяныеы
+	textures["TinWire"] = sf::Texture();
+	textures["TinWire"].loadFromFile("Images/Wires/TinWireOn.png");
 	/// Иконки в инвентаре
 	// Иконка ручной генерации энергии
 	texturesInInventory["HandGenerate"] = sf::Texture();
@@ -118,7 +121,7 @@ void Game::LoadingPlay()
 
 
 	// Текстуры предметов
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 21; i++)
 	{
 		itemTextures.push_back(sf::Texture());
 	}
@@ -161,6 +164,10 @@ void Game::LoadingPlay()
 	itemTextures[17].loadFromFile("Images/Objects/EnergyCoalGenerator.png");
 	// Корпус механнизма
 	itemTextures[18].loadFromFile("Images/Objects/MechanismBody.png");
+	// Оловяный слиток
+	itemTextures[19].loadFromFile("Images/TinIngot.png");
+	// Оловяный провод
+	itemTextures[20].loadFromFile("Images/Wires/TinWireOn.png");
 
 
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
@@ -342,6 +349,11 @@ void Game::PutObject(sf::Vector2f position)
 	{
 		wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["IronWire"], position, 1));
 	}
+	// Поставить оловяный провод
+	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 20)
+	{
+		wires.push_back(std::make_shared<Wire>(rw, field.sizeOne, textures["TinWire"], position, 2));
+	}
 }
 // Геймплей
 void Game::Drive()
@@ -372,9 +384,8 @@ void Game::Drive()
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	bool nearObject = player.PutObject(mousePositionGrid,
-		coalOvens, electricOvens, chests, workbenches, wires, energyStorages, energyHandGenerators, energyCoalGenerators);
-	if (nearObject)
+	if (player.PutObject(mousePositionGrid,
+		coalOvens, electricOvens, chests, workbenches, wires, energyStorages, energyHandGenerators, energyCoalGenerators))
 	{
 		PutObject((sf::Vector2f)mousePositionGrid);
 	}

@@ -72,5 +72,11 @@ void Item::NumberUpdate(int _number)
 	case 18:
 		name = L"Корпус механизма";
 		break;
+	case 19:
+		name = L"Оловяный слиток";
+		break;
+	case 20:
+		name = L"Оловяный провод";
+		break;
 	}
 }

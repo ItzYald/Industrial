@@ -27,6 +27,12 @@ Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture
 		power = 100;
 		maxEnergy = 100;
 	}
+	// Если оловяный
+	else if (_type == 2)
+	{
+		power = 1000;
+		maxEnergy = 1000;
+	}
 
 	for (int i = 0; i < 30; i++)
 	{

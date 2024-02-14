@@ -52,6 +52,8 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, std::st
 	inventory.cells[2][1].item.quantity = 20;
 	inventory.cells[3][1].item.NumberUpdate(17);
 	inventory.cells[3][1].item.quantity = 20;
+	inventory.cells[4][1].item.NumberUpdate(19);
+	inventory.cells[4][1].item.quantity = 20;
 
 
 	for (int i = 0; i < 30; i++)
@@ -125,15 +127,11 @@ bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_p
 	{
 		return false;
 	}
-	if ((inventory.cells[inventory.choseCell][3].item.number == 2 ||
-		inventory.cells[inventory.choseCell][3].item.number == 5 || 
-		inventory.cells[inventory.choseCell][3].item.number == 8 ||
-		inventory.cells[inventory.choseCell][3].item.number == 11 ||
-		inventory.cells[inventory.choseCell][3].item.number == 12 ||
-		inventory.cells[inventory.choseCell][3].item.number == 13 ||
-		inventory.cells[inventory.choseCell][3].item.number == 15 ||
-		inventory.cells[inventory.choseCell][3].item.number == 16 || 
-		inventory.cells[inventory.choseCell][3].item.number == 17) &&
+	int chooseNumber = inventory.cells[inventory.choseCell][3].item.number;
+	if ((chooseNumber == 2 || chooseNumber == 5 || chooseNumber == 8 ||
+		chooseNumber == 11 || chooseNumber == 12 || chooseNumber == 13 ||
+		chooseNumber == 15 || chooseNumber == 16 || chooseNumber == 17 || 
+		chooseNumber == 20) &&
 		inventory.cells[inventory.choseCell][3].item.quantity > 0)
 	{
 		bool isNear = false;

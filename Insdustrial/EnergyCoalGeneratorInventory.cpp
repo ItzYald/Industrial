@@ -25,7 +25,7 @@ void EnergyCoalGeneratorInventory::Next()
 	if (burn > 0)
 	{
 		burn -= 1;
-		energy += 0.1f;
+		energy += 0.05f;
 	}
 	if (energy > maxEnergy)
 	{

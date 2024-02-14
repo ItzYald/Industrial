@@ -38,6 +38,8 @@ public:
 	void AddQuadroSimpleCraft(int craft, int result, int quantity);
 	// Добавить четверной крафт (где только 4 РАЗЛИЧНЫХ предмета используется, но можно в 4 вариантах разложить)
 	void AddQuadroCraft(int craft1, int craft2, int craft3, int craft4, int result, int quantity);
+	// Добавить крафт в виде вертикальной линии из трех
+	void AddVecticalCraft(int craft1, int craft2, int craft3, int result, int quantity);
 	// Проверка слотов крафта
 	void Craft();
 	// Отрисовка
