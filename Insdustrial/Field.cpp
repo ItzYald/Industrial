@@ -6,26 +6,14 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _siz
 	functions = Functions(rw);
 	sprite = sf::Sprite(texture);
 
-	wires = std::vector<std::vector<int>>();
-	electricOvens = std::vector<std::vector<int>>();
-	energyStorages = std::vector<std::vector<int>>();
-	energyHandGenerators = std::vector<std::vector<int>>();
-	energyCoalGenerators = std::vector<std::vector<int>>();
+	objects = std::vector<std::vector<sf::Vector2i>>();
 
 	for (int i = 0; i < size.x; i++)
 	{
-		wires.push_back(std::vector<int>());
-		electricOvens.push_back(std::vector<int>());
-		energyStorages.push_back(std::vector<int>());
-		energyHandGenerators.push_back(std::vector<int>());
-		energyCoalGenerators.push_back(std::vector<int>());
+		objects.push_back(std::vector <sf::Vector2i>());
 		for (int j = 0; j < size.y; j++)
 		{
-			wires[i].push_back(-1);
-			electricOvens[i].push_back(-1);
-			energyStorages[i].push_back(-1);
-			energyHandGenerators[i].push_back(-1);
-			energyCoalGenerators[i].push_back(-1);
+			objects[i].push_back(sf::Vector2i(-1, -1));
 		}
 	}
 

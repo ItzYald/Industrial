@@ -406,7 +406,7 @@ void Game::Drive()
 	for (int i = 0; i < electricOvens.size(); i++)
 	{
 		// Обновление массива с указанием номера электропечей в массиве по координатам
-		field.electricOvens[electricOvens[i]->position.x][electricOvens[i]->position.y] = i;
+		field.objects[electricOvens[i]->position.x][electricOvens[i]->position.y] = sf::Vector2i(1, i);
 		// Обновление электропечей
 		electricOvens[i]->Update(mousePositionGrid, player.position, player.angle);
 		// Если инвентарь открыт
@@ -446,7 +446,7 @@ void Game::Drive()
 	for (int i = 0; i < energyStorages.size(); i++)
 	{
 		// Обновление массива с указанием номера проводов в массиве по координатам
-		field.energyStorages[energyStorages[i]->position.x][energyStorages[i]->position.y] = i;
+		field.objects[energyStorages[i]->position.x][energyStorages[i]->position.y] = sf::Vector2i(2, i);
 		energyStorages[i]->Update(mousePositionGrid, player.position, player.angle);
 		if (energyStorages[i]->isOpenInventory)
 		{
@@ -460,7 +460,7 @@ void Game::Drive()
 	for (int i = 0; i < energyHandGenerators.size(); i++)
 	{
 		// Обновление массива с указанием номера проводов в массиве по координатам
-		field.energyHandGenerators[energyHandGenerators[i]->position.x][energyHandGenerators[i]->position.y] = i;
+		field.objects[energyHandGenerators[i]->position.x][energyHandGenerators[i]->position.y] = sf::Vector2i(3, i);
 		energyHandGenerators[i]->Update(mousePositionGrid, player.position, player.angle);
 		if (energyHandGenerators[i]->isOpenInventory)
 		{
@@ -474,7 +474,7 @@ void Game::Drive()
 	for (int i = 0; i < energyCoalGenerators.size(); i++)
 	{
 		// Обновление массива с указанием номера проводов в массиве по координатам
-		field.energyCoalGenerators[energyCoalGenerators[i]->position.x][energyCoalGenerators[i]->position.y] = i;
+		field.objects[energyCoalGenerators[i]->position.x][energyCoalGenerators[i]->position.y] = sf::Vector2i(4, i);
 		energyCoalGenerators[i]->Update(mousePositionGrid, player.position, player.angle);
 		if (energyCoalGenerators[i]->isOpenInventory)
 		{
@@ -488,7 +488,8 @@ void Game::Drive()
 	for (int i = 0; i < wires.size(); i++)
 	{
 		// Обновление массива с указанием номера проводов в массиве по координатам
-		field.wires[wires[i]->position.x][wires[i]->position.y] = i;
+		//field.wires[wires[i]->position.x][wires[i]->position.y] = i;
+		field.objects[wires[i]->position.x][wires[i]->position.y] = sf::Vector2i(0, i);
 		wires[i]->Update(mousePositionGrid, player.position, player.angle);
 	}
 	// Смещение камеры
@@ -529,21 +530,24 @@ void Game::TransEnergy(float& originalEnergy, int power, float& nextEnergy, int 
 void Game::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int power)
 {
 	// Если на месте стоит провод
-	if (field.wires[nextPosition.x][nextPosition.y] != -1)
+	//if (field.wires[nextPosition.x][nextPosition.y] != -1)
+	if (field.objects[nextPosition.x][nextPosition.y].x == 0)
 	{
-		std::shared_ptr<Wire> thisWire = wires[field.wires[nextPosition.x][nextPosition.y]];
+		//std::shared_ptr<Wire> thisWire = wires[field.wires[nextPosition.x][nextPosition.y]];
+		std::shared_ptr<Wire> thisWire = wires[field.objects[nextPosition.x][nextPosition.y].y];
 		TransEnergy(energy, power, thisWire->energy, thisWire->maxEnergy);
 	}
 	// Если на месте стоит электропечка
-	else if (field.electricOvens[nextPosition.x][nextPosition.y] != -1)
+	//else if (field.electricOvens[nextPosition.x][nextPosition.y] != -1)
+	else if (field.objects[nextPosition.x][nextPosition.y].x == 1)
 	{
-		ElectricOvenInventory& thisOvenInventory = electricOvens[field.electricOvens[nextPosition.x][nextPosition.y]]->inventory;
+		ElectricOvenInventory& thisOvenInventory = electricOvens[field.objects[nextPosition.x][nextPosition.y].y]->inventory;
 		TransEnergy(energy, power, thisOvenInventory.fuel, thisOvenInventory.maxFuel);
 	}
 	// Если на месте стоит энергохранилище
-	else if (field.energyStorages[nextPosition.x][nextPosition.y] != -1)
+	else if (field.objects[nextPosition.x][nextPosition.y].x == 2)
 	{
-		EnergyStorageInventory& thisEnergyStorage = energyStorages[field.energyStorages[nextPosition.x][nextPosition.y]]->inventory;
+		EnergyStorageInventory& thisEnergyStorage = energyStorages[field.objects[nextPosition.x][nextPosition.y].y]->inventory;
 		TransEnergy(energy, power, thisEnergyStorage.energy, thisEnergyStorage.maxEnergy);
 	}
 }
@@ -552,39 +556,40 @@ void Game::CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPositi
 {
 	if (typeObject == 0)
 	{
-		if (field.wires[originalPosition.x][originalPosition.y] == -1)
+		//if (field.wires[originalPosition.x][originalPosition.y] == -1)
+		if (field.objects[originalPosition.x][originalPosition.y].x == -1)
 		{
 			return;
 		}
-		CheckNextEnergyObject(nextPosition, wires[field.wires[originalPosition.x][originalPosition.y]]->energy,
-			wires[field.wires[originalPosition.x][originalPosition.y]]->power);
+		CheckNextEnergyObject(nextPosition, wires[field.objects[originalPosition.x][originalPosition.y].y]->energy,
+			wires[field.objects[originalPosition.x][originalPosition.y].y]->power);
 	}
 	else if (typeObject == 1)
 	{
-		if (field.energyStorages[originalPosition.x][originalPosition.y] == -1)
+		if (field.objects[originalPosition.x][originalPosition.y].x == 0)
 		{
 			return;
 		}
-		CheckNextEnergyObject(nextPosition, energyStorages[field.energyStorages[originalPosition.x][originalPosition.y]]->inventory.energy,
-			energyStorages[field.energyStorages[originalPosition.x][originalPosition.y]]->inventory.power);
+		CheckNextEnergyObject(nextPosition, energyStorages[field.objects[originalPosition.x][originalPosition.y].y]->inventory.energy,
+			energyStorages[field.objects[originalPosition.x][originalPosition.y].y]->inventory.power);
 	}
 	else if (typeObject == 2)
 	{
-		if (field.energyHandGenerators[originalPosition.x][originalPosition.y] == -1)
+		if (field.objects[originalPosition.x][originalPosition.y].x == -1)
 		{
 			return;
 		}
-		CheckNextEnergyObject(nextPosition, energyHandGenerators[field.energyHandGenerators[originalPosition.x][originalPosition.y]]->inventory.energy,
-			energyHandGenerators[field.energyHandGenerators[originalPosition.x][originalPosition.y]]->inventory.power);
+		CheckNextEnergyObject(nextPosition, energyHandGenerators[field.objects[originalPosition.x][originalPosition.y].y]->inventory.energy,
+			energyHandGenerators[field.objects[originalPosition.x][originalPosition.y].y]->inventory.power);
 	}
 	else if (typeObject == 3)
 	{
-		if (field.energyCoalGenerators[originalPosition.x][originalPosition.y] == -1)
+		if (field.objects[originalPosition.x][originalPosition.y].x == -1)
 		{
 			return;
 		}
-		CheckNextEnergyObject(nextPosition, energyCoalGenerators[field.energyCoalGenerators[originalPosition.x][originalPosition.y]]->inventory.energy,
-			energyCoalGenerators[field.energyCoalGenerators[originalPosition.x][originalPosition.y]]->inventory.power);
+		CheckNextEnergyObject(nextPosition, energyCoalGenerators[field.objects[originalPosition.x][originalPosition.y].y]->inventory.energy,
+			energyCoalGenerators[field.objects[originalPosition.x][originalPosition.y].y]->inventory.power);
 	}
 	else
 	{
@@ -621,42 +626,42 @@ void Game::WhatObjectTransEnergy()
 			sf::Vector2i shift;
 			int typeObject = -1;
 			// Если на координатах провод
-			if (field.wires[i][j] != -1)
+			if (field.objects[i][j].x == 0)
 			{
-				if (wires[field.wires[i][j]]->energy != 0)
+				if (wires[field.objects[i][j].y]->energy != 0)
 				{
 					// Сдвиг относительно объекта (куда он повернут)
-					shift = CheckTurnEnergy(wires[field.wires[i][j]]->turn);
+					shift = CheckTurnEnergy(wires[field.objects[i][j].y]->turn);
 					typeObject = 0;
 				}
 			}
 			// Если на координатах энергохранилие
-			if (field.energyStorages[i][j] != -1)
+			if (field.objects[i][j].x == 2)
 			{
-				if (energyStorages[field.energyStorages[i][j]]->inventory.energy != 0)
+				if (energyStorages[field.objects[i][j].y]->inventory.energy != 0)
 				{
 					// Сдвиг относительно объекта (куда он повернут)
-					shift = CheckTurnEnergy(energyStorages[field.energyStorages[i][j]]->turn);
+					shift = CheckTurnEnergy(energyStorages[field.objects[i][j].y]->turn);
 					typeObject = 1;
 				}
 			}
 			// Если на координатах ручной энергогенератор
-			if (field.energyHandGenerators[i][j] != -1)
+			if (field.objects[i][j].x == 3)
 			{
-				if (energyHandGenerators[field.energyHandGenerators[i][j]]->inventory.energy != 0)
+				if (energyHandGenerators[field.objects[i][j].y]->inventory.energy != 0)
 				{
 					// Сдвиг относительно объекта (куда он повернут)
-					shift = CheckTurnEnergy(energyHandGenerators[field.energyHandGenerators[i][j]]->turn);
+					shift = CheckTurnEnergy(energyHandGenerators[field.objects[i][j].y]->turn);
 					typeObject = 2;
 				}
 			}
 			// Если на координатах угольный энергогенератор
-			if (field.energyCoalGenerators[i][j] != -1)
+			if (field.objects[i][j].x == 4)
 			{
-				if (energyCoalGenerators[field.energyCoalGenerators[i][j]]->inventory.energy != 0)
+				if (energyCoalGenerators[field.objects[i][j].y]->inventory.energy != 0)
 				{
 					// Сдвиг относительно объекта (куда он повернут)
-					shift = CheckTurnEnergy(energyCoalGenerators[field.energyCoalGenerators[i][j]]->turn);
+					shift = CheckTurnEnergy(energyCoalGenerators[field.objects[i][j].y]->turn);
 					typeObject = 3;
 				}
 			}
