@@ -33,7 +33,7 @@ void ElectricOvenInventory::Burn()
 	//}
 
 	AllBurn();
-	if (cells[0].item.isBurn && fuel > 0)
+	if (cells[0].item.whatBurn && fuel > 0)
 	{
 		fuel -= 1;
 	}

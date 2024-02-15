@@ -121,7 +121,7 @@ void Game::LoadingPlay()
 
 
 	// Текстуры предметов
-	for (int i = 0; i < 21; i++)
+	for (int i = 0; i < 23; i++)
 	{
 		itemTextures.push_back(sf::Texture());
 	}
@@ -129,13 +129,13 @@ void Game::LoadingPlay()
 	// Пустой слот
 	itemTextures[0].loadFromFile("Images/Empty.png");
 	// Железная руда
-	itemTextures[1].loadFromFile("Images/IronOre.png");
+	itemTextures[1].loadFromFile("Images/Metals/IronOre.png");
 	// Печка
 	itemTextures[2].loadFromFile("Images/Objects/Oven.png");
 	// Уголь
 	itemTextures[3].loadFromFile("Images/Coal.png");
 	// Железный слиток
-	itemTextures[4].loadFromFile("Images/IronIngot.png");
+	itemTextures[4].loadFromFile("Images/Metals/IronIngot.png");
 	// Сундук
 	itemTextures[5].loadFromFile("Images/Objects/Chest.png");
 	// Железный блок
@@ -155,7 +155,7 @@ void Game::LoadingPlay()
 	// Энергохранилище
 	itemTextures[13].loadFromFile("Images/Objects/EnergyStorage.png");
 	// Медный слиток
-	itemTextures[14].loadFromFile("Images/CooperIngot.png");
+	itemTextures[14].loadFromFile("Images/Metals/CooperIngot.png");
 	// Железный провод
 	itemTextures[15].loadFromFile("Images/Wires/IronWireOn.png");
 	// Ручной энергогенератор
@@ -165,9 +165,13 @@ void Game::LoadingPlay()
 	// Корпус механнизма
 	itemTextures[18].loadFromFile("Images/Objects/MechanismBody.png");
 	// Оловяный слиток
-	itemTextures[19].loadFromFile("Images/TinIngot.png");
+	itemTextures[19].loadFromFile("Images/Metals/TinIngot.png");
 	// Оловяный провод
 	itemTextures[20].loadFromFile("Images/Wires/TinWireOn.png");
+	// Оловяный провод
+	itemTextures[21].loadFromFile("Images/Metals/CooperOre.png");
+	// Оловяный провод
+	itemTextures[22].loadFromFile("Images/Metals/TinOre.png");
 
 
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
@@ -556,7 +560,6 @@ void Game::CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPositi
 {
 	if (typeObject == 0)
 	{
-		//if (field.wires[originalPosition.x][originalPosition.y] == -1)
 		if (field.objects[originalPosition.x][originalPosition.y].x == -1)
 		{
 			return;

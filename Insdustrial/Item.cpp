@@ -9,13 +9,13 @@ Item::Item(int _number, int _quantity)
 void Item::NumberUpdate(int _number)
 {
 	number = _number;
-	isBurn = 0;
+	whatBurn = 0;
 	isFuel = 0;
 	switch (number)
 	{
 	case 1:
 		name = L"Железная руда";
-		isBurn = 4;
+		whatBurn = 4;
 		break;
 	case 2:
 		name = L"Печка";
@@ -36,7 +36,7 @@ void Item::NumberUpdate(int _number)
 	case 7:
 		name = L"Древесина";
 		isFuel = 2;
-		isBurn = 3;
+		whatBurn = 3;
 		break;
 	case 8:
 		name = L"Верстак";
@@ -77,6 +77,14 @@ void Item::NumberUpdate(int _number)
 		break;
 	case 20:
 		name = L"Оловяный провод";
+		break;
+	case 21:
+		name = L"Медная руда";
+		whatBurn = 14;
+		break;
+	case 22:
+		name = L"Оловяная руда";
+		whatBurn = 19;
 		break;
 	}
 }

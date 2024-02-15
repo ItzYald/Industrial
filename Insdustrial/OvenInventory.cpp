@@ -7,23 +7,23 @@ void OvenInventory::AllBurn()
 		whatBurn = 120;
 	}
 	previousItemBurn = cells[0].item.number;
-	if (cells[2].item.number == 0 || cells[2].item.number == cells[0].item.isBurn)
+	if (cells[2].item.number == 0 || cells[2].item.number == cells[0].item.whatBurn)
 	{
 		if (fuel > 0)
 		{
-			if (cells[0].item.isBurn)
+			if (cells[0].item.whatBurn)
 			{
 				whatBurn -= 1;
 				if (whatBurn == 0)
 				{
 					whatBurn = 120;
-					if (cells[2].item.number == cells[0].item.isBurn && cells[2].item.number != 0)
+					if (cells[2].item.number == cells[0].item.whatBurn && cells[2].item.number != 0)
 					{
 						cells[2].item.quantity += 1;
 					}
 					else
 					{
-						cells[2].item.NumberUpdate(cells[0].item.isBurn);
+						cells[2].item.NumberUpdate(cells[0].item.whatBurn);
 						cells[2].item.quantity = 1;
 					}
 
