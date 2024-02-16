@@ -10,22 +10,25 @@ void Item::NumberUpdate(int _number)
 {
 	number = _number;
 	whatBurn = 0;
-	isFuel = 0;
+	whatFuel = 0;
+	whatCrush = sf::Vector2i(0, 0);
 	switch (number)
 	{
 	case 1:
 		name = L"Железная руда";
 		whatBurn = 4;
+		whatCrush = sf::Vector2i(23, 2);
 		break;
 	case 2:
 		name = L"Печка";
 		break;
 	case 3:
 		name = L"Уголь";
-		isFuel = 8;
+		whatFuel = 8;
 		break;
 	case 4:
 		name = L"Железный слиток";
+		whatCrush = sf::Vector2i(23, 1);
 		break;
 	case 5:
 		name = L"Сундук";
@@ -35,7 +38,7 @@ void Item::NumberUpdate(int _number)
 		break;
 	case 7:
 		name = L"Древесина";
-		isFuel = 2;
+		whatFuel = 2;
 		whatBurn = 3;
 		break;
 	case 8:
@@ -43,7 +46,7 @@ void Item::NumberUpdate(int _number)
 		break;
 	case 9:
 		name = L"Доски";
-		isFuel = 1;
+		whatFuel = 1;
 		break;
 	case 10:
 		name = L"Аккумулятор";
@@ -85,6 +88,10 @@ void Item::NumberUpdate(int _number)
 	case 22:
 		name = L"Оловяная руда";
 		whatBurn = 19;
+		break;
+	case 23:
+		name = L"Измельченная железная руда";
+		whatBurn = 4;
 		break;
 	}
 }

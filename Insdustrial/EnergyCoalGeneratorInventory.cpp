@@ -12,11 +12,11 @@ EnergyCoalGeneratorInventory::EnergyCoalGeneratorInventory(
 
 void EnergyCoalGeneratorInventory::Next()
 {
-	if (coalCell.item.isFuel)
+	if (coalCell.item.whatFuel)
 	{
 		if (burn <= 0)
 		{
-			maxBurn = coalCell.item.isFuel * 60;
+			maxBurn = coalCell.item.whatFuel * 60;
 			burn = maxBurn;
 			coalCell.item.quantity -= 1;
 		}

@@ -42,6 +42,7 @@ public:
 	void AddVecticalCraft(int craft1, int craft2, int craft3, int result, int quantity);
 	// Проверка слотов крафта
 	void Craft();
+	void Next(){ }
 	// Отрисовка
 	void Draw();
 	// Работа интерфейса и мыши

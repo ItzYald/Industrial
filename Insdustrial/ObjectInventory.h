@@ -17,7 +17,7 @@
 
 class ObjectInventory
 {
-protected:
+public:
 	// Списко кнопок
 	std::vector<Button> buttons;
 	// Окно
@@ -32,7 +32,6 @@ protected:
 
 	StaticSprites itemsSprites;
 
-public:
 	// Загрузка настроек цвета интерфейса из файла
 	void LoadColorInventoryFromFile();
 	// Общая отрисовка ячеек в инвентаре (для всех у кого есть список клеток)
@@ -40,6 +39,13 @@ public:
 	void DrawCommon(std::vector<std::vector<CellInInventory>> cells);
 	// Для одномерных списков
 	void DrawCommon(std::vector<CellInInventory> cells);
+	// Отрисовка инвентаря
+	virtual void Draw() = 0;
+	// Всегда
+	virtual void Next() = 0;
+	/// <summary>Логика инвентаря</summary>
+	/// <param name="playerInventory">Инвентарь игрока</param>
+	//virtual void Update(Inventory& playerInventory) = 0;
 
 };
 

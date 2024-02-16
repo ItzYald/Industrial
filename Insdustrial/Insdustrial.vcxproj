@@ -135,6 +135,7 @@
     <ClCompile Include="CellInInventory.cpp" />
     <ClCompile Include="ChestInventory.cpp" />
     <ClCompile Include="CoalOvenInventory.cpp" />
+    <ClCompile Include="CrusherInventory.cpp" />
     <ClCompile Include="ElectricOvenInventory.cpp" />
     <ClCompile Include="EnergyCoalGeneratorInventory.cpp" />
     <ClCompile Include="EnergyHandGeneratorInventory.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="Functions\Functions.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ObjectInventory.cpp" />
+    <ClCompile Include="ProgressInventory.cpp" />
     <ClCompile Include="StaingObject.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -160,15 +162,18 @@
     <ClInclude Include="CellInInventory.h" />
     <ClInclude Include="ChestInventory.h" />
     <ClInclude Include="CoalOvenInventory.h" />
+    <ClInclude Include="CrusherInventory.h" />
     <ClInclude Include="ElectricOvenInventory.h" />
     <ClInclude Include="EnergyCoalGeneratorInventory.h" />
     <ClInclude Include="EnergyHandGeneratorInventory.h" />
+    <ClInclude Include="EnergyObjectInventory.h" />
     <ClInclude Include="EnergyStorageInventory.h" />
     <ClInclude Include="Functions\Button.h" />
     <ClInclude Include="Functions\Checks.h" />
     <ClInclude Include="Functions\Functions.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ObjectInventory.h" />
+    <ClInclude Include="ProgressInventory.h" />
     <ClInclude Include="StaingObject.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />

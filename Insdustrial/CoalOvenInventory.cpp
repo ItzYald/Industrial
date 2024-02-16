@@ -5,6 +5,9 @@ CoalOvenInventory::CoalOvenInventory(std::shared_ptr<sf::RenderWindow> _rw, std:
 	rw = _rw;
 	functions = Functions(rw);
 	colorsInventory = _colorsInventory;
+	itemsSprites = StaticSprites(_textures);
+
+	progress = ProgressInventory(_rw);
 
 	// 3 €чейки в инвентаре
 	cells = std::vector<CellInInventory>();
@@ -13,25 +16,23 @@ CoalOvenInventory::CoalOvenInventory(std::shared_ptr<sf::RenderWindow> _rw, std:
 	cells.push_back(CellInInventory(rw, sf::Vector2f(670, 218), false, _textures));
 
 	fuel = 0;
-	whatBurn = 120;
 	maxFuel = 0;
 
-	itemsSprites = StaticSprites(_textures);
 }
 
 void CoalOvenInventory::Burn()
 {
-	if (cells[1].item.isFuel && cells[0].item.whatBurn && (cells[0].item.whatBurn == cells[2].item.number || cells[2].item.number == 0))
+	if (cells[1].item.whatFuel && cells[0].item.whatBurn && (cells[0].item.whatBurn == cells[2].item.number || cells[2].item.number == 0))
 	{
 		if (fuel <= 0)
 		{
-			maxFuel = cells[1].item.isFuel * 60;
+			maxFuel = cells[1].item.whatFuel * 60;
 			fuel = maxFuel;
 			cells[1].item.quantity -= 1;
 		}
-		if (whatBurn <= 0)
+		if (progress.whatProgress <= 0)
 		{
-			whatBurn = 120;
+			progress.whatProgress = 120;
 		}
 	}
 

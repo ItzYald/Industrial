@@ -6,6 +6,8 @@ ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _
 	functions = Functions(rw);
 	colorsInventory = _colorsInventory;
 
+	progress = ProgressInventory(_rw);
+
 	// 3 €чейки в инвентаре
 	cells = std::vector<CellInInventory>();
 	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 130), true, _textures));
@@ -13,8 +15,7 @@ ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _
 	cells.push_back(CellInInventory(rw, sf::Vector2f(670, 218), false, _textures));
 
 	fuel = 0;
-	whatBurn = 120;
-	maxFuel = 3600;
+	maxFuel = 1000;
 
 	itemsSprites = StaticSprites(_textures);
 }

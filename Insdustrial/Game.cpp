@@ -79,12 +79,20 @@ void Game::LoadingPlay()
 	// Загрузка цветов интерфейса
 	LoadColorInventoryFromFile();
 	/// Текстуры:
+	// Игрок
+	//textures["Player1"] = sf::Texture();
+	//textures["Player1"].loadFromFile("Images/Player/Player1.png");
+	//textures["Player2"] = sf::Texture();
+	//textures["Player2"].loadFromFile("Images/Player/Player2.png");
 	// Печка
 	textures["Oven"] = sf::Texture();
 	textures["Oven"].loadFromFile("Images/Objects/Oven.png");
 	// Электропечка
 	textures["ElectricOven"] = sf::Texture();
 	textures["ElectricOven"].loadFromFile("Images/Objects/ElectricOven.png");
+	// Дробитель
+	textures["Crusher"] = sf::Texture();
+	textures["Crusher"].loadFromFile("Images/Objects/Crusher.png");
 	// Сундук
 	textures["Chest"] = sf::Texture();
 	textures["Chest"].loadFromFile("Images/Objects/Chest.png");
@@ -121,7 +129,7 @@ void Game::LoadingPlay()
 
 
 	// Текстуры предметов
-	for (int i = 0; i < 23; i++)
+	for (int i = 0; i < 24; i++)
 	{
 		itemTextures.push_back(sf::Texture());
 	}
@@ -172,25 +180,38 @@ void Game::LoadingPlay()
 	itemTextures[21].loadFromFile("Images/Metals/CooperOre.png");
 	// Оловяный провод
 	itemTextures[22].loadFromFile("Images/Metals/TinOre.png");
+	// Измельченная железная руда
+	itemTextures[23].loadFromFile("Images/Metals/CrushedIronOre.png");
 
 
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20), colorsInventory, itemTextures);
+	//player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20), colorsInventory, itemTextures);
 
 	coalOvens.push_back(
-		std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], itemTextures, sf::Vector2f(23, 20), colorsInventory));
+		std::make_shared<StaingObject<CoalOvenInventory>>(
+			rw, field.sizeOne, textures["Oven"], itemTextures, sf::Vector2f(23, 20), colorsInventory));
 	electricOvens.push_back(
-		std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], itemTextures, sf::Vector2f(23, 19), colorsInventory));
+		std::make_shared<StaingObject<ElectricOvenInventory>>(
+			rw, field.sizeOne, textures["ElectricOven"], itemTextures, sf::Vector2f(23, 19), colorsInventory));
+	crushers.push_back(
+		std::make_shared<StaingObject<CrusherInventory>>(
+			rw, field.sizeOne, textures["ElectricOven"], itemTextures, sf::Vector2f(19, 17), colorsInventory, 1000));
 	chests.push_back(
-		std::make_shared<StaingObject<ChestInventory>>(rw, field.sizeOne, textures["Chest"], itemTextures, sf::Vector2f(23, 21), colorsInventory));
+		std::make_shared<StaingObject<ChestInventory>>(
+			rw, field.sizeOne, textures["Chest"], itemTextures, sf::Vector2f(23, 21), colorsInventory));
 	workbenches.push_back(
-		std::make_shared<StaingObject<WorkbenchInventory>>(rw, field.sizeOne, textures["Workbench"], itemTextures, sf::Vector2f(23, 22), colorsInventory));
+		std::make_shared<StaingObject<WorkbenchInventory>>(
+			rw, field.sizeOne, textures["Workbench"], itemTextures, sf::Vector2f(23, 22), colorsInventory));
 	energyStorages.push_back(
-		std::make_shared<StaingObject<EnergyStorageInventory>>(rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
+		std::make_shared<StaingObject<EnergyStorageInventory>>(
+			rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
 	energyHandGenerators.push_back(
-		std::make_shared<StaingObject<EnergyHandGeneratorInventory>>(rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, texturesInInventory));
+		std::make_shared<StaingObject<EnergyHandGeneratorInventory>>(
+			rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, texturesInInventory));
 	energyCoalGenerators.push_back(
-		std::make_shared<StaingObject<EnergyCoalGeneratorInventory>>(rw, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, sf::Vector2f(21, 18), colorsInventory, 100, 10));
+		std::make_shared<StaingObject<EnergyCoalGeneratorInventory>>(
+			rw, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, sf::Vector2f(21, 18), colorsInventory, 100, 10));
 
 	screen = "Игра";
 }
@@ -220,42 +241,47 @@ void Game::DrawPlay()
 	// Отрисовка поля
 	field.Draw(cameraPosition);
 	// Отрисовка угольных печей
-	for (std::shared_ptr<StaingObject<CoalOvenInventory>> oven : coalOvens)
+	for (auto oven : coalOvens)
 	{
 		oven->Draw(cameraPosition);
 	}
 	// Отрисовка электрических печей
-	for (std::shared_ptr<StaingObject<ElectricOvenInventory>> oven : electricOvens)
+	for (auto oven : electricOvens)
 	{
 		oven->Draw(cameraPosition);
 	}
+	// Отрисовка дробителей
+	for (auto crusher : crushers)
+	{
+		crusher->Draw(cameraPosition);
+	}
 	// Отрисовка сундуков
-	for (std::shared_ptr<StaingObject<ChestInventory>> chest : chests)
+	for (auto chest : chests)
 	{
 		chest->Draw(cameraPosition);
 	}
 	// Отрисовка верстаков
-	for (std::shared_ptr<StaingObject<WorkbenchInventory>> worbench : workbenches)
+	for (auto worbench : workbenches)
 	{
 		worbench->Draw(cameraPosition);
 	}
 	// Отрисовка хранилщ энергии
-	for (std::shared_ptr<StaingObject<EnergyStorageInventory>> energyStorage : energyStorages)
+	for (auto energyStorage : energyStorages)
 	{
 		energyStorage->Draw(cameraPosition);
 	}
 	// Отрисовка ручных энергогенераторов
-	for (std::shared_ptr<StaingObject<EnergyHandGeneratorInventory>> energyHandGenerator : energyHandGenerators)
+	for (auto energyHandGenerator : energyHandGenerators)
 	{
 		energyHandGenerator->Draw(cameraPosition);
 	}
 	// Отрисовка угольных энергогенераторов
-	for (std::shared_ptr<StaingObject<EnergyCoalGeneratorInventory>> energyCoalGenerator : energyCoalGenerators)
+	for (auto energyCoalGenerator : energyCoalGenerators)
 	{
 		energyCoalGenerator->Draw(cameraPosition);
 	}
 	// Отрисовка проводов
-	for (std::shared_ptr<Wire> wire : wires)
+	for (auto wire : wires)
 	{
 		wire->Draw(cameraPosition);
 	}
@@ -300,6 +326,9 @@ void Game::CloseInventory()
 			break;
 		case 7:
 			energyCoalGenerators[player.whatNumberInventoryOpen]->isOpenInventory = false;
+			break;
+		case 8:
+			crushers[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		}
 		//player.inventory.DeleteButtons();
@@ -422,6 +451,22 @@ void Game::Drive()
 			break;
 		}
 	}
+	// Работа электрических печей
+	for (int i = 0; i < crushers.size(); i++)
+	{
+		// Обновление массива с указанием номера электропечей в массиве по координатам
+		field.objects[crushers[i]->position.x][crushers[i]->position.y] = sf::Vector2i(5, i);
+		// Обновление электропечей
+		crushers[i]->Update(mousePositionGrid, player.position, player.angle);
+		// Если инвентарь открыт
+		if (crushers[i]->isOpenInventory)
+		{
+			player.isOpenInventory = true;
+			player.whatTypeInventoryOpen = 8;
+			player.whatNumberInventoryOpen = i;
+			break;
+		}
+	}
 	// Работа сундуков
 	for (int i = 0; i < chests.size(); i++)
 	{
@@ -534,15 +579,12 @@ void Game::TransEnergy(float& originalEnergy, int power, float& nextEnergy, int 
 void Game::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int power)
 {
 	// Если на месте стоит провод
-	//if (field.wires[nextPosition.x][nextPosition.y] != -1)
 	if (field.objects[nextPosition.x][nextPosition.y].x == 0)
 	{
-		//std::shared_ptr<Wire> thisWire = wires[field.wires[nextPosition.x][nextPosition.y]];
 		std::shared_ptr<Wire> thisWire = wires[field.objects[nextPosition.x][nextPosition.y].y];
 		TransEnergy(energy, power, thisWire->energy, thisWire->maxEnergy);
 	}
 	// Если на месте стоит электропечка
-	//else if (field.electricOvens[nextPosition.x][nextPosition.y] != -1)
 	else if (field.objects[nextPosition.x][nextPosition.y].x == 1)
 	{
 		ElectricOvenInventory& thisOvenInventory = electricOvens[field.objects[nextPosition.x][nextPosition.y].y]->inventory;
@@ -681,22 +723,27 @@ void Game::Play()
 	DrawPlay();
 
 	// Работа печек
-	for (auto coalOven : coalOvens)
+	for (auto& coalOven : coalOvens)
 	{
 		coalOven->inventory.Burn();
 	}
 	// Работа электропечек
-	for (auto electricOven : electricOvens)
+	for (auto& electricOven : electricOvens)
 	{
 		electricOven->inventory.Burn();
 	}
+	// Работа угольного энергогенератора хранилищав
+	for (auto& crusher : crushers)
+	{
+		crusher->inventory.Next();
+	}
 	// Работа энергитического хранилищав
-	for (auto energyStorage : energyStorages)
+	for (auto& energyStorage : energyStorages)
 	{
 		energyStorage->inventory.Next();
 	}
 	// Работа угольного энергогенератора хранилищав
-	for (auto energyCoalGenerator : energyCoalGenerators)
+	for (auto& energyCoalGenerator : energyCoalGenerators)
 	{
 		energyCoalGenerator->inventory.Next();
 	}
@@ -752,6 +799,10 @@ void Game::Play()
 		// Инвентарь угольного энергогенератора
 		case 7:
 			energyCoalGenerators[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+			break;
+			// Инвентарь угольного энергогенератора
+		case 8:
+			crushers[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
 			break;
 		}
 		CloseInventory();

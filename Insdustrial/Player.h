@@ -29,6 +29,9 @@ private:
 	// Скорость ходьбы/бега
 	float run;
 
+	sf::Sprite sprite1;
+	sf::Sprite sprite2;
+
 public:
 	// Инвентарь
 	Inventory inventory;
@@ -51,6 +54,9 @@ public:
 		std::string imageFileName, sf::Vector2f _position,
 		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures);
 
+	Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
+		sf::Texture& _texture1, sf::Texture& _texture2, sf::Vector2f _position,
+		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures);
 
 	// Ходьба игрока
 	void Move();

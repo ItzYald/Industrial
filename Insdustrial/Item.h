@@ -14,7 +14,9 @@ public:
 	// Горит ли и в какой предмет сгорает (в какой переплавляется)
 	int whatBurn;
 	// Может ли быть топливом и сколько даст топлива
-	int isFuel;
+	int whatFuel;
+	// Может ли дробиться и во что дробится
+	sf::Vector2i whatCrush;
 	
 	Item(){}
 	Item(int _number, int _quantity);

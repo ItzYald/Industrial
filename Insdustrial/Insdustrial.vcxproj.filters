@@ -31,12 +31,6 @@
     <Filter Include="Файлы заголовков\Functions">
       <UniqueIdentifier>{b330a75a-b0dc-461c-9480-5c8f5012fa0a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\Inventories\OvenInventories">
-      <UniqueIdentifier>{a6dc6331-3a20-4879-8394-f66bd0327235}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\Inventories\OvenInventories">
-      <UniqueIdentifier>{579a1259-c78e-4d6e-b27e-143a07ddac37}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Исходные файлы\Sprites\InventoryObject">
       <UniqueIdentifier>{dcd88059-b19e-444c-8fe0-1cc46ecf58a9}</UniqueIdentifier>
     </Filter>
@@ -48,6 +42,18 @@
     </Filter>
     <Filter Include="Файлы заголовков\Inventories\EnergyInventories">
       <UniqueIdentifier>{1d1caf1a-bd30-4dc4-bb9d-bc5d9212465d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Inventories\ProgressInventories">
+      <UniqueIdentifier>{d4be3575-0286-495a-b797-11b6fa0cff48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Inventories\ProgressInventories\OvenInventories">
+      <UniqueIdentifier>{a6dc6331-3a20-4879-8394-f66bd0327235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Inventories\ProgressInventories">
+      <UniqueIdentifier>{9c47c727-c151-42fd-b0e9-48f5499ff4b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Inventories\ProgressInventories\OvenInventories">
+      <UniqueIdentifier>{579a1259-c78e-4d6e-b27e-143a07ddac37}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,13 +100,13 @@
       <Filter>Исходные файлы\Inventories</Filter>
     </ClCompile>
     <ClCompile Include="CoalOvenInventory.cpp">
-      <Filter>Исходные файлы\Inventories\OvenInventories</Filter>
+      <Filter>Исходные файлы\Inventories\ProgressInventories\OvenInventories</Filter>
     </ClCompile>
     <ClCompile Include="OvenInventory.cpp">
-      <Filter>Исходные файлы\Inventories\OvenInventories</Filter>
+      <Filter>Исходные файлы\Inventories\ProgressInventories\OvenInventories</Filter>
     </ClCompile>
     <ClCompile Include="ElectricOvenInventory.cpp">
-      <Filter>Исходные файлы\Inventories\OvenInventories</Filter>
+      <Filter>Исходные файлы\Inventories\ProgressInventories\OvenInventories</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Исходные файлы</Filter>
@@ -119,6 +125,12 @@
     </ClCompile>
     <ClCompile Include="StaticSprites.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="CrusherInventory.cpp">
+      <Filter>Исходные файлы\Inventories\ProgressInventories</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressInventory.cpp">
+      <Filter>Исходные файлы\Inventories\ProgressInventories</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -165,13 +177,13 @@
       <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
     <ClInclude Include="CoalOvenInventory.h">
-      <Filter>Файлы заголовков\Inventories\OvenInventories</Filter>
+      <Filter>Файлы заголовков\Inventories\ProgressInventories\OvenInventories</Filter>
     </ClInclude>
     <ClInclude Include="OvenInventory.h">
-      <Filter>Файлы заголовков\Inventories\OvenInventories</Filter>
+      <Filter>Файлы заголовков\Inventories\ProgressInventories\OvenInventories</Filter>
     </ClInclude>
     <ClInclude Include="ElectricOvenInventory.h">
-      <Filter>Файлы заголовков\Inventories\OvenInventories</Filter>
+      <Filter>Файлы заголовков\Inventories\ProgressInventories\OvenInventories</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>Файлы заголовков</Filter>
@@ -187,6 +199,15 @@
     </ClInclude>
     <ClInclude Include="EnergyCoalGeneratorInventory.h">
       <Filter>Файлы заголовков\Inventories\EnergyInventories</Filter>
+    </ClInclude>
+    <ClInclude Include="EnergyObjectInventory.h">
+      <Filter>Файлы заголовков\Inventories\EnergyInventories</Filter>
+    </ClInclude>
+    <ClInclude Include="CrusherInventory.h">
+      <Filter>Файлы заголовков\Inventories\ProgressInventories</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressInventory.h">
+      <Filter>Файлы заголовков\Inventories\ProgressInventories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

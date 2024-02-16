@@ -20,6 +20,7 @@
 // Инвентари
 #include "CoalOvenInventory.h"
 #include "ElectricOvenInventory.h"
+#include "CrusherInventory.h"
 #include "ChestInventory.h"
 #include "WorbenchInventory.h"
 #include "EnergyStorageInventory.h"
@@ -69,6 +70,8 @@ private:
 	std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>> coalOvens;
 	// Список электрических печек
 	std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>> electricOvens;
+	// Список дробителей
+	std::vector<std::shared_ptr<StaingObject<CrusherInventory>>> crushers;
 	// Список сундуков
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests;
 	// Список верстаков

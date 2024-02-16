@@ -10,9 +10,7 @@ public:
 	int burn;
 	int maxBurn;
 
-	EnergyCoalGeneratorInventory()
-	{
-	}
+	EnergyCoalGeneratorInventory(){ }
 
 	EnergyCoalGeneratorInventory(
 		std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,

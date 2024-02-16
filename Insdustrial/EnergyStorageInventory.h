@@ -1,10 +1,11 @@
 #pragma once
 #include "ObjectInventory.h"
+#include "EnergyObjectInventory.h"
 #include "Functions/Checks.h"
 #include "Inventory.h"
 
 
-class EnergyStorageInventory : public ObjectInventory
+class EnergyStorageInventory : public EnergyObjectInventory
 {
 protected:
 	// Окно
@@ -13,9 +14,9 @@ protected:
 
 public:
 	// Максимальная энергия, которую вмещает
-	int maxEnergy;
+	//int maxEnergy;
 	// Количество энергии
-	float energy;
+	//float energy;
 	// То, сколько энегии может передать
 	int power;
 	// Базовый конструктор
