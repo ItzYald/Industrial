@@ -188,7 +188,6 @@ void Game::LoadingPlay()
 
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20), colorsInventory, itemTextures);
-	//player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20), colorsInventory, itemTextures);
 
 	coalOvens.push_back(
 		std::make_shared<StaingObject<CoalOvenInventory>>(
@@ -344,10 +343,15 @@ void Game::PutObject(sf::Vector2f position)
 	{
 		coalOvens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(rw, field.sizeOne, textures["Oven"], itemTextures, position, colorsInventory));
 	}
-	// Поставить верстак
+	// Поставить электропечку
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 11)
 	{
 		electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(rw, field.sizeOne, textures["ElectricOven"], itemTextures, position, colorsInventory));
+	}
+	// Поставить оловяный провод
+	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 24)
+	{
+		crushers.push_back(std::make_shared<StaingObject<CrusherInventory>>(rw, field.sizeOne, textures["Crusher"], itemTextures, position, colorsInventory, 1000));
 	}
 	// Поставить сундук
 	else if (player.inventory.cells[player.inventory.choseCell][3].item.number == 5)
@@ -420,7 +424,7 @@ void Game::Drive()
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
 	if (player.PutObject(mousePositionGrid,
-		coalOvens, electricOvens, chests, workbenches, wires, energyStorages, energyHandGenerators, energyCoalGenerators))
+		coalOvens, electricOvens, crushers, chests, workbenches, wires, energyStorages, energyHandGenerators, energyCoalGenerators))
 	{
 		PutObject((sf::Vector2f)mousePositionGrid);
 	}

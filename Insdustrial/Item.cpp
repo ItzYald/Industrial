@@ -93,5 +93,8 @@ void Item::NumberUpdate(int _number)
 		name = L"Измельченная железная руда";
 		whatBurn = 4;
 		break;
+	case 24:
+		name = L"Дробитель";
+		break;
 	}
 }

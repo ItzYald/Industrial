@@ -16,6 +16,7 @@
 // Инвентари
 #include "CoalOvenInventory.h"
 #include "ElectricOvenInventory.h"
+#include "CrusherInventory.h"
 #include "ChestInventory.h"
 #include "WorbenchInventory.h"
 #include "Wire.h"
@@ -65,6 +66,7 @@ public:
 	// Проверить наличие объекта перед игроком
 	bool PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>& ovens,
 		std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>& electricOvens,
+		std::vector<std::shared_ptr<StaingObject<CrusherInventory>>>& crushers,
 		std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests,
 		std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
 		std::vector<std::shared_ptr<Wire>>& wires,

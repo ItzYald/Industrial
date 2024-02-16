@@ -17,7 +17,6 @@ CrusherInventory::CrusherInventory(
 	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 130), true, _textures));
 	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 306), true, _textures));
 	cells.push_back(CellInInventory(rw, sf::Vector2f(670, 218), false, _textures));
-	energy = 100;
 }
 
 void CrusherInventory::Next()

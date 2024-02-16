@@ -59,77 +59,8 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
 	inventory.cells[5][1].item.quantity = 20;
 	inventory.cells[6][1].item.NumberUpdate(22);
 	inventory.cells[6][1].item.quantity = 20;
-
-
-	for (int i = 0; i < 30; i++)
-	{
-		ch.push_back(Checks());
-	}
-
-}
-
-Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
-	sf::Texture& _texture1, sf::Texture& _texture2, sf::Vector2f _position,
-	std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _itemTextures)
-{
-	rw = _rw;
-	fieldSizeOne = _fieldSizeOne;
-	sprite1 = sf::Sprite();
-	sprite1.setTexture(_texture1);
-	sprite2.setTexture(_texture2);
-	position = _position;
-	functions = Functions(rw);
-
-	isOpenInventory = false;
-	whatTypeInventoryOpen = 0;
-	whatNumberInventoryOpen = 0;
-
-	// Скорость бега
-	run = 0;
-
-	inventory = Inventory(rw, _colorsInventory, _itemTextures);
-
-	sprite1.setScale(fieldSizeOne / (float)sprite1.getTexture()->getSize().x,
-		fieldSizeOne / (float)sprite1.getTexture()->getSize().y);
-	sprite2.setScale(fieldSizeOne / (float)sprite2.getTexture()->getSize().x,
-		fieldSizeOne / (float)sprite2.getTexture()->getSize().y);
-
-	angle = 0.06f;
-
-	inventory.cells[0][0].item.NumberUpdate(1);
-	inventory.cells[0][0].item.quantity = 15;
-	inventory.cells[1][0].item.NumberUpdate(2);
-	inventory.cells[1][0].item.quantity = 20;
-	inventory.cells[2][0].item.NumberUpdate(3);
-	inventory.cells[2][0].item.quantity = 10;
-	inventory.cells[3][0].item.NumberUpdate(5);
-	inventory.cells[3][0].item.quantity = 2;
-	inventory.cells[4][0].item.NumberUpdate(4);
-	inventory.cells[4][0].item.quantity = 10;
-	inventory.cells[5][0].item.NumberUpdate(8);
-	inventory.cells[5][0].item.quantity = 10;
-	inventory.cells[6][0].item.NumberUpdate(7);
-	inventory.cells[6][0].item.quantity = 10;
-	inventory.cells[7][0].item.NumberUpdate(9);
-	inventory.cells[7][0].item.quantity = 10;
-	inventory.cells[8][0].item.NumberUpdate(10);
-	inventory.cells[8][0].item.quantity = 60;
-	inventory.cells[9][0].item.NumberUpdate(11);
-	inventory.cells[9][0].item.quantity = 14;
-	inventory.cells[0][1].item.NumberUpdate(12);
-	inventory.cells[0][1].item.quantity = 14;
-	inventory.cells[1][1].item.NumberUpdate(13);
-	inventory.cells[1][1].item.quantity = 20;
-	inventory.cells[2][1].item.NumberUpdate(14);
-	inventory.cells[2][1].item.quantity = 20;
-	inventory.cells[3][1].item.NumberUpdate(17);
-	inventory.cells[3][1].item.quantity = 20;
-	inventory.cells[4][1].item.NumberUpdate(19);
-	inventory.cells[4][1].item.quantity = 20;
-	inventory.cells[5][1].item.NumberUpdate(21);
-	inventory.cells[5][1].item.quantity = 20;
-	inventory.cells[6][1].item.NumberUpdate(22);
-	inventory.cells[6][1].item.quantity = 20;
+	inventory.cells[7][1].item.NumberUpdate(24);
+	inventory.cells[7][1].item.quantity = 10;
 
 
 	for (int i = 0; i < 30; i++)
@@ -193,6 +124,7 @@ void Player::Update()
 
 bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>& ovens,
 	std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>& electricOvens,
+	std::vector<std::shared_ptr<StaingObject<CrusherInventory>>>& crushers,
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests, 
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
 	std::vector<std::shared_ptr<Wire>>& wires, 
@@ -208,7 +140,7 @@ bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_p
 	if ((chooseNumber == 2 || chooseNumber == 5 || chooseNumber == 8 ||
 		chooseNumber == 11 || chooseNumber == 12 || chooseNumber == 13 ||
 		chooseNumber == 15 || chooseNumber == 16 || chooseNumber == 17 || 
-		chooseNumber == 20) &&
+		chooseNumber == 20 || chooseNumber == 24) &&
 		inventory.cells[inventory.choseCell][3].item.quantity > 0)
 	{
 		bool isNear = false;
@@ -219,6 +151,11 @@ bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_p
 
 		}
 		for (auto& thisObject : electricOvens)
+		{
+			if (!isNear)
+				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
+		}
+		for (auto& thisObject : crushers)
 		{
 			if (!isNear)
 				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
