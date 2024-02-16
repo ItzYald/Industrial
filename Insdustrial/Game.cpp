@@ -129,7 +129,7 @@ void Game::LoadingPlay()
 
 
 	// Текстуры предметов
-	for (int i = 0; i < 24; i++)
+	for (int i = 0; i < 25; i++)
 	{
 		itemTextures.push_back(sf::Texture());
 	}
@@ -182,6 +182,8 @@ void Game::LoadingPlay()
 	itemTextures[22].loadFromFile("Images/Metals/TinOre.png");
 	// Измельченная железная руда
 	itemTextures[23].loadFromFile("Images/Metals/CrushedIronOre.png");
+	// Дрорбитель
+	itemTextures[24].loadFromFile("Images/Objects/Crusher.png");
 
 
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
@@ -196,7 +198,7 @@ void Game::LoadingPlay()
 			rw, field.sizeOne, textures["ElectricOven"], itemTextures, sf::Vector2f(23, 19), colorsInventory));
 	crushers.push_back(
 		std::make_shared<StaingObject<CrusherInventory>>(
-			rw, field.sizeOne, textures["ElectricOven"], itemTextures, sf::Vector2f(19, 17), colorsInventory, 1000));
+			rw, field.sizeOne, textures["Crusher"], itemTextures, sf::Vector2f(19, 17), colorsInventory, 1000));
 	chests.push_back(
 		std::make_shared<StaingObject<ChestInventory>>(
 			rw, field.sizeOne, textures["Chest"], itemTextures, sf::Vector2f(23, 21), colorsInventory));
@@ -550,14 +552,14 @@ void Game::TransEnergy(float& originalEnergy, int power, float& nextEnergy, int 
 {
 	if (originalEnergy - power < 0)
 	{
-		if (nextEnergy + power > nextMaxEnergy)
+		if (nextEnergy + originalEnergy > nextMaxEnergy)
 		{
 			originalEnergy -= nextMaxEnergy - nextEnergy;
 			nextEnergy = nextMaxEnergy;
 		}
 		else
 		{
-			nextEnergy += power;
+			nextEnergy += originalEnergy;
 			originalEnergy = 0;
 		}
 	}
@@ -589,6 +591,18 @@ void Game::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int p
 	{
 		ElectricOvenInventory& thisOvenInventory = electricOvens[field.objects[nextPosition.x][nextPosition.y].y]->inventory;
 		TransEnergy(energy, power, thisOvenInventory.fuel, thisOvenInventory.maxFuel);
+	}
+	// Если на месте стоит электропечка
+	else if (field.objects[nextPosition.x][nextPosition.y].x == 5)
+	{
+		CrusherInventory& thisOvenInventory = crushers[field.objects[nextPosition.x][nextPosition.y].y]->inventory;
+		TransEnergy(energy, power, thisOvenInventory.energy, thisOvenInventory.maxEnergy);
+	}
+	// Если на месте стоит энергохранилище
+	else if (field.objects[nextPosition.x][nextPosition.y].x == 2)
+	{
+		EnergyStorageInventory& thisEnergyStorage = energyStorages[field.objects[nextPosition.x][nextPosition.y].y]->inventory;
+		TransEnergy(energy, power, thisEnergyStorage.energy, thisEnergyStorage.maxEnergy);
 	}
 	// Если на месте стоит энергохранилище
 	else if (field.objects[nextPosition.x][nextPosition.y].x == 2)
