@@ -698,45 +698,44 @@ void Game::WhatObjectTransEnergy()
 		{
 			sf::Vector2i shift;
 			int typeObject = -1;
-			// Если на координатах провод
-			if (field.objects[i][j].x == 0)
+			switch (field.objects[i][j].x)
 			{
+			// Если на координатах провод
+			case 0:
 				if (wires[field.objects[i][j].y]->energy != 0)
 				{
 					// Сдвиг относительно объекта (куда он повернут)
 					shift = CheckTurnEnergy(wires[field.objects[i][j].y]->turn);
 					typeObject = 0;
 				}
-			}
-			// Если на координатах энергохранилие
-			if (field.objects[i][j].x == 2)
-			{
+				break;
+			// Если на координатах энергохранилище
+			case 2:
 				if (energyStorages[field.objects[i][j].y]->inventory.energy != 0)
 				{
 					// Сдвиг относительно объекта (куда он повернут)
 					shift = CheckTurnEnergy(energyStorages[field.objects[i][j].y]->turn);
 					typeObject = 1;
 				}
-			}
+				break;
 			// Если на координатах ручной энергогенератор
-			if (field.objects[i][j].x == 3)
-			{
+			case 3:
 				if (energyHandGenerators[field.objects[i][j].y]->inventory.energy != 0)
 				{
 					// Сдвиг относительно объекта (куда он повернут)
 					shift = CheckTurnEnergy(energyHandGenerators[field.objects[i][j].y]->turn);
 					typeObject = 2;
 				}
-			}
+				break;
 			// Если на координатах угольный энергогенератор
-			if (field.objects[i][j].x == 4)
-			{
+			case 4:
 				if (energyCoalGenerators[field.objects[i][j].y]->inventory.energy != 0)
 				{
 					// Сдвиг относительно объекта (куда он повернут)
 					shift = CheckTurnEnergy(energyCoalGenerators[field.objects[i][j].y]->turn);
 					typeObject = 3;
 				}
+				break;
 			}
 			if (typeObject != -1)
 				CheckTypeTrans(sf::Vector2i(i, j), sf::Vector2i(i + shift.x, j + shift.y), typeObject);
