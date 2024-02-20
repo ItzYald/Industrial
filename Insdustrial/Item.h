@@ -19,6 +19,8 @@ public:
 	int whatCompress;
 	// Может ли дробиться и во что дробится (x - во что дробится, y - сколько получится)
 	sf::Vector2i whatCrush;
+	// Расходуется ли при крафте 
+	bool isReusable;
 	
 	Item(){}
 	Item(int _number, int _quantity);

@@ -13,6 +13,7 @@ void Item::NumberUpdate(int _number)
 	whatFuel = 0;
 	whatCrush = sf::Vector2i(0, 0);
 	whatCompress = 0;
+	isReusable = 0;
 	switch (number)
 	{
 	case 1:
@@ -114,6 +115,12 @@ void Item::NumberUpdate(int _number)
 		break;
 	case 29:
 		name = L"Электросхема";
+		break;
+	case 30:
+		name = L"Палка";
+		break;
+	case 31:
+		name = L"Молот";
 		break;
 	}
 }

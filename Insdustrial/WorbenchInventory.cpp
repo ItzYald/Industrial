@@ -80,6 +80,12 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, st
 		25, 25, 25,
 		12, 12, 12,
 		29, 1);
+	// Аккумулятор
+	AddCraft(
+		0, 14, 0,
+		27, 12, 27,
+		27, 12, 27,
+		10, 1);
 }
 
 void WorkbenchInventory::AddCraft(

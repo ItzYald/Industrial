@@ -195,8 +195,12 @@ void Game::LoadingImagesPlay()
 	itemTextures[27].loadFromFile("Images/Metals/TinPlate.png");
 	// Компрессор
 	itemTextures[28].loadFromFile("Images/Objects/Compressor.png");
-	// Компрессор
+	// Микросхема
 	itemTextures[29].loadFromFile("Images/Chip.png");
+	// Палка
+	itemTextures[28].loadFromFile("Images/Stick.png");
+	// Молот
+	itemTextures[29].loadFromFile("Images/Hammer.png");
 
 }
 // Загрузка геймплея
