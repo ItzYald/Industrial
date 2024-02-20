@@ -63,6 +63,8 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
 	inventory.cells[7][1].item.quantity = 10;
 	inventory.cells[8][1].item.NumberUpdate(28);
 	inventory.cells[8][1].item.quantity = 10;
+	inventory.cells[9][1].item.NumberUpdate(29);
+	inventory.cells[9][1].item.quantity = 10;
 
 
 	for (int i = 0; i < 30; i++)

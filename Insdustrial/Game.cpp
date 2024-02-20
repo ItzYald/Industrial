@@ -132,7 +132,7 @@ void Game::LoadingImagesPlay()
 
 
 	// Текстуры предметов
-	for (int i = 0; i < 29; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		itemTextures.push_back(sf::Texture());
 	}
@@ -195,6 +195,8 @@ void Game::LoadingImagesPlay()
 	itemTextures[27].loadFromFile("Images/Metals/TinPlate.png");
 	// Компрессор
 	itemTextures[28].loadFromFile("Images/Objects/Compressor.png");
+	// Компрессор
+	itemTextures[29].loadFromFile("Images/Chip.png");
 
 }
 // Загрузка геймплея
@@ -649,7 +651,7 @@ void Game::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int p
 	else if (field.objects[nextPosition.x][nextPosition.y].x == 1)
 	{
 		ElectricOvenInventory& thisOvenInventory = electricOvens[field.objects[nextPosition.x][nextPosition.y].y]->inventory;
-		TransEnergy(energy, power, thisOvenInventory.fuel, thisOvenInventory.maxFuel);
+		TransEnergy(energy, power, thisOvenInventory.energy, thisOvenInventory.maxEnergy);
 	}
 	// Если на месте стоит дробитель
 	else if (field.objects[nextPosition.x][nextPosition.y].x == 5)

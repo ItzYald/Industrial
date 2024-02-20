@@ -25,7 +25,7 @@ void Item::NumberUpdate(int _number)
 		break;
 	case 3:
 		name = L"Уголь";
-		whatFuel = 8;
+		whatFuel = 16;
 		break;
 	case 4:
 		name = L"Железный слиток";
@@ -40,7 +40,7 @@ void Item::NumberUpdate(int _number)
 		break;
 	case 7:
 		name = L"Древесина";
-		whatFuel = 2;
+		whatFuel = 4;
 		whatBurn = 3;
 		break;
 	case 8:
@@ -48,7 +48,7 @@ void Item::NumberUpdate(int _number)
 		break;
 	case 9:
 		name = L"Доски";
-		whatFuel = 1;
+		whatFuel = 2;
 		break;
 	case 10:
 		name = L"Аккумулятор";
@@ -111,6 +111,9 @@ void Item::NumberUpdate(int _number)
 		break;
 	case 28:
 		name = L"Компрессор";
+		break;
+	case 29:
+		name = L"Электросхема";
 		break;
 	}
 }

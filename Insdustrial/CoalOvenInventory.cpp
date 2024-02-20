@@ -15,8 +15,8 @@ CoalOvenInventory::CoalOvenInventory(std::shared_ptr<sf::RenderWindow> _rw, std:
 	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 306), true, _textures));
 	cells.push_back(CellInInventory(rw, sf::Vector2f(670, 218), false, _textures));
 
-	fuel = 0;
-	maxFuel = 0;
+	energy = 0;
+	maxEnergy = 0;
 
 }
 
@@ -24,10 +24,10 @@ void CoalOvenInventory::Burn()
 {
 	if (cells[1].item.whatFuel && cells[0].item.whatBurn && (cells[0].item.whatBurn == cells[2].item.number || cells[2].item.number == 0))
 	{
-		if (fuel <= 0)
+		if (energy <= 0)
 		{
-			maxFuel = cells[1].item.whatFuel * 60;
-			fuel = maxFuel;
+			maxEnergy = cells[1].item.whatFuel * 60;
+			energy = maxEnergy;
 			cells[1].item.quantity -= 1;
 		}
 		if (progress.whatProgress <= 0)
@@ -36,19 +36,20 @@ void CoalOvenInventory::Burn()
 		}
 	}
 
-	AllBurn();
+	progress.Progress(energy, cells, cells[0].item.whatBurn, 1);
 	
-	fuel -= 1;
+	energy -= 1;
 }
 
 void CoalOvenInventory::Draw()
 {
-	AllDraw();
+	progress.Draw();
+	DrawCommon(cells);
 	// Топливо печки
 	functions.DrawRectangle(sf::Vector2f(480, 220), sf::Vector2f(30, 60), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
-	if (maxFuel != 0)
+	if (maxEnergy != 0)
 	{
-		functions.DrawRectangleGradient(sf::Vector2f(480, 280), sf::Vector2f(30, ((fuel / (float)maxFuel)) * -60), sf::Color::Red, sf::Color(255, 200, 0), 0);
+		functions.DrawRectangleGradient(sf::Vector2f(480, 280), sf::Vector2f(30, ((energy / (float)maxEnergy)) * -60), sf::Color::Red, sf::Color(255, 200, 0), 0);
 	}
 
 }

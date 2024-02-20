@@ -102,9 +102,6 @@
     <ClCompile Include="CoalOvenInventory.cpp">
       <Filter>Исходные файлы\Inventories\ProgressInventories\OvenInventories</Filter>
     </ClCompile>
-    <ClCompile Include="OvenInventory.cpp">
-      <Filter>Исходные файлы\Inventories\ProgressInventories\OvenInventories</Filter>
-    </ClCompile>
     <ClCompile Include="ElectricOvenInventory.cpp">
       <Filter>Исходные файлы\Inventories\ProgressInventories\OvenInventories</Filter>
     </ClCompile>
@@ -180,9 +177,6 @@
       <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
     <ClInclude Include="CoalOvenInventory.h">
-      <Filter>Файлы заголовков\Inventories\ProgressInventories\OvenInventories</Filter>
-    </ClInclude>
-    <ClInclude Include="OvenInventory.h">
       <Filter>Файлы заголовков\Inventories\ProgressInventories\OvenInventories</Filter>
     </ClInclude>
     <ClInclude Include="ElectricOvenInventory.h">

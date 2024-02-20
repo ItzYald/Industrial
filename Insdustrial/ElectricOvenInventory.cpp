@@ -14,8 +14,8 @@ ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _
 	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 306), true, _textures));
 	cells.push_back(CellInInventory(rw, sf::Vector2f(670, 218), false, _textures));
 
-	fuel = 0;
-	maxFuel = 1000;
+	energy = 0;
+	maxEnergy = 1000;
 
 	itemsSprites = StaticSprites(_textures);
 }
@@ -33,27 +33,29 @@ void ElectricOvenInventory::Burn()
 	//	}
 	//}
 
-	AllBurn();
-	if (cells[0].item.whatBurn && fuel > 0)
+	progress.Progress(energy, cells, cells[0].item.whatBurn, 1);
+	if (cells[0].item.whatBurn && energy > 0)
 	{
-		fuel -= 1;
+		energy -= 1;
 	}
 
-	if (fuel > maxFuel)
+	if (energy > maxEnergy)
 	{
-		fuel = maxFuel;
+		energy = maxEnergy;
 	}
 
 }
 
 void ElectricOvenInventory::Draw()
 {
-	AllDraw();
+	//AllDraw();
+	progress.Draw();
+	DrawCommon(cells);
 	// Топливо печки
 	functions.DrawRectangle(sf::Vector2f(400, 180), sf::Vector2f(30, 140), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
-	if (maxFuel != 0)
+	if (maxEnergy != 0)
 	{
-		functions.DrawRectangleGradient(sf::Vector2f(400, 320), sf::Vector2f(30, ((fuel / (float)maxFuel)) * -140), sf::Color::Red, sf::Color(255, 200, 0));
+		functions.DrawRectangleGradient(sf::Vector2f(400, 320), sf::Vector2f(30, ((energy / (float)maxEnergy)) * -140), sf::Color::Red, sf::Color(255, 200, 0));
 	}
 
 }
