@@ -12,6 +12,7 @@ void Item::NumberUpdate(int _number)
 	whatBurn = 0;
 	whatFuel = 0;
 	whatCrush = sf::Vector2i(0, 0);
+	whatCompress = 0;
 	switch (number)
 	{
 	case 1:
@@ -29,6 +30,7 @@ void Item::NumberUpdate(int _number)
 	case 4:
 		name = L"Железный слиток";
 		whatCrush = sf::Vector2i(23, 1);
+		whatCompress = 25;
 		break;
 	case 5:
 		name = L"Сундук";
@@ -62,6 +64,7 @@ void Item::NumberUpdate(int _number)
 		break;
 	case 14:
 		name = L"Медный слиток";
+		whatCompress = 26;
 		break;
 	case 15:
 		name = L"Железный провод";
@@ -77,6 +80,7 @@ void Item::NumberUpdate(int _number)
 		break;
 	case 19:
 		name = L"Оловяный слиток";
+		whatCompress = 27;
 		break;
 	case 20:
 		name = L"Оловяный провод";
@@ -95,6 +99,18 @@ void Item::NumberUpdate(int _number)
 		break;
 	case 24:
 		name = L"Дробитель";
+		break;
+	case 25:
+		name = L"Железная пластина";
+		break;
+	case 26:
+		name = L"Медная пластина";
+		break;
+	case 27:
+		name = L"Оловяная пластина";
+		break;
+	case 28:
+		name = L"Компрессор";
 		break;
 	}
 }

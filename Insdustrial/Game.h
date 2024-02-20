@@ -21,6 +21,7 @@
 #include "CoalOvenInventory.h"
 #include "ElectricOvenInventory.h"
 #include "CrusherInventory.h"
+#include "CompressorInventory.h"
 #include "ChestInventory.h"
 #include "WorbenchInventory.h"
 #include "EnergyStorageInventory.h"
@@ -72,6 +73,8 @@ private:
 	std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>> electricOvens;
 	// Список дробителей
 	std::vector<std::shared_ptr<StaingObject<CrusherInventory>>> crushers;
+	// Компрессов
+	std::vector<std::shared_ptr<StaingObject<CompressorInventory>>> compressors;
 	// Список сундуков
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests;
 	// Список верстаков
@@ -108,6 +111,7 @@ public:
 	void LoadingScreen(std::string nextScreen);
 	// Загрузка настроек цвета интерфейса из файла
 	void LoadColorInventoryFromFile();
+	void LoadingImagesPlay();
 	// Загрузка геймплея
 	void LoadingPlay();
 	/// <summary>
@@ -119,13 +123,13 @@ public:
 	// Отрисовка игрового поля
 	void DrawPlay();
 
-	void DrawDrive();
+	void DrawGameplay();
 	// Закрыть
 	void CloseInventory();
 	// Поставить объект по определенным коодинатам
 	void PutObject(sf::Vector2f position);
 	// Геймплей
-	void Drive();
+	void Gameplay();
 	/// <summary>Процесс передачи энергии</summary>
 	/// <param name="originalEnergy">Ссылка на энергию объекта,которй передает</param>
 	/// <param name="power">Скорость передвчи энергии</param>

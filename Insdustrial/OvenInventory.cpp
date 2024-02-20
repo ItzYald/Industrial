@@ -2,24 +2,7 @@
 
 void OvenInventory::AllBurn()
 {
-	if (progress.Progress(fuel, cells, cells[0].item.whatBurn))
-	{
-		if (cells[2].item.number == cells[0].item.whatBurn && cells[2].item.number != 0)
-		{
-			cells[2].item.quantity += 1;
-		}
-		else
-		{
-			cells[2].item.NumberUpdate(cells[0].item.whatBurn);
-			cells[2].item.quantity = 1;
-		}
-		
-		cells[0].item.quantity -= 1;
-		if (cells[0].item.quantity == 0)
-		{
-			cells[0].item.NumberUpdate(0);
-		}
-	}
+	progress.Progress(fuel, cells, cells[0].item.whatBurn, 1);
 }
 
 void OvenInventory::AllDraw()

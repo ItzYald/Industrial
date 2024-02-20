@@ -7,7 +7,7 @@ ProgressInventory::ProgressInventory(std::shared_ptr<sf::RenderWindow> _rw)
 	previousItemProgress = 0;
 }
 
-bool ProgressInventory::Progress(float& energy, std::vector<CellInInventory>& cells, int whatNext)
+bool ProgressInventory::Progress(float& energy, std::vector<CellInInventory>& cells, int whatNext, int quantity)
 {
 	bool res = false;
 	if (previousItemProgress != cells[0].item.number)
@@ -21,10 +21,26 @@ bool ProgressInventory::Progress(float& energy, std::vector<CellInInventory>& ce
 		{
 			if (whatNext)
 			{
+				energy -= 1;
 				whatProgress -= 1;
 				if (whatProgress == 0)
 				{
 					whatProgress = 120;
+					if (cells[2].item.number == whatNext && cells[2].item.number != 0)
+					{
+						cells[2].item.quantity += 1;
+					}
+					else
+					{
+						cells[2].item.NumberUpdate(whatNext);
+						cells[2].item.quantity = quantity;
+					}
+
+					cells[0].item.quantity -= 1;
+					if (cells[0].item.quantity == 0)
+					{
+						cells[0].item.NumberUpdate(0);
+					}
 					res = true;
 				}
 			}

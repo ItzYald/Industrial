@@ -135,6 +135,7 @@
     <ClCompile Include="CellInInventory.cpp" />
     <ClCompile Include="ChestInventory.cpp" />
     <ClCompile Include="CoalOvenInventory.cpp" />
+    <ClCompile Include="CompressorInventory.cpp" />
     <ClCompile Include="CrusherInventory.cpp" />
     <ClCompile Include="ElectricOvenInventory.cpp" />
     <ClCompile Include="EnergyCoalGeneratorInventory.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="CellInInventory.h" />
     <ClInclude Include="ChestInventory.h" />
     <ClInclude Include="CoalOvenInventory.h" />
+    <ClInclude Include="CompressorInventory.h" />
     <ClInclude Include="CrusherInventory.h" />
     <ClInclude Include="ElectricOvenInventory.h" />
     <ClInclude Include="EnergyCoalGeneratorInventory.h" />

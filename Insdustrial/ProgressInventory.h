@@ -17,7 +17,7 @@ public:
 	ProgressInventory(){ }
 	ProgressInventory(std::shared_ptr<sf::RenderWindow> _rw);
 
-	bool Progress(float& energy, std::vector<CellInInventory>& cells, int whatProgress);
+	bool Progress(float& energy, std::vector<CellInInventory>& cells, int whatProgress, int quantity);
 
 	void Draw();
 };

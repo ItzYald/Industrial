@@ -1,6 +1,6 @@
-#include "CrusherInventory.h"
+#include "CompressorInventory.h"
 
-CrusherInventory::CrusherInventory(
+CompressorInventory::CompressorInventory(
 	std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
 	int _maxEnergy, std::vector<sf::Texture>& _textures)
 	: EnergyObjectInventory(_rw, _colorsInventory, _maxEnergy)
@@ -19,14 +19,13 @@ CrusherInventory::CrusherInventory(
 	cells.push_back(CellInInventory(rw, sf::Vector2f(670, 218), false, _textures));
 }
 
-void CrusherInventory::Next()
+void CompressorInventory::Next()
 {
-	progress.Progress(energy, cells, cells[0].item.whatCrush.x, cells[0].item.whatCrush.y);
+	progress.Progress(energy, cells, cells[0].item.whatCompress, 1);
 }
 
-void CrusherInventory::Draw()
+void CompressorInventory::Draw()
 {
-
 	progress.Draw();
 	functions.DrawRectangle(sf::Vector2f(400, 150), sf::Vector2f(30, 200), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
 	if (maxEnergy != 0)
@@ -42,7 +41,7 @@ void CrusherInventory::Draw()
 
 }
 
-void CrusherInventory::Update(Inventory& playerInventory)
+void CompressorInventory::Update(Inventory& playerInventory)
 {
 	for (auto& thisCell : cells)
 	{

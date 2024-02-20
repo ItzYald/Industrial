@@ -11,6 +11,7 @@ Game::Game(sf::RenderWindow& _rw)
 
 	coalOvens = std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>();
 	electricOvens = std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>();
+	compressors = std::vector<std::shared_ptr<StaingObject<CompressorInventory>>>();
 
 	chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
 	workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
@@ -73,17 +74,10 @@ void Game::LoadColorInventoryFromFile()
 		line2.clear();
 	}
 }
-// Загрузка геймплея
-void Game::LoadingPlay()
+// Загрузка картинок для игры
+void Game::LoadingImagesPlay()
 {
-	// Загрузка цветов интерфейса
-	LoadColorInventoryFromFile();
 	/// Текстуры:
-	// Игрок
-	//textures["Player1"] = sf::Texture();
-	//textures["Player1"].loadFromFile("Images/Player/Player1.png");
-	//textures["Player2"] = sf::Texture();
-	//textures["Player2"].loadFromFile("Images/Player/Player2.png");
 	// Печка
 	textures["Oven"] = sf::Texture();
 	textures["Oven"].loadFromFile("Images/Objects/Oven.png");
@@ -93,6 +87,9 @@ void Game::LoadingPlay()
 	// Дробитель
 	textures["Crusher"] = sf::Texture();
 	textures["Crusher"].loadFromFile("Images/Objects/Crusher.png");
+	// Дробитель
+	textures["Compressor"] = sf::Texture();
+	textures["Compressor"].loadFromFile("Images/Objects/Compressor.png");
 	// Сундук
 	textures["Chest"] = sf::Texture();
 	textures["Chest"].loadFromFile("Images/Objects/Chest.png");
@@ -135,7 +132,7 @@ void Game::LoadingPlay()
 
 
 	// Текстуры предметов
-	for (int i = 0; i < 25; i++)
+	for (int i = 0; i < 29; i++)
 	{
 		itemTextures.push_back(sf::Texture());
 	}
@@ -190,7 +187,23 @@ void Game::LoadingPlay()
 	itemTextures[23].loadFromFile("Images/Metals/CrushedIronOre.png");
 	// Дрорбитель
 	itemTextures[24].loadFromFile("Images/Objects/Crusher.png");
+	// Железная пластина
+	itemTextures[25].loadFromFile("Images/Metals/IronPlate.png");
+	// Компрессор
+	itemTextures[26].loadFromFile("Images/Metals/CopperPlate.png");
+	// Компрессор
+	itemTextures[27].loadFromFile("Images/Metals/TinPlate.png");
+	// Компрессор
+	itemTextures[28].loadFromFile("Images/Objects/Compressor.png");
 
+}
+// Загрузка геймплея
+void Game::LoadingPlay()
+{
+	// Загрузка цветов интерфейса
+	LoadColorInventoryFromFile();
+
+	LoadingImagesPlay();
 
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
 	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20), colorsInventory, itemTextures);
@@ -204,6 +217,9 @@ void Game::LoadingPlay()
 	crushers.push_back(
 		std::make_shared<StaingObject<CrusherInventory>>(
 			rw, field.sizeOne, textures["Crusher"], itemTextures, sf::Vector2f(19, 17), colorsInventory, 1000));
+	compressors.push_back(
+		std::make_shared<StaingObject<CompressorInventory>>(
+			rw, field.sizeOne, textures["Compressor"], itemTextures, sf::Vector2f(19, 16), colorsInventory, 1000));
 	chests.push_back(
 		std::make_shared<StaingObject<ChestInventory>>(
 			rw, field.sizeOne, textures["Chest"], itemTextures, sf::Vector2f(23, 21), colorsInventory));
@@ -218,7 +234,8 @@ void Game::LoadingPlay()
 			rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, texturesInInventory));
 	energyCoalGenerators.push_back(
 		std::make_shared<StaingObject<EnergyCoalGeneratorInventory>>(
-			rw, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, sf::Vector2f(21, 18), colorsInventory, 100, 10));
+			rw, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, sf::Vector2f(20, 19), colorsInventory, 100, 10));
+	
 
 	screen = "Игра";
 }
@@ -262,6 +279,11 @@ void Game::DrawPlay()
 	{
 		crusher->Draw(cameraPosition);
 	}
+	// Отрисовка проводов
+	for (auto compressor : compressors)
+	{
+		compressor->Draw(cameraPosition);
+	}
 	// Отрисовка сундуков
 	for (auto chest : chests)
 	{
@@ -296,7 +318,7 @@ void Game::DrawPlay()
 	player.Draw(cameraPosition);
 }
 
-void Game::DrawDrive()
+void Game::DrawGameplay()
 {
 	// Отрисовка ячейки, накоторой мышка
 	functions.DrawRectangle(sf::Vector2f(
@@ -337,8 +359,10 @@ void Game::CloseInventory()
 		case 8:
 			crushers[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			break;
+		case 9:
+			compressors[player.whatNumberInventoryOpen]->isOpenInventory = false;
+			break;
 		}
-		//player.inventory.DeleteButtons();
 	}
 }
 // Поставить объект по определенным координатам
@@ -361,6 +385,11 @@ void Game::PutObject(sf::Vector2f position)
 	case 24:
 		crushers.push_back(std::make_shared<StaingObject<CrusherInventory>>(
 			rw, field.sizeOne, textures["Crusher"], itemTextures, position, colorsInventory, 1000));
+		break;
+	// Компрессор
+	case 28:
+		compressors.push_back(std::make_shared<StaingObject<CompressorInventory>>(
+			rw, field.sizeOne, textures["Compressor"], itemTextures, position, colorsInventory, 1000));
 		break;
 	// Сундук
 	case 5:
@@ -405,7 +434,7 @@ void Game::PutObject(sf::Vector2f position)
 	}
 }
 // Геймплей
-void Game::Drive()
+void Game::Gameplay()
 {
 	// Временная переменная для проверки расстояния до игрока
 	sf::Vector2i m = sf::Vector2i(
@@ -426,7 +455,7 @@ void Game::Drive()
 		mousePositionGrid = m;
 	}
 
-	DrawDrive();
+	DrawGameplay();
 
 	// То, что делает игрок каждый кадр
 	player.Update();
@@ -434,7 +463,7 @@ void Game::Drive()
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
 	if (player.PutObject(mousePositionGrid,
-		coalOvens, electricOvens, crushers, chests, workbenches, wires, energyStorages, energyHandGenerators, energyCoalGenerators))
+		coalOvens, electricOvens, crushers, compressors, chests, workbenches, wires, energyStorages, energyHandGenerators, energyCoalGenerators))
 	{
 		PutObject((sf::Vector2f)mousePositionGrid);
 	}
@@ -467,7 +496,7 @@ void Game::Drive()
 			break;
 		}
 	}
-	// Работа электрических печей
+	// Работа дробителей
 	for (int i = 0; i < crushers.size(); i++)
 	{
 		// Обновление массива с указанием номера электропечей в массиве по координатам
@@ -479,6 +508,22 @@ void Game::Drive()
 		{
 			player.isOpenInventory = true;
 			player.whatTypeInventoryOpen = 8;
+			player.whatNumberInventoryOpen = i;
+			break;
+		}
+	}
+	// Работа компрессоров
+	for (int i = 0; i < compressors.size(); i++)
+	{
+		// Обновление массива с указанием номера электропечей в массиве по координатам
+		field.objects[compressors[i]->position.x][compressors[i]->position.y] = sf::Vector2i(6, i);
+		// Обновление электропечей
+		compressors[i]->Update(mousePositionGrid, player.position, player.angle);
+		// Если инвентарь открыт
+		if (compressors[i]->isOpenInventory)
+		{
+			player.isOpenInventory = true;
+			player.whatTypeInventoryOpen = 9;
 			player.whatNumberInventoryOpen = i;
 			break;
 		}
@@ -606,10 +651,16 @@ void Game::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int p
 		ElectricOvenInventory& thisOvenInventory = electricOvens[field.objects[nextPosition.x][nextPosition.y].y]->inventory;
 		TransEnergy(energy, power, thisOvenInventory.fuel, thisOvenInventory.maxFuel);
 	}
-	// Если на месте стоит электропечка
+	// Если на месте стоит дробитель
 	else if (field.objects[nextPosition.x][nextPosition.y].x == 5)
 	{
 		CrusherInventory& thisOvenInventory = crushers[field.objects[nextPosition.x][nextPosition.y].y]->inventory;
+		TransEnergy(energy, power, thisOvenInventory.energy, thisOvenInventory.maxEnergy);
+	}
+	// Если на месте стоит компрессор
+	else if (field.objects[nextPosition.x][nextPosition.y].x == 6)
+	{
+		CompressorInventory& thisOvenInventory = compressors[field.objects[nextPosition.x][nextPosition.y].y]->inventory;
 		TransEnergy(energy, power, thisOvenInventory.energy, thisOvenInventory.maxEnergy);
 	}
 	// Если на месте стоит энергохранилище
@@ -764,6 +815,11 @@ void Game::Play()
 	{
 		crusher->inventory.Next();
 	}
+	// Работа угольного энергогенератора хранилищав
+	for (auto& compressor : compressors)
+	{
+		compressor->inventory.Next();
+	}
 	// Работа энергитического хранилищав
 	for (auto& energyStorage : energyStorages)
 	{
@@ -788,7 +844,7 @@ void Game::Play()
 	if (!player.isOpenInventory)
 	{
 		// Геймплей
-		Drive();
+		Gameplay();
 	}
 	else
 	{
@@ -827,9 +883,13 @@ void Game::Play()
 		case 7:
 			energyCoalGenerators[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
 			break;
-			// Инвентарь угольного энергогенератора
+		// Инвентарь дробителя
 		case 8:
 			crushers[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+			break;
+		// Инвентарь коммпрессора
+		case 9:
+			compressors[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
 			break;
 		}
 		CloseInventory();

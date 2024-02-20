@@ -61,6 +61,8 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
 	inventory.cells[6][1].item.quantity = 20;
 	inventory.cells[7][1].item.NumberUpdate(24);
 	inventory.cells[7][1].item.quantity = 10;
+	inventory.cells[8][1].item.NumberUpdate(28);
+	inventory.cells[8][1].item.quantity = 10;
 
 
 	for (int i = 0; i < 30; i++)
@@ -125,6 +127,7 @@ void Player::Update()
 bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>& ovens,
 	std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>& electricOvens,
 	std::vector<std::shared_ptr<StaingObject<CrusherInventory>>>& crushers,
+	std::vector<std::shared_ptr<StaingObject<CompressorInventory>>>& compressors,
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests, 
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
 	std::vector<std::shared_ptr<Wire>>& wires, 
@@ -140,7 +143,7 @@ bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_p
 	if ((chooseNumber == 2 || chooseNumber == 5 || chooseNumber == 8 ||
 		chooseNumber == 11 || chooseNumber == 12 || chooseNumber == 13 ||
 		chooseNumber == 15 || chooseNumber == 16 || chooseNumber == 17 || 
-		chooseNumber == 20 || chooseNumber == 24) &&
+		chooseNumber == 20 || chooseNumber == 24 || chooseNumber == 28) &&
 		inventory.cells[inventory.choseCell][3].item.quantity > 0)
 	{
 		bool isNear = false;
@@ -156,6 +159,11 @@ bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_p
 				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
 		}
 		for (auto& thisObject : crushers)
+		{
+			if (!isNear)
+				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
+		}
+		for (auto& thisObject : compressors)
 		{
 			if (!isNear)
 				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
