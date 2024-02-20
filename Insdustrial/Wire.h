@@ -16,6 +16,8 @@ public:
 
 	// Список спрайтов
 	sf::Sprite sprite;
+	sf::Sprite spriteOn;
+	sf::Sprite spriteOff;
 	// Количество энергии
 	float energy;
 	// Максимально хранимая энергия
@@ -32,11 +34,12 @@ public:
 	/// <summary>Конструктор</summary>
 	/// <param name="_rw">Окно</param>
 	/// <param name="_fieldSizeOne">Размер одной ячейки</param>
-	/// <param name="texture">Текстура</param>
+	/// <param name="textureOn">Текстура во включенном состонии</param>
+	/// <param name="textureOff">Текстура в выключенном состонии</param>
 	/// <param name="_position">Позиция</param>
 	/// <param name="type">Тип (0 - медный, 1 - железный)</param>
 	Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
-		sf::Texture& texture, sf::Vector2f _position, int _type);
+		sf::Texture& textureOn, sf::Texture& textureOff, sf::Vector2f _position, int _type);
 	/// <summary>Есть ли провод перед игроком</summary>
 	/// <param name="playerPosition">Позиция игрока</param>
 	/// <param name="playerAngle">Угол поворота игрока</param>

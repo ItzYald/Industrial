@@ -1,14 +1,26 @@
 #include "Wire.h"
 
-Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture& texture, sf::Vector2f _position, int _type)
+Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
+	sf::Texture& textureOn, sf::Texture& textureOff, sf::Vector2f _position, int _type)
 {
 	rw = _rw;
 	fieldSizeOne = _fieldSizeOne;
 	functions = Functions(rw);
 
 	sprite = sf::Sprite();
-	sprite.setTexture(texture);
-	sprite.setScale(fieldSizeOne / (float)sprite.getTexture()->getSize().x, fieldSizeOne / (float)sprite.getTexture()->getSize().y);
+	sprite.setTexture(textureOn);
+	sprite.setScale(fieldSizeOne / (float)sprite.getTexture()->getSize().x,
+		fieldSizeOne / (float)sprite.getTexture()->getSize().y);
+
+	spriteOn = sf::Sprite();
+	spriteOn.setTexture(textureOn);
+	spriteOn.setScale(fieldSizeOne / (float)spriteOn.getTexture()->getSize().x,
+		fieldSizeOne / (float)spriteOn.getTexture()->getSize().y);
+
+	spriteOff = sf::Sprite();
+	spriteOff.setTexture(textureOff);
+	spriteOff.setScale(fieldSizeOne / (float)spriteOff.getTexture()->getSize().x,
+		fieldSizeOne / (float)spriteOff.getTexture()->getSize().y);
 
 	position = _position;
 	energy = 0;
@@ -39,6 +51,7 @@ Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne, sf::Texture
 		ch.push_back(Checks());
 	}
 }
+
 
 void Wire::CheckConnections(sf::Vector2f positionSeconObject) 
 {
@@ -82,155 +95,53 @@ void Wire::Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, i
 	}
 }
 
-//void Wire::Draw(sf::Vector2f cameraPosition)
-//{
-//	// Все 4 связи
-//	if (connections[0] && connections[1] && connections[2] && connections[3])
-//	{
-//		numberSprite = 4;
-//	}
-//	// Связь сверху, справа и снизу
-//	if (connections[0] && connections[1] && connections[2] && !connections[3])
-//	{
-//		numberSprite = 3;
-//		sprites[numberSprite].setRotation(90);
-//	}
-//	// Связь справа, снизу и слева
-//	if (!connections[0] && connections[1] && connections[2] && connections[3])
-//	{
-//		numberSprite = 3;
-//		sprites[numberSprite].setRotation(180);
-//	}
-//	// Связь снизу, слева и сверху
-//	if (connections[0] && !connections[1] && connections[2] && connections[3])
-//	{
-//		numberSprite = 3;
-//		sprites[numberSprite].setRotation(270);
-//	}
-//	// Связь слева, сверху и справа
-//	if (connections[0] && connections[1] && !connections[2] && connections[3])
-//	{
-//		numberSprite = 3;
-//		sprites[numberSprite].setRotation(0);
-//	}
-//	// Связь сверху и справа
-//	if (connections[0] && connections[1] && !connections[2] && !connections[3])
-//	{
-//		numberSprite = 2;
-//		sprites[numberSprite].setRotation(0);
-//	}
-//	// Связь справа и снизу
-//	if (!connections[0] && connections[1] && connections[2] && !connections[3])
-//	{
-//		numberSprite = 2;
-//		sprites[numberSprite].setRotation(90);
-//	}
-//	// Связь снизу и слева
-//	if (!connections[0] && !connections[1] && connections[2] && connections[3])
-//	{
-//		numberSprite = 2;
-//		sprites[numberSprite].setRotation(180);
-//	}
-//	// Связь слева и сверху
-//	if (connections[0] && !connections[1] && !connections[2] && connections[3])
-//	{
-//		numberSprite = 2;
-//		sprites[numberSprite].setRotation(270);
-//	}
-//	// Связь сверху и снизу
-//	if (connections[0] && !connections[1] && connections[2] && !connections[3])
-//	{
-//		numberSprite = 1;
-//		sprites[numberSprite].setRotation(90);
-//	}
-//	// Связь справа и слева
-//	if (!connections[0] && connections[1] && !connections[2] && connections[3])
-//	{
-//		numberSprite = 1;
-//		sprites[numberSprite].setRotation(0);
-//	}
-//	// Связь сверху
-//	if (connections[0] && !connections[1] && !connections[2] && !connections[3])
-//	{
-//		numberSprite = 0;
-//		sprites[numberSprite].setRotation(270);
-//	}
-//	// Связь справа
-//	if (!connections[0] && connections[1] && !connections[2] && !connections[3])
-//	{
-//		numberSprite = 0;
-//		sprites[numberSprite].setRotation(0);
-//	}
-//	// Связь снизу
-//	if (!connections[0] && !connections[1] && connections[2] && !connections[3])
-//	{
-//		numberSprite = 0;
-//		sprites[numberSprite].setRotation(90);
-//	}
-//	// Связь слева
-//	if (!connections[0] && !connections[1] && !connections[2] && connections[3])
-//	{
-//		numberSprite = 0;
-//		sprites[numberSprite].setRotation(180);
-//	}
-//
-//	// Задать позицию
-//	sprites[numberSprite].setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
-//
-//	// Сдвиг для компенсации вращения
-//	if (sprites[numberSprite].getRotation() == 90)
-//	{
-//		sprites[numberSprite].setPosition(sprites[numberSprite].getPosition().x + fieldSizeOne, sprites[numberSprite].getPosition().y);
-//	}
-//	else if (sprites[numberSprite].getRotation() == 180)
-//	{
-//		sprites[numberSprite].setPosition(sprites[numberSprite].getPosition().x + fieldSizeOne, sprites[numberSprite].getPosition().y + fieldSizeOne);
-//	}
-//	else if (sprites[numberSprite].getRotation() == 270)
-//	{
-//		sprites[numberSprite].setPosition(sprites[numberSprite].getPosition().x, sprites[numberSprite].getPosition().y + fieldSizeOne);
-//	}
-//
-//	rw->draw(sprites[numberSprite]);
-//	//sf::Vector2f realPosition = sf::Vector2f(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
-//}
-
 void Wire::Draw(sf::Vector2f cameraPosition)
 {
+	sf::Sprite* thisSprite;
+
+	if (energy == 0)
+	{
+		thisSprite = &spriteOff;
+	}
+	else
+	{
+		thisSprite = &spriteOn;
+	}
+
 	if (turn == 0)
 	{
-		sprite.setRotation(0);
+		thisSprite->setRotation(0);
 	}
 	if (turn == 1)
 	{
-		sprite.setRotation(90);
+		thisSprite->setRotation(90);
 	}
 	if (turn == 2)
 	{
-		sprite.setRotation(180);
+		thisSprite->setRotation(180);
 	}
 	if (turn == 3)
 	{
-		sprite.setRotation(270);
+		thisSprite->setRotation(270);
 	}
 
 	// Задать позицию
-	sprite.setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
+	thisSprite->setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
 
 	// Сдвиг для компенсации вращения
-	if (sprite.getRotation() == 90)
+	if (thisSprite->getRotation() == 90)
 	{
-		sprite.setPosition(sprite.getPosition().x + fieldSizeOne, sprite.getPosition().y);
+		thisSprite->setPosition(thisSprite->getPosition().x + fieldSizeOne, thisSprite->getPosition().y);
 	}
-	else if (sprite.getRotation() == 180)
+	else if (thisSprite->getRotation() == 180)
 	{
-		sprite.setPosition(sprite.getPosition().x + fieldSizeOne, sprite.getPosition().y + fieldSizeOne);
+		thisSprite->setPosition(thisSprite->getPosition().x + fieldSizeOne, thisSprite->getPosition().y + fieldSizeOne);
 	}
-	else if (sprite.getRotation() == 270)
+	else if (thisSprite->getRotation() == 270)
 	{
-		sprite.setPosition(sprite.getPosition().x, sprite.getPosition().y + fieldSizeOne);
+		thisSprite->setPosition(thisSprite->getPosition().x, thisSprite->getPosition().y + fieldSizeOne);
 	}
 
-	rw->draw(sprite);
+	rw->draw(*thisSprite);
 	sf::Vector2f realPosition = sf::Vector2f(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
 }
