@@ -106,9 +106,11 @@ bool CellInInventory::Take(Item& mouseItem)
 	//  Взять предмет левой кнопкой мыши
 	if (button.CheckLeft(*rw))
 	{
-		if (mouseItem.number == 0 && item.number != 0)
+		if ((mouseItem.number == 0 || item.number == mouseItem.number) && item.number != 0)
 		{
-			mouseItem = item;
+			//mouseItem = item;
+			mouseItem.NumberUpdate(item.number);
+			mouseItem.quantity += item.quantity;
 			item.NumberUpdate(0);
 			return true;
 		}

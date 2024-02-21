@@ -16,6 +16,8 @@ void Item::NumberUpdate(int _number)
 	isReusable = 0;
 	switch (number)
 	{
+	case 0:
+		quantity = 0;
 	case 1:
 		name = L"Железная руда";
 		whatBurn = 4;

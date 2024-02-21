@@ -71,7 +71,7 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, st
 	// ”гольный энергогенератор
 	AddCraft(
 		0, 0, 0,
-		11, 18, 11,
+		29, 11, 18,
 		0, 0, 0,
 		17, 1);
 	// Ёлектросхема
