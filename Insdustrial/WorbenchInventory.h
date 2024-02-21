@@ -30,7 +30,9 @@ public:
 
 	// Добавить новый крафт (в начале программы для сокращения кода)
 	void AddCraft(
-		int craft1, int craft2, int craft3, int craft4, int craft5, int craft6, int craft7, int craft8, int craft9,
+		int craft1, int craft2, int craft3,
+		int craft4, int craft5, int craft6,
+		int craft7, int craft8, int craft9,
 		int result, int quantity);
 	// Добавить одиночный крафт (где только один предмет, но можно в каждую ячейку)
 	void AddSingleCraft(int craft, int result, int quantity);
@@ -44,6 +46,8 @@ public:
 	void AddVerticalDualCraft(int craft1, int craft2, int result, int quantity);
 	// Добавить крафт в виде горизонтальной линии из двух
 	void AddHorizontalDualCraft(int craft1, int craft2, int result, int quantity);
+	// Добавление всех возможных крафтов с двумя предметами (например для молота)
+	void AddAllDualCraft(int craft1, int craft2, int result, int quantity);
 	// Проверка слотов крафта
 	void Craft();
 	void Next(){ }

@@ -95,24 +95,17 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, st
 		30, 0, 0,
 		31, 1);
 	// Железная пластина
-	AddHorizontalDualCraft(31, 4, 25, 1);
-	AddHorizontalDualCraft(4, 31, 25, 1);
-	AddVerticalDualCraft(31, 4, 25, 1);
-	AddVerticalDualCraft(4, 31, 25, 1);
+	AddAllDualCraft(31, 4, 25, 1);
 	// Медная пластина
-	AddHorizontalDualCraft(31, 14, 26, 1);
-	AddHorizontalDualCraft(14, 31, 26, 1);
-	AddVerticalDualCraft(31, 14, 26, 1);
-	AddVerticalDualCraft(14, 31, 26, 1);
+	AddAllDualCraft(31, 14, 26, 1);
 	// Оловяная пластина
-	AddHorizontalDualCraft(31, 19, 27, 1);
-	AddHorizontalDualCraft(19, 31, 27, 1);
-	AddVerticalDualCraft(31, 19, 27, 1);
-	AddVerticalDualCraft(19, 31, 27, 1);
+	AddAllDualCraft(31, 19, 27, 1);
 }
 
 void WorkbenchInventory::AddCraft(
-	int craft1, int craft2, int craft3, int craft4, int craft5, int craft6, int craft7, int craft8, int craft9,
+	int craft1, int craft2, int craft3,
+	int craft4, int craft5, int craft6,
+	int craft7, int craft8, int craft9,
 	int result, int quantity)
 {
 	// Временный массив
@@ -194,37 +187,20 @@ void WorkbenchInventory::AddVerticalDualCraft(int craft1, int craft2, int result
 
 void WorkbenchInventory::AddHorizontalDualCraft(int craft1, int craft2, int result, int quantity)
 {
-	AddCraft(
-		craft1, craft2, 0,
-		0, 0, 0,
-		0, 0, 0,
-		result, quantity);
-	AddCraft(
-		0, craft1, craft2,
-		0, 0, 0,
-		0, 0, 0,
-		result, quantity);
-	AddCraft(
-		0, 0, 0,
-		craft1, craft2, 0,
-		0, 0, 0,
-		result, quantity);
-	AddCraft(
-		0, 0, 0,
-		0, craft1, craft2,
-		0, 0, 0,
-		result, quantity);
-	AddCraft(
-		0, 0, 0,
-		0, 0, 0,
-		craft1, craft2, 0,
-		result, quantity);
-	AddCraft(
-		0, 0, 0,
-		0, 0, 0,
-		0, craft1, craft2,
-		result, quantity);
+	AddCraft(craft1, craft2, 0, 0, 0, 0, 0, 0, 0, result, quantity);
+	AddCraft(0, craft1, craft2, 0, 0, 0, 0, 0, 0, result, quantity);
+	AddCraft(0, 0, 0,craft1, craft2, 0, 0, 0, 0,result, quantity);
+	AddCraft(0, 0, 0, 0, craft1, craft2, 0, 0, 0,result, quantity);
+	AddCraft(0, 0, 0, 0, 0, 0, craft1, craft2, 0, result, quantity);
+	AddCraft(0, 0, 0, 0, 0, 0,0, craft1, craft2, result, quantity);
+}
 
+void WorkbenchInventory::AddAllDualCraft(int craft1, int craft2, int result, int quantity)
+{
+	AddHorizontalDualCraft(craft1, craft2, result, quantity);
+	AddHorizontalDualCraft(craft2, craft1, result, quantity);
+	AddVerticalDualCraft(craft1, craft2, result, quantity);
+	AddVerticalDualCraft(craft2, craft1, result, quantity);
 }
 
 void WorkbenchInventory::Craft()
