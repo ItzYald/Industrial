@@ -121,6 +121,7 @@ void Item::NumberUpdate(int _number)
 		break;
 	case 31:
 		name = L"Молот";
+		isReusable = true;
 		break;
 	}
 }

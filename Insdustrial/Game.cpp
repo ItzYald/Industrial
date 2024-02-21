@@ -132,7 +132,7 @@ void Game::LoadingImagesPlay()
 
 
 	// Текстуры предметов
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < 32; i++)
 	{
 		itemTextures.push_back(sf::Texture());
 	}
@@ -198,9 +198,9 @@ void Game::LoadingImagesPlay()
 	// Микросхема
 	itemTextures[29].loadFromFile("Images/Chip.png");
 	// Палка
-	itemTextures[28].loadFromFile("Images/Stick.png");
+	itemTextures[30].loadFromFile("Images/Stick.png");
 	// Молот
-	itemTextures[29].loadFromFile("Images/Hammer.png");
+	itemTextures[31].loadFromFile("Images/Hammer.png");
 
 }
 // Загрузка геймплея

@@ -51,11 +51,11 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, st
 		4, 4, 4,
 		11, 1);
 	// Медный провод
-	AddVecticalCraft(14, 14, 14, 12, 3);
+	AddVerticalCraft(14, 14, 14, 12, 3);
 	// Железный провод
-	AddVecticalCraft(4, 4, 4, 15, 3);
+	AddVerticalCraft(4, 4, 4, 15, 3);
 	// Оловяный провод
-	AddVecticalCraft(19, 19, 19, 20, 3);
+	AddVerticalCraft(19, 19, 19, 20, 3);
 	// Ручной энергогенератор
 	AddCraft(
 		0, 4, 0,
@@ -86,6 +86,29 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw, st
 		27, 12, 27,
 		27, 12, 27,
 		10, 1);
+	// Палки
+	AddVerticalDualCraft(9, 9, 30, 2);
+	// Молот
+	AddCraft(
+		0, 4, 4,
+		0, 30, 4,
+		30, 0, 0,
+		31, 1);
+	// Железная пластина
+	AddHorizontalDualCraft(31, 4, 25, 1);
+	AddHorizontalDualCraft(4, 31, 25, 1);
+	AddVerticalDualCraft(31, 4, 25, 1);
+	AddVerticalDualCraft(4, 31, 25, 1);
+	// Медная пластина
+	AddHorizontalDualCraft(31, 14, 26, 1);
+	AddHorizontalDualCraft(14, 31, 26, 1);
+	AddVerticalDualCraft(31, 14, 26, 1);
+	AddVerticalDualCraft(14, 31, 26, 1);
+	// Оловяная пластина
+	AddHorizontalDualCraft(31, 19, 27, 1);
+	AddHorizontalDualCraft(19, 31, 27, 1);
+	AddVerticalDualCraft(31, 19, 27, 1);
+	AddVerticalDualCraft(19, 31, 27, 1);
 }
 
 void WorkbenchInventory::AddCraft(
@@ -98,9 +121,9 @@ void WorkbenchInventory::AddCraft(
 	{
 		// Другой временный массив
 		std::vector<int> mas2 = std::vector<int>();
-		mas2.push_back(craft3);
-		mas2.push_back(craft6);
-		mas2.push_back(craft9);
+		mas2.push_back(craft1);
+		mas2.push_back(craft4);
+		mas2.push_back(craft7);
 		mas.push_back(mas2);
 		mas2.clear();
 		mas2.push_back(craft2);
@@ -108,9 +131,9 @@ void WorkbenchInventory::AddCraft(
 		mas2.push_back(craft8);
 		mas.push_back(mas2);
 		mas2.clear();
-		mas2.push_back(craft1);
-		mas2.push_back(craft4);
-		mas2.push_back(craft7);
+		mas2.push_back(craft3);
+		mas2.push_back(craft6);
+		mas2.push_back(craft9);
 		mas.push_back(mas2);
 		mas2.clear();
 	}
@@ -151,23 +174,57 @@ void WorkbenchInventory::AddQuadroCraft(int craft1, int craft2, int craft3, int 
 	AddCraft(0, 0, 0, 0, craft1, craft2, 0, craft3, craft4, result, quantity);
 }
 
-void WorkbenchInventory::AddVecticalCraft(int craft1, int craft2, int craft3, int result, int quantity)
+void WorkbenchInventory::AddVerticalCraft(int craft1, int craft2, int craft3, int result, int quantity)
+{
+	AddCraft(0, craft1, 0, 0, craft2, 0, 0, craft3, 0, result, quantity);
+	AddCraft(craft1, 0, 0, craft2, 0, 0, craft3, 0, 0, result, quantity);
+	AddCraft(0, 0, craft1, 0, 0, craft2, 0, 0, craft3, result, quantity);
+}
+
+void WorkbenchInventory::AddVerticalDualCraft(int craft1, int craft2, int result, int quantity)
+{
+	AddCraft(craft1, 0, 0, craft2, 0, 0, 0, 0, 0, result, quantity);
+	AddCraft(0, craft1, 0, 0, craft2, 0, 0, 0, 0, result, quantity);
+	AddCraft(0, 0, craft1, 0, 0, craft2, 0, 0, 0, result, quantity);
+	AddCraft(0, 0, 0, craft1, 0, 0, craft2, 0, 0, result, quantity);
+	AddCraft(0, 0, 0, 0, craft1, 0, 0, craft2, 0, result, quantity);
+	AddCraft(0, 0, 0, 0, 0, craft1, 0, 0, craft2, result, quantity);
+	
+}
+
+void WorkbenchInventory::AddHorizontalDualCraft(int craft1, int craft2, int result, int quantity)
 {
 	AddCraft(
-		0, craft1, 0,
-		0, craft2, 0,
-		0, craft3, 0,
+		craft1, craft2, 0,
+		0, 0, 0,
+		0, 0, 0,
 		result, quantity);
 	AddCraft(
-		craft1, 0, 0,
-		craft2, 0, 0,
-		craft3, 0, 0,
+		0, craft1, craft2,
+		0, 0, 0,
+		0, 0, 0,
 		result, quantity);
 	AddCraft(
-		0, 0, craft1,
-		0, 0, craft2,
-		0, 0, craft3,
+		0, 0, 0,
+		craft1, craft2, 0,
+		0, 0, 0,
 		result, quantity);
+	AddCraft(
+		0, 0, 0,
+		0, craft1, craft2,
+		0, 0, 0,
+		result, quantity);
+	AddCraft(
+		0, 0, 0,
+		0, 0, 0,
+		craft1, craft2, 0,
+		result, quantity);
+	AddCraft(
+		0, 0, 0,
+		0, 0, 0,
+		0, craft1, craft2,
+		result, quantity);
+
 }
 
 void WorkbenchInventory::Craft()
@@ -261,10 +318,9 @@ void WorkbenchInventory::Update(Inventory& playerInventory)
 			{
 				if (cells[i][j].item.number != 0)
 				{
-					cells[i][j].item.quantity -= 1;
-					if (cells[i][j].item.quantity == 0)
+					if (!cells[i][j].item.isReusable)
 					{
-						cells[i][j].item.NumberUpdate(0);
+						cells[i][j].item.quantity -= 1;
 					}
 				}
 			}

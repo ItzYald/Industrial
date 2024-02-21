@@ -39,7 +39,11 @@ public:
 	// Добавить четверной крафт (где только 4 РАЗЛИЧНЫХ предмета используется, но можно в 4 вариантах разложить)
 	void AddQuadroCraft(int craft1, int craft2, int craft3, int craft4, int result, int quantity);
 	// Добавить крафт в виде вертикальной линии из трех
-	void AddVecticalCraft(int craft1, int craft2, int craft3, int result, int quantity);
+	void AddVerticalCraft(int craft1, int craft2, int craft3, int result, int quantity);
+	// Добавить крафт в виде вертикальной линии из двух
+	void AddVerticalDualCraft(int craft1, int craft2, int result, int quantity);
+	// Добавить крафт в виде горизонтальной линии из двух
+	void AddHorizontalDualCraft(int craft1, int craft2, int result, int quantity);
 	// Проверка слотов крафта
 	void Craft();
 	void Next(){ }
