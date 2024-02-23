@@ -20,8 +20,10 @@ public:
 	int sizeOne;
 	// Размер окна
 	sf::Vector2u sizeW;
-	// Список объектов (x - какой объект, y - номер в массиве)
-	std::vector<std::vector<sf::Vector2i>> objects;
+	// Список объектов передающих и принимающих электричество (x - какой объект, y - номер в массиве)
+	std::vector<std::vector<sf::Vector2i>> energyObjects;
+	// Список объектов передающих и принимающих предметы (x - какой объект, y - номер в массиве)
+	std::vector<std::vector<sf::Vector2i>> itemObjects;
 
 	// Фнкции отрисовки (прямоугольник, круг, текст, спрайт...)
 	Functions functions;

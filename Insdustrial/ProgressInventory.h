@@ -19,6 +19,7 @@ public:
 
 	bool Progress(float& energy, std::vector<CellInInventory>& cells, int whatProgress, int quantity);
 
+	void DrawEnergy(int energy, int maxEnergy, sf::Color color);
 	void Draw();
 };
 

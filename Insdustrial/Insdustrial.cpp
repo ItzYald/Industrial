@@ -21,7 +21,6 @@ int main()
 	{
 		sf::Event event;
 
-
 		while (rw.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)

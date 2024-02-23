@@ -87,9 +87,6 @@
     <ClCompile Include="Inventory.cpp">
       <Filter>Исходные файлы\Inventories</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Исходные файлы\Sprites</Filter>
-    </ClCompile>
     <ClCompile Include="Wire.cpp">
       <Filter>Исходные файлы\Sprites</Filter>
     </ClCompile>

@@ -205,7 +205,7 @@ public:
 	}
 	/// <summary>Отрисовка</summary>
 	/// <param name="cameraPosition">Позиция камеры</param>
-	void Draw(sf::Vector2f cameraPosition)
+	void Draw(sf::Vector2f cameraPosition) override
 	{
 		// Если повернут вверх
 		if (turn == 0)

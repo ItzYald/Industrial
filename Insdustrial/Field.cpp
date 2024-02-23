@@ -6,14 +6,14 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _siz
 	functions = Functions(rw);
 	sprite = sf::Sprite(texture);
 
-	objects = std::vector<std::vector<sf::Vector2i>>();
+	energyObjects = std::vector<std::vector<sf::Vector2i>>();
 
 	for (int i = 0; i < size.x; i++)
 	{
-		objects.push_back(std::vector <sf::Vector2i>());
+		energyObjects.push_back(std::vector <sf::Vector2i>());
 		for (int j = 0; j < size.y; j++)
 		{
-			objects[i].push_back(sf::Vector2i(-1, -1));
+			energyObjects[i].push_back(sf::Vector2i(-1, -1));
 		}
 	}
 

@@ -19,7 +19,7 @@ bool ProgressInventory::Progress(float& energy, std::vector<CellInInventory>& ce
 	{
 		if (energy > 0)
 		{
-			if (whatNext)
+			if (whatNext != 0)
 			{
 				energy -= 1;
 				whatProgress -= 1;
@@ -65,11 +65,24 @@ bool ProgressInventory::Progress(float& energy, std::vector<CellInInventory>& ce
 	return res;
 }
 
+void ProgressInventory::DrawEnergy(int energy, int maxEnergy, sf::Color color)
+{
+	if (maxEnergy != 0)
+	{
+		// Отрисовка количества энергии
+		functions.DrawRectangleGradient(
+			sf::Vector2f(400, 350), sf::Vector2f(30, (energy / (float)maxEnergy) * -200),
+			sf::Color::Red, sf::Color(255, 200, 0));
+		functions.PrintText(std::to_string((int)energy) + " / " + std::to_string(maxEnergy) + " en",
+			sf::Vector2f(310, 355), 20, color);
+	}
+}
+
 void ProgressInventory::Draw()
 {
 	// Отрисовать окно интерфейса
 	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
-	// Прогрессбар печки
+	// Прогрессбар
 	functions.DrawRectangle(sf::Vector2f(550, 240), sf::Vector2f(90, 20), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
 	functions.DrawRectangleGradient(sf::Vector2f(550, 240), sf::Vector2f((120 - whatProgress) * 0.75f, 20), sf::Color::Red, sf::Color(255, 200, 1));
 }

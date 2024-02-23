@@ -191,6 +191,11 @@ void CellInInventory::Update(Item& mouseItem)
 		}
 	}
 
+	if (item.number == 0)
+	{
+		item.quantity = 0;
+	}
+
 	// Если колличество 0 - сделать пустой
 	if (item.quantity == 0)
 	{

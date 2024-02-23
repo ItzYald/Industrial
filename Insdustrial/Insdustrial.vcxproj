@@ -152,7 +152,6 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Insdustrial.cpp" />
     <ClCompile Include="Inventory.cpp" />
-    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StaticSprites.cpp" />
     <ClCompile Include="Wire.cpp" />
