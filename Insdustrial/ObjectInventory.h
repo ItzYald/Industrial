@@ -41,9 +41,9 @@ public:
 	void DrawCommon(std::vector<CellInInventory> cells);
 	// Отрисовка инвентаря
 	virtual void Draw() = 0;
-	// Всегда
+	// Всегда (даже когда инвентарь не открыт)
 	virtual void Next() = 0;
-	/// <summary>Логика инвентаря</summary>
+	/// <summary>Пока инвентарь открыт</summary>
 	/// <param name="playerInventory">Инвентарь игрока</param>
 	//virtual void Update(Inventory& playerInventory) = 0;
 

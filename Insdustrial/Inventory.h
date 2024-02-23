@@ -35,9 +35,9 @@ public:
 	// Конструктор
 	Inventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures);
 	// В данном случае не используется
-	void Next(){ }
+	void Next() override{ }
 	// Отрисовка инвентаря
-	void Draw();
+	void Draw() override;
 	// Действия инвентаря
 	void Update();
 	// Отрисовка и действия внутреннего инвентаря (вместе с мини верстаком, который пока не работает)

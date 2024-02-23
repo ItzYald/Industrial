@@ -791,12 +791,12 @@ void Game::Play()
 	// Работа печек
 	for (auto& coalOven : coalOvens)
 	{
-		coalOven->inventory.Burn();
+		coalOven->inventory.Next();
 	}
 	// Работа электропечек
 	for (auto& electricOven : electricOvens)
 	{
-		electricOven->inventory.Burn();
+		electricOven->inventory.Next();
 	}
 	// Работа угольного энергогенератора хранилищав
 	for (auto& crusher : crushers)

@@ -34,16 +34,17 @@ void ElectricOvenInventory::Burn()
 	//}
 
 	progress.Progress(energy, cells, cells[0].item.whatBurn, 1);
-	//if (cells[0].item.whatBurn && energy > 0)
-	//{
-	//	energy -= 1;
-	//}
 
 	if (energy > maxEnergy)
 	{
 		energy = maxEnergy;
 	}
 
+}
+
+void ElectricOvenInventory::Next()
+{
+	Burn();
 }
 
 void ElectricOvenInventory::Draw()

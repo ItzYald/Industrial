@@ -41,6 +41,11 @@ void CoalOvenInventory::Burn()
 	energy -= 1;
 }
 
+void CoalOvenInventory::Next()
+{
+	Burn();
+}
+
 void CoalOvenInventory::Draw()
 {
 	progress.Draw();
