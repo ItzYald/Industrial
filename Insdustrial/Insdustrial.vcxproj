@@ -140,6 +140,7 @@
     <ClCompile Include="ElectricOvenInventory.cpp" />
     <ClCompile Include="EnergyCoalGeneratorInventory.cpp" />
     <ClCompile Include="EnergyHandGeneratorInventory.cpp" />
+    <ClCompile Include="EnergyObjectInventory.cpp" />
     <ClCompile Include="EnergyStorageInventory.cpp" />
     <ClCompile Include="Functions\Button.cpp" />
     <ClCompile Include="Functions\Checks.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StaticSprites.cpp" />
     <ClCompile Include="Wire.cpp" />
+    <ClCompile Include="WireInventory.cpp" />
     <ClCompile Include="WorbenchInventory.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +183,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="StaticSprites.h" />
     <ClInclude Include="Wire.h" />
+    <ClInclude Include="WireInventory.h" />
     <ClInclude Include="WorbenchInventory.h" />
   </ItemGroup>
   <ItemGroup>

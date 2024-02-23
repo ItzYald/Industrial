@@ -1,10 +1,17 @@
 #include "ProgressInventory.h"
 
-ProgressInventory::ProgressInventory(std::shared_ptr<sf::RenderWindow> _rw)
+ProgressInventory::ProgressInventory(
+	std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Texture>& _textures, std::vector<CellInInventory>& cells)
 {
 	functions = Functions(_rw);
 	whatProgress = 120;
 	previousItemProgress = 0;
+
+	// 3 ячейки в инвентаре
+	cells = std::vector<CellInInventory>();
+	cells.push_back(CellInInventory(_rw, sf::Vector2f(460, 150), true, _textures));
+	cells.push_back(CellInInventory(_rw, sf::Vector2f(460, 286), true, _textures));
+	cells.push_back(CellInInventory(_rw, sf::Vector2f(670, 218), false, _textures));
 }
 
 bool ProgressInventory::Progress(float& energy, std::vector<CellInInventory>& cells, int whatNext, int quantity)
@@ -63,19 +70,6 @@ bool ProgressInventory::Progress(float& energy, std::vector<CellInInventory>& ce
 		energy = 0;
 	}
 	return res;
-}
-
-void ProgressInventory::DrawEnergy(int energy, int maxEnergy, sf::Color color)
-{
-	if (maxEnergy != 0)
-	{
-		// Отрисовка количества энергии
-		functions.DrawRectangleGradient(
-			sf::Vector2f(400, 350), sf::Vector2f(30, (energy / (float)maxEnergy) * -200),
-			sf::Color::Red, sf::Color(255, 200, 0));
-		functions.PrintText(std::to_string((int)energy) + " / " + std::to_string(maxEnergy) + " en",
-			sf::Vector2f(310, 355), 20, color);
-	}
 }
 
 void ProgressInventory::Draw()

@@ -7,6 +7,7 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _siz
 	sprite = sf::Sprite(texture);
 
 	energyObjectsNumbers = std::vector<std::vector<sf::Vector2i>>();
+	energyObjectsNumbers2 = std::vector<std::vector<sf::Vector2i>>();
 
 	for (int i = 0; i < size.x; i++)
 	{
@@ -48,13 +49,11 @@ bool Field::PutObject(sf::Vector2i mousePositionGrid, std::vector<Sprite*> _obje
 	{
 		bool isNear = false;
 
-		//for (size_t i = 0; i < objects.size(); i++)
-		//{
-		//	if (!isNear)
-		//		isNear = (mousePositionGrid == (sf::Vector2i)objects[i]->position);
-		//}
-
-		if (en)
+		for (size_t i = 0; i < objects->size(); i++)
+		{
+			if (!isNear)
+				isNear = (mousePositionGrid == (sf::Vector2i)(*objects)[i]->position);
+		}
 
 		if (!isNear)
 		{

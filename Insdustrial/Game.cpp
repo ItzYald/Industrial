@@ -357,17 +357,20 @@ void Game::PutObject(sf::Vector2f position)
 		electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["ElectricOven"], itemTextures, position, colorsInventory));
 		objects.push_back(electricOvens[electricOvens.size() - 1].get());
+		objects.push_back(electricOvens[electricOvens.size() - 1].get());
 		break;
 	// Дробитель
 	case 24:
 		crushers.push_back(std::make_shared<StaingObject<CrusherInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["Crusher"], itemTextures, position, colorsInventory, 1000));
 		objects.push_back(crushers[crushers.size() - 1].get());
+		objects.push_back(crushers[crushers.size() - 1].get());
 		break;
 	// Компрессор
 	case 28:
 		compressors.push_back(std::make_shared<StaingObject<CompressorInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["Compressor"], itemTextures, position, colorsInventory, 1000));
+		objects.push_back(compressors[compressors.size() - 1].get());
 		objects.push_back(compressors[compressors.size() - 1].get());
 		break;
 	// Сундук
@@ -387,17 +390,20 @@ void Game::PutObject(sf::Vector2f position)
 		energyStorages.push_back(std::make_shared<StaingObject<EnergyStorageInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1000, 10));
 		objects.push_back(energyStorages[energyStorages.size() - 1].get());
+		objects.push_back(energyStorages[energyStorages.size() - 1].get());
 		break;
 	// Ручной энергогенератор
 	case 16:
 		energyHandGenerators.push_back(std::make_shared<StaingObject<EnergyHandGeneratorInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, position, colorsInventory, 100, 10));
 		objects.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
+		objects.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
 		break;
 	// Угольный энергогенератор
 	case 17:
 		energyCoalGenerators.push_back(std::make_shared<StaingObject<EnergyCoalGeneratorInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, position, colorsInventory, 100, 10));
+		objects.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
 		objects.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
 		break;
 	// Медный провод
@@ -452,7 +458,7 @@ void Game::Gameplay()
 	/*if (player.PutObject(mousePositionGrid,
 		coalOvens, electricOvens, crushers, compressors, chests,
 		workbenches, wires, energyStorages, energyHandGenerators, energyCoalGenerators))*/
-	if (field.PutObject(mousePositionGrid, objects))
+	if (field.PutObject(mousePositionGrid, objects, player.inventory.cells[player.inventory.choseCell][3].item))
 	{
 		PutObject((sf::Vector2f)mousePositionGrid);
 	}

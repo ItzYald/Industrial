@@ -16,18 +16,9 @@ EnergyHandGeneratorInventory::EnergyHandGeneratorInventory(
 
 void EnergyHandGeneratorInventory::Draw()
 {
-	functions.DrawRectangle(sf::Vector2f(400, 150), sf::Vector2f(30, 200), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
+	AllDraw();
 	rw->draw(iconGenerate);
 	buttons[0].Draw(*rw);
-	if (maxEnergy != 0)
-	{
-		// Отрисовка количества энергии
-		functions.DrawRectangleGradient(
-			sf::Vector2f(400, 350), sf::Vector2f(30, (energy / (float)maxEnergy) * -200),
-			sf::Color::Red, sf::Color(255, 200, 0));
-		functions.PrintText(std::to_string((int)energy) + " / " + std::to_string(maxEnergy) + " en",
-			sf::Vector2f(450, 330), 20, sf::Color(colorsInventory[0]));
-	}
 	
 }
 

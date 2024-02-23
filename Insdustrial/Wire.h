@@ -41,11 +41,6 @@ public:
 	/// <param name="type">Тип (0 - медный, 1 - железный)</param>
 	Wire(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 		sf::Texture& textureOn, sf::Texture& textureOff, sf::Vector2f _position, int _type);
-	/// <summary>Есть ли провод перед игроком</summary>
-	/// <param name="playerPosition">Позиция игрока</param>
-	/// <param name="playerAngle">Угол поворота игрока</param>
-	/// <returns>Есть или нет</returns>
-	bool NearPlayer(sf::Vector2f playerPosition, int playerAngle);
 	void CheckConnections(sf::Vector2f positionSeconObject);
 	void Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, int playerAngle);
 

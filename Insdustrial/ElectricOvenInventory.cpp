@@ -6,13 +6,7 @@ ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _
 	functions = Functions(rw);
 	colorsInventory = _colorsInventory;
 
-	progress = ProgressInventory(_rw);
-
-	// 3 ячейки в инвентаре
-	cells = std::vector<CellInInventory>();
-	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 130), true, _textures));
-	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 306), true, _textures));
-	cells.push_back(CellInInventory(rw, sf::Vector2f(670, 218), false, _textures));
+	progress = ProgressInventory(_rw, _textures, cells);
 
 	energy = 0;
 	maxEnergy = 1000;
@@ -49,16 +43,9 @@ void ElectricOvenInventory::Next()
 
 void ElectricOvenInventory::Draw()
 {
-	//AllDraw();
 	progress.Draw();
 	DrawCommon(cells);
-	// Топливо печки
-	functions.DrawRectangle(sf::Vector2f(400, 180), sf::Vector2f(30, 140), sf::Color::Transparent, sf::Color(100, 100, 100), 2);
-	if (maxEnergy != 0)
-	{
-		functions.DrawRectangleGradient(sf::Vector2f(400, 320), sf::Vector2f(30, ((energy / (float)maxEnergy)) * -140), sf::Color::Red, sf::Color(255, 200, 0));
-	}
-
+	AllDraw();
 }
 
 void ElectricOvenInventory::Update(Inventory& playerInventory)

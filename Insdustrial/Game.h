@@ -86,6 +86,7 @@ private:
 	// Список ручных энергогенераторов
 	std::vector<std::shared_ptr<StaingObject<EnergyCoalGeneratorInventory>>> energyCoalGenerators;
 
+	// Все объекты
 	std::vector<Sprite*> objects;
 
 	// Список проводов

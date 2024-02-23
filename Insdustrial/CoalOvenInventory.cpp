@@ -7,13 +7,8 @@ CoalOvenInventory::CoalOvenInventory(std::shared_ptr<sf::RenderWindow> _rw, std:
 	colorsInventory = _colorsInventory;
 	itemsSprites = StaticSprites(_textures);
 
-	progress = ProgressInventory(_rw);
+	progress = ProgressInventory(_rw, _textures, cells);
 
-	// 3 €чейки в инвентаре
-	cells = std::vector<CellInInventory>();
-	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 130), true, _textures));
-	cells.push_back(CellInInventory(rw, sf::Vector2f(460, 306), true, _textures));
-	cells.push_back(CellInInventory(rw, sf::Vector2f(670, 218), false, _textures));
 
 	energy = 0;
 	maxEnergy = 0;

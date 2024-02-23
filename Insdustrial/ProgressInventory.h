@@ -15,7 +15,7 @@ public:
 
 
 	ProgressInventory(){ }
-	ProgressInventory(std::shared_ptr<sf::RenderWindow> _rw);
+	ProgressInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Texture>& _textures, std::vector<CellInInventory>& cells);
 	/// <summary>
 	/// Процесс работы (плавка, сжатие, перемолка...)
 	/// </summary>
@@ -26,7 +26,6 @@ public:
 	/// <returns></returns>
 	bool Progress(float& energy, std::vector<CellInInventory>& cells, int whatNext, int quantity);
 
-	void DrawEnergy(int energy, int maxEnergy, sf::Color color);
 	void Draw();
 };
 

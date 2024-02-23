@@ -123,6 +123,12 @@
     <ClCompile Include="CompressorInventory.cpp">
       <Filter>Исходные файлы\Inventories\ProgressInventories</Filter>
     </ClCompile>
+    <ClCompile Include="WireInventory.cpp">
+      <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>
+    </ClCompile>
+    <ClCompile Include="EnergyObjectInventory.cpp">
+      <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -199,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="CompressorInventory.h">
       <Filter>Файлы заголовков\Inventories\ProgressInventories</Filter>
+    </ClInclude>
+    <ClInclude Include="WireInventory.h">
+      <Filter>Файлы заголовков\Inventories\EnergyInventories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
