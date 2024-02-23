@@ -31,9 +31,6 @@
     <Filter Include="Файлы заголовков\Functions">
       <UniqueIdentifier>{b330a75a-b0dc-461c-9480-5c8f5012fa0a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\Sprites\InventoryObject">
-      <UniqueIdentifier>{dcd88059-b19e-444c-8fe0-1cc46ecf58a9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\Sprites\InventoryObject">
       <UniqueIdentifier>{dd98de04-58bb-47c3-b1f4-95f0e110ff8b}</UniqueIdentifier>
     </Filter>
@@ -104,9 +101,6 @@
     </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="StaingObject.cpp">
-      <Filter>Исходные файлы\Sprites\InventoryObject</Filter>
     </ClCompile>
     <ClCompile Include="EnergyStorageInventory.cpp">
       <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>

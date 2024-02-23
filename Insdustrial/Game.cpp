@@ -215,37 +215,37 @@ void Game::LoadingPlay()
 	LoadingImagesPlay();
 
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
-	player = Player(rw, field.sizeOne, textures["Player"], sf::Vector2f(20, 20), colorsInventory, itemTextures);
+	player = Player(rw, cameraPosition, field.sizeOne, textures["Player"], sf::Vector2f(20, 20), colorsInventory, itemTextures);
 
 	objects.push_back(&player);
 
 	coalOvens.push_back(
 		std::make_shared<StaingObject<CoalOvenInventory>>(
-			rw, field.sizeOne, textures["Oven"], itemTextures, sf::Vector2f(23, 20), colorsInventory));
+			rw, cameraPosition, field.sizeOne, textures["Oven"], itemTextures, sf::Vector2f(23, 20), colorsInventory));
 	electricOvens.push_back(
 		std::make_shared<StaingObject<ElectricOvenInventory>>(
-			rw, field.sizeOne, textures["ElectricOven"], itemTextures, sf::Vector2f(23, 19), colorsInventory));
+			rw, cameraPosition, field.sizeOne, textures["ElectricOven"], itemTextures, sf::Vector2f(23, 19), colorsInventory));
 	crushers.push_back(
 		std::make_shared<StaingObject<CrusherInventory>>(
-			rw, field.sizeOne, textures["Crusher"], itemTextures, sf::Vector2f(19, 17), colorsInventory, 1000));
+			rw, cameraPosition, field.sizeOne, textures["Crusher"], itemTextures, sf::Vector2f(19, 17), colorsInventory, 1000));
 	compressors.push_back(
 		std::make_shared<StaingObject<CompressorInventory>>(
-			rw, field.sizeOne, textures["Compressor"], itemTextures, sf::Vector2f(19, 16), colorsInventory, 1000));
+			rw, cameraPosition, field.sizeOne, textures["Compressor"], itemTextures, sf::Vector2f(19, 16), colorsInventory, 1000));
 	chests.push_back(
 		std::make_shared<StaingObject<ChestInventory>>(
-			rw, field.sizeOne, textures["Chest"], itemTextures, sf::Vector2f(23, 21), colorsInventory));
+			rw, cameraPosition, field.sizeOne, textures["Chest"], itemTextures, sf::Vector2f(23, 21), colorsInventory));
 	workbenches.push_back(
 		std::make_shared<StaingObject<WorkbenchInventory>>(
-			rw, field.sizeOne, textures["Workbench"], itemTextures, sf::Vector2f(23, 22), colorsInventory));
+			rw, cameraPosition, field.sizeOne, textures["Workbench"], itemTextures, sf::Vector2f(23, 22), colorsInventory));
 	energyStorages.push_back(
 		std::make_shared<StaingObject<EnergyStorageInventory>>(
-			rw, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
+			rw, cameraPosition, field.sizeOne, textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
 	energyHandGenerators.push_back(
 		std::make_shared<StaingObject<EnergyHandGeneratorInventory>>(
-			rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, texturesInInventory));
+			rw, cameraPosition, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, texturesInInventory));
 	energyCoalGenerators.push_back(
 		std::make_shared<StaingObject<EnergyCoalGeneratorInventory>>(
-			rw, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, sf::Vector2f(20, 19), colorsInventory, 100, 10));
+			rw, cameraPosition, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, sf::Vector2f(20, 19), colorsInventory, 100, 10));
 
 	objects.push_back(coalOvens[0].get());
 	objects.push_back(electricOvens[0].get());
@@ -287,7 +287,7 @@ void Game::DrawPlay()
 	// Отрисовка объектов
 	for (int i = objects.size() - 1; i >= 0; i--)
 	{
-		objects[i]->Draw(cameraPosition);
+		objects[i]->Draw();
 	}
 }
 
@@ -302,8 +302,7 @@ void Game::DrawGameplay()
 // Закрыть инвентарь
 void Game::CloseInventory()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape) ||
-		sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
 	{
 		player.isOpenInventory = false;
 
@@ -348,73 +347,73 @@ void Game::PutObject(sf::Vector2f position)
 	// Печку
 	case 2:
 		coalOvens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(
-			rw, field.sizeOne, textures["Oven"], itemTextures, position, colorsInventory));
+			rw, cameraPosition, field.sizeOne, textures["Oven"], itemTextures, position, colorsInventory));
 		objects.push_back(coalOvens[coalOvens.size() - 1].get());
 		break;
 	// Электропечку
 	case 11:
 		electricOvens.push_back(std::make_shared<StaingObject<ElectricOvenInventory>>(
-			rw, field.sizeOne, textures["ElectricOven"], itemTextures, position, colorsInventory));
+			rw, cameraPosition, field.sizeOne, textures["ElectricOven"], itemTextures, position, colorsInventory));
 		objects.push_back(electricOvens[electricOvens.size() - 1].get());
 		break;
 	// Дробитель
 	case 24:
 		crushers.push_back(std::make_shared<StaingObject<CrusherInventory>>(
-			rw, field.sizeOne, textures["Crusher"], itemTextures, position, colorsInventory, 1000));
+			rw, cameraPosition, field.sizeOne, textures["Crusher"], itemTextures, position, colorsInventory, 1000));
 		objects.push_back(crushers[crushers.size() - 1].get());
 		break;
 	// Компрессор
 	case 28:
 		compressors.push_back(std::make_shared<StaingObject<CompressorInventory>>(
-			rw, field.sizeOne, textures["Compressor"], itemTextures, position, colorsInventory, 1000));
+			rw, cameraPosition, field.sizeOne, textures["Compressor"], itemTextures, position, colorsInventory, 1000));
 		objects.push_back(compressors[compressors.size() - 1].get());
 		break;
 	// Сундук
 	case 5:
 		chests.push_back(std::make_shared<StaingObject<ChestInventory>>(
-			rw, field.sizeOne, textures["Chest"], itemTextures, position, colorsInventory));
+			rw, cameraPosition, field.sizeOne, textures["Chest"], itemTextures, position, colorsInventory));
 		objects.push_back(chests[chests.size() - 1].get());
 		break;
 	// Верстак
 	case 8:
 		workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(
-			rw, field.sizeOne, textures["Workbench"], itemTextures, position, colorsInventory));
+			rw, cameraPosition, field.sizeOne, textures["Workbench"], itemTextures, position, colorsInventory));
 		objects.push_back(coalOvens[coalOvens.size() - 1].get());
 		break;
 	// Энергохранилище
 	case 13:
 		energyStorages.push_back(std::make_shared<StaingObject<EnergyStorageInventory>>(
-			rw, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1000, 10));
+			rw, cameraPosition, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1000, 10));
 		objects.push_back(energyStorages[energyStorages.size() - 1].get());
 		break;
 	// Ручной энергогенератор
 	case 16:
 		energyHandGenerators.push_back(std::make_shared<StaingObject<EnergyHandGeneratorInventory>>(
-			rw, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, position, colorsInventory, 100, 10));
+			rw, cameraPosition, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, position, colorsInventory, 100, 10));
 		objects.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
 		break;
 	// Угольный энергогенератор
 	case 17:
 		energyCoalGenerators.push_back(std::make_shared<StaingObject<EnergyCoalGeneratorInventory>>(
-			rw, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, position, colorsInventory, 100, 10));
+			rw, cameraPosition, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, position, colorsInventory, 100, 10));
 		objects.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
 		break;
 	// Медный провод
 	case 12:
 		wires.push_back(std::make_shared<Wire>(
-			rw, field.sizeOne, textures["CopperWireOn"], textures["CopperWireOff"], position, 0));
+			rw, cameraPosition, field.sizeOne, textures["CopperWireOn"], textures["CopperWireOff"], position, 0));
 		objects.push_back(wires[wires.size() - 1].get());
 		break;
 	// Железный провод
 	case 15:
 		wires.push_back(std::make_shared<Wire>(
-			rw, field.sizeOne, textures["IronWireOn"], textures["IronWireOff"], position, 1));
+			rw, cameraPosition, field.sizeOne, textures["IronWireOn"], textures["IronWireOff"], position, 1));
 		objects.push_back(wires[wires.size() - 1].get());
 		break;
 	// Оловяный провод
 	case 20:
 		wires.push_back(std::make_shared<Wire>(
-			rw, field.sizeOne, textures["TinWireOn"], textures["TinWireOff"], position, 2));
+			rw, cameraPosition, field.sizeOne, textures["TinWireOn"], textures["TinWireOff"], position, 2));
 		objects.push_back(wires[wires.size() - 1].get());
 		break;
 	}

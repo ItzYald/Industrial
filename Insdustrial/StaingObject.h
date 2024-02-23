@@ -30,7 +30,51 @@ public:
 	/// <param name="_texture">Ссылка на текстуру</param>
 	/// <param name="_position">Позиция</param>
 
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
+	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
+		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures,
+		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
+	{
+		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
+		inventory = T(rw, _colorsInventory, _itemTextures);
+	}
+
+	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
+		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures,
+		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory, 
+		std::map<std::string, sf::Texture>& _texturesInInventory)
+	{
+		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
+		inventory = T(rw, _colorsInventory, _itemTextures, _texturesInInventory);
+	}
+
+	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
+		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures, sf::Vector2f _position,
+		std::vector<sf::Color> _colorsInventory, int _maxFuel, int _power)
+	{
+		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
+		inventory = T(StaingObject<T>::rw, _colorsInventory, _maxFuel, _power, _itemTextures);
+	}
+
+	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
+		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures, sf::Vector2f _position,
+		std::vector<sf::Color> _colorsInventory, int _maxFuel, int _power,
+		std::map<std::string, sf::Texture>& _texturesInInventory)
+	{
+		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
+		inventory =
+			T(rw, _colorsInventory, _maxFuel, _power, _itemTextures, _texturesInInventory);
+	}
+
+	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
+		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures, sf::Vector2f _position,
+		std::vector<sf::Color> _colorsInventory, int _maxFuel)
+	{
+		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
+		inventory =
+			T(rw, _colorsInventory, _maxFuel, _itemTextures);
+	}
+
+	void Init(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures,
 		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
 	{
@@ -39,14 +83,13 @@ public:
 		sprite.setTexture(_texture);
 		position = _position;
 
+		cameraPosition = &_cameraPosition;
+
 		functions = Functions(rw);
 
 		isOpenInventory = false;
 
 		turn = 0;
-
-		inventory = T(rw, _colorsInventory, _itemTextures);
-
 		sprite.setScale(fieldSizeOne / (float)sprite.getTexture()->getSize().x, fieldSizeOne / (float)sprite.getTexture()->getSize().y);
 
 		for (int i = 0; i < 30; i++)
@@ -54,117 +97,6 @@ public:
 			ch.push_back(Checks());
 		}
 	}
-
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
-		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures,
-		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory, 
-		std::map<std::string, sf::Texture>& _texturesInInventory)
-	{
-		rw = _rw;
-		fieldSizeOne = _fieldSizeOne;
-		sprite.setTexture(_texture);
-		position = _position;
-
-		functions = Functions(rw);
-
-		isOpenInventory = false;
-
-		turn = 0;
-
-		inventory = T(rw, _colorsInventory, _itemTextures, _texturesInInventory);
-
-		sprite.setScale(fieldSizeOne / (float)sprite.getTexture()->getSize().x, fieldSizeOne / (float)sprite.getTexture()->getSize().y);
-
-		for (int i = 0; i < 30; i++)
-		{
-			ch.push_back(Checks());
-		}
-	}
-
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
-		sf::Texture& _texture, std::vector<sf::Texture>& _textures, sf::Vector2f _position,
-		std::vector<sf::Color> _colorsInventory, int _maxFuel, int _power)
-	{
-		StaingObject<T>::rw = _rw;
-		StaingObject<T>::fieldSizeOne = _fieldSizeOne;
-		StaingObject<T>::sprite.setTexture(_texture);
-		StaingObject<T>::position = _position;
-
-		StaingObject<T>::functions = Functions(StaingObject<T>::rw);
-
-		StaingObject<T>::isOpenInventory = false;
-
-		StaingObject<T>::inventory = T(StaingObject<T>::rw, _colorsInventory, _maxFuel, _power, _textures);
-
-		StaingObject<T>::sprite.setScale(
-			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().x,
-			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().y);
-
-		for (int i = 0; i < 30; i++)
-		{
-			StaingObject<T>::ch.push_back(Checks());
-		}
-		turn = 0;
-	}
-
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
-		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures, sf::Vector2f _position,
-		std::vector<sf::Color> _colorsInventory, int _maxFuel, int _power,
-		std::map<std::string, sf::Texture>& _texturesInInventory)
-	{
-		StaingObject<T>::rw = _rw;
-		StaingObject<T>::fieldSizeOne = _fieldSizeOne;
-		StaingObject<T>::sprite.setTexture(_texture);
-		StaingObject<T>::position = _position;
-
-		StaingObject<T>::functions = Functions(StaingObject<T>::rw);
-
-		StaingObject<T>::isOpenInventory = false;
-
-		StaingObject<T>::inventory =
-			T(StaingObject<T>::rw, _colorsInventory, _maxFuel, _power, _itemTextures, _texturesInInventory);
-
-		//StaingObject<T>::inventory =
-		//	T(StaingObject<T>::rw, _colorsInventory, _maxFuel, _power, _itemTextures);
-
-		StaingObject<T>::sprite.setScale(
-			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().x,
-			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().y);
-
-		for (int i = 0; i < 30; i++)
-		{
-			StaingObject<T>::ch.push_back(Checks());
-		}
-		turn = 0;
-	}
-
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
-		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures, sf::Vector2f _position,
-		std::vector<sf::Color> _colorsInventory, int _maxFuel)
-	{
-		StaingObject<T>::rw = _rw;
-		StaingObject<T>::fieldSizeOne = _fieldSizeOne;
-		StaingObject<T>::sprite.setTexture(_texture);
-		StaingObject<T>::position = _position;
-
-		StaingObject<T>::functions = Functions(StaingObject<T>::rw);
-
-		StaingObject<T>::isOpenInventory = false;
-
-		StaingObject<T>::inventory =
-			T(StaingObject<T>::rw, _colorsInventory, _maxFuel, _itemTextures);
-
-		StaingObject<T>::sprite.setScale(
-			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().x,
-			StaingObject<T>::fieldSizeOne / (float)StaingObject<T>::sprite.getTexture()->getSize().y);
-
-		for (int i = 0; i < 30; i++)
-		{
-			StaingObject<T>::ch.push_back(Checks());
-		}
-		turn = 0;
-	}
-
 
 	/// <summary>Проверка игрока рядом</summary>
 	/// <param name="playerPosition">Позиция игрока</param>
@@ -210,7 +142,7 @@ public:
 	}
 	/// <summary>Отрисовка</summary>
 	/// <param name="cameraPosition">Позиция камеры</param>
-	void Draw(sf::Vector2f cameraPosition) override
+	void Draw() override
 	{
 		// Если повернут вверх
 		if (turn == 0)
@@ -235,8 +167,8 @@ public:
 
 		// Задать позицию
 		sprite.setPosition(
-			fieldSizeOne * (position.x - cameraPosition.x),
-			fieldSizeOne * (position.y - cameraPosition.y));
+			fieldSizeOne * (position.x - (*cameraPosition).x),
+			fieldSizeOne * (position.y - (*cameraPosition).y));
 
 		// Сдвиг для компенсации вращения
 		if (sprite.getRotation() == 90)
@@ -260,8 +192,8 @@ public:
 
 		rw->draw(sprite);
 		sf::Vector2f realPosition = sf::Vector2f(
-			fieldSizeOne * (position.x - cameraPosition.x),
-			fieldSizeOne * (position.y - cameraPosition.y));
+			fieldSizeOne * (position.x - (*cameraPosition).x),
+			fieldSizeOne * (position.y - (*cameraPosition).y));
 	}
 
 

@@ -42,7 +42,7 @@ public:
 	/// <param name="_position">Позиция</param>
 	/// <param name="_colorsInventory">Базовые цвета инвентаря</param>
 	/// <param name="_textures">Текстуры предметов</param>
-	Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
+	Player(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 		sf::Texture& _texture, sf::Vector2f _position,
 		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _itemTextures);
 
@@ -55,6 +55,6 @@ public:
 	// Проверить наличие объекта на месте, где ставить
 	bool PutObject(sf::Vector2i mousePositionGrid, std::vector<Sprite*> objects);
 	// Отрисовка
-	void Draw(sf::Vector2f cameraPosition) override;
+	void Draw() override;
 };
 

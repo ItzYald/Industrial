@@ -38,7 +38,7 @@ public:
 	/// <param name="textureOff">Текстура в выключенном состонии</param>
 	/// <param name="_position">Позиция</param>
 	/// <param name="type">Тип (0 - медный, 1 - железный)</param>
-	Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
+	Wire(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 		sf::Texture& textureOn, sf::Texture& textureOff, sf::Vector2f _position, int _type);
 	/// <summary>Есть ли провод перед игроком</summary>
 	/// <param name="playerPosition">Позиция игрока</param>
@@ -51,6 +51,6 @@ public:
 	void Next() override{ }
 	/// <summary>Отрисовка</summary>
 	/// <param name="cameraPosition">Смещение камеры</param>
-	void Draw(sf::Vector2f cameraPosition) override;
+	void Draw() override;
 };
 

@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
+Player::Player(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 	sf::Texture& _texture, sf::Vector2f _position,
 	std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _itemTextures)
 {
@@ -9,6 +9,8 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
 	sprite.setTexture(_texture);
 	position = _position;
 	functions = Functions(rw);
+
+	cameraPosition = &_cameraPosition;
 
 	isOpenInventory = false;
 	whatTypeInventoryOpen = 0;
@@ -152,9 +154,9 @@ bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<Sprite*> obje
 	return false;
 }
 
-void Player::Draw(sf::Vector2f cameraPosition)
+void Player::Draw()
 {
-	sprite.setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
+	sprite.setPosition(fieldSizeOne * (position.x - (*cameraPosition).x), fieldSizeOne * (position.y - (*cameraPosition).y));
 	if (angle == 1)
 	{
 		sprite.setRotation(90);

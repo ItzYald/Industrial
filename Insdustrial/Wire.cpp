@@ -1,11 +1,13 @@
 #include "Wire.h"
 
-Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
+Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 	sf::Texture& textureOn, sf::Texture& textureOff, sf::Vector2f _position, int _type)
 {
 	rw = _rw;
 	fieldSizeOne = _fieldSizeOne;
 	functions = Functions(rw);
+
+	cameraPosition = &_cameraPosition;
 
 	sprite = sf::Sprite();
 	sprite.setTexture(textureOn);
@@ -52,7 +54,6 @@ Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
 	}
 }
 
-
 void Wire::CheckConnections(sf::Vector2f positionSeconObject) 
 {
 	if (position.x + 1 == positionSeconObject.x && position.y == positionSeconObject.y)
@@ -95,7 +96,7 @@ void Wire::Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, i
 	}
 }
 
-void Wire::Draw(sf::Vector2f cameraPosition)
+void Wire::Draw()
 {
 	sf::Sprite* thisSprite;
 
@@ -126,7 +127,7 @@ void Wire::Draw(sf::Vector2f cameraPosition)
 	}
 
 	// Задать позицию
-	thisSprite->setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
+	thisSprite->setPosition(fieldSizeOne * (position.x - (*cameraPosition).x), fieldSizeOne * (position.y - (*cameraPosition).y));
 
 	// Сдвиг для компенсации вращения
 	if (thisSprite->getRotation() == 90)
@@ -143,5 +144,5 @@ void Wire::Draw(sf::Vector2f cameraPosition)
 	}
 
 	rw->draw(*thisSprite);
-	sf::Vector2f realPosition = sf::Vector2f(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
+	sf::Vector2f realPosition = sf::Vector2f(fieldSizeOne * (position.x - (*cameraPosition).x), fieldSizeOne * (position.y - (*cameraPosition).y));
 }
