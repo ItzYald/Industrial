@@ -1,25 +1,23 @@
 #include "Player.h"
 
 Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
-	std::string imageFileName, sf::Vector2f _position,
-	std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures)
+	sf::Texture& _texture, sf::Vector2f _position,
+	std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _itemTextures)
 {
 	rw = _rw;
 	fieldSizeOne = _fieldSizeOne;
-	texture = new sf::Texture();
-	texture->loadFromFile(imageFileName);
-	sprite.setTexture(*texture);
+	sprite.setTexture(_texture);
 	position = _position;
 	functions = Functions(rw);
 
 	isOpenInventory = false;
 	whatTypeInventoryOpen = 0;
 	whatNumberInventoryOpen = 0;
-	
+
 	// Скорость бега
 	run = 0;
 
-	inventory = Inventory(rw, _colorsInventory, _textures);
+	inventory = Inventory(rw, _colorsInventory, _itemTextures);
 
 	sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
 
@@ -73,7 +71,6 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
 	}
 
 }
-
 
 void Player::Move()
 {
@@ -237,24 +234,4 @@ void Player::Draw(sf::Vector2f cameraPosition)
 
 	(*rw).draw(sprite);
 }
-
-//void Player::Draw(sf::Vector2f cameraPosition)
-//{
-//	if (angle == 0)
-//	{
-//		sprite2.setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
-//		sprite2.setPosition(sprite2.getPosition().x - fieldSizeOne / 2, sprite2.getPosition().y - fieldSizeOne / 2);
-//
-//		(*rw).draw(sprite2);
-//	}
-//	else
-//	{
-//		sprite1.setPosition(fieldSizeOne * (position.x - cameraPosition.x), fieldSizeOne * (position.y - cameraPosition.y));
-//		sprite1.setPosition(sprite1.getPosition().x - fieldSizeOne / 2, sprite1.getPosition().y - fieldSizeOne / 2);
-//
-//		(*rw).draw(sprite1);
-//	}
-//}
-
-
 

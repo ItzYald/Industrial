@@ -48,17 +48,13 @@ public:
 	/// <summary>Конструктор</summary>
 	/// <param name="_rw">Окно</param>
 	/// <param name="_fieldSizeOne">Размер одной ячейки</param>
-	/// <param name="imageFileName">Имя файла картинки</param>
+	/// <param name="_texture">Текстура</param>
 	/// <param name="_position">Позиция</param>
 	/// <param name="_colorsInventory">Базовые цвета инвентаря</param>
 	/// <param name="_textures">Текстуры предметов</param>
 	Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
-		std::string imageFileName, sf::Vector2f _position,
-		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures);
-
-	Player(std::shared_ptr<sf::RenderWindow> _rw, int _fieldSizeOne,
-		sf::Texture& _texture1, sf::Texture& _texture2, sf::Vector2f _position,
-		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures);
+		sf::Texture& _texture, sf::Vector2f _position,
+		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _itemTextures);
 
 	// Ходьба игрока
 	void Move();

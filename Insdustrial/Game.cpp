@@ -80,6 +80,8 @@ void Game::LoadColorInventoryFromFile()
 void Game::LoadingImagesPlay()
 {
 	/// Текстуры:
+	textures["Player"] = sf::Texture();
+	textures["Player"].loadFromFile("Images/Human.png");
 	// Печка
 	textures["Oven"] = sf::Texture();
 	textures["Oven"].loadFromFile("Images/Objects/Oven.png");
@@ -213,7 +215,9 @@ void Game::LoadingPlay()
 	LoadingImagesPlay();
 
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
-	player = Player(rw, field.sizeOne, "Images/Human.png", sf::Vector2f(20, 20), colorsInventory, itemTextures);
+	player = Player(rw, field.sizeOne, textures["Player"], sf::Vector2f(20, 20), colorsInventory, itemTextures);
+
+	objects.push_back(&player);
 
 	coalOvens.push_back(
 		std::make_shared<StaingObject<CoalOvenInventory>>(
@@ -281,22 +285,15 @@ void Game::DrawPlay()
 	// Отрисовка поля
 	field.Draw(cameraPosition);
 	// Отрисовка объектов
-	for (Sprite* object : objects)
+	for (int i = objects.size() - 1; i >= 0; i--)
 	{
-		object->Draw(cameraPosition);
+		objects[i]->Draw(cameraPosition);
 	}
-	// Отрисовка проводов
-	for (auto wire : wires)
-	{
-		wire->Draw(cameraPosition);
-	}
-	// Отрисовка игрока
-	player.Draw(cameraPosition);
 }
 
 void Game::DrawGameplay()
 {
-	// Отрисовка ячейки, накоторой мышка
+	// Отрисовка ячейки, на которой мышка
 	functions.DrawRectangle(sf::Vector2f(
 		field.sizeOne * (mousePositionGrid.x - cameraPosition.x),
 		field.sizeOne * (mousePositionGrid.y - cameraPosition.y)),
@@ -305,7 +302,8 @@ void Game::DrawGameplay()
 // Закрыть инвентарь
 void Game::CloseInventory()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape) ||
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E))
 	{
 		player.isOpenInventory = false;
 
@@ -782,9 +780,65 @@ void Game::WhatObjectTransEnergy()
 	}
 
 }
+
+void Game::WhatInventory()
+{
+	switch(player.whatTypeInventoryOpen)
+	{
+		// Инвентарь игрока
+	case 0:
+		player.inventory.DrawMiniWorkbench();
+		player.inventory.Update();
+		break;
+		// Инвентарь угольной печки
+	case 1:
+		coalOvens[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+		break;
+		// Инвентарь электропечки
+	case 2:
+		electricOvens[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+		break;
+		// Инвентарь сундука
+	case 3:
+		chests[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+		break;
+		// Инвентар верстака
+	case 4:
+		workbenches[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+		break;
+		// Инвентарь энергетического хранилища
+	case 5:
+		energyStorages[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+		break;
+		// Инвентарь ручного энергогенератора
+	case 6:
+		energyHandGenerators[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+		break;
+		// Инвентарь угольного энергогенератора
+	case 7:
+		energyCoalGenerators[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+		break;
+		// Инвентарь дробителя
+	case 8:
+		crushers[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+		break;
+		// Инвентарь коммпрессора
+	case 9:
+		compressors[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
+		break;
+	}
+	CloseInventory();
+}
 // Игра
 void Game::Play()
 {
+	if (buttons.size() < 4)
+	{
+		// Кнопка выйти
+		buttons.push_back(Button(sf::Vector2f(1000, 608), sf::Vector2f(128, 64), L"Выйти",
+			colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
+			sf::Color(255, 255, 255), sf::Color::Transparent, sf::Vector2f(128 / 2 - 35, 12), 4, 25));
+	}
 	// Отрисовать игру
 	DrawPlay();
 
@@ -795,66 +849,13 @@ void Game::Play()
 
 	WhatObjectTransEnergy();
 
-	if (buttons.size() < 4)
-	{
-		// Кнопка выйти
-		buttons.push_back(Button(sf::Vector2f(1000, 608), sf::Vector2f(128, 64), L"Выйти",
-			colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
-			sf::Color(255, 255, 255), sf::Color::Transparent, sf::Vector2f(128 / 2 - 35, 12), 4, 25));
-	}
-
 	if (!player.isOpenInventory)
 	{
-		// Геймплей
 		Gameplay();
 	}
 	else
 	{
-		switch (player.whatTypeInventoryOpen)
-		{
-		// Инвентарь игрока
-		case 0:
-			player.inventory.DrawMiniWorkbench();
-			player.inventory.Update();
-			break;
-		// Инвентарь угольной печки
-		case 1:
-			coalOvens[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			break;
-		// Инвентарь электропечки
-		case 2:
-			electricOvens[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			break;
-		// Инвентарь сундука
-		case 3:
-			chests[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			break;
-		// Инвентар верстака
-		case 4:
-			workbenches[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			break;
-		// Инвентарь энергетического хранилища
-		case 5:
-			energyStorages[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			break;
-		// Инвентарь ручного энергогенератора
-		case 6:
-			energyHandGenerators[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			break;
-		// Инвентарь угольного энергогенератора
-		case 7:
-			energyCoalGenerators[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			break;
-		// Инвентарь дробителя
-		case 8:
-			crushers[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			break;
-		// Инвентарь коммпрессора
-		case 9:
-			compressors[player.whatNumberInventoryOpen]->inventory.Update(player.inventory);
-			break;
-		}
-		CloseInventory();
+		WhatInventory();
 	}
 
 	// Кнопка выйти
@@ -901,8 +902,6 @@ void Game::Menu()
 void Game::Next()
 {
 	mousePosition = sf::Mouse::getPosition(*rw);
-
-
 
 	if (screen == "Игра")
 	{

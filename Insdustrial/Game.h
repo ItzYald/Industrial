@@ -153,6 +153,8 @@ public:
 	sf::Vector2i CheckTurnEnergy(int turn);
 	/// Какой объект находится по координатам (будет передавать энергию)
 	void WhatObjectTransEnergy();
+	// Какой инвентарь открыт
+	void WhatInventory();
 	// Игра
 	void Play();
 	// Меню
