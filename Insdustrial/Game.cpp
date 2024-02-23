@@ -448,8 +448,10 @@ void Game::Gameplay()
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	if (player.PutObject(mousePositionGrid,
-		coalOvens, electricOvens, crushers, compressors, chests, workbenches, wires, energyStorages, energyHandGenerators, energyCoalGenerators))
+	/*if (player.PutObject(mousePositionGrid,
+		coalOvens, electricOvens, crushers, compressors, chests,
+		workbenches, wires, energyStorages, energyHandGenerators, energyCoalGenerators))*/
+	if (player.PutObject(mousePositionGrid, objects))
 	{
 		PutObject((sf::Vector2f)mousePositionGrid);
 	}

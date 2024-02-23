@@ -123,16 +123,7 @@ void Player::Update()
 	}
 }
 
-bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>& ovens,
-	std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>& electricOvens,
-	std::vector<std::shared_ptr<StaingObject<CrusherInventory>>>& crushers,
-	std::vector<std::shared_ptr<StaingObject<CompressorInventory>>>& compressors,
-	std::vector<std::shared_ptr<StaingObject<ChestInventory>>>& chests, 
-	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>& workbenches,
-	std::vector<std::shared_ptr<Wire>>& wires, 
-	std::vector<std::shared_ptr<StaingObject<EnergyStorageInventory>>>& energyStorages,
-	std::vector<std::shared_ptr<StaingObject<EnergyHandGeneratorInventory>>>& energyHandGenerators,
-	std::vector<std::shared_ptr<StaingObject<EnergyCoalGeneratorInventory>>>& energyCoalGenerators)
+bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<Sprite*> objects)
 {
 	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
@@ -141,61 +132,15 @@ bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_p
 	int chooseNumber = inventory.cells[inventory.choseCell][3].item.number;
 	if ((chooseNumber == 2 || chooseNumber == 5 || chooseNumber == 8 ||
 		chooseNumber == 11 || chooseNumber == 12 || chooseNumber == 13 ||
-		chooseNumber == 15 || chooseNumber == 16 || chooseNumber == 17 || 
+		chooseNumber == 15 || chooseNumber == 16 || chooseNumber == 17 ||
 		chooseNumber == 20 || chooseNumber == 24 || chooseNumber == 28) &&
 		inventory.cells[inventory.choseCell][3].item.quantity > 0)
 	{
 		bool isNear = false;
-		for (auto& thisObject : ovens)
+		
+		for (size_t i = 0; i < objects.size(); i++)
 		{
-			if (!isNear)
-				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
-
-		}
-		for (auto& thisObject : electricOvens)
-		{
-			if (!isNear)
-				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
-		}
-		for (auto& thisObject : crushers)
-		{
-			if (!isNear)
-				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
-		}
-		for (auto& thisObject : compressors)
-		{
-			if (!isNear)
-				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
-		}
-		for (auto& thisObject : chests)
-		{
-			if (!isNear)
-				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
-		}
-		for (auto& thisObject : workbenches)
-		{
-			if (!isNear)
-				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
-		}
-		for (auto& thisObject : wires)
-		{
-			if (!isNear)
-				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
-		}
-		for (auto& thisObject : energyStorages)
-		{
-			if (!isNear)
-				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
-		}
-		for (auto& thisObject : energyHandGenerators)
-		{
-			if (!isNear)
-				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
-		}
-		for (auto& thisObject : energyCoalGenerators)
-		{
-			if (!isNear)
-				isNear = (mousePositionGrid == (sf::Vector2i)thisObject->position);
+			isNear = (mousePositionGrid == (sf::Vector2i)objects[i]->position);
 		}
 
 		if (!isNear)
