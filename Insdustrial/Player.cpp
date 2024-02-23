@@ -123,6 +123,29 @@ void Player::Update()
 		isOpenInventory = true;
 		whatTypeInventoryOpen = 0;
 	}
+
+	sprite.setPosition(fieldSizeOne * (position.x - (*cameraPosition).x), fieldSizeOne * (position.y - (*cameraPosition).y));
+	if (angle == 1)
+	{
+		sprite.setRotation(90);
+		sprite.setPosition(sprite.getPosition().x + fieldSizeOne, sprite.getPosition().y);
+	}
+	else if (angle == 2)
+	{
+		sprite.setRotation(180);
+		sprite.setPosition(sprite.getPosition().x + fieldSizeOne, sprite.getPosition().y + fieldSizeOne);
+	}
+	else if (angle == 3)
+	{
+		sprite.setRotation(270);
+		sprite.setPosition(sprite.getPosition().x, sprite.getPosition().y + fieldSizeOne);
+	}
+	else
+	{
+		sprite.setRotation(0);
+	}
+
+	sprite.setPosition(sprite.getPosition().x - fieldSizeOne / 2, sprite.getPosition().y - fieldSizeOne / 2);
 }
 
 bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<Sprite*> objects)
@@ -154,31 +177,8 @@ bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<Sprite*> obje
 	return false;
 }
 
-void Player::Draw()
+void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	sprite.setPosition(fieldSizeOne * (position.x - (*cameraPosition).x), fieldSizeOne * (position.y - (*cameraPosition).y));
-	if (angle == 1)
-	{
-		sprite.setRotation(90);
-		sprite.setPosition(sprite.getPosition().x + fieldSizeOne, sprite.getPosition().y);
-	}
-	else if (angle == 2)
-	{
-		sprite.setRotation(180);
-		sprite.setPosition(sprite.getPosition().x + fieldSizeOne, sprite.getPosition().y + fieldSizeOne);
-	}
-	else if (angle == 3)
-	{
-		sprite.setRotation(270);
-		sprite.setPosition(sprite.getPosition().x, sprite.getPosition().y + fieldSizeOne);
-	}
-	else
-	{
-		sprite.setRotation(0);
-	}
-
-	sprite.setPosition(sprite.getPosition().x - fieldSizeOne / 2, sprite.getPosition().y - fieldSizeOne / 2);
-
-	(*rw).draw(sprite);
+	target.draw(sprite);
 }
 

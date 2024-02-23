@@ -15,9 +15,10 @@ public:
 	bool connections[4] = { 0, 0, 0, 0 };
 
 	// Список спрайтов
-	sf::Sprite sprite;
 	sf::Sprite spriteOn;
 	sf::Sprite spriteOff;
+
+	sf::Sprite* thisSprite;
 	// Количество энергии
 	float energy;
 	// Максимально хранимая энергия
@@ -51,6 +52,6 @@ public:
 	void Next() override{ }
 	/// <summary>Отрисовка</summary>
 	/// <param name="cameraPosition">Смещение камеры</param>
-	void Draw() override;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 

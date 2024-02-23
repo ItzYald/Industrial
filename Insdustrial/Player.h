@@ -55,6 +55,6 @@ public:
 	// Проверить наличие объекта на месте, где ставить
 	bool PutObject(sf::Vector2i mousePositionGrid, std::vector<Sprite*> objects);
 	// Отрисовка
-	void Draw() override;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 

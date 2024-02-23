@@ -9,11 +9,6 @@ Wire::Wire(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition,
 
 	cameraPosition = &_cameraPosition;
 
-	sprite = sf::Sprite();
-	sprite.setTexture(textureOn);
-	sprite.setScale(fieldSizeOne / (float)sprite.getTexture()->getSize().x,
-		fieldSizeOne / (float)sprite.getTexture()->getSize().y);
-
 	spriteOn = sf::Sprite();
 	spriteOn.setTexture(textureOn);
 	spriteOn.setScale(fieldSizeOne / (float)spriteOn.getTexture()->getSize().x,
@@ -94,11 +89,6 @@ void Wire::Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, i
 				turn = 0;
 		}
 	}
-}
-
-void Wire::Draw()
-{
-	sf::Sprite* thisSprite;
 
 	if (energy == 0)
 	{
@@ -143,6 +133,12 @@ void Wire::Draw()
 		thisSprite->setPosition(thisSprite->getPosition().x, thisSprite->getPosition().y + fieldSizeOne);
 	}
 
-	rw->draw(*thisSprite);
-	sf::Vector2f realPosition = sf::Vector2f(fieldSizeOne * (position.x - (*cameraPosition).x), fieldSizeOne * (position.y - (*cameraPosition).y));
+	//rw->draw(*thisSprite);
+	//sf::Vector2f realPosition = sf::Vector2f(fieldSizeOne * (position.x - (*cameraPosition).x), fieldSizeOne * (position.y - (*cameraPosition).y));
+
+}
+
+void Wire::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	target.draw(*thisSprite);
 }

@@ -117,33 +117,6 @@ public:
 	void Next() override
 	{
 		inventory.Next();
-	}
-	/// <summary>
-	/// Каждый кадр
-	/// </summary>
-	/// <param name="playerPosition">Позиция игрока</param>
-	/// <param name="playerAngle">Куда повернут игрок</param>
-	void Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, int playerAngle)
-	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-		{
-			isOpenInventory = (position == (sf::Vector2f)mousePositionGrid);
-		}
-		if (ch[0].Check(sf::Keyboard::Key::R))
-		{
-			if ((position == (sf::Vector2f)mousePositionGrid))
-			{
-				if (turn < 3)
-					turn += 1;
-				else
-					turn = 0;
-			}
-		}
-	}
-	/// <summary>Отрисовка</summary>
-	/// <param name="cameraPosition">Позиция камеры</param>
-	void Draw() override
-	{
 		// Если повернут вверх
 		if (turn == 0)
 		{
@@ -190,10 +163,38 @@ public:
 				sprite.getPosition().y + fieldSizeOne);
 		}
 
-		rw->draw(sprite);
-		sf::Vector2f realPosition = sf::Vector2f(
-			fieldSizeOne * (position.x - (*cameraPosition).x),
-			fieldSizeOne * (position.y - (*cameraPosition).y));
+		//rw->draw(sprite);
+		//sf::Vector2f realPosition = sf::Vector2f(
+		//	fieldSizeOne * (position.x - (*cameraPosition).x),
+		//	fieldSizeOne * (position.y - (*cameraPosition).y));
+	}
+	/// <summary>
+	/// Каждый кадр
+	/// </summary>
+	/// <param name="playerPosition">Позиция игрока</param>
+	/// <param name="playerAngle">Куда повернут игрок</param>
+	void Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, int playerAngle)
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		{
+			isOpenInventory = (position == (sf::Vector2f)mousePositionGrid);
+		}
+		if (ch[0].Check(sf::Keyboard::Key::R))
+		{
+			if ((position == (sf::Vector2f)mousePositionGrid))
+			{
+				if (turn < 3)
+					turn += 1;
+				else
+					turn = 0;
+			}
+		}
+	}
+	/// <summary>Отрисовка</summary>
+	/// <param name="cameraPosition">Позиция камеры</param>
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+	{
+		target.draw(sprite);
 	}
 
 

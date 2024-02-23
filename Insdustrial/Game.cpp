@@ -287,7 +287,8 @@ void Game::DrawPlay()
 	// Отрисовка объектов
 	for (int i = objects.size() - 1; i >= 0; i--)
 	{
-		objects[i]->Draw();
+		//objects[i]->Draw();
+		rw->draw(*objects[i]);
 	}
 }
 

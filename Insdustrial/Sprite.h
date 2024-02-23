@@ -6,7 +6,7 @@
 #include "Functions/Checks.h"
 #include "Functions/Functions.h"
 
-class Sprite
+class Sprite : public sf::Drawable
 {
 protected:
 	std::shared_ptr<sf::RenderWindow> rw;
@@ -15,13 +15,11 @@ protected:
 
 public:
 	sf::Vector2f position;
-	sf::Texture* texture;
 	sf::Sprite sprite;
 	int fieldSizeOne;
 	std::vector<Checks> ch;
 
 	virtual void Next() = 0;
-	virtual void Draw() = 0;
-
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 };
 
