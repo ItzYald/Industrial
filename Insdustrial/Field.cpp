@@ -6,14 +6,14 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _siz
 	functions = Functions(rw);
 	sprite = sf::Sprite(texture);
 
-	energyObjects = std::vector<std::vector<sf::Vector2i>>();
+	energyObjectsNumbers = std::vector<std::vector<sf::Vector2i>>();
 
 	for (int i = 0; i < size.x; i++)
 	{
-		energyObjects.push_back(std::vector <sf::Vector2i>());
+		energyObjectsNumbers.push_back(std::vector <sf::Vector2i>());
 		for (int j = 0; j < size.y; j++)
 		{
-			energyObjects[i].push_back(sf::Vector2i(-1, -1));
+			energyObjectsNumbers[i].push_back(sf::Vector2i(-1, -1));
 		}
 	}
 
@@ -31,6 +31,38 @@ void Field::Draw(sf::Vector2f cameraPosition)
 				functions.DrawSprite(sprite, position, sf::Vector2f(sizeOne, sizeOne));
 		}
 	}
+}
+
+bool Field::PutObject(sf::Vector2i mousePositionGrid, std::vector<Sprite*> _objects, Item& chooseItem)
+{
+	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		return false;
+	}
+	int chooseNumber = chooseItem.number;
+	if ((chooseNumber == 2 || chooseNumber == 5 || chooseNumber == 8 ||
+		chooseNumber == 11 || chooseNumber == 12 || chooseNumber == 13 ||
+		chooseNumber == 15 || chooseNumber == 16 || chooseNumber == 17 ||
+		chooseNumber == 20 || chooseNumber == 24 || chooseNumber == 28) &&
+		chooseItem.quantity > 0)
+	{
+		bool isNear = false;
+
+		//for (size_t i = 0; i < objects.size(); i++)
+		//{
+		//	if (!isNear)
+		//		isNear = (mousePositionGrid == (sf::Vector2i)objects[i]->position);
+		//}
+
+		if (en)
+
+		if (!isNear)
+		{
+			chooseItem.quantity -= 1;
+			return true;
+		}
+	}
+	return false;
 }
 
 sf::Vector2i Field::WhatActive(sf::Vector2i mousePosition)

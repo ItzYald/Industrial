@@ -6,6 +6,8 @@
 #include "SFML/Window.hpp"
 
 #include "Functions/Functions.h"
+#include "Sprite.h"
+#include "Item.h"
 
 class Field
 {
@@ -21,9 +23,9 @@ public:
 	// Размер окна
 	sf::Vector2u sizeW;
 	// Список объектов передающих и принимающих электричество (x - какой объект, y - номер в массиве)
-	std::vector<std::vector<sf::Vector2i>> energyObjects;
+	std::vector<std::vector<sf::Vector2i>> energyObjectsNumbers;
 	// Список объектов передающих и принимающих предметы (x - какой объект, y - номер в массиве)
-	std::vector<std::vector<sf::Vector2i>> itemObjects;
+	std::vector<std::vector<sf::Vector2i>> itemObjectsNumbers;
 
 	// Фнкции отрисовки (прямоугольник, круг, текст, спрайт...)
 	Functions functions;
@@ -39,6 +41,8 @@ public:
 	/// <summary>Отрисовка травы</summary>
 	/// <param name="cameraPosition">Позиция камеры</param>
 	void Draw(sf::Vector2f cameraPosition);
+
+	bool PutObject(sf::Vector2i mousePositionGrid, std::vector<Sprite*> objects, Item& chooseItem);
 	// А я кстати не помню что это, так что возможно скоро удалю
 	sf::Vector2i WhatActive(sf::Vector2i mousePosition);
 

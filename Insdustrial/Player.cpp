@@ -148,35 +148,6 @@ void Player::Update()
 	sprite.setPosition(sprite.getPosition().x - fieldSizeOne / 2, sprite.getPosition().y - fieldSizeOne / 2);
 }
 
-bool Player::PutObject(sf::Vector2i mousePositionGrid, std::vector<Sprite*> objects)
-{
-	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
-	{
-		return false;
-	}
-	int chooseNumber = inventory.cells[inventory.choseCell][3].item.number;
-	if ((chooseNumber == 2 || chooseNumber == 5 || chooseNumber == 8 ||
-		chooseNumber == 11 || chooseNumber == 12 || chooseNumber == 13 ||
-		chooseNumber == 15 || chooseNumber == 16 || chooseNumber == 17 ||
-		chooseNumber == 20 || chooseNumber == 24 || chooseNumber == 28) &&
-		inventory.cells[inventory.choseCell][3].item.quantity > 0)
-	{
-		bool isNear = false;
-		
-		for (size_t i = 0; i < objects.size(); i++)
-		{
-			isNear = (mousePositionGrid == (sf::Vector2i)objects[i]->position);
-		}
-
-		if (!isNear)
-		{
-			inventory.cells[inventory.choseCell][3].item.quantity -= 1;
-			return true;
-		}
-	}
-	return false;
-}
-
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(sprite);
