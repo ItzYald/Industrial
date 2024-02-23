@@ -788,35 +788,9 @@ void Game::Play()
 	// Отрисовать игру
 	DrawPlay();
 
-	// Работа печек
-	for (auto& coalOven : coalOvens)
+	for (size_t i = 0; i < objects.size(); i++)
 	{
-		coalOven->inventory.Next();
-	}
-	// Работа электропечек
-	for (auto& electricOven : electricOvens)
-	{
-		electricOven->inventory.Next();
-	}
-	// Работа угольного энергогенератора хранилищав
-	for (auto& crusher : crushers)
-	{
-		crusher->inventory.Next();
-	}
-	// Работа угольного энергогенератора хранилищав
-	for (auto& compressor : compressors)
-	{
-		compressor->inventory.Next();
-	}
-	// Работа энергитического хранилищав
-	for (auto& energyStorage : energyStorages)
-	{
-		energyStorage->inventory.Next();
-	}
-	// Работа угольного энергогенератора хранилищав
-	for (auto& energyCoalGenerator : energyCoalGenerators)
-	{
-		energyCoalGenerator->inventory.Next();
+		objects[i]->Next();
 	}
 
 	WhatObjectTransEnergy();
@@ -927,6 +901,8 @@ void Game::Menu()
 void Game::Next()
 {
 	mousePosition = sf::Mouse::getPosition(*rw);
+
+
 
 	if (screen == "Игра")
 	{

@@ -27,6 +27,7 @@ public:
 		delete texture;
 	}
 
+	virtual void Next() = 0;
 	virtual void Draw(sf::Vector2f cameraPosition) = 0;
 
 };

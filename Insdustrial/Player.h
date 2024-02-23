@@ -64,6 +64,8 @@ public:
 	void Move();
 	//Каждый кадр
 	void Update();
+
+	void Next() override{ }
 	// Проверить наличие объекта перед игроком
 	bool PutObject(sf::Vector2i mousePositionGrid, std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>& ovens,
 		std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>>& electricOvens,
@@ -76,6 +78,6 @@ public:
 		std::vector<std::shared_ptr<StaingObject<EnergyHandGeneratorInventory>>>& energyHandGenerators,
 		std::vector<std::shared_ptr<StaingObject<EnergyCoalGeneratorInventory>>>& energyCoalGenerators);
 	// Отрисовка
-	void Draw(sf::Vector2f cameraPosition);
+	void Draw(sf::Vector2f cameraPosition) override;
 };
 

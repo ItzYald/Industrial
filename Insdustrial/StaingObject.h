@@ -181,6 +181,11 @@ public:
 		}
 		return false;
 	}
+	// Обновление инвентаря
+	void Next() override
+	{
+		inventory.Next();
+	}
 	/// <summary>
 	/// Каждый кадр
 	/// </summary>

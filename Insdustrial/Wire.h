@@ -47,8 +47,10 @@ public:
 	bool NearPlayer(sf::Vector2f playerPosition, int playerAngle);
 	void CheckConnections(sf::Vector2f positionSeconObject);
 	void Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, int playerAngle);
+
+	void Next() override{ }
 	/// <summary>Отрисовка</summary>
 	/// <param name="cameraPosition">Смещение камеры</param>
-	void Draw(sf::Vector2f cameraPosition);
+	void Draw(sf::Vector2f cameraPosition) override;
 };
 
