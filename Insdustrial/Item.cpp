@@ -18,6 +18,7 @@ void Item::NumberUpdate(int _number)
 	{
 	case 0:
 		quantity = 0;
+		break;
 	case 1:
 		name = L"Железная руда";
 		whatBurn = 4;

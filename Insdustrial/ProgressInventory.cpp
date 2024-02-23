@@ -15,7 +15,7 @@ bool ProgressInventory::Progress(float& energy, std::vector<CellInInventory>& ce
 		whatProgress = 120;
 	}
 	previousItemProgress = cells[0].item.number;
-	if (cells[2].item.number == 0 || cells[2].item.number == whatNext)
+	if ((cells[2].item.number == 0 || cells[2].item.number == whatNext))
 	{
 		if (energy > 0)
 		{
