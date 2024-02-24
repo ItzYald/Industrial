@@ -1,10 +1,13 @@
 #include "Field.h"
 
-Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _sizeOne, sf::Vector2u _sizeW, sf::Texture& texture)
+Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _sizeOne,
+	sf::Vector2u _sizeW, sf::Texture& _texture, std::vector<Sprite*>& _objects)
 	: rw(_rw), size(_size), sizeOne(_sizeOne), sizeW(_sizeW)
 {
 	functions = Functions(rw);
-	sprite = sf::Sprite(texture);
+	sprite = sf::Sprite(_texture);
+
+	objects = &_objects;
 
 	energyObjectsNumbers = std::vector<std::vector<sf::Vector2i>>();
 	energyObjectsNumbers2 = std::vector<std::vector<sf::Vector2i>>();

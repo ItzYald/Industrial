@@ -127,7 +127,7 @@
       <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>
     </ClCompile>
     <ClCompile Include="AllInventory.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Inventories</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,7 +216,7 @@
       <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
     </ClInclude>
     <ClInclude Include="AllInventory.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

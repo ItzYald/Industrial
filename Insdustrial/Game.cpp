@@ -21,7 +21,8 @@ Game::Game(sf::RenderWindow& _rw)
 
 	objects = std::vector<Sprite*>();
 
-	wires = std::vector<std::shared_ptr<Wire>>();
+	//wires = std::vector<std::shared_ptr<Wire>>();
+	wires = std::vector<std::shared_ptr<EnergyObject<WireInventory>>>();
 }
 // Загрузка приложения
 void Game::LoadingApp()
@@ -214,7 +215,7 @@ void Game::LoadingPlay()
 
 	LoadingImagesPlay();
 
-	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"]);
+	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"], objects);
 	player = Player(rw, cameraPosition, field.sizeOne, textures["Player"], sf::Vector2f(20, 20), colorsInventory, itemTextures);
 
 	objects.push_back(&player);
@@ -408,20 +409,26 @@ void Game::PutObject(sf::Vector2f position)
 		break;
 	// Медный провод
 	case 12:
-		wires.push_back(std::make_shared<Wire>(
-			rw, cameraPosition, field.sizeOne, textures["CopperWireOn"], textures["CopperWireOff"], position, 0));
+		/*wires.push_back(std::make_shared<Wire>(
+			rw, cameraPosition, field.sizeOne, textures["CopperWireOn"], textures["CopperWireOff"], position, 0));*/
+		energyStorages.push_back(std::make_shared<EnergyObject<EnergyStorageInventory>>(
+			rw, cameraPosition, field.sizeOne, textures["CopperWireOn"], itemTextures, position, colorsInventory, 10, 10));
 		objects.push_back(wires[wires.size() - 1].get());
 		break;
 	// Железный провод
 	case 15:
-		wires.push_back(std::make_shared<Wire>(
-			rw, cameraPosition, field.sizeOne, textures["IronWireOn"], textures["IronWireOff"], position, 1));
+		//wires.push_back(std::make_shared<Wire>(
+		//	rw, cameraPosition, field.sizeOne, textures["IronWireOn"], textures["IronWireOff"], position, 1));
+		energyStorages.push_back(std::make_shared<EnergyObject<EnergyStorageInventory>>(
+			rw, cameraPosition, field.sizeOne, textures["IronWireOn"], itemTextures, position, colorsInventory, 100, 100));
 		objects.push_back(wires[wires.size() - 1].get());
 		break;
 	// Оловяный провод
 	case 20:
-		wires.push_back(std::make_shared<Wire>(
-			rw, cameraPosition, field.sizeOne, textures["TinWireOn"], textures["TinWireOff"], position, 2));
+		//wires.push_back(std::make_shared<Wire>(
+		//	rw, cameraPosition, field.sizeOne, textures["TinWireOn"], textures["TinWireOff"], position, 2));
+		energyStorages.push_back(std::make_shared<EnergyObject<EnergyStorageInventory>>(
+			rw, cameraPosition, field.sizeOne, textures["TinWireOn"], itemTextures, position, colorsInventory, 1000, 1000));
 		objects.push_back(wires[wires.size() - 1].get());
 		break;
 	}
@@ -638,8 +645,9 @@ void Game::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int p
 	// Если на месте стоит провод
 	if (field.energyObjectsNumbers[nextPosition.x][nextPosition.y].x == 0)
 	{
-		std::shared_ptr<Wire> thisWire = wires[field.energyObjectsNumbers[nextPosition.x][nextPosition.y].y];
-		TransEnergy(energy, power, thisWire->energy, thisWire->maxEnergy);
+		//std::shared_ptr<Wire> thisWire = wires[field.energyObjectsNumbers[nextPosition.x][nextPosition.y].y];
+		thisObjectInventory = wires[field.energyObjectsNumbers[nextPosition.x][nextPosition.y].y]->inventory;
+		TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
 	}
 	// Если на месте стоит электропечка
 	else if (field.energyObjectsNumbers[nextPosition.x][nextPosition.y].x == 1)
@@ -681,8 +689,8 @@ void Game::CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPositi
 		{
 			return;
 		}
-		CheckNextEnergyObject(nextPosition, wires[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->energy,
-			wires[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->power);
+		CheckNextEnergyObject(nextPosition, wires[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->energy,
+			wires[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->power);
 	}
 	else if (typeObject == 1)
 	{
@@ -749,7 +757,7 @@ void Game::WhatObjectTransEnergy()
 			{
 			// Если на координатах провод
 			case 0:
-				if (wires[field.energyObjectsNumbers[i][j].y]->energy != 0)
+				if (wires[field.energyObjectsNumbers[i][j].y]->inventory->energy != 0)
 				{
 					// Сдвиг относительно объекта (куда он повернут)
 					shift = CheckTurnEnergy(wires[field.energyObjectsNumbers[i][j].y]->turn);

@@ -10,6 +10,7 @@
 
 #include "Functions/Functions.h"
 #include "Functions/Button.h"
+#include "Functions/Checks.h"
 
 #include "StaticSprites.h"
 
@@ -31,6 +32,9 @@ public:
 	std::vector<sf::Color> colorsInventory;
 
 	StaticSprites itemsSprites;
+
+	std::vector<Checks> ch;
+
 
 	// Загрузка настроек цвета интерфейса из файла
 	void LoadColorInventoryFromFile();

@@ -8,16 +8,8 @@
 class EnergyStorageInventory : public EnergyObjectInventory
 {
 protected:
-	// Окно
-	std::shared_ptr<sf::RenderWindow> rw;
-	std::vector<Checks> ch;
 
 public:
-	// Максимальная энергия, которую вмещает
-	//int maxEnergy;
-	// Количество энергии
-	//float energy;
-	// То, сколько энегии может передать
 	int power;
 	// Базовый конструктор
 	EnergyStorageInventory(){ }
@@ -30,12 +22,12 @@ public:
 	EnergyStorageInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
 		int _maxEnergy, int _power, std::vector<sf::Texture>& _textures);
 	// Отрисовка инвентаря
-	void Draw();
+	void Draw() override;
 	// Всегда
-	void Next();
+	void Next() override;
 	/// <summary>Логика инвентаря</summary>
 	/// <param name="playerInventory">Инвентарь игрока</param>
-	void Update(Inventory& playerInventory);
+	void Update(Inventory& playerInventory) override;
 
 };
 

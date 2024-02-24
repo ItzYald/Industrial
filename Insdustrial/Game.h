@@ -28,6 +28,7 @@
 #include "EnergyStorageInventory.h"
 #include "EnergyHandGeneratorInventory.h"
 #include "EnergyCoalGeneratorInventory.h"
+#include "WireInventory.h"
 
 
 class Game
@@ -91,7 +92,8 @@ private:
 	std::vector<Sprite*> objects;
 
 	// Список проводов
-	std::vector<std::shared_ptr<Wire>> wires;
+	//std::vector<std::shared_ptr<Wire>> wires;
+	std::vector<std::shared_ptr<EnergyObject<WireInventory>>> wires;
 	
 	// Список всех текстур
 	std::map<std::string, sf::Texture> textures;
