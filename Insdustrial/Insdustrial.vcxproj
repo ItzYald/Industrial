@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AllInventory.cpp" />
     <ClCompile Include="CellInInventory.cpp" />
     <ClCompile Include="ChestInventory.cpp" />
     <ClCompile Include="CoalOvenInventory.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="WorbenchInventory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AllInventory.h" />
     <ClInclude Include="CellInInventory.h" />
     <ClInclude Include="ChestInventory.h" />
     <ClInclude Include="CoalOvenInventory.h" />
@@ -167,11 +169,13 @@
     <ClInclude Include="ElectricOvenInventory.h" />
     <ClInclude Include="EnergyCoalGeneratorInventory.h" />
     <ClInclude Include="EnergyHandGeneratorInventory.h" />
+    <ClInclude Include="EnergyObject.h" />
     <ClInclude Include="EnergyObjectInventory.h" />
     <ClInclude Include="EnergyStorageInventory.h" />
     <ClInclude Include="Functions\Button.h" />
     <ClInclude Include="Functions\Checks.h" />
     <ClInclude Include="Functions\Functions.h" />
+    <ClInclude Include="InventoryObject.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ObjectInventory.h" />
     <ClInclude Include="ProgressInventory.h" />

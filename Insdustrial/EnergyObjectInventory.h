@@ -7,6 +7,7 @@ class EnergyObjectInventory : public ObjectInventory
 public:
 	float energy;
 	int maxEnergy;
+	int power = 0;
 
 	EnergyObjectInventory(){ }
 	EnergyObjectInventory(

@@ -14,7 +14,7 @@
 
 #include "StaticSprites.h"
 
-class WorkbenchInventory : ObjectInventory
+class WorkbenchInventory : public ObjectInventory
 {
 public:
 	// Ячейки с предметами

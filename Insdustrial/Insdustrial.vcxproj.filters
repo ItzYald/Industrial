@@ -129,6 +129,9 @@
     <ClCompile Include="EnergyObjectInventory.cpp">
       <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>
     </ClCompile>
+    <ClCompile Include="AllInventory.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -208,6 +211,15 @@
     </ClInclude>
     <ClInclude Include="WireInventory.h">
       <Filter>Файлы заголовков\Inventories\EnergyInventories</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryObject.h">
+      <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EnergyObject.h">
+      <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AllInventory.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

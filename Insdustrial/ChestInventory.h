@@ -15,7 +15,7 @@
 
 #include "StaticSprites.h"
 
-class ChestInventory : ObjectInventory
+class ChestInventory : public ObjectInventory
 {
 	// Ячейки с предметами
 	std::vector<std::vector<CellInInventory>> cells;

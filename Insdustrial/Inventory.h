@@ -11,9 +11,10 @@
 #include "Functions/Checks.h"
 
 #include "StaticSprites.h"
-#include "ObjectInventory.h"
 
-class Inventory : public ObjectInventory
+#include "AllInventory.h"
+
+class Inventory : public AllInventory
 {
 private:
 	std::vector<Checks> ch;
@@ -23,7 +24,6 @@ public:
 	std::vector<std::vector<CellInInventory>> cells;
 	// Ячейки с предметами маленького верстака
 	std::vector<std::vector<CellInInventory>> cellsMiniWorkbench;
-
 	// Предмет перетаскиваемый мышкой
 	Item mouseItem;
 	// Выбранная ячейка (колесиком мыши)
@@ -34,10 +34,10 @@ public:
 	Inventory(){ }
 	// Конструктор
 	Inventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures);
-	// В данном случае не используется
-	void Next() override{ }
 	// Отрисовка инвентаря
 	void Draw() override;
+	// В данном случае не используется
+	void Next() override{ }
 	// Действия инвентаря
 	void Update();
 	// Отрисовка и действия внутреннего инвентаря (вместе с мини верстаком, который пока не работает)

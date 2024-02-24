@@ -17,6 +17,7 @@
 #include "Field.h"
 #include "Player.h"
 #include "StaingObject.h"
+#include "EnergyObject.h"
 // Инвентари
 #include "CoalOvenInventory.h"
 #include "ElectricOvenInventory.h"
@@ -70,21 +71,21 @@ private:
 	// Список печек
 	std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>> coalOvens;
 	// Список электрических печек
-	std::vector<std::shared_ptr<StaingObject<ElectricOvenInventory>>> electricOvens;
+	std::vector<std::shared_ptr<EnergyObject<ElectricOvenInventory>>> electricOvens;
 	// Список дробителей
-	std::vector<std::shared_ptr<StaingObject<CrusherInventory>>> crushers;
+	std::vector<std::shared_ptr<EnergyObject<CrusherInventory>>> crushers;
 	// Компрессов
-	std::vector<std::shared_ptr<StaingObject<CompressorInventory>>> compressors;
+	std::vector<std::shared_ptr<EnergyObject<CompressorInventory>>> compressors;
 	// Список сундуков
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests;
 	// Список верстаков
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches;
 	// Список хранилищ энергии
-	std::vector<std::shared_ptr<StaingObject<EnergyStorageInventory>>> energyStorages;
+	std::vector<std::shared_ptr<EnergyObject<EnergyStorageInventory>>> energyStorages;
 	// Список ручных энергогенераторов
-	std::vector<std::shared_ptr<StaingObject<EnergyHandGeneratorInventory>>> energyHandGenerators;
+	std::vector<std::shared_ptr<EnergyObject<EnergyHandGeneratorInventory>>> energyHandGenerators;
 	// Список ручных энергогенераторов
-	std::vector<std::shared_ptr<StaingObject<EnergyCoalGeneratorInventory>>> energyCoalGenerators;
+	std::vector<std::shared_ptr<EnergyObject<EnergyCoalGeneratorInventory>>> energyCoalGenerators;
 
 	// Все объекты
 	std::vector<Sprite*> objects;
