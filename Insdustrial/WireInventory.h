@@ -6,6 +6,7 @@
 
 class WireInventory : public EnergyObjectInventory
 {
+public:
 	int power;
 
 	// Список спрайтов

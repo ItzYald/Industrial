@@ -149,6 +149,8 @@ public:
 			fieldSizeOne * (position.x - (*cameraPosition).x),
 			fieldSizeOne * (position.y - (*cameraPosition).y));
 
+		functions.PrintText(std::to_string((int)inventory->energy), sf::Vector2f(sprite.getPosition().x + 40, sprite.getPosition().y + 50), 15, sf::Color::Red);
+
 		// Сдвиг для компенсации вращения
 		if (sprite.getRotation() == 90)
 		{
@@ -168,11 +170,6 @@ public:
 				sprite.getPosition().x,
 				sprite.getPosition().y + fieldSizeOne);
 		}
-
-		//rw->draw(sprite);
-		//sf::Vector2f realPosition = sf::Vector2f(
-		//	fieldSizeOne * (position.x - (*cameraPosition).x),
-		//	fieldSizeOne * (position.y - (*cameraPosition).y));
 	}
 	/// <summary>
 	/// Каждый кадр

@@ -277,6 +277,8 @@ void Game::UnloadingPlay(std::string nextScreen)
 	energyHandGenerators.clear();
 	energyCoalGenerators.clear();
 
+	objects.clear();
+
 	screen = nextScreen;
 }
 // Отрисовка игры
@@ -289,7 +291,6 @@ void Game::DrawPlay()
 	// Отрисовка объектов
 	for (int i = objects.size() - 1; i >= 0; i--)
 	{
-		//objects[i]->Draw();
 		rw->draw(*objects[i]);
 	}
 }
@@ -358,20 +359,17 @@ void Game::PutObject(sf::Vector2f position)
 		electricOvens.push_back(std::make_shared<EnergyObject<ElectricOvenInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["ElectricOven"], itemTextures, position, colorsInventory));
 		objects.push_back(electricOvens[electricOvens.size() - 1].get());
-		objects.push_back(electricOvens[electricOvens.size() - 1].get());
 		break;
 	// Дробитель
 	case 24:
 		crushers.push_back(std::make_shared<EnergyObject<CrusherInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["Crusher"], itemTextures, position, colorsInventory, 1000));
 		objects.push_back(crushers[crushers.size() - 1].get());
-		objects.push_back(crushers[crushers.size() - 1].get());
 		break;
 	// Компрессор
 	case 28:
 		compressors.push_back(std::make_shared<EnergyObject<CompressorInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["Compressor"], itemTextures, position, colorsInventory, 1000));
-		objects.push_back(compressors[compressors.size() - 1].get());
 		objects.push_back(compressors[compressors.size() - 1].get());
 		break;
 	// Сундук
@@ -391,13 +389,11 @@ void Game::PutObject(sf::Vector2f position)
 		energyStorages.push_back(std::make_shared<EnergyObject<EnergyStorageInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1000, 10));
 		objects.push_back(energyStorages[energyStorages.size() - 1].get());
-		objects.push_back(energyStorages[energyStorages.size() - 1].get());
 		break;
 	// Ручной энергогенератор
 	case 16:
 		energyHandGenerators.push_back(std::make_shared<EnergyObject<EnergyHandGeneratorInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, position, colorsInventory, 100, 10));
-		objects.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
 		objects.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
 		break;
 	// Угольный энергогенератор
@@ -405,29 +401,21 @@ void Game::PutObject(sf::Vector2f position)
 		energyCoalGenerators.push_back(std::make_shared<EnergyObject<EnergyCoalGeneratorInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, position, colorsInventory, 100, 10));
 		objects.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
-		objects.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
-		break;
 	// Медный провод
 	case 12:
-		/*wires.push_back(std::make_shared<Wire>(
-			rw, cameraPosition, field.sizeOne, textures["CopperWireOn"], textures["CopperWireOff"], position, 0));*/
-		energyStorages.push_back(std::make_shared<EnergyObject<EnergyStorageInventory>>(
+		wires.push_back(std::make_shared<EnergyObject<WireInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["CopperWireOn"], itemTextures, position, colorsInventory, 10, 10));
 		objects.push_back(wires[wires.size() - 1].get());
 		break;
 	// Железный провод
 	case 15:
-		//wires.push_back(std::make_shared<Wire>(
-		//	rw, cameraPosition, field.sizeOne, textures["IronWireOn"], textures["IronWireOff"], position, 1));
-		energyStorages.push_back(std::make_shared<EnergyObject<EnergyStorageInventory>>(
+		wires.push_back(std::make_shared<EnergyObject<WireInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["IronWireOn"], itemTextures, position, colorsInventory, 100, 100));
 		objects.push_back(wires[wires.size() - 1].get());
 		break;
 	// Оловяный провод
 	case 20:
-		//wires.push_back(std::make_shared<Wire>(
-		//	rw, cameraPosition, field.sizeOne, textures["TinWireOn"], textures["TinWireOff"], position, 2));
-		energyStorages.push_back(std::make_shared<EnergyObject<EnergyStorageInventory>>(
+		wires.push_back(std::make_shared<EnergyObject<WireInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["TinWireOn"], itemTextures, position, colorsInventory, 1000, 1000));
 		objects.push_back(wires[wires.size() - 1].get());
 		break;
@@ -462,9 +450,6 @@ void Game::Gameplay()
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	/*if (player.PutObject(mousePositionGrid,
-		coalOvens, electricOvens, crushers, compressors, chests,
-		workbenches, wires, energyStorages, energyHandGenerators, energyCoalGenerators))*/
 	if (field.PutObject(mousePositionGrid, objects, player.inventory.cells[player.inventory.choseCell][3].item))
 	{
 		PutObject((sf::Vector2f)mousePositionGrid);
@@ -599,8 +584,6 @@ void Game::Gameplay()
 	// Работа проводов
 	for (int i = 0; i < wires.size(); i++)
 	{
-		// Обновление массива с указанием номера проводов в массиве по координатам
-		//field.wires[wires[i]->position.x][wires[i]->position.y] = i;
 		field.energyObjectsNumbers[wires[i]->position.x][wires[i]->position.y] = sf::Vector2i(0, i);
 		wires[i]->Update(mousePositionGrid, player.position, player.angle);
 	}
@@ -673,12 +656,6 @@ void Game::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int p
 		thisObjectInventory = energyStorages[field.energyObjectsNumbers[nextPosition.x][nextPosition.y].y]->inventory;
 		TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
 	}
-	// Если на месте стоит энергохранилище
-	else if (field.energyObjectsNumbers[nextPosition.x][nextPosition.y].x == 2)
-	{
-		thisObjectInventory = energyStorages[field.energyObjectsNumbers[nextPosition.x][nextPosition.y].y]->inventory;
-		TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
-	}
 }
 
 void Game::CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPosition, int typeObject)
@@ -690,7 +667,7 @@ void Game::CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPositi
 			return;
 		}
 		CheckNextEnergyObject(nextPosition, wires[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->energy,
-			wires[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->power);
+			wires[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->typeInventory.power);
 	}
 	else if (typeObject == 1)
 	{
