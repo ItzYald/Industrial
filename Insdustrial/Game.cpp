@@ -691,7 +691,7 @@ void Game::CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPositi
 			return;
 		}
 		CheckNextEnergyObject(nextPosition, energyStorages[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->energy,
-			energyStorages[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->power);
+			energyStorages[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->typeInventory.power);
 	}
 	else if (typeObject == 2)
 	{
@@ -700,7 +700,7 @@ void Game::CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPositi
 			return;
 		}
 		CheckNextEnergyObject(nextPosition, energyHandGenerators[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->energy,
-			energyHandGenerators[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->power);
+			energyHandGenerators[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->typeInventory.power);
 	}
 	else if (typeObject == 3)
 	{
@@ -709,7 +709,7 @@ void Game::CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPositi
 			return;
 		}
 		CheckNextEnergyObject(nextPosition, energyCoalGenerators[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->energy,
-			energyCoalGenerators[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->power);
+			energyCoalGenerators[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->typeInventory.power);
 	}
 	else
 	{

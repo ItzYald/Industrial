@@ -72,9 +72,6 @@
     <ClCompile Include="Functions\Button.cpp">
       <Filter>Исходные файлы\Functions</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectInventory.cpp">
-      <Filter>Исходные файлы\Inventories</Filter>
-    </ClCompile>
     <ClCompile Include="WorbenchInventory.cpp">
       <Filter>Исходные файлы\Inventories</Filter>
     </ClCompile>

@@ -147,7 +147,6 @@
     <ClCompile Include="Functions\Checks.cpp" />
     <ClCompile Include="Functions\Functions.cpp" />
     <ClCompile Include="Item.cpp" />
-    <ClCompile Include="ObjectInventory.cpp" />
     <ClCompile Include="ProgressInventory.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
