@@ -259,6 +259,10 @@ void Game::LoadingPlay()
 	objects.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
 	objects.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
 
+	objectsTransEnergy.push_back(energyStorages[energyStorages.size() - 1].get());
+	objectsTransEnergy.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
+	objectsTransEnergy.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
+
 	screen = "Игра";
 }
 
@@ -389,35 +393,42 @@ void Game::PutObject(sf::Vector2f position)
 		energyStorages.push_back(std::make_shared<EnergyObject<EnergyStorageInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1000, 10));
 		objects.push_back(energyStorages[energyStorages.size() - 1].get());
+		objectsTransEnergy.push_back(energyStorages[energyStorages.size() - 1].get());
 		break;
 	// Ручной энергогенератор
 	case 16:
 		energyHandGenerators.push_back(std::make_shared<EnergyObject<EnergyHandGeneratorInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, position, colorsInventory, 100, 10));
 		objects.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
+		objectsTransEnergy.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
 		break;
 	// Угольный энергогенератор
 	case 17:
 		energyCoalGenerators.push_back(std::make_shared<EnergyObject<EnergyCoalGeneratorInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, position, colorsInventory, 100, 10));
 		objects.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
+		objectsTransEnergy.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
 	// Медный провод
 	case 12:
 		wires.push_back(std::make_shared<EnergyObject<WireInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["CopperWireOn"], itemTextures, position, colorsInventory, 10, 10));
 		objects.push_back(wires[wires.size() - 1].get());
+		objectsTransEnergy.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
+		objectsTransEnergy.push_back(wires[wires.size() - 1].get());
 		break;
 	// Железный провод
 	case 15:
 		wires.push_back(std::make_shared<EnergyObject<WireInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["IronWireOn"], itemTextures, position, colorsInventory, 100, 100));
 		objects.push_back(wires[wires.size() - 1].get());
+		objectsTransEnergy.push_back(wires[wires.size() - 1].get());
 		break;
 	// Оловяный провод
 	case 20:
 		wires.push_back(std::make_shared<EnergyObject<WireInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["TinWireOn"], itemTextures, position, colorsInventory, 1000, 1000));
 		objects.push_back(wires[wires.size() - 1].get());
+		objectsTransEnergy.push_back(wires[wires.size() - 1].get());
 		break;
 	}
 }
@@ -660,39 +671,30 @@ void Game::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int p
 
 void Game::CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPosition, int typeObject)
 {
+	if (field.energyObjectsNumbers[originalPosition.x][originalPosition.y].x == -1)
+	{
+		return;
+	}
+	//CheckNextEnergyObject(nextPosition, objectsTransEnergy[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->energy,
+	//	objectsTransEnergy[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->power);
+
 	if (typeObject == 0)
 	{
-		if (field.energyObjectsNumbers[originalPosition.x][originalPosition.y].x == -1)
-		{
-			return;
-		}
 		CheckNextEnergyObject(nextPosition, wires[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->energy,
 			wires[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->typeInventory.power);
 	}
 	else if (typeObject == 1)
 	{
-		if (field.energyObjectsNumbers[originalPosition.x][originalPosition.y].x == 0)
-		{
-			return;
-		}
 		CheckNextEnergyObject(nextPosition, energyStorages[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->energy,
 			energyStorages[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->typeInventory.power);
 	}
 	else if (typeObject == 2)
 	{
-		if (field.energyObjectsNumbers[originalPosition.x][originalPosition.y].x == -1)
-		{
-			return;
-		}
 		CheckNextEnergyObject(nextPosition, energyHandGenerators[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->energy,
 			energyHandGenerators[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->typeInventory.power);
 	}
 	else if (typeObject == 3)
 	{
-		if (field.energyObjectsNumbers[originalPosition.x][originalPosition.y].x == -1)
-		{
-			return;
-		}
 		CheckNextEnergyObject(nextPosition, energyCoalGenerators[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->inventory->energy,
 			energyCoalGenerators[field.energyObjectsNumbers[originalPosition.x][originalPosition.y].y]->typeInventory.power);
 	}

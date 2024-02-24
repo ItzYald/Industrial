@@ -1,25 +1,10 @@
 #pragma once
-#include <iostream>
-#include <vector>
-
-#include "SFML/Graphics.hpp"
-#include "SFML/System.hpp"
-#include "SFML/Window.hpp"
-
-#include "Functions/Functions.h"
-#include "Functions/Checks.h"
-
-#include "Sprite.h"
-
-#include "ObjectInventory.h"
+#include "IStaingObject.h"
 
 template<class T>
-class StaingObject : public Sprite
+class StaingObject : public IStaingObject
 {
 public:
-	int turn;
-	// Открыт ли инт
-	bool isOpenInventory;
 
 	T TypeInventory;
 	// Инвентарь (каждый раз разный)
@@ -107,7 +92,7 @@ public:
 	/// <param name="playerPosition">Позиция игрока</param>
 	/// <param name="playerAngle">Куда повернут игрок</param>
 	/// <returns>Наличие рядом игрока</returns>
-	bool NearPlayer(sf::Vector2f playerPosition, int playerAngle)
+	bool NearPlayer(sf::Vector2f playerPosition, int playerAngle) override
 	{
 		if (((int)playerPosition.x == position.x && (int)playerPosition.y == position.y + 1 && playerAngle == 0) ||
 			((int)playerPosition.x == position.x && (int)playerPosition.y == position.y - 1 && playerAngle == 2) ||
@@ -178,7 +163,7 @@ public:
 	/// </summary>
 	/// <param name="playerPosition">Позиция игрока</param>
 	/// <param name="playerAngle">Куда повернут игрок</param>
-	void Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, int playerAngle)
+	void Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, int playerAngle) override
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{

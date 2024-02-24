@@ -1,21 +1,8 @@
 #pragma once
-#include <iostream>
-#include <vector>
-
-#include "SFML/Graphics.hpp"
-#include "SFML/System.hpp"
-#include "SFML/Window.hpp"
-
-#include "Functions/Functions.h"
-#include "Functions/Checks.h"
-
-#include "Sprite.h"
-
-#include "Inventory.h"
-#include "EnergyObjectInventory.h"
+#include "IEnergyObject.h"
 
 template<class T>
-class EnergyObject : public Sprite
+class EnergyObject : public IEnergyObject
 {
 public:
 	int turn;

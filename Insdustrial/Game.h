@@ -81,6 +81,8 @@ private:
 	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests;
 	// Список верстаков
 	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches;
+	// Список проводов
+	std::vector<std::shared_ptr<EnergyObject<WireInventory>>> wires;
 	// Список хранилищ энергии
 	std::vector<std::shared_ptr<EnergyObject<EnergyStorageInventory>>> energyStorages;
 	// Список ручных энергогенераторов
@@ -90,10 +92,8 @@ private:
 
 	// Все объекты
 	std::vector<Sprite*> objects;
-
-	// Список проводов
-	//std::vector<std::shared_ptr<Wire>> wires;
-	std::vector<std::shared_ptr<EnergyObject<WireInventory>>> wires;
+	// Все объекты передающие энергию
+	std::vector<IEnergyObject*> objectsTransEnergy;
 	
 	// Список всех текстур
 	std::map<std::string, sf::Texture> textures;
