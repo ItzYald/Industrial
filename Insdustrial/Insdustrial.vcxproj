@@ -154,7 +154,6 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StaticSprites.cpp" />
-    <ClCompile Include="Wire.cpp" />
     <ClCompile Include="WireInventory.cpp" />
     <ClCompile Include="WorbenchInventory.cpp" />
   </ItemGroup>
@@ -187,7 +186,6 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="StaticSprites.h" />
-    <ClInclude Include="Wire.h" />
     <ClInclude Include="WireInventory.h" />
     <ClInclude Include="WorbenchInventory.h" />
   </ItemGroup>

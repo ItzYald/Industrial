@@ -81,9 +81,6 @@
     <ClCompile Include="Inventory.cpp">
       <Filter>Исходные файлы\Inventories</Filter>
     </ClCompile>
-    <ClCompile Include="Wire.cpp">
-      <Filter>Исходные файлы\Sprites</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Исходные файлы\Sprites</Filter>
     </ClCompile>
@@ -165,9 +162,6 @@
       <Filter>Файлы заголовков\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>Файлы заголовков\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="Wire.h">
       <Filter>Файлы заголовков\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="CellInInventory.h">

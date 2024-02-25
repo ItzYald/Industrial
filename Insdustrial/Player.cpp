@@ -13,8 +13,8 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosit
 	cameraPosition = &_cameraPosition;
 
 	isOpenInventory = false;
-	whatTypeInventoryOpen = 0;
-	whatNumberInventoryOpen = 0;
+	newWhatTypeInventoryOpen = 0;
+	newWhatNumberInventoryOpen = 0;
 
 	// Скорость бега
 	run = 0;
@@ -121,7 +121,7 @@ void Player::Update()
 	if (ch[0].Check(sf::Keyboard::Key::E))
 	{
 		isOpenInventory = true;
-		whatTypeInventoryOpen = 0;
+		newWhatTypeInventoryOpen = 0;
 	}
 
 	sprite.setPosition(fieldSizeOne * (position.x - (*cameraPosition).x), fieldSizeOne * (position.y - (*cameraPosition).y));

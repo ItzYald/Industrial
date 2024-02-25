@@ -19,10 +19,9 @@ Game::Game(sf::RenderWindow& _rw)
 	energyHandGenerators = std::vector<std::shared_ptr<EnergyObject<EnergyHandGeneratorInventory>>>();
 	energyCoalGenerators = std::vector<std::shared_ptr<EnergyObject<EnergyCoalGeneratorInventory>>>();
 
-	objects = std::vector<Sprite*>();
+	objects = std::vector<Object*>();
 	objectsTransEnergy = std::vector<IEnergyObject*>();
 
-	//wires = std::vector<std::shared_ptr<Wire>>();
 	wires = std::vector<std::shared_ptr<EnergyObject<WireInventory>>>();
 }
 // Загрузка приложения
@@ -219,7 +218,7 @@ void Game::LoadingPlay()
 	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"], objects);
 	player = Player(rw, cameraPosition, field.sizeOne, textures["Player"], sf::Vector2f(20, 20), colorsInventory, itemTextures);
 
-	objects.push_back(&player);
+	//objects.push_back(&player);
 
 	coalOvens.push_back(
 		std::make_shared<StaingObject<CoalOvenInventory>>(
@@ -250,7 +249,6 @@ void Game::LoadingPlay()
 			rw, cameraPosition, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, sf::Vector2f(20, 19), colorsInventory, 100, 10));
 
 	objects.push_back(coalOvens[coalOvens.size() - 1].get());
-	objects.push_back(coalOvens[coalOvens.size() - 1].get());
 	objects.push_back(electricOvens[electricOvens.size() - 1].get());
 	objects.push_back(crushers[crushers.size() - 1].get());
 	objects.push_back(compressors[compressors.size() - 1].get());
@@ -263,6 +261,18 @@ void Game::LoadingPlay()
 	objectsTransEnergy.push_back(energyStorages[energyStorages.size() - 1].get());
 	objectsTransEnergy.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
 	objectsTransEnergy.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
+
+	energyObjects.push_back(energyStorages[energyStorages.size() - 1].get());
+	energyObjects.push_back(electricOvens[electricOvens.size() - 1].get());
+	energyObjects.push_back(crushers[crushers.size() - 1].get());
+	energyObjects.push_back(compressors[compressors.size() - 1].get());
+	energyObjects.push_back(energyStorages[energyStorages.size() - 1].get());
+	energyObjects.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
+	energyObjects.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
+
+	simpleObjects.push_back(coalOvens[coalOvens.size() - 1].get());
+	simpleObjects.push_back(chests[chests.size() - 1].get());
+	simpleObjects.push_back(workbenches[workbenches.size() - 1].get());
 
 	screen = "Игра";
 }
@@ -298,6 +308,7 @@ void Game::DrawPlay()
 	{
 		rw->draw(*objects[i]);
 	}
+	rw->draw(player);
 }
 
 void Game::DrawGameplay()
@@ -315,34 +326,13 @@ void Game::CloseInventory()
 	{
 		player.isOpenInventory = false;
 
-		switch (player.whatTypeInventoryOpen)
+		switch (player.newWhatTypeInventoryOpen)
 		{
 		case 1:
-			coalOvens[player.whatNumberInventoryOpen]->isOpenInventory = false;
+			energyObjects[player.newWhatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		case 2:
-			electricOvens[player.whatNumberInventoryOpen]->isOpenInventory = false;
-			break;
-		case 3:
-			chests[player.whatNumberInventoryOpen]->isOpenInventory = false;
-			break;
-		case 4:
-			workbenches[player.whatNumberInventoryOpen]->isOpenInventory = false;
-			break;
-		case 5:
-			energyStorages[player.whatNumberInventoryOpen]->isOpenInventory = false;
-			break;
-		case 6:
-			energyHandGenerators[player.whatNumberInventoryOpen]->isOpenInventory = false;
-			break;
-		case 7:
-			energyCoalGenerators[player.whatNumberInventoryOpen]->isOpenInventory = false;
-			break;
-		case 8:
-			crushers[player.whatNumberInventoryOpen]->isOpenInventory = false;
-			break;
-		case 9:
-			compressors[player.whatNumberInventoryOpen]->isOpenInventory = false;
+			simpleObjects[player.newWhatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		}
 	}
@@ -358,36 +348,42 @@ void Game::PutObject(sf::Vector2f position)
 		coalOvens.push_back(std::make_shared<StaingObject<CoalOvenInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["Oven"], itemTextures, position, colorsInventory));
 		objects.push_back(coalOvens[coalOvens.size() - 1].get());
+		simpleObjects.push_back(coalOvens[coalOvens.size() - 1].get());
 		break;
 	// Электропечку
 	case 11:
 		electricOvens.push_back(std::make_shared<EnergyObject<ElectricOvenInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["ElectricOven"], itemTextures, position, colorsInventory));
 		objects.push_back(electricOvens[electricOvens.size() - 1].get());
+		energyObjects.push_back(electricOvens[electricOvens.size() - 1].get());
 		break;
 	// Дробитель
 	case 24:
 		crushers.push_back(std::make_shared<EnergyObject<CrusherInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["Crusher"], itemTextures, position, colorsInventory, 1000));
 		objects.push_back(crushers[crushers.size() - 1].get());
+		energyObjects.push_back(crushers[crushers.size() - 1].get());
 		break;
 	// Компрессор
 	case 28:
 		compressors.push_back(std::make_shared<EnergyObject<CompressorInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["Compressor"], itemTextures, position, colorsInventory, 1000));
 		objects.push_back(compressors[compressors.size() - 1].get());
+		energyObjects.push_back(compressors[compressors.size() - 1].get());
 		break;
 	// Сундук
 	case 5:
 		chests.push_back(std::make_shared<StaingObject<ChestInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["Chest"], itemTextures, position, colorsInventory));
 		objects.push_back(chests[chests.size() - 1].get());
+		simpleObjects.push_back(chests[chests.size() - 1].get());
 		break;
 	// Верстак
 	case 8:
 		workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["Workbench"], itemTextures, position, colorsInventory));
 		objects.push_back(workbenches[workbenches.size() - 1].get());
+		simpleObjects.push_back(workbenches[workbenches.size() - 1].get());
 		break;
 	// Энергохранилище
 	case 13:
@@ -395,6 +391,7 @@ void Game::PutObject(sf::Vector2f position)
 			rw, cameraPosition, field.sizeOne, textures["EnergyStorage"], itemTextures, position, colorsInventory, 1000, 10));
 		objects.push_back(energyStorages[energyStorages.size() - 1].get());
 		objectsTransEnergy.push_back(energyStorages[energyStorages.size() - 1].get());
+		energyObjects.push_back(energyStorages[energyStorages.size() - 1].get());
 		break;
 	// Ручной энергогенератор
 	case 16:
@@ -402,6 +399,7 @@ void Game::PutObject(sf::Vector2f position)
 			rw, cameraPosition, field.sizeOne, textures["EnergyHandGenerator"], itemTextures, position, colorsInventory, 100, 10));
 		objects.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
 		objectsTransEnergy.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
+		energyObjects.push_back(energyHandGenerators[energyHandGenerators.size() - 1].get());
 		break;
 	// Угольный энергогенератор
 	case 17:
@@ -409,12 +407,14 @@ void Game::PutObject(sf::Vector2f position)
 			rw, cameraPosition, field.sizeOne, textures["EnergyCoalGenerator"], itemTextures, position, colorsInventory, 100, 10));
 		objects.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
 		objectsTransEnergy.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
+		energyObjects.push_back(energyCoalGenerators[energyCoalGenerators.size() - 1].get());
 	// Медный провод
 	case 12:
 		wires.push_back(std::make_shared<EnergyObject<WireInventory>>(
 			rw, cameraPosition, field.sizeOne, textures["CopperWireOn"], itemTextures, position, colorsInventory, 10, 10));
 		objects.push_back(wires[wires.size() - 1].get());
 		objectsTransEnergy.push_back(wires[wires.size() - 1].get());
+		energyObjects.push_back(wires[wires.size() - 1].get());
 		break;
 	// Железный провод
 	case 15:
@@ -422,6 +422,7 @@ void Game::PutObject(sf::Vector2f position)
 			rw, cameraPosition, field.sizeOne, textures["IronWireOn"], itemTextures, position, colorsInventory, 100, 100));
 		objects.push_back(wires[wires.size() - 1].get());
 		objectsTransEnergy.push_back(wires[wires.size() - 1].get());
+		energyObjects.push_back(wires[wires.size() - 1].get());
 		break;
 	// Оловяный провод
 	case 20:
@@ -429,6 +430,7 @@ void Game::PutObject(sf::Vector2f position)
 			rw, cameraPosition, field.sizeOne, textures["TinWireOn"], itemTextures, position, colorsInventory, 1000, 1000));
 		objects.push_back(wires[wires.size() - 1].get());
 		objectsTransEnergy.push_back(wires[wires.size() - 1].get());
+		energyObjects.push_back(wires[wires.size() - 1].get());
 		break;
 	}
 }
@@ -466,138 +468,29 @@ void Game::Gameplay()
 		PutObject((sf::Vector2f)mousePositionGrid);
 	}
 
-	// Работа угольных печей
-	for (int i = 0; i < coalOvens.size(); i++)
+	for (size_t i = 0; i < energyObjects.size(); i++)
 	{
-		coalOvens[i]->Update(mousePositionGrid, player.position, player.angle);
-		if (coalOvens[i]->isOpenInventory)
+		field.newEnergyObjectsNumbers[energyObjects[i]->position.x][energyObjects[i]->position.y] = i;
+		energyObjects[i]->Update(mousePositionGrid, player.position, player.angle);
+		if (energyObjects[i]->isOpenInventory)
 		{
 			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 1;
-			player.whatNumberInventoryOpen = i;
+			player.newWhatTypeInventoryOpen = 1;
+			player.newWhatNumberInventoryOpen = i;
 			break;
 		}
 	}
-	// Работа электрических печей
-	for (int i = 0; i < electricOvens.size(); i++)
+
+	for (size_t i = 0; i < simpleObjects.size(); i++)
 	{
-		// Обновление массива с указанием номера электропечей в массиве по координатам
-		field.energyObjectsNumbers[electricOvens[i]->position.x][electricOvens[i]->position.y] = sf::Vector2i(1, i);
-		// Обновление электропечей
-		electricOvens[i]->Update(mousePositionGrid, player.position, player.angle);
-		// Если инвентарь открыт
-		if (electricOvens[i]->isOpenInventory)
+		simpleObjects[i]->Update(mousePositionGrid, player.position, player.angle);
+		if (simpleObjects[i]->isOpenInventory)
 		{
 			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 2;
-			player.whatNumberInventoryOpen = i;
+			player.newWhatTypeInventoryOpen = 2;
+			player.newWhatNumberInventoryOpen = i;
 			break;
 		}
-	}
-	// Работа дробителей
-	for (int i = 0; i < crushers.size(); i++)
-	{
-		// Обновление массива с указанием номера электропечей в массиве по координатам
-		field.energyObjectsNumbers[crushers[i]->position.x][crushers[i]->position.y] = sf::Vector2i(5, i);
-		// Обновление электропечей
-		crushers[i]->Update(mousePositionGrid, player.position, player.angle);
-		// Если инвентарь открыт
-		if (crushers[i]->isOpenInventory)
-		{
-			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 8;
-			player.whatNumberInventoryOpen = i;
-			break;
-		}
-	}
-	// Работа компрессоров
-	for (int i = 0; i < compressors.size(); i++)
-	{
-		// Обновление массива с указанием номера электропечей в массиве по координатам
-		field.energyObjectsNumbers[compressors[i]->position.x][compressors[i]->position.y] = sf::Vector2i(6, i);
-		// Обновление электропечей
-		compressors[i]->Update(mousePositionGrid, player.position, player.angle);
-		// Если инвентарь открыт
-		if (compressors[i]->isOpenInventory)
-		{
-			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 9;
-			player.whatNumberInventoryOpen = i;
-			break;
-		}
-	}
-	// Работа сундуков
-	for (int i = 0; i < chests.size(); i++)
-	{
-		chests[i]->Update(mousePositionGrid, player.position, player.angle);
-		if (chests[i]->isOpenInventory)
-		{
-			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 3;
-			player.whatNumberInventoryOpen = i;
-			break;
-		}
-	}
-	// Работа верстаков
-	for (int i = 0; i < workbenches.size(); i++)
-	{
-		workbenches[i]->Update(mousePositionGrid, player.position, player.angle);
-		if (workbenches[i]->isOpenInventory)
-		{
-			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 4;
-			player.whatNumberInventoryOpen = i;
-			break;
-		}
-	}
-	// Работа хранилищ энергии
-	for (int i = 0; i < energyStorages.size(); i++)
-	{
-		// Обновление массива с указанием номера проводов в массиве по координатам
-		field.energyObjectsNumbers[energyStorages[i]->position.x][energyStorages[i]->position.y] = sf::Vector2i(2, i);
-		energyStorages[i]->Update(mousePositionGrid, player.position, player.angle);
-		if (energyStorages[i]->isOpenInventory)
-		{
-			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 5;
-			player.whatNumberInventoryOpen = i;
-			break;
-		}
-	}
-	// Работа ручных энергогенераторов
-	for (int i = 0; i < energyHandGenerators.size(); i++)
-	{
-		// Обновление массива с указанием номера проводов в массиве по координатам
-		field.energyObjectsNumbers[energyHandGenerators[i]->position.x][energyHandGenerators[i]->position.y] = sf::Vector2i(3, i);
-		energyHandGenerators[i]->Update(mousePositionGrid, player.position, player.angle);
-		if (energyHandGenerators[i]->isOpenInventory)
-		{
-			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 6;
-			player.whatNumberInventoryOpen = i;
-			break;
-		}
-	}
-	// Работа угольных энергогенераторов
-	for (int i = 0; i < energyCoalGenerators.size(); i++)
-	{
-		// Обновление массива с указанием номера проводов в массиве по координатам
-		field.energyObjectsNumbers[energyCoalGenerators[i]->position.x][energyCoalGenerators[i]->position.y] = sf::Vector2i(4, i);
-		energyCoalGenerators[i]->Update(mousePositionGrid, player.position, player.angle);
-		if (energyCoalGenerators[i]->isOpenInventory)
-		{
-			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 7;
-			player.whatNumberInventoryOpen = i;
-			break;
-		}
-	}
-	// Работа проводов
-	for (int i = 0; i < wires.size(); i++)
-	{
-		field.energyObjectsNumbers[wires[i]->position.x][wires[i]->position.y] = sf::Vector2i(0, i);
-		wires[i]->Update(mousePositionGrid, player.position, player.angle);
-		field.transEnergyObjectsNumbers[wires[i]->position.x][wires[i]->position.y] = i;
 	}
 
 	for (size_t i = 0; i < objectsTransEnergy.size(); i++)
@@ -643,37 +536,9 @@ void Game::TransEnergy(float& originalEnergy, int power, float& nextEnergy, int 
 void Game::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int power)
 {
 	EnergyObjectInventory* thisObjectInventory;
-	// Если на месте стоит провод
-	if (field.energyObjectsNumbers[nextPosition.x][nextPosition.y].x == 0)
-	{
-		//std::shared_ptr<Wire> thisWire = wires[field.energyObjectsNumbers[nextPosition.x][nextPosition.y].y];
-		thisObjectInventory = wires[field.energyObjectsNumbers[nextPosition.x][nextPosition.y].y]->inventory;
-		TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
-	}
-	// Если на месте стоит электропечка
-	else if (field.energyObjectsNumbers[nextPosition.x][nextPosition.y].x == 1)
-	{
-		thisObjectInventory = electricOvens[field.energyObjectsNumbers[nextPosition.x][nextPosition.y].y]->inventory;
-		TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
-	}
-	// Если на месте стоит дробитель
-	else if (field.energyObjectsNumbers[nextPosition.x][nextPosition.y].x == 5)
-	{
-		thisObjectInventory = crushers[field.energyObjectsNumbers[nextPosition.x][nextPosition.y].y]->inventory;
-		TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
-	}
-	// Если на месте стоит компрессор
-	else if (field.energyObjectsNumbers[nextPosition.x][nextPosition.y].x == 6)
-	{
-		thisObjectInventory = compressors[field.energyObjectsNumbers[nextPosition.x][nextPosition.y].y]->inventory;
-		TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
-	}
-	// Если на месте стоит энергохранилище
-	else if (field.energyObjectsNumbers[nextPosition.x][nextPosition.y].x == 2)
-	{
-		thisObjectInventory = energyStorages[field.energyObjectsNumbers[nextPosition.x][nextPosition.y].y]->inventory;
-		TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
-	}
+
+	thisObjectInventory = energyObjects[field.newEnergyObjectsNumbers[nextPosition.x][nextPosition.y]]->inventory;
+	TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
 }
 
 sf::Vector2i Game::CheckTurnEnergy(int turn)
@@ -715,7 +580,7 @@ void Game::WhatObjectTransEnergy()
 			}
 
 			shift = CheckTurnEnergy(objectsTransEnergy[field.transEnergyObjectsNumbers[i][j]]->turn);
-			if (field.energyObjectsNumbers[i][j].x == -1)
+			if (field.newEnergyObjectsNumbers[i][j] == -1)
 			{
 				continue;
 			}
@@ -729,50 +594,20 @@ void Game::WhatObjectTransEnergy()
 
 void Game::WhatInventory()
 {
-	switch(player.whatTypeInventoryOpen)
+	switch (player.newWhatTypeInventoryOpen)
 	{
-		// Инвентарь игрока
 	case 0:
 		player.inventory.DrawMiniWorkbench();
 		player.inventory.Update();
 		break;
-		// Инвентарь угольной печки
 	case 1:
-		coalOvens[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
+		energyObjects[player.newWhatNumberInventoryOpen]->inventory->Update(player.inventory);
 		break;
-		// Инвентарь электропечки
 	case 2:
-		electricOvens[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
-		break;
-		// Инвентарь сундука
-	case 3:
-		chests[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
-		break;
-		// Инвентар верстака
-	case 4:
-		workbenches[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
-		break;
-		// Инвентарь энергетического хранилища
-	case 5:
-		energyStorages[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
-		break;
-		// Инвентарь ручного энергогенератора
-	case 6:
-		energyHandGenerators[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
-		break;
-		// Инвентарь угольного энергогенератора
-	case 7:
-		energyCoalGenerators[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
-		break;
-		// Инвентарь дробителя
-	case 8:
-		crushers[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
-		break;
-		// Инвентарь коммпрессора
-	case 9:
-		compressors[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
+		simpleObjects[player.newWhatNumberInventoryOpen]->inventory->Update(player.inventory);
 		break;
 	}
+	
 	CloseInventory();
 }
 // Игра

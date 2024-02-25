@@ -31,8 +31,8 @@ public:
 	// Угол игрока
 	int angle;
 	bool isOpenInventory;
-	int whatTypeInventoryOpen;
-	int whatNumberInventoryOpen;
+	int newWhatTypeInventoryOpen;
+	int newWhatNumberInventoryOpen;
 
 	Player(){ }
 	/// <summary>Конструктор</summary>

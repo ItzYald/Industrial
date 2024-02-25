@@ -13,7 +13,6 @@
 #include "Functions/Button.h"
 #include "Functions/Checks.h"
 
-#include "Wire.h"
 #include "Field.h"
 #include "Player.h"
 #include "StaingObject.h"
@@ -91,9 +90,13 @@ private:
 	std::vector<std::shared_ptr<EnergyObject<EnergyCoalGeneratorInventory>>> energyCoalGenerators;
 
 	// Все объекты
-	std::vector<Sprite*> objects;
+	std::vector<Object*> objects;
 	// Все объекты передающие энергию
 	std::vector<IEnergyObject*> objectsTransEnergy;
+	// Все энергетические объекты
+	std::vector<IEnergyObject*> energyObjects;
+	// Все обычные объекты
+	std::vector<IStaingObject*> simpleObjects;
 	
 	// Список всех текстур
 	std::map<std::string, sf::Texture> textures;
