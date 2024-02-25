@@ -5,14 +5,8 @@ template<class T>
 class EnergyObject : public IEnergyObject
 {
 public:
-	int turn;
-	// Открыт ли инт
-	bool isOpenInventory;
-
 	// Инвентарь
 	T typeInventory;
-	// Ссылка на инвентарь для работы с общими методами и полями
-	EnergyObjectInventory* inventory;
 
 	EnergyObject(){}
 	/// <summaryКонструктор</summary>

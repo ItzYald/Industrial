@@ -10,7 +10,6 @@ class EnergyStorageInventory : public EnergyObjectInventory
 protected:
 
 public:
-	int power;
 	// Базовый конструктор
 	EnergyStorageInventory(){ }
 	/// <summary>Конструктор</summary>

@@ -10,14 +10,16 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _siz
 	objects = &_objects;
 
 	energyObjectsNumbers = std::vector<std::vector<sf::Vector2i>>();
-	energyObjectsNumbers2 = std::vector<std::vector<sf::Vector2i>>();
+	transEnergyObjectsNumbers = std::vector<std::vector<int>>();
 
 	for (int i = 0; i < size.x; i++)
 	{
 		energyObjectsNumbers.push_back(std::vector <sf::Vector2i>());
+		transEnergyObjectsNumbers.push_back(std::vector <int>());
 		for (int j = 0; j < size.y; j++)
 		{
 			energyObjectsNumbers[i].push_back(sf::Vector2i(-1, -1));
+			transEnergyObjectsNumbers[i].push_back(-1);
 		}
 	}
 

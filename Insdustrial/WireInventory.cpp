@@ -3,11 +3,11 @@
 WireInventory::WireInventory(
 	std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
 	int _maxEnergy, int _power, std::vector<sf::Texture>& _itemTextures)
-	: power(_power)
 {
 	rw = _rw;
 	functions = Functions(rw);
 	colorsInventory = _colorsInventory;
+	power = _power;
 
 	maxEnergy = _maxEnergy;
 

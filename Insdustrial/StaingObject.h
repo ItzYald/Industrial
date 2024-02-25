@@ -7,8 +7,6 @@ class StaingObject : public IStaingObject
 public:
 
 	T TypeInventory;
-	// Инвентарь (каждый раз разный)
-	ObjectInventory* inventory;
 
 	StaingObject(){}
 	/// <summaryКонструктор</summary>

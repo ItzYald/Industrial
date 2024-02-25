@@ -7,8 +7,6 @@
 class WireInventory : public EnergyObjectInventory
 {
 public:
-	int power;
-
 	// Список спрайтов
 	sf::Sprite spriteOn;
 	sf::Sprite spriteOff;

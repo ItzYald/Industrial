@@ -26,7 +26,7 @@ public:
 	std::vector<Sprite*>* objects;
 	// Список объектов передающих и принимающих электричество (x - какой объект, y - номер в массиве)
 	std::vector<std::vector<sf::Vector2i>> energyObjectsNumbers;
-	std::vector<std::vector<sf::Vector2i>> energyObjectsNumbers2;
+	std::vector<std::vector<int>> transEnergyObjectsNumbers;
 
 	// Фнкции отрисовки (прямоугольник, круг, текст, спрайт...)
 	Functions functions;

@@ -147,11 +147,6 @@ public:
 	/// <param name="energy">Какую энергию передать</param>
 	/// <param name="power">Сколько передать энергии</param>
 	void CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int power);
-	/// <summary>Какую энергию передавать</summary>
-	/// <param name="originalPosition">Позиция первого устройства, который передает энергию</param>
-	/// <param name="nextPosition">Позиция второго устройства, которому передают энергию</param>
-	/// <param name="typeObject">Тип устройства, которое передает энергию (0 - провод, 1 - хранилище)</param>
-	void CheckTypeTrans(sf::Vector2i originalPosition, sf::Vector2i nextPosition, int typeObject);
 	/// <summary>Проверка поворота устройста для понятия, куда отправлять энергию</summary>
 	/// <param name="turn">Поворот объекта</param>
 	sf::Vector2i CheckTurnEnergy(int turn);
