@@ -68,27 +68,6 @@ private:
 	// Стандартные цвета для приложения
 	std::vector<sf::Color> colorsInventory;
 
-	// Список печек
-	std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>> coalOvens;
-	// Список электрических печек
-	std::vector<std::shared_ptr<EnergyObject<ElectricOvenInventory>>> electricOvens;
-	// Список дробителей
-	std::vector<std::shared_ptr<EnergyObject<CrusherInventory>>> crushers;
-	// Компрессов
-	std::vector<std::shared_ptr<EnergyObject<CompressorInventory>>> compressors;
-	// Список сундуков
-	std::vector<std::shared_ptr<StaingObject<ChestInventory>>> chests;
-	// Список верстаков
-	std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>> workbenches;
-	// Список проводов
-	std::vector<std::shared_ptr<EnergyObject<WireInventory>>> wires;
-	// Список хранилищ энергии
-	std::vector<std::shared_ptr<EnergyObject<EnergyStorageInventory>>> energyStorages;
-	// Список ручных энергогенераторов
-	std::vector<std::shared_ptr<EnergyObject<EnergyHandGeneratorInventory>>> energyHandGenerators;
-	// Список ручных энергогенераторов
-	std::vector<std::shared_ptr<EnergyObject<EnergyCoalGeneratorInventory>>> energyCoalGenerators;
-
 	// Все объекты
 	std::vector<Object*> objects;
 	// Все объекты передающие энергию
