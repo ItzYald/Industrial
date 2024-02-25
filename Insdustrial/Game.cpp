@@ -9,20 +9,8 @@ Game::Game(sf::RenderWindow& _rw)
 	screen = "ЭкранЗагрузкиПриложения";
 	font.loadFromFile("Font/Undertale-Font.ttf");
 
-	//coalOvens = std::vector<std::shared_ptr<StaingObject<CoalOvenInventory>>>();
-	//electricOvens = std::vector<std::shared_ptr<EnergyObject<ElectricOvenInventory>>>();
-	//compressors = std::vector<std::shared_ptr<EnergyObject<CompressorInventory>>>();
-
-	//chests = std::vector<std::shared_ptr<StaingObject<ChestInventory>>>();
-	//workbenches = std::vector<std::shared_ptr<StaingObject<WorkbenchInventory>>>();
-
-	//energyHandGenerators = std::vector<std::shared_ptr<EnergyObject<EnergyHandGeneratorInventory>>>();
-	//energyCoalGenerators = std::vector<std::shared_ptr<EnergyObject<EnergyCoalGeneratorInventory>>>();
-
 	objects = std::vector<Object*>();
 	objectsTransEnergy = std::vector<IEnergyObject*>();
-
-	wires = std::vector<std::shared_ptr<EnergyObject<WireInventory>>>();
 }
 // Загрузка приложения
 void Game::LoadingApp()
@@ -301,15 +289,6 @@ void Game::UnloadingPlay(std::string nextScreen)
 	itemTextures.clear();
 	texturesInInventory.clear();
 
-	//coalOvens.clear();
-	electricOvens.clear();
-	chests.clear();
-	workbenches.clear();
-	wires.clear();
-	energyStorages.clear();
-	energyHandGenerators.clear();
-	energyCoalGenerators.clear();
-
 	objects.clear();
 
 	screen = nextScreen;
@@ -387,17 +366,15 @@ void Game::PutObject(sf::Vector2f position)
 		break;
 	// Сундук
 	case 5:
-		chests.push_back(std::make_shared<StaingObject<ChestInventory>>(
+		simpleObjects.push_back(new StaingObject<ChestInventory > (
 			rw, cameraPosition, field.sizeOne, textures["Chest"], itemTextures, position, colorsInventory));
-		simpleObjects.push_back(chests[chests.size() - 1].get());
-		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		objects.push_back(simpleObjects[simpleObjects.size() - 1]);
 		break;
 	// Верстак
 	case 8:
-		workbenches.push_back(std::make_shared<StaingObject<WorkbenchInventory>>(
+		simpleObjects.push_back(new StaingObject<WorkbenchInventory > (
 			rw, cameraPosition, field.sizeOne, textures["Workbench"], itemTextures, position, colorsInventory));
-		simpleObjects.push_back(workbenches[workbenches.size() - 1].get());
-		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		objects.push_back(simpleObjects[simpleObjects.size() - 1]);
 		break;
 	// Энергохранилище
 	case 13:
