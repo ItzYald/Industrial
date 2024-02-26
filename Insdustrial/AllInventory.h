@@ -20,7 +20,7 @@ class AllInventory
 {
 public:
 	// Списко кнопок
-	std::vector<OldButton> buttons;
+	std::vector<OldButton> oldButtons;
 	// Окно
 	std::shared_ptr<sf::RenderWindow> rw;
 	// Функции

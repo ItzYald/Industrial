@@ -18,15 +18,15 @@ void EnergyHandGeneratorInventory::Draw()
 {
 	AllDraw();
 	rw->draw(iconGenerate);
-	buttons[0].Draw(*rw);
+	oldButtons[0].Draw(*rw);
 	
 }
 
 void EnergyHandGeneratorInventory::Update(Inventory& playerInventory)
 {
-	if (buttons.size() < 1)
+	if (oldButtons.size() < 1)
 	{
-		buttons.push_back(OldButton(iconGenerate.getPosition(),
+		oldButtons.push_back(OldButton(iconGenerate.getPosition(),
 			sf::Vector2f(iconGenerate.getTexture()->getSize().x * iconGenerate.getScale().x,
 				iconGenerate.getTexture()->getSize().y * iconGenerate.getScale().y),
 			L"", sf::Color::Transparent, sf::Color::Transparent, sf::Color::Red,
@@ -36,7 +36,7 @@ void EnergyHandGeneratorInventory::Update(Inventory& playerInventory)
 			sf::Vector2f(0, 0), 4, 25));
 	}
 
-	if (buttons[0].CheckDown(*rw))
+	if (oldButtons[0].CheckDown(*rw))
 	{
 		energy += 0.2;
 	}

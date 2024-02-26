@@ -13,6 +13,8 @@
 #include "Functions/OldButton.h"
 #include "Functions/Checks.h"
 
+#include "Functions/BaseButton.h"
+
 #include "Field.h"
 #include "Player.h"
 #include "StaingObject.h"
@@ -52,7 +54,9 @@ private:
 	// Функции
 	Functions functions;
 	// Список кнопок
-	std::vector<OldButton> buttons;
+	std::vector<OldButton> oldButtons;
+
+	std::vector<Button*> buttons;
 	// Часы
 	sf::Clock clock;
 
@@ -68,10 +72,12 @@ private:
 	// Стандартные цвета для приложения
 	std::vector<sf::Color> colorsInventory;
 
+	std::vector<sf::Drawable*> drawables;
+
 	// Все объекты
 	std::vector<Object*> objects;
 	// Все объекты передающие энергию
-	std::vector<IEnergyObject*> objectsTransEnergy;
+	std::vector<IEnergyObject*> transEnergyObjects;
 	// Все энергетические объекты
 	std::vector<IEnergyObject*> energyObjects;
 	// Все обычные объекты

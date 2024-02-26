@@ -143,9 +143,13 @@
     <ClCompile Include="EnergyHandGeneratorInventory.cpp" />
     <ClCompile Include="EnergyObjectInventory.cpp" />
     <ClCompile Include="EnergyStorageInventory.cpp" />
+    <ClCompile Include="Functions\BaseButton.cpp" />
+    <ClCompile Include="Functions\Button.cpp" />
+    <ClCompile Include="Functions\ImageButton.cpp" />
     <ClCompile Include="Functions\OldButton.cpp" />
     <ClCompile Include="Functions\Checks.cpp" />
     <ClCompile Include="Functions\Functions.cpp" />
+    <ClCompile Include="Functions\TextButton.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ProgressInventory.cpp" />
     <ClCompile Include="Field.cpp" />
@@ -170,9 +174,13 @@
     <ClInclude Include="EnergyObject.h" />
     <ClInclude Include="EnergyObjectInventory.h" />
     <ClInclude Include="EnergyStorageInventory.h" />
+    <ClInclude Include="Functions\BaseButton.h" />
+    <ClInclude Include="Functions\Button.h" />
+    <ClInclude Include="Functions\ImageButton.h" />
     <ClInclude Include="Functions\OldButton.h" />
     <ClInclude Include="Functions\Checks.h" />
     <ClInclude Include="Functions\Functions.h" />
+    <ClInclude Include="Functions\TextButton.h" />
     <ClInclude Include="IEnergyObject.h" />
     <ClInclude Include="IStaingObject.h" />
     <ClInclude Include="Object.h" />
@@ -186,6 +194,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="StaticSprites.h" />
+    <ClInclude Include="Updatable.h" />
     <ClInclude Include="WireInventory.h" />
     <ClInclude Include="WorbenchInventory.h" />
   </ItemGroup>
