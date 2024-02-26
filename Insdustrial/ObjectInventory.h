@@ -9,7 +9,7 @@
 #include "SFML/Window.hpp"
 
 #include "Functions/Functions.h"
-#include "Functions/Button.h"
+#include "Functions/OldButton.h"
 
 #include "StaticSprites.h"
 

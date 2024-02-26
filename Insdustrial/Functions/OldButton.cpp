@@ -1,6 +1,6 @@
-#include "Button.h"
+#include "OldButton.h"
 
-Button::Button(sf::Vector2f _coords, sf::Vector2f _size, sf::String _message,
+OldButton::OldButton(sf::Vector2f _coords, sf::Vector2f _size, sf::String _message,
     sf::Color _color, sf::Color _activeColor, sf::Color _downColor,
     sf::Color _colorBorder, sf::Color _activeColorBorder, sf::Color _downColorBorder,
     sf::Color _colorTitle, sf::Color _activeColorTitle, sf::Color _downColorTitle,
@@ -20,7 +20,7 @@ Button::Button(sf::Vector2f _coords, sf::Vector2f _size, sf::String _message,
 }
 
 
-Button::Button(sf::Vector2f _coords, sf::Vector2f _size,
+OldButton::OldButton(sf::Vector2f _coords, sf::Vector2f _size,
     sf::String _message, sf::Color _color, sf::Color _activeColor, sf::Color _colorBorder,
     sf::Color _activeColorBorder, sf::Color _colorTitle, sf::Color _activeColorTitle,
     sf::Vector2f _hitBox, int _borderSize, int _fontSize) :
@@ -40,7 +40,7 @@ Button::Button(sf::Vector2f _coords, sf::Vector2f _size,
     click = false;
 }
 
-Button::Button(sf::Vector2f _coords, sf::Vector2f _size,
+OldButton::OldButton(sf::Vector2f _coords, sf::Vector2f _size,
     sf::String _message, sf::Color _color, sf::Color _activeColor, sf::Color _colorBorder,
     sf::Color _activeColorBorder, sf::Color _colorTitle, sf::Color _activeColorTitle,
     int _center, int _borderSize, int _fontSize) :
@@ -60,7 +60,7 @@ Button::Button(sf::Vector2f _coords, sf::Vector2f _size,
     click = false;
 }
 // Только отрисовать
-void Button::Draw(sf::RenderWindow& rw)
+void OldButton::Draw(sf::RenderWindow& rw)
 {
     click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
     mouseCoords = (sf::Vector2f)sf::Mouse::getPosition(rw);
@@ -90,13 +90,13 @@ void Button::Draw(sf::RenderWindow& rw)
 
 }
 // Отрисовать и проверить на отжатие
-bool Button::DrawCheckLeft(sf::RenderWindow& rw)
+bool OldButton::DrawCheckLeft(sf::RenderWindow& rw)
 {
     Draw(rw);
     return CheckLeft(rw);
 }
 // Проверить на отжатие
-bool Button::CheckLeft(sf::RenderWindow& rw)
+bool OldButton::CheckLeft(sf::RenderWindow& rw)
 {
     click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
     mouseCoords = (sf::Vector2f)sf::Mouse::getPosition(rw);
@@ -122,7 +122,7 @@ bool Button::CheckLeft(sf::RenderWindow& rw)
     return false;
 }
 // Проверить нажатие левой кнопки мыши
-bool Button::CheckRight(sf::RenderWindow& rw)
+bool OldButton::CheckRight(sf::RenderWindow& rw)
 {
     click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
     mouseCoords = (sf::Vector2f)sf::Mouse::getPosition(rw);
@@ -148,7 +148,7 @@ bool Button::CheckRight(sf::RenderWindow& rw)
     return false;
 }
 
-bool Button::CheckDown(sf::RenderWindow& rw)
+bool OldButton::CheckDown(sf::RenderWindow& rw)
 {
     click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
     if (Aim(rw) && click)
@@ -159,7 +159,7 @@ bool Button::CheckDown(sf::RenderWindow& rw)
 }
 
 // Отрисовать и проверить на наведение
-bool Button::DrawAim(sf::RenderWindow& rw)
+bool OldButton::DrawAim(sf::RenderWindow& rw)
 {
     mouseCoords = (sf::Vector2f)sf::Mouse::getPosition(rw);
 
@@ -167,7 +167,7 @@ bool Button::DrawAim(sf::RenderWindow& rw)
     return Aim(rw);
 }
 
-bool Button::Aim(sf::RenderWindow& rw)
+bool OldButton::Aim(sf::RenderWindow& rw)
 {
     mouseCoords = (sf::Vector2f)sf::Mouse::getPosition(rw);
     if (coords.x < mouseCoords.x && mouseCoords.x < coords.x + size.x && coords.y < mouseCoords.y && mouseCoords.y < coords.y + size.y)
@@ -175,7 +175,7 @@ bool Button::Aim(sf::RenderWindow& rw)
     return false;
 }
 
-void Button::PrintText(sf::RenderWindow& rw, sf::String mes, sf::Vector2f pos, int _size, sf::Color col, int center)
+void OldButton::PrintText(sf::RenderWindow& rw, sf::String mes, sf::Vector2f pos, int _size, sf::Color col, int center)
 {
     //text = sf::Text(mes, font, _size);
     text.setString(mes);
@@ -197,7 +197,7 @@ void Button::PrintText(sf::RenderWindow& rw, sf::String mes, sf::Vector2f pos, i
     rw.draw(text);
 }
 
-void Button::Rectangle(sf::RenderWindow& rw, int status)
+void OldButton::Rectangle(sf::RenderWindow& rw, int status)
 {
     rect.setPosition(coords);
     rect.setSize(size);

@@ -6,7 +6,7 @@
 #include "SFML/Window.hpp"
 
 
-class Button
+class OldButton
 {
 public:
     sf::Vector2f coords;
@@ -34,20 +34,20 @@ public:
     sf::RectangleShape rect = sf::RectangleShape();
     sf::Text text;
 
-    Button(){}
+    OldButton(){}
 
-    Button(sf::Vector2f _coords, sf::Vector2f _size, sf::String _message,
+    OldButton(sf::Vector2f _coords, sf::Vector2f _size, sf::String _message,
         sf::Color _color, sf::Color _activeColor, sf::Color _downColor,
         sf::Color _colorBorder, sf::Color _activeColorBorder, sf::Color _downColorBorder,
         sf::Color _colorTitle, sf::Color _activeColorTitle, sf::Color _downColorTitle,
         sf::Vector2f _hitBox, int _borderSize, int _fontSize);
 
-    Button(sf::Vector2f _coords, sf::Vector2f _size,
+    OldButton(sf::Vector2f _coords, sf::Vector2f _size,
         sf::String _message, sf::Color _color, sf::Color _activeColor, sf::Color _colorBorder,
         sf::Color _activeColorBorder, sf::Color _colorTitle, sf::Color _activeColorTitle,
         sf::Vector2f _hitBox, int _borderSize, int _fontSize);
 
-    Button(sf::Vector2f _coords, sf::Vector2f _size,
+    OldButton(sf::Vector2f _coords, sf::Vector2f _size,
         sf::String _message, sf::Color _color, sf::Color _activeColor, sf::Color _colorBorder,
         sf::Color _activeColorBorder, sf::Color _colorTitle, sf::Color _activeColorTitle,
         int _center, int _borderSize, int _fontSize);

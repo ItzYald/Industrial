@@ -8,7 +8,7 @@
 #include "SFML/Window.hpp"
 
 #include "Functions/Functions.h"
-#include "Functions/Button.h"
+#include "Functions/OldButton.h"
 
 #include "Inventory.h"
 #include "ObjectInventory.h"

@@ -9,7 +9,7 @@
 #include "SFML/Window.hpp"
 
 #include "Functions/Functions.h"
-#include "Functions/Button.h"
+#include "Functions/OldButton.h"
 #include "Functions/Checks.h"
 
 #include "StaticSprites.h"
@@ -20,7 +20,7 @@ class AllInventory
 {
 public:
 	// Списко кнопок
-	std::vector<Button> buttons;
+	std::vector<OldButton> buttons;
 	// Окно
 	std::shared_ptr<sf::RenderWindow> rw;
 	// Функции

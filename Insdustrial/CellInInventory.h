@@ -9,7 +9,7 @@
 #include "Item.h"
 
 #include "Functions/Functions.h"
-#include "Functions/Button.h"
+#include "Functions/OldButton.h"
 
 class CellInInventory
 {
@@ -29,7 +29,7 @@ public:
 	//ItemStruct item;
 	Item item;
 	// Кнопка
-	Button button;
+	OldButton button;
 	// Список цветов
 	std::vector<sf::Color> colorsInventory;
 	CellInInventory(){ }

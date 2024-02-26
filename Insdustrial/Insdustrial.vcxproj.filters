@@ -69,7 +69,7 @@
     <ClCompile Include="Functions\Checks.cpp">
       <Filter>Исходные файлы\Functions</Filter>
     </ClCompile>
-    <ClCompile Include="Functions\Button.cpp">
+    <ClCompile Include="Functions\OldButton.cpp">
       <Filter>Исходные файлы\Functions</Filter>
     </ClCompile>
     <ClCompile Include="WorbenchInventory.cpp">
@@ -143,7 +143,7 @@
     <ClInclude Include="Functions\Checks.h">
       <Filter>Файлы заголовков\Functions</Filter>
     </ClInclude>
-    <ClInclude Include="Functions\Button.h">
+    <ClInclude Include="Functions\OldButton.h">
       <Filter>Файлы заголовков\Functions</Filter>
     </ClInclude>
     <ClInclude Include="ChestInventory.h">

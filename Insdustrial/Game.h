@@ -10,7 +10,7 @@
 #include "SFML/Window.hpp"
 
 #include "Functions/Functions.h"
-#include "Functions/Button.h"
+#include "Functions/OldButton.h"
 #include "Functions/Checks.h"
 
 #include "Field.h"
@@ -52,7 +52,7 @@ private:
 	// Функции
 	Functions functions;
 	// Список кнопок
-	std::vector<Button> buttons;
+	std::vector<OldButton> buttons;
 	// Часы
 	sf::Clock clock;
 

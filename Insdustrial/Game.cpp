@@ -606,7 +606,7 @@ void Game::Play()
 	if (buttons.size() < 4)
 	{
 		// Кнопка выйти
-		buttons.push_back(Button(sf::Vector2f(1000, 608), sf::Vector2f(128, 64), L"Выйти",
+		buttons.push_back(OldButton(sf::Vector2f(1000, 608), sf::Vector2f(128, 64), L"Выйти",
 			colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 			sf::Color(255, 255, 255), sf::Color::Transparent, sf::Vector2f(128 / 2 - 35, 12), 4, 25));
 	}
@@ -643,10 +643,10 @@ void Game::Menu()
 {
 	if (buttons.size() < 1)
 	{
-		buttons.push_back(Button(sf::Vector2f(sizeW.x / 2 - 75, 300), sf::Vector2f(150, 40), L"Начать",
+		buttons.push_back(OldButton(sf::Vector2f(sizeW.x / 2 - 75, 300), sf::Vector2f(150, 40), L"Начать",
 			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(0, 255, 0), sf::Color::Transparent,
 			sf::Color(0, 255, 0), sf::Color::Transparent, 1, 2, 30));
-		buttons.push_back(Button(sf::Vector2f(sizeW.x / 2 - 75, 500), sf::Vector2f(150, 40), L"Выйти",
+		buttons.push_back(OldButton(sf::Vector2f(sizeW.x / 2 - 75, 500), sf::Vector2f(150, 40), L"Выйти",
 			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(0, 255, 0), sf::Color::Transparent,
 			sf::Color(0, 255, 0), sf::Color::Transparent, 1, 2, 30));
 	}

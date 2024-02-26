@@ -13,7 +13,7 @@ CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vect
 	item = Item(0, 0);
 	
 	LoadColorInventoryFromFile();
-	button = Button(position, sf::Vector2f(64, 64), L"",
+	button = OldButton(position, sf::Vector2f(64, 64), L"",
 		colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 		sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25);
 }
@@ -31,7 +31,7 @@ CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vect
 	item = Item(0, 0);
 
 	LoadColorInventoryFromFile();
-	button = Button(position, sf::Vector2f(64, 64), L"",
+	button = OldButton(position, sf::Vector2f(64, 64), L"",
 		colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 		sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25);
 }

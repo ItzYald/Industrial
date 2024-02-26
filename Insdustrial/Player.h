@@ -7,7 +7,7 @@
 #include "SFML/Window.hpp"
 
 #include "Functions/Functions.h"
-#include "Functions/Button.h"
+#include "Functions/OldButton.h"
 
 #include "Sprite.h"
 #include "StaticSprites.h"

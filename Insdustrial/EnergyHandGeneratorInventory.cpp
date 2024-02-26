@@ -26,7 +26,7 @@ void EnergyHandGeneratorInventory::Update(Inventory& playerInventory)
 {
 	if (buttons.size() < 1)
 	{
-		buttons.push_back(Button(iconGenerate.getPosition(),
+		buttons.push_back(OldButton(iconGenerate.getPosition(),
 			sf::Vector2f(iconGenerate.getTexture()->getSize().x * iconGenerate.getScale().x,
 				iconGenerate.getTexture()->getSize().y * iconGenerate.getScale().y),
 			L"", sf::Color::Transparent, sf::Color::Transparent, sf::Color::Red,
