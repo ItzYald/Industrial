@@ -9,7 +9,7 @@
 #include "Object.h"
 #include "Item.h"
 
-class Field
+class Field : public sf::Drawable
 {
 public:
 	// Окно
@@ -22,6 +22,9 @@ public:
 	int sizeOne;
 	// Размер окна
 	sf::Vector2u sizeW;
+	
+	sf::Vector2f* cameraPosition;
+
 	// Указатель на список всех объектов
 	std::vector<Object*>* objects;
 	std::vector<std::vector<int>> newEnergyObjectsNumbers;
@@ -37,11 +40,15 @@ public:
 	/// <param name="_sizeOne">Размер одной клетки</param>
 	/// <param name="_sizeW">Размер окна</param>
 	/// <param name="texture">Текстурка травы</param>
-	Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _sizeOne,
+	Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, sf::Vector2i _size, int _sizeOne,
 		sf::Vector2u _sizeW, sf::Texture& _texture, std::vector<Object*>& _objects);
 	/// <summary>Отрисовка травы</summary>
 	/// <param name="cameraPosition">Позиция камеры</param>
-	void Draw(sf::Vector2f cameraPosition);
+	void Draw();
+
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+	void Next();
 
 	bool PutObject(sf::Vector2i mousePositionGrid, std::vector<Object*> _objects, Item& chooseItem);
 	// А я кстати не помню что это, так что возможно скоро удалю

@@ -1,13 +1,17 @@
 #include "Field.h"
 
-Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _sizeOne,
+Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, sf::Vector2i _size, int _sizeOne,
 	sf::Vector2u _sizeW, sf::Texture& _texture, std::vector<Object*>& _objects)
 	: rw(_rw), size(_size), sizeOne(_sizeOne), sizeW(_sizeW)
 {
 	functions = Functions(rw);
 	sprite = sf::Sprite(_texture);
 
+	sprite.setScale(_sizeOne / sprite.getTexture()->getSize().x, _sizeOne / sprite.getTexture()->getSize().y);
+
 	objects = &_objects;
+
+	cameraPosition = &_cameraPosition;
 
 	newEnergyObjectsNumbers = std::vector<std::vector<int>>();
 	transEnergyObjectsNumbers = std::vector<std::vector<int>>();
@@ -25,18 +29,39 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2i _size, int _siz
 
 }
 
-void Field::Draw(sf::Vector2f cameraPosition)
+void Field::Draw()
 {
 	for (int i = 0; i < size.x; i++)
 	{
 		for (int j = 0; j < size.y; j++)
 		{
-			sf::Vector2f position = sf::Vector2f(sizeOne * (i - cameraPosition.x), sizeOne * (j - cameraPosition.y));
-			// Отрисовка травы
-			if (position.x < sizeW.x && position.y < sizeW.y && position.x + sizeOne > 0 && position.y + sizeOne > 0)
-				functions.DrawSprite(sprite, position, sf::Vector2f(sizeOne, sizeOne));
+			sprite.setPosition(sf::Vector2f(sizeOne * (i - cameraPosition->x), sizeOne * (j - cameraPosition->y)));
+			if (sprite.getPosition().x < sizeW.x && sprite.getPosition().y < sizeW.y &&
+				sprite.getPosition().x + sizeOne > 0 && sprite.getPosition().y + sizeOne > 0)
+			{
+				rw->draw(sprite);
+			}
 		}
 	}
+}
+
+void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	//for (int i = 0; i < size.x; i++)
+	//{
+	//	for (int j = 0; j < size.y; j++)
+	//	{
+	//		sf::Vector2f position = sf::Vector2f(sizeOne * (i - cameraPosition.x), sizeOne * (j - cameraPosition.y));
+	//		// Отрисовка травы
+	//		if (position.x < sizeW.x && position.y < sizeW.y && position.x + sizeOne > 0 && position.y + sizeOne > 0)
+	//			functions.DrawSprite(sprite, position, sf::Vector2f(sizeOne, sizeOne));
+	//	}
+	//}
+}
+
+void Field::Next()
+{
+	//sprite.setPosition(sf::Vector2f(sizeOne * (i - cameraPosition->x), sizeOne * (j - cameraPosition->y)));
 }
 
 bool Field::PutObject(sf::Vector2i mousePositionGrid, std::vector<Object*> _objects, Item& chooseItem)

@@ -203,7 +203,7 @@ void Game::LoadingPlay()
 
 	LoadingImagesPlay();
 
-	field = Field(rw, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"], objects);
+	field = Field(rw, cameraPosition, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"], objects);
 	player = Player(rw, cameraPosition, field.sizeOne, textures["Player"], sf::Vector2f(20, 20), colorsInventory, itemTextures);
 
 	//objects.push_back(&player);
@@ -299,7 +299,7 @@ void Game::DrawPlay()
 	// Белый экран
 	functions.DrawRectangle(sf::Vector2f(0, 0), sf::Vector2f(sizeW.x, sizeW.y), sf::Color(255, 255, 255));
 	// Отрисовка поля
-	field.Draw(cameraPosition);
+	field.Draw();
 	// Отрисовка объектов
 	for (int i = objects.size() - 1; i >= 0; i--)
 	{
