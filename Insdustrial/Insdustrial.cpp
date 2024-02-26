@@ -6,30 +6,33 @@
 #include "Game.h"
 #include <Windows.h>
 
-
 int main()
 {
 	std::setlocale(LC_ALL, "Russian");
 	// ShowWindow(GetConsoleWindow(), SW_HIDE);
+
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 16;
+
 	ShowWindow(GetConsoleWindow(), SW_SHOW);
-	sf::RenderWindow rw(sf::VideoMode(1280, 720), "Industrial");
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "Industrial", 7U, settings);
 
-	Game game = Game(rw);
-	rw.setFramerateLimit(60);
+	Game game = Game(window);
+	window.setFramerateLimit(60);
 
-	while (rw.isOpen())
+	while (window.isOpen())
 	{
 		sf::Event event;
 
-		while (rw.pollEvent(event))
+		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 			{
-				rw.close();
+				window.close();
 			}
 			if (event.type == sf::Event::MouseButtonPressed)
 			{
-				game.Mouse(event, rw);
+				game.Mouse(event, window);
 			}
 			if (event.type == sf::Event::MouseWheelScrolled)
 			{
@@ -38,11 +41,11 @@ int main()
 
 		}
 
-		rw.clear();
+		window.clear();
 
 		game.Next();
 
-		rw.display();
+		window.display();
 
 	}
 }

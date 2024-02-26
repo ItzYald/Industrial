@@ -146,5 +146,6 @@ public:
 	void Mouse(sf::Event& e, sf::RenderWindow& rw);
 	// Прокручено колесико мыши
 	void MouseWheelScrolled(int _mouseWheel);
+
 };
 
