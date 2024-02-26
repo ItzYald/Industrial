@@ -129,9 +129,6 @@
     <ClCompile Include="AllInventory.cpp">
       <Filter>Исходные файлы\Inventories</Filter>
     </ClCompile>
-    <ClCompile Include="Field.cpp">
-      <Filter>Исходные файлы\Functions</Filter>
-    </ClCompile>
     <ClCompile Include="Functions\BaseButton.cpp">
       <Filter>Исходные файлы\Functions\Buttons</Filter>
     </ClCompile>
@@ -143,6 +140,9 @@
     </ClCompile>
     <ClCompile Include="Functions\TextButton.cpp">
       <Filter>Исходные файлы\Functions\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

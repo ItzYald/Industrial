@@ -49,6 +49,14 @@ private:
 	sf::Vector2i mousePosition;
 	// Колесико мыши
 	int mouseWheel;
+	// Кадры в секунду
+	sf::Time fps;
+	// Последние 10 количеств кадров в секунду
+	std::vector<int> lastFpsS = std::vector<int>();
+	// Средний Fps
+	float avarageFps = 0;
+	// Какой сейчас Fps по счету (от 0, то размера FpsS
+	int whatNumberFps;
 	
 	std::vector<Checks> ch;
 	// Функции
@@ -142,6 +150,8 @@ public:
 	void WhatObjectTransEnergy();
 	// Какой инвентарь открыт
 	void WhatInventory();
+
+	void AllDraw();
 	// Игра
 	void Play();
 	// Меню

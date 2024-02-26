@@ -22,6 +22,8 @@ public:
 	int sizeOne;
 	// Размер окна
 	sf::Vector2u sizeW;
+
+	std::vector<std::vector<sf::Sprite>> sprites;
 	
 	sf::Vector2f* cameraPosition;
 

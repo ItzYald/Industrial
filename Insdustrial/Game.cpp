@@ -8,6 +8,10 @@ Game::Game(sf::RenderWindow& _rw)
 	sizeW = _rw.getSize();
 	screen = "ЭкранЗагрузкиПриложения";
 	font.loadFromFile("Font/Undertale-Font.ttf");
+	for (size_t i = 0; i < 20; i++)
+	{
+		lastFpsS.push_back(0);
+	}
 }
 // Загрузка приложения
 void Game::LoadingApp()
@@ -207,6 +211,7 @@ void Game::LoadingPlay()
 	LoadingImagesPlay();
 
 	field = Field(rw, cameraPosition, sf::Vector2i(200, 200), 48, sizeW, textures["Grass"], objects);
+	drawables.push_back(&field);
 	player = Player(rw, cameraPosition, field.sizeOne, textures["Player"], sf::Vector2f(20, 20), colorsInventory, itemTextures);
 
 	energyObjects.push_back(new EnergyObject<ElectricOvenInventory > (
@@ -269,12 +274,7 @@ void Game::DrawPlay()
 	// Белый экран
 	functions.DrawRectangle(sf::Vector2f(0, 0), sf::Vector2f(sizeW.x, sizeW.y), sf::Color(255, 255, 255));
 	// Отрисовка поля
-	field.Draw();
-	// Отрисовка объектов
-	for (int i = drawables.size() - 1; i >= 0; i--)
-	{
-		rw->draw(*drawables[i]);
-	}
+	AllDraw();
 	rw->draw(player);
 }
 
@@ -590,6 +590,8 @@ void Game::Play()
 
 	WhatObjectTransEnergy();
 
+	field.Next();
+
 	if (!player.isOpenInventory)
 	{
 		Gameplay();
@@ -655,6 +657,14 @@ void Game::Menu()
 	}
 
 }
+
+void Game::AllDraw()
+{
+	for (int i = 0; i < drawables.size(); i++)
+	{
+		rw->draw(*drawables[i]);
+	}
+}
 // Следуюущий кадр (выбор экрана)
 void Game::Next()
 {
@@ -692,11 +702,24 @@ void Game::Next()
 	{
 		Menu();
 	}
-	// Вычислить и показать FPS
-	sf::Time FPS = clock.getElapsedTime();
-	functions.PrintText(std::to_string((int)(1 / FPS.asSeconds())), sf::Vector2f(sizeW.x - 15, 10), 25, sf::Color::Red, 0);
-	clock.restart();
 	mouseWheel = 0;
+
+	// Вычислить и показать FPS
+	fps = clock.getElapsedTime();
+	lastFpsS[whatNumberFps] = 1 / fps.asSeconds();
+	whatNumberFps += 1;
+	if (whatNumberFps >= lastFpsS.size() - 1)
+	{
+		avarageFps = 0;
+		for (size_t i = 0; i < lastFpsS.size(); i++)
+		{
+			avarageFps += lastFpsS[i] / (float)lastFpsS.size();
+		}
+		whatNumberFps = 0;
+	}
+	functions.PrintText(std::to_string((int)(1 / fps.asSeconds())), sf::Vector2f(sizeW.x - 15, 10), 25, sf::Color::Red, 0);
+	functions.PrintText(std::to_string((int)(avarageFps)), sf::Vector2f(sizeW.x - 15, 80), 25, sf::Color::Red, 0);
+	clock.restart();
 }
 // Событие мыши
 void Game::Mouse(sf::Event& e, sf::RenderWindow& rw)
