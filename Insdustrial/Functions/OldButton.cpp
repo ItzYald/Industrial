@@ -177,7 +177,6 @@ bool OldButton::Aim(sf::RenderWindow& rw)
 
 void OldButton::PrintText(sf::RenderWindow& rw, sf::String mes, sf::Vector2f pos, int _size, sf::Color col, int center)
 {
-    //text = sf::Text(mes, font, _size);
     text.setString(mes);
     text.setFont(font);
     text.setCharacterSize(_size);

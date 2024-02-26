@@ -17,7 +17,7 @@ protected:
 public:
 	Button(){ }
 
-	void Init(sf::Vector2i& _mousePosition, sf::Vector2f _position, sf::Vector2f _size);
+	void Init(sf::Vector2i& _mousePosition, sf::Vector2f _position, sf::Vector2f _size, int outlineSize);
 
 	bool Aim();
 

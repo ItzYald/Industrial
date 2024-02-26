@@ -20,7 +20,7 @@ ImageButton::ImageButton(sf::Vector2i& _mousePosition, sf::Vector2f _position, s
 
 	thisSprite = &baseSprite;
 
-	Init(_mousePosition, _position, _size);
+	Init(_mousePosition, _position, _size, outlineSize);
 }
 
 ImageButton::ImageButton(sf::Vector2i& _mousePosition, sf::Vector2f _position, sf::Vector2f _size,

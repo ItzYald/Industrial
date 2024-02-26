@@ -1,11 +1,13 @@
 #include "Button.h"
 
-void Button::Init(sf::Vector2i& _mousePosition, sf::Vector2f _position, sf::Vector2f _size)
+void Button::Init(sf::Vector2i& _mousePosition, sf::Vector2f _position, sf::Vector2f _size, int outlineSize)
 {
     mousePosition = &_mousePosition;
     rectangle = sf::RectangleShape(_size);
     rectangle.setPosition(_position);
+    rectangle.setOutlineThickness(outlineSize);
     leftClick = false;
+    rightClick = false;
 }
 
 bool Button::Aim()

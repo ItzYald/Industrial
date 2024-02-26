@@ -14,6 +14,8 @@
 #include "Functions/Checks.h"
 
 #include "Functions/BaseButton.h"
+#include "Functions/TextButton.h"
+#include "Functions/ImageButton.h"
 
 #include "Field.h"
 #include "Player.h"

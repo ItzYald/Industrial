@@ -14,11 +14,13 @@ TextButton::TextButton(sf::Vector2i& _mousePosition, sf::Vector2f _position, sf:
 	rightDownColors = _baseColors;
 
 	font = sf::Font();
-	font.loadFromFile("Fonts/Undertale-Font.ttf");
+	font.loadFromFile("Font/Undertale-Font.ttf");
 	text = sf::Text(message, font, characterSize);
 	text.setPosition(_position);
 
-	Init(_mousePosition, _position, _size);
+	rectangle.setOutlineThickness(3);
+
+	Init(_mousePosition, _position, _size, outlineSize);
 }
 
 TextButton::TextButton(sf::Vector2i& _mousePosition, sf::Vector2f _position, sf::Vector2f _size,

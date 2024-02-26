@@ -12,7 +12,7 @@ BaseButton::BaseButton(sf::Vector2i& _mousePosition, sf::Vector2f _position, sf:
 	leftDownColors = _baseColors;
 	rightDownColors = _baseColors;
 
-	Init(_mousePosition, _position, _size);
+	Init(_mousePosition, _position, _size, outlineSize);
 }
 
 BaseButton::BaseButton(sf::Vector2i& _mousePosition, sf::Vector2f _position, sf::Vector2f _size,

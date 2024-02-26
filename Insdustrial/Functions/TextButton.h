@@ -6,6 +6,13 @@ struct textButtonColors
 	sf::Color color = sf::Color(255, 255, 255);
 	sf::Color outLineColor = sf::Color::Transparent;
 	sf::Color textColor = sf::Color::Transparent;
+	textButtonColors(){ }
+	textButtonColors(sf::Color _color, sf::Color _outLineColor, sf::Color _textColor)
+	{
+		color = _color;
+		outLineColor = _outLineColor;
+		textColor = _textColor;
+	}
 };
 
 class TextButton : public Button
