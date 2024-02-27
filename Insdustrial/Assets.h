@@ -12,12 +12,22 @@
 
 class Assets
 {
+private:
+	void LoadingItemTextures();
+
 public:
-	// Список всех текстур
+	// Список текстур
 	std::map<std::string, sf::Texture> textures;
+	// Список текстур предметов (в инвентаре)
+	std::vector<sf::Texture> itemTextures;
+	// Список текстур иконок в инвентаре
+	std::map<std::string, sf::Texture> texturesInInventory;
 
 	Assets(){ }
 
-	void LoadingImagesPlay();
+
+	void LoadingPlay();
+
+	void UnloadingPlay();
 };
 

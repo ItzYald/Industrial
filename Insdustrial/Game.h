@@ -97,10 +97,6 @@ private:
 	// Все обычные объекты
 	std::vector<IStaingObject*> simpleObjects;
 	
-	// Список всех текстур
-	std::map<std::string, sf::Texture> textures;
-	// Список текстур предметов (в инвентаре)
-	std::vector<sf::Texture> itemTextures;
 	// Список текстур иконок в инвентаре
 	std::map<std::string, sf::Texture> texturesInInventory;
 
@@ -118,7 +114,6 @@ public:
 	void LoadingScreen(std::string nextScreen);
 	// Загрузка настроек цвета интерфейса из файла
 	void LoadColorInventoryFromFile();
-	void LoadingImagesPlay();
 	// Загрузка геймплея
 	void LoadingPlay();
 	/// <summary>

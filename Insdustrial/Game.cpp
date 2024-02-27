@@ -72,88 +72,6 @@ void Game::LoadColorInventoryFromFile()
 		line2.clear();
 	}
 }
-// Загрузка картинок для игры
-void Game::LoadingImagesPlay()
-{
-	assets.LoadingImagesPlay();
-	/// Иконки в инвентаре
-	// Иконка ручной генерации энергии
-	texturesInInventory["HandGenerate"] = sf::Texture();
-	texturesInInventory["HandGenerate"].loadFromFile(
-		"Images/IconsInInventory/IconEnergyHandGenerator.png");
-
-	// Текстуры предметов
-	for (int i = 0; i < 32; i++)
-	{
-		itemTextures.push_back(sf::Texture());
-	}
-
-	// Пустой слот
-	itemTextures[0].loadFromFile("Images/Empty.png");
-	// Железная руда
-	itemTextures[1].loadFromFile("Images/Metals/IronOre.png");
-	// Печка
-	itemTextures[2].loadFromFile("Images/Objects/Oven.png");
-	// Уголь
-	itemTextures[3].loadFromFile("Images/Coal.png");
-	// Железный слиток
-	itemTextures[4].loadFromFile("Images/Metals/IronIngot.png");
-	// Сундук
-	itemTextures[5].loadFromFile("Images/Objects/Chest.png");
-	// Железный блок
-	itemTextures[6].loadFromFile("Images/IronBlock.png");
-	// Древесина
-	itemTextures[7].loadFromFile("Images/Wood.png");
-	// Верстак
-	itemTextures[8].loadFromFile("Images/Objects/WorkBench.png");
-	// Доски
-	itemTextures[9].loadFromFile("Images/Planks.png");
-	// Корпус механнизма
-	itemTextures[10].loadFromFile("Images/Accumulator.png");
-	// Электропеч
-	itemTextures[11].loadFromFile("Images/Objects/ElectricOven.png");
-	// Медный провод
-	itemTextures[12].loadFromFile("Images/Wires/CopperWireOn.png");
-	// Энергохранилище
-	itemTextures[13].loadFromFile("Images/Objects/EnergyStorage.png");
-	// Медный слиток
-	itemTextures[14].loadFromFile("Images/Metals/CopperIngot.png");
-	// Железный провод
-	itemTextures[15].loadFromFile("Images/Wires/IronWireOn.png");
-	// Ручной энергогенератор
-	itemTextures[16].loadFromFile("Images/Objects/EnergyHandGenerator.png");
-	// Угольный энергогенератор
-	itemTextures[17].loadFromFile("Images/Objects/EnergyCoalGenerator.png");
-	// Корпус механнизма
-	itemTextures[18].loadFromFile("Images/Objects/MechanismBody.png");
-	// Оловяный слиток
-	itemTextures[19].loadFromFile("Images/Metals/TinIngot.png");
-	// Оловяный провод
-	itemTextures[20].loadFromFile("Images/Wires/TinWireOn.png");
-	// Оловяный провод
-	itemTextures[21].loadFromFile("Images/Metals/CopperOre.png");
-	// Оловяный провод
-	itemTextures[22].loadFromFile("Images/Metals/TinOre.png");
-	// Измельченная железная руда
-	itemTextures[23].loadFromFile("Images/Metals/CrushedIronOre.png");
-	// Дрорбитель
-	itemTextures[24].loadFromFile("Images/Objects/Crusher.png");
-	// Железная пластина
-	itemTextures[25].loadFromFile("Images/Metals/IronPlate.png");
-	// Компрессор
-	itemTextures[26].loadFromFile("Images/Metals/CopperPlate.png");
-	// Компрессор
-	itemTextures[27].loadFromFile("Images/Metals/TinPlate.png");
-	// Компрессор
-	itemTextures[28].loadFromFile("Images/Objects/Compressor.png");
-	// Микросхема
-	itemTextures[29].loadFromFile("Images/Chip.png");
-	// Палка
-	itemTextures[30].loadFromFile("Images/Stick.png");
-	// Молот
-	itemTextures[31].loadFromFile("Images/Hammer.png");
-
-}
 // Загрузка геймплея
 void Game::LoadingPlay()
 {
@@ -163,34 +81,34 @@ void Game::LoadingPlay()
 	// Загрузка цветов интерфейса
 	LoadColorInventoryFromFile();
 
-	LoadingImagesPlay();
+	assets.LoadingPlay();
 
 	field = Field(rw, cameraPosition, sf::Vector2i(200, 200), 48, sizeW, assets.textures["Grass"], objects);
 	drawables.push_back(&field);
-	player = Player(rw, cameraPosition, field.sizeOne, assets.textures["Player"], sf::Vector2f(20, 20), colorsInventory, itemTextures);
+	player = Player(rw, cameraPosition, field.sizeOne, assets.textures["Player"], sf::Vector2f(20, 20), colorsInventory, assets.itemTextures);
 
-	energyObjects.push_back(new EnergyObject<ElectricOvenInventory > (
-		rw, cameraPosition, field.sizeOne, assets.textures["ElectricOven"], itemTextures, sf::Vector2f(23, 19), colorsInventory));
-	energyObjects.push_back(new EnergyObject<CrusherInventory > (
-		rw, cameraPosition, field.sizeOne, assets.textures["Crusher"], itemTextures, sf::Vector2f(19, 17), colorsInventory, 1000));
-	energyObjects.push_back(new EnergyObject<CompressorInventory > (
-		rw, cameraPosition, field.sizeOne, assets.textures["Compressor"], itemTextures, sf::Vector2f(19, 16), colorsInventory, 1000));
-	energyObjects.push_back(new EnergyObject<EnergyStorageInventory> (
-		rw, cameraPosition, field.sizeOne, assets.textures["EnergyStorage"], itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
+	energyObjects.push_back(new EnergyObject<ElectricOvenInventory >(
+		rw, cameraPosition, field.sizeOne, assets.textures["ElectricOven"], assets.itemTextures, sf::Vector2f(23, 19), colorsInventory));
+	energyObjects.push_back(new EnergyObject<CrusherInventory >(
+		rw, cameraPosition, field.sizeOne, assets.textures["Crusher"], assets.itemTextures, sf::Vector2f(19, 17), colorsInventory, 1000));
+	energyObjects.push_back(new EnergyObject<CompressorInventory >(
+		rw, cameraPosition, field.sizeOne, assets.textures["Compressor"], assets.itemTextures, sf::Vector2f(19, 16), colorsInventory, 1000));
+	energyObjects.push_back(new EnergyObject<EnergyStorageInventory>(
+		rw, cameraPosition, field.sizeOne, assets.textures["EnergyStorage"], assets.itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
 	transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
-	energyObjects.push_back(new EnergyObject<EnergyHandGeneratorInventory> (
-		rw, cameraPosition, field.sizeOne, assets.textures["EnergyHandGenerator"], itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, texturesInInventory));
+	energyObjects.push_back(new EnergyObject<EnergyHandGeneratorInventory>(
+		rw, cameraPosition, field.sizeOne, assets.textures["EnergyHandGenerator"], assets.itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, assets.texturesInInventory));
 	transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
-	energyObjects.push_back(new EnergyObject<EnergyCoalGeneratorInventory > (
-		rw, cameraPosition, field.sizeOne, assets.textures["EnergyCoalGenerator"], itemTextures, sf::Vector2f(20, 19), colorsInventory, 100, 10));
+	energyObjects.push_back(new EnergyObject<EnergyCoalGeneratorInventory >(
+		rw, cameraPosition, field.sizeOne, assets.textures["EnergyCoalGenerator"], assets.itemTextures, sf::Vector2f(20, 19), colorsInventory, 100, 10));
 	transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 
 	simpleObjects.push_back(new StaingObject<CoalOvenInventory>(
-		rw, cameraPosition, field.sizeOne, assets.textures["Oven"], itemTextures, sf::Vector2f(23, 20), colorsInventory));
-	simpleObjects.push_back(new StaingObject<ChestInventory> (
-		rw, cameraPosition, field.sizeOne, assets.textures["Chest"], itemTextures, sf::Vector2f(23, 21), colorsInventory));
-	simpleObjects.push_back(new StaingObject<WorkbenchInventory > (
-		rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], itemTextures, sf::Vector2f(23, 22), colorsInventory));
+		rw, cameraPosition, field.sizeOne, assets.textures["Oven"], assets.itemTextures, sf::Vector2f(23, 20), colorsInventory));
+	simpleObjects.push_back(new StaingObject<ChestInventory>(
+		rw, cameraPosition, field.sizeOne, assets.textures["Chest"], assets.itemTextures, sf::Vector2f(23, 21), colorsInventory));
+	simpleObjects.push_back(new StaingObject<WorkbenchInventory >(
+		rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, sf::Vector2f(23, 22), colorsInventory));
 
 	for (size_t i = 0; i < simpleObjects.size(); i++)
 	{
@@ -210,12 +128,11 @@ void Game::LoadingPlay()
 
 void Game::UnloadingPlay(std::string nextScreen)
 {
-	assets.textures.clear();
-	itemTextures.clear();
-	texturesInInventory.clear();
+	assets.UnloadingPlay();
 
 	drawables.clear();
 	buttons.clear();
+	oldButtons.clear();
 	objects.clear();
 	simpleObjects.clear();
 	energyObjects.clear();
@@ -268,77 +185,77 @@ void Game::PutObject(sf::Vector2f position)
 	// Печку
 	case 2:
 		simpleObjects.push_back(new StaingObject<CoalOvenInventory >(
-			rw, cameraPosition, field.sizeOne, assets.textures["Oven"], itemTextures, position, colorsInventory));
+			rw, cameraPosition, field.sizeOne, assets.textures["Oven"], assets.itemTextures, position, colorsInventory));
 		objects.push_back(simpleObjects[simpleObjects.size() - 1]);
 		break;
 	// Электропечку
 	case 11:
 		energyObjects.push_back(new EnergyObject<ElectricOvenInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["ElectricOven"], itemTextures, position, colorsInventory));
+			rw, cameraPosition, field.sizeOne, assets.textures["ElectricOven"], assets.itemTextures, position, colorsInventory));
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 	// Дробитель
 	case 24:
 		energyObjects.push_back(new EnergyObject<CrusherInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["Crusher"], itemTextures, position, colorsInventory, 1000));
+			rw, cameraPosition, field.sizeOne, assets.textures["Crusher"], assets.itemTextures, position, colorsInventory, 1000));
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 	// Компрессор
 	case 28:
 		energyObjects.push_back(new EnergyObject<CompressorInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["Compressor"], itemTextures, position, colorsInventory, 1000));
+			rw, cameraPosition, field.sizeOne, assets.textures["Compressor"], assets.itemTextures, position, colorsInventory, 1000));
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 	// Сундук
 	case 5:
 		simpleObjects.push_back(new StaingObject<ChestInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["Chest"], itemTextures, position, colorsInventory));
+			rw, cameraPosition, field.sizeOne, assets.textures["Chest"], assets.itemTextures, position, colorsInventory));
 		objects.push_back(simpleObjects[simpleObjects.size() - 1]);
 		break;
 	// Верстак
 	case 8:
 		simpleObjects.push_back(new StaingObject<WorkbenchInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], itemTextures, position, colorsInventory));
+			rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, position, colorsInventory));
 		objects.push_back(simpleObjects[simpleObjects.size() - 1]);
 		break;
 	// Энергохранилище
 	case 13:
 		energyObjects.push_back(new EnergyObject<EnergyStorageInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["EnergyStorage"], itemTextures, position, colorsInventory, 1000, 10));
+			rw, cameraPosition, field.sizeOne, assets.textures["EnergyStorage"], assets.itemTextures, position, colorsInventory, 1000, 10));
 		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 	// Ручной энергогенератор
 	case 16:
 		energyObjects.push_back(new EnergyObject<EnergyHandGeneratorInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["EnergyHandGenerator"], itemTextures, position, colorsInventory, 100, 10));
+			rw, cameraPosition, field.sizeOne, assets.textures["EnergyHandGenerator"], assets.itemTextures, position, colorsInventory, 100, 10));
 		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 	// Угольный энергогенератор
 	case 17:
 		energyObjects.push_back(new EnergyObject<EnergyCoalGeneratorInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["EnergyCoalGenerator"], itemTextures, position, colorsInventory, 100, 10));
+			rw, cameraPosition, field.sizeOne, assets.textures["EnergyCoalGenerator"], assets.itemTextures, position, colorsInventory, 100, 10));
 		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 	// Медный провод
 	case 12:
 		energyObjects.push_back(new EnergyObject<WireInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["CopperWireOn"], itemTextures, position, colorsInventory, 10, 10));
+			rw, cameraPosition, field.sizeOne, assets.textures["CopperWireOn"], assets.itemTextures, position, colorsInventory, 10, 10));
 		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 	// Железный провод
 	case 15:
 		energyObjects.push_back(new EnergyObject<WireInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["IronWireOn"], itemTextures, position, colorsInventory, 100, 100));
+			rw, cameraPosition, field.sizeOne, assets.textures["IronWireOn"], assets.itemTextures, position, colorsInventory, 100, 100));
 		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 	// Оловяный провод
 	case 20:
 		energyObjects.push_back(new EnergyObject<WireInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["TinWireOn"], itemTextures, position, colorsInventory, 1000, 1000));
+			rw, cameraPosition, field.sizeOne, assets.textures["TinWireOn"], assets.itemTextures, position, colorsInventory, 1000, 1000));
 		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
