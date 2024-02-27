@@ -62,7 +62,7 @@ private:
 	// Какой сейчас Fps по счету (от 0, то размера FpsS
 	int whatNumberFps;
 
-	Assets* assets;
+	Assets assets;
 	
 	std::vector<Checks> ch;
 	// Функции
