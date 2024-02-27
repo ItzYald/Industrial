@@ -144,6 +144,9 @@
     <ClCompile Include="Field.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Assets.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="Functions\TextButton.h">
       <Filter>Файлы заголовков\Functions\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

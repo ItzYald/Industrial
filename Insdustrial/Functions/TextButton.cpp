@@ -60,6 +60,8 @@ void TextButton::Update()
 {
 	leftClick = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 	rightClick = sf::Mouse::isButtonPressed(sf::Mouse::Right);
+	text.setPosition(rectangle.getPosition().x + textPosition.x,
+		rectangle.getPosition().y + textPosition.y);
 	if (Aim())
 	{
 		if (leftClick)

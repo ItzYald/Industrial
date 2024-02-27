@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AllInventory.cpp" />
+    <ClCompile Include="Assets.cpp" />
     <ClCompile Include="CellInInventory.cpp" />
     <ClCompile Include="ChestInventory.cpp" />
     <ClCompile Include="CoalOvenInventory.cpp" />
@@ -163,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllInventory.h" />
+    <ClInclude Include="Assets.h" />
     <ClInclude Include="CellInInventory.h" />
     <ClInclude Include="ChestInventory.h" />
     <ClInclude Include="CoalOvenInventory.h" />

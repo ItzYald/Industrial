@@ -24,6 +24,8 @@ private:
 	textButtonColors rightDownColors;
 	sf::Text text;
 	sf::Font font;
+	sf::Vector2f textPosition;
+	
 
 public:
 	TextButton();

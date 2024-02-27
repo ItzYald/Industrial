@@ -17,6 +17,8 @@
 #include "Functions/TextButton.h"
 #include "Functions/ImageButton.h"
 
+#include "Assets.h"
+
 #include "Field.h"
 #include "Player.h"
 #include "StaingObject.h"
@@ -59,6 +61,8 @@ private:
 	float avarageFps = 0;
 	// Какой сейчас Fps по счету (от 0, то размера FpsS
 	int whatNumberFps;
+
+	Assets* assets;
 	
 	std::vector<Checks> ch;
 	// Функции
@@ -99,7 +103,6 @@ private:
 	std::vector<sf::Texture> itemTextures;
 	// Список текстур иконок в инвентаре
 	std::map<std::string, sf::Texture> texturesInInventory;
-
 
 	// Поле
 	Field field;

@@ -12,6 +12,7 @@ Game::Game(sf::RenderWindow& _rw)
 	{
 		lastFpsS.push_back(0);
 	}
+	assets = new Assets();
 }
 // Загрузка приложения
 void Game::LoadingApp()
@@ -617,9 +618,6 @@ void Game::Menu()
 {
 	if (oldButtons.size() < 1)
 	{
-		//oldButtons.push_back(OldButton(sf::Vector2f(sizeW.x / 2 - 75, 300), sf::Vector2f(150, 40), L"Начать",
-		//	sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(0, 255, 0), sf::Color::Transparent,
-		//	sf::Color(0, 255, 0), sf::Color::Transparent, 1, 2, 30));
 		oldButtons.push_back(OldButton(sf::Vector2f(sizeW.x / 2 - 75, 500), sf::Vector2f(150, 40), L"Выйти",
 			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(0, 255, 0), sf::Color::Transparent,
 			sf::Color(0, 255, 0), sf::Color::Transparent, 1, 2, 30));
@@ -636,7 +634,6 @@ void Game::Menu()
 	functions.DrawRectangle(sf::Vector2f(200, 100), sf::Vector2f(980, 520), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 4);
 	functions.PrintText(L"Industrial", sf::Vector2f(sizeW.x / 2.f, 100), 109, sf::Color(0, 255, 0), 1);
 
-	//if (oldButtons[0].DrawCheckLeft(*rw))
 	if (buttons[0]->CheckLeft())
 	{
 		screen = "ЗагрузочныЭкранГеймплея";
@@ -644,10 +641,7 @@ void Game::Menu()
 		return;
 	}
 
-	for (size_t i = 0; i < drawables.size(); i++)
-	{
-		rw->draw(*drawables[i]);
-	}
+	AllDraw();
 
 	buttons[0]->Update();
 
