@@ -25,7 +25,7 @@ void MineInventory::Next()
 	if (energy > 0)
 	{
 		energy -= 1;
-		if (rand() % 10 == 1)
+		if (rand() % 600 == 1)
 		{
 			int randomItem = rand() % 4;
 			int item = 0;

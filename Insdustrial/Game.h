@@ -109,6 +109,10 @@ public:
 	void LoadingScreen(std::string nextScreen);
 	// Загрузка настроек цвета интерфейса из файла
 	void LoadColorInventoryFromFile();
+	// Загрузка игры для разработки
+	void LoadingForDev();
+	// Загрузка игры для игры
+	void LoadingForPlay();
 	// Загрузка геймплея
 	void LoadingPlay();
 	/// <summary>

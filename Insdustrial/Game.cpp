@@ -71,20 +71,19 @@ void Game::LoadColorInventoryFromFile()
 		line2.clear();
 	}
 }
-// Загрузка геймплея
-void Game::LoadingPlay()
+
+void Game::LoadingForPlay()
 {
-	oldButtons.clear();
-	buttons.clear();
-	drawables.clear();
-	// Загрузка цветов интерфейса
-	LoadColorInventoryFromFile();
+	player.LoadingForPlay();
+	field.simpleObjects.push_back(new StaingObject<WorkbenchInventory >(
+		rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, sf::Vector2f(23, 22), colorsInventory));
+	energyObjects.push_back(new EnergyObject<MineInventory >(
+		rw, cameraPosition, field.sizeOne, assets.textures["Mine"], assets.itemTextures, sf::Vector2f(22, 22), colorsInventory));
+}
 
-	assets.LoadingPlay();
-
-	field = Field(rw, cameraPosition, sf::Vector2i(200, 200), 48, sizeW, assets.textures["Grass"], objects);
-	drawables.push_back(&field);
-	player = Player(rw, cameraPosition, field.sizeOne, assets.textures["Player"], sf::Vector2f(20, 20), colorsInventory, assets.itemTextures);
+void Game::LoadingForDev()
+{
+	player.LoadingForDev();
 
 	energyObjects.push_back(new EnergyObject<ElectricOvenInventory >(
 		rw, cameraPosition, field.sizeOne, assets.textures["ElectricOven"], assets.itemTextures, sf::Vector2f(23, 19), colorsInventory));
@@ -101,6 +100,8 @@ void Game::LoadingPlay()
 	energyObjects.push_back(new EnergyObject<EnergyCoalGeneratorInventory >(
 		rw, cameraPosition, field.sizeOne, assets.textures["EnergyCoalGenerator"], assets.itemTextures, sf::Vector2f(20, 19), colorsInventory, 100, 10));
 	transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
+	energyObjects.push_back(new EnergyObject<MineInventory >(
+		rw, cameraPosition, field.sizeOne, assets.textures["Mine"], assets.itemTextures, sf::Vector2f(15, 16), colorsInventory));
 
 	field.simpleObjects.push_back(new StaingObject<CoalOvenInventory>(
 		rw, cameraPosition, field.sizeOne, assets.textures["Oven"], assets.itemTextures, sf::Vector2f(23, 20), colorsInventory));
@@ -108,9 +109,23 @@ void Game::LoadingPlay()
 		rw, cameraPosition, field.sizeOne, assets.textures["Chest"], assets.itemTextures, sf::Vector2f(23, 21), colorsInventory));
 	field.simpleObjects.push_back(new StaingObject<WorkbenchInventory >(
 		rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, sf::Vector2f(23, 22), colorsInventory));
-	energyObjects.push_back(new EnergyObject<MineInventory >(
-		rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, sf::Vector2f(15, 16), colorsInventory));
-	transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
+}
+// Загрузка геймплея
+void Game::LoadingPlay()
+{
+	oldButtons.clear();
+	buttons.clear();
+	drawables.clear();
+	// Загрузка цветов интерфейса
+	LoadColorInventoryFromFile();
+
+	assets.LoadingPlay();
+
+	field = Field(rw, cameraPosition, sf::Vector2i(200, 200), 48, sizeW, assets.textures["Grass"], objects);
+	drawables.push_back(&field);
+	player = Player(rw, cameraPosition, field.sizeOne, assets.textures["Player"], sf::Vector2f(20, 20), colorsInventory, assets.itemTextures);
+
+	LoadingForPlay();
 
 	for (size_t i = 0; i < field.simpleObjects.size(); i++)
 	{

@@ -46,6 +46,10 @@ public:
 		sf::Texture* _texture, sf::Vector2f _position,
 		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture*>& _itemTextures);
 
+	void LoadingForDev();
+
+	void LoadingForPlay();
+
 	// Ходьба игрока
 	void Move();
 	//Каждый кадр

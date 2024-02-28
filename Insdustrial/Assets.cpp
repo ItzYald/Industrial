@@ -88,9 +88,12 @@ void Assets::LoadingPlay()
 	// Дробитель
 	textures["Crusher"] = new sf::Texture();
 	textures["Crusher"]->loadFromFile("Images/Objects/Crusher.png");
-	// Дробитель
+	// Сжиматель
 	textures["Compressor"] = new sf::Texture();
 	textures["Compressor"]->loadFromFile("Images/Objects/Compressor.png");
+	// Сжиматель
+	textures["Mine"] = new sf::Texture();
+	textures["Mine"]->loadFromFile("Images/Objects/Mine.png");
 	// Сундук
 	textures["Chest"] = new sf::Texture();
 	textures["Chest"]->loadFromFile("Images/Objects/Chest.png");

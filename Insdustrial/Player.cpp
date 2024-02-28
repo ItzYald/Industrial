@@ -25,6 +25,16 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosit
 
 	angle = 0.06f;
 
+
+	for (int i = 0; i < 30; i++)
+	{
+		ch.push_back(Checks());
+	}
+
+}
+
+void Player::LoadingForDev()
+{
 	inventory.cells[0][0].item.NumberUpdate(1);
 	inventory.cells[0][0].item.quantity = 15;
 	inventory.cells[1][0].item.NumberUpdate(2);
@@ -65,13 +75,14 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosit
 	inventory.cells[8][1].item.quantity = 10;
 	inventory.cells[9][1].item.NumberUpdate(29);
 	inventory.cells[9][1].item.quantity = 10;
+}
 
-
-	for (int i = 0; i < 30; i++)
-	{
-		ch.push_back(Checks());
-	}
-
+void Player::LoadingForPlay()
+{
+	inventory.cells[0][0].item.NumberUpdate(9);
+	inventory.cells[0][0].item.quantity = 6;
+	inventory.cells[0][1].item.NumberUpdate(4);
+	inventory.cells[0][1].item.quantity = 1;
 }
 
 void Player::Move()
