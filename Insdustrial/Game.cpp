@@ -108,9 +108,9 @@ void Game::LoadingPlay()
 		rw, cameraPosition, field.sizeOne, assets.textures["Chest"], assets.itemTextures, sf::Vector2f(23, 21), colorsInventory));
 	field.simpleObjects.push_back(new StaingObject<WorkbenchInventory >(
 		rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, sf::Vector2f(23, 22), colorsInventory));
-	field.simpleObjects.push_back(new StaingObject<MineInventory >(
+	energyObjects.push_back(new EnergyObject<MineInventory >(
 		rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, sf::Vector2f(15, 16), colorsInventory));
-
+	transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 
 	for (size_t i = 0; i < field.simpleObjects.size(); i++)
 	{
@@ -167,13 +167,13 @@ void Game::CloseInventory()
 	{
 		player.isOpenInventory = false;
 
-		switch (player.newWhatTypeInventoryOpen)
+		switch (player.whatTypeInventoryOpen)
 		{
 		case 1:
-			energyObjects[player.newWhatNumberInventoryOpen]->isOpenInventory = false;
+			energyObjects[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		case 2:
-			field.simpleObjects[player.newWhatNumberInventoryOpen]->isOpenInventory = false;
+			field.simpleObjects[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		}
 	}
@@ -303,26 +303,31 @@ void Game::Gameplay()
 	for (size_t i = 0; i < energyObjects.size(); i++)
 	{
 		field.newEnergyObjectsNumbers[energyObjects[i]->position.x][energyObjects[i]->position.y] = i;
-		energyObjects[i]->Update(mousePositionGrid, player.position, player.angle);
+		//energyObjects[i]->Update(mousePositionGrid, player.position, player.angle);
 		if (energyObjects[i]->isOpenInventory)
 		{
 			player.isOpenInventory = true;
-			player.newWhatTypeInventoryOpen = 1;
-			player.newWhatNumberInventoryOpen = i;
+			player.whatTypeInventoryOpen = 1;
+			player.whatNumberInventoryOpen = i;
 			break;
 		}
 	}
 
 	for (size_t i = 0; i < field.simpleObjects.size(); i++)
 	{
-		field.simpleObjects[i]->Update(mousePositionGrid, player.position, player.angle);
+		//field.simpleObjects[i]->Update(mousePositionGrid, player.position, player.angle);
 		if (field.simpleObjects[i]->isOpenInventory)
 		{
 			player.isOpenInventory = true;
-			player.newWhatTypeInventoryOpen = 2;
-			player.newWhatNumberInventoryOpen = i;
+			player.whatTypeInventoryOpen = 2;
+			player.whatNumberInventoryOpen = i;
 			break;
 		}
+	}
+
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		objects[i]->Update(mousePositionGrid, player.position, player.angle);
 	}
 
 	for (size_t i = 0; i < transEnergyObjects.size(); i++)
@@ -431,17 +436,17 @@ void Game::WhatObjectTransEnergy()
 
 void Game::WhatInventory()
 {
-	switch (player.newWhatTypeInventoryOpen)
+	switch (player.whatTypeInventoryOpen)
 	{
 	case 0:
 		player.inventory.DrawMiniWorkbench();
 		player.inventory.Update();
 		break;
 	case 1:
-		energyObjects[player.newWhatNumberInventoryOpen]->inventory->Update(player.inventory);
+		energyObjects[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
 		break;
 	case 2:
-		field.simpleObjects[player.newWhatNumberInventoryOpen]->inventory->Update(player.inventory);
+		field.simpleObjects[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
 		break;
 	}
 	
