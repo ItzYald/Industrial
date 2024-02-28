@@ -7,7 +7,6 @@ Game::Game(sf::RenderWindow& _rw)
 	functions = Functions(rw);
 	sizeW = _rw.getSize();
 	screen = "ЭкранЗагрузкиПриложения";
-	font.loadFromFile("Font/Undertale-Font.ttf");
 	for (size_t i = 0; i < 20; i++)
 	{
 		lastFpsS.push_back(0);
@@ -109,6 +108,9 @@ void Game::LoadingPlay()
 		rw, cameraPosition, field.sizeOne, assets.textures["Chest"], assets.itemTextures, sf::Vector2f(23, 21), colorsInventory));
 	field.simpleObjects.push_back(new StaingObject<WorkbenchInventory >(
 		rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, sf::Vector2f(23, 22), colorsInventory));
+	field.simpleObjects.push_back(new StaingObject<MineInventory >(
+		rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, sf::Vector2f(15, 16), colorsInventory));
+
 
 	for (size_t i = 0; i < field.simpleObjects.size(); i++)
 	{

@@ -147,6 +147,9 @@
     <ClCompile Include="Assets.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="MineInventory.cpp">
+      <Filter>Исходные файлы\Inventories</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -256,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="Assets.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="MineInventory.h">
+      <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

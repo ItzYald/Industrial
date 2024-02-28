@@ -27,9 +27,9 @@ public:
 		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture*>& _textures);
 
 	void Next() override{ }
-	void Draw() override{ }
+	void Draw() override;
 	// Работа с ячейками
-	void Update(Inventory& playerInventory);
+	void Update(Inventory& playerInventory) override;
 
 };
 

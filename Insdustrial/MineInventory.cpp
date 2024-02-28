@@ -1,6 +1,6 @@
-#include "ChestInventory.h"
+#include "MineInventory.h"
 
-ChestInventory::ChestInventory(std::shared_ptr<sf::RenderWindow> _rw,
+MineInventory::MineInventory(std::shared_ptr<sf::RenderWindow> _rw,
 	std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture*>& _textures)
 {
 	// Окно
@@ -9,25 +9,26 @@ ChestInventory::ChestInventory(std::shared_ptr<sf::RenderWindow> _rw,
 	colorsInventory = _colorsInventory;
 
 	// Ячейки с предметами (сетка 10 x 4)
-	cells = std::vector<std::vector<CellInInventory>>();
+	cells = std::vector<CellInInventory>();
 	for (int i = 0; i < 10; i++)
 	{
-		cells.push_back(std::vector<CellInInventory>());
-		for (int j = 0; j < 4; j++)
-		{
-			cells[i].push_back(CellInInventory(rw, sf::Vector2f(300 + 8 + i * 66, 110 + 8 + j * 66), true, _textures));
-		}
+		cells.push_back(CellInInventory(_rw, sf::Vector2f(300, 200 + 68 * i), false, _textures));
 	}
 
 	itemsSprites = StaticSprites(_textures);
 }
 
-void ChestInventory::Draw()
+void MineInventory::Next()
+{
+
+}
+
+void MineInventory::Draw()
 {
 	DrawCommon(cells);
 }
 
-void ChestInventory::Update(Inventory& playerInventory)
+void MineInventory::Update(Inventory& playerInventory)
 {
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
@@ -37,10 +38,7 @@ void ChestInventory::Update(Inventory& playerInventory)
 	// Два цикла по координатам инвентаря
 	for (int i = 0; i < cells.size(); i++)
 	{
-		for (int j = 0; j < cells[0].size(); j++)
-		{
-			cells[i][j].Update(playerInventory.mouseItem);
-		}
+		cells[i].Update(playerInventory.mouseItem);
 	}
 
 	playerInventory.Update();

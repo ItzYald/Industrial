@@ -25,11 +25,13 @@
 #include "EnergyObject.h"
 // Инвентари
 #include "CoalOvenInventory.h"
+#include "ChestInventory.h"
+#include "WorbenchInventory.h"
+#include "MineInventory.h"
+
 #include "ElectricOvenInventory.h"
 #include "CrusherInventory.h"
 #include "CompressorInventory.h"
-#include "ChestInventory.h"
-#include "WorbenchInventory.h"
 #include "EnergyStorageInventory.h"
 #include "EnergyHandGeneratorInventory.h"
 #include "EnergyCoalGeneratorInventory.h"
@@ -45,10 +47,8 @@ private:
 	sf::String screen;
 	// Размер дисплея
 	sf::Vector2u sizeW;
-	// Текст
-	sf::Text text;
-	// Шрифт
-	sf::Font font;
+	// Часы
+	sf::Clock clock;
 	// Позиция мыши
 	sf::Vector2i mousePosition;
 	// Колесико мыши
@@ -71,8 +71,6 @@ private:
 	std::vector<OldButton> oldButtons;
 
 	std::vector<Button*> buttons;
-	// Часы
-	sf::Clock clock;
 
 	// Позиция камеры
 	sf::Vector2f cameraPosition;
@@ -86,8 +84,8 @@ private:
 	// Стандартные цвета для приложения
 	std::vector<sf::Color> colorsInventory;
 
+	// Все на отрисовку
 	std::vector<sf::Drawable*> drawables;
-
 	// Все объекты
 	std::vector<Object*> objects;
 	// Все объекты передающие энергию
