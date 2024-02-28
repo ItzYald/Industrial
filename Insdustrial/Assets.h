@@ -16,14 +16,17 @@ private:
 	void LoadingItemTextures();
 
 public:
+	Assets()
+	{
+		textures = std::map<std::string, sf::Texture*>();
+	}
+
 	// Список текстур
-	std::map<std::string, sf::Texture> textures;
+	std::map<std::string, sf::Texture*> textures;
 	// Список текстур предметов (в инвентаре)
-	std::vector<sf::Texture> itemTextures;
+	std::vector<sf::Texture*> itemTextures;
 	// Список текстур иконок в инвентаре
 	std::map<std::string, sf::Texture> texturesInInventory;
-
-	Assets(){ }
 
 
 	void LoadingPlay();

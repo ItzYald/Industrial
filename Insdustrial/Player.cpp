@@ -1,12 +1,12 @@
 #include "Player.h"
 
 Player::Player(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
-	sf::Texture& _texture, sf::Vector2f _position,
-	std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _itemTextures)
+	sf::Texture* _texture, sf::Vector2f _position,
+	std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture*>& _itemTextures)
 {
 	rw = _rw;
 	fieldSizeOne = _fieldSizeOne;
-	sprite.setTexture(_texture);
+	sprite.setTexture(*_texture);
 	position = _position;
 	functions = Functions(rw);
 

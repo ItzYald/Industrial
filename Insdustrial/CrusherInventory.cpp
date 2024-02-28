@@ -2,7 +2,7 @@
 
 CrusherInventory::CrusherInventory(
 	std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
-	int _maxEnergy, std::vector<sf::Texture>& _textures)
+	int _maxEnergy, std::vector<sf::Texture*>& _textures)
 	: EnergyObjectInventory(_rw, _colorsInventory, _maxEnergy)
 {
 	rw = _rw;

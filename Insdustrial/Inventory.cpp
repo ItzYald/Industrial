@@ -1,6 +1,7 @@
 #include "Inventory.h"
 
-Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures)
+Inventory::Inventory(std::shared_ptr<sf::RenderWindow> _rw,
+	std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture*> _textures)
 {
 	// Узнать координаты мыши
 	mousePosition = sf::Vector2i();

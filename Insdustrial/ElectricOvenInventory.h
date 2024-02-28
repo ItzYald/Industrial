@@ -11,7 +11,8 @@ class ElectricOvenInventory : public EnergyObjectInventory
 	ProgressInventory progress;
 public:
 	ElectricOvenInventory(){ }
-	ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures);
+	ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _rw,
+		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture*>& _textures);
 
 	void Burn();
 	// Каждый кадр (даже пока игрок не открыл этот инвентарь)

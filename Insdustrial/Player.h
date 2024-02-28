@@ -43,8 +43,8 @@ public:
 	/// <param name="_colorsInventory">Базовые цвета инвентаря</param>
 	/// <param name="_textures">Текстуры предметов</param>
 	Player(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
-		sf::Texture& _texture, sf::Vector2f _position,
-		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _itemTextures);
+		sf::Texture* _texture, sf::Vector2f _position,
+		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture*>& _itemTextures);
 
 	// Ходьба игрока
 	void Move();

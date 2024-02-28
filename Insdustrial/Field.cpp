@@ -1,11 +1,11 @@
 #include "Field.h"
 
 Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, sf::Vector2i _size, int _sizeOne,
-	sf::Vector2u _sizeW, sf::Texture& _texture, std::vector<Object*>& _objects)
+	sf::Vector2u _sizeW, sf::Texture* _texture, std::vector<Object*>& _objects)
 	: rw(_rw), size(_size), sizeOne(_sizeOne), sizeW(_sizeW)
 {
 	functions = Functions(rw);
-	sprite = sf::Sprite(_texture);
+	sprite = sf::Sprite(*_texture);
 	cameraPosition = &_cameraPosition;
 
 	sprite.setScale(_sizeOne / sprite.getTexture()->getSize().x, _sizeOne / sprite.getTexture()->getSize().y);

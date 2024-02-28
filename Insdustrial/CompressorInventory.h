@@ -13,7 +13,7 @@ public:
 	{
 	}
 	CompressorInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
-		int _maxEnergy, std::vector<sf::Texture>& _textures);
+		int _maxEnergy, std::vector<sf::Texture*>& _textures);
 
 	// Всегда
 	void Next() override;

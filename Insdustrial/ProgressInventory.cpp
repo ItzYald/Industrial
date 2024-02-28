@@ -1,7 +1,8 @@
 #include "ProgressInventory.h"
 
 ProgressInventory::ProgressInventory(
-	std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Texture>& _textures, std::vector<CellInInventory>& cells)
+	std::shared_ptr<sf::RenderWindow> _rw,
+	std::vector<sf::Texture*>& _textures, std::vector<CellInInventory>& cells)
 {
 	functions = Functions(_rw);
 	whatProgress = 120;

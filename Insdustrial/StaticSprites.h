@@ -11,7 +11,7 @@ class StaticSprites
 public:
 	// Конструктор
 	StaticSprites(){}
-	StaticSprites(std::vector<sf::Texture>& _textures);
+	StaticSprites(std::vector<sf::Texture*> _textures);
 
 	std::vector<sf::Sprite> sprites;
 

@@ -2,7 +2,7 @@
 
 WireInventory::WireInventory(
 	std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
-	int _maxEnergy, int _power, std::vector<sf::Texture>& _itemTextures)
+	int _maxEnergy, int _power, std::vector<sf::Texture*>& _itemTextures)
 {
 	rw = _rw;
 	functions = Functions(rw);

@@ -1,11 +1,11 @@
 #include "StaticSprites.h"
 
-StaticSprites::StaticSprites(std::vector<sf::Texture>& _textures)
+StaticSprites::StaticSprites(std::vector<sf::Texture*> _textures)
 {
 	for (int i = 0; i < _textures.size(); i++)
 	{
 		sprites.push_back(sf::Sprite());
-		sprites[i].setTexture(_textures[i]);
+		sprites[i].setTexture((*_textures[i]));
 	}
 }
 

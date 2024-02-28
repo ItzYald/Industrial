@@ -1,6 +1,7 @@
 #include "CellInInventory.h"
 
-CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put, bool _take, std::vector<sf::Texture>& _textures)
+CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw,
+	sf::Vector2f position, bool _put, bool _take, std::vector<sf::Texture*>& _textures)
 {
 	rw = _rw;
 	functions = Functions(rw);
@@ -18,7 +19,7 @@ CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vect
 		sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25);
 }
 
-CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put, std::vector<sf::Texture>& _textures)
+CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put, std::vector<sf::Texture*>& _textures)
 {
 	rw = _rw;
 	functions = Functions(rw);

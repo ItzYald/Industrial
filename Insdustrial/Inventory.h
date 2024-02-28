@@ -33,7 +33,8 @@ public:
 	// Базовый конструктор
 	Inventory(){ }
 	// Конструктор
-	Inventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture>& _textures);
+	Inventory(std::shared_ptr<sf::RenderWindow> _rw,
+		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture*> _textures);
 	// Отрисовка инвентаря
 	void Draw() override;
 	// В данном случае не используется

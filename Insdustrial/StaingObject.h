@@ -16,7 +16,7 @@ public:
 	/// <param name="_position">Позиция</param>
 
 	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
-		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures,
+		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures,
 		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
 	{
 		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
@@ -25,7 +25,7 @@ public:
 	}
 
 	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
-		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures,
+		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures,
 		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory, 
 		std::map<std::string, sf::Texture>& _texturesInInventory)
 	{
@@ -35,7 +35,7 @@ public:
 	}
 
 	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
-		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures, sf::Vector2f _position,
+		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures, sf::Vector2f _position,
 		std::vector<sf::Color> _colorsInventory, int _maxFuel, int _power)
 	{
 		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
@@ -44,7 +44,7 @@ public:
 	}
 
 	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
-		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures, sf::Vector2f _position,
+		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures, sf::Vector2f _position,
 		std::vector<sf::Color> _colorsInventory, int _maxFuel, int _power,
 		std::map<std::string, sf::Texture>& _texturesInInventory)
 	{
@@ -54,7 +54,7 @@ public:
 	}
 
 	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
-		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures, sf::Vector2f _position,
+		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures, sf::Vector2f _position,
 		std::vector<sf::Color> _colorsInventory, int _maxFuel)
 	{
 		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
@@ -63,12 +63,13 @@ public:
 	}
 
 	void Init(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
-		sf::Texture& _texture, std::vector<sf::Texture>& _itemTextures,
+		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures,
 		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
 	{
+		sprite = sf::Sprite();
 		rw = _rw;
 		fieldSizeOne = _fieldSizeOne;
-		sprite.setTexture(_texture);
+		sprite.setTexture(*_texture);
 		position = _position;
 
 		cameraPosition = &_cameraPosition;

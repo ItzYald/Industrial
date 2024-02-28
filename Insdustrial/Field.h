@@ -8,6 +8,7 @@
 #include "Functions/Functions.h"
 #include "Object.h"
 #include "Item.h"
+#include "IStaingObject.h"
 
 class Field : public sf::Drawable
 {
@@ -32,6 +33,8 @@ public:
 	std::vector<std::vector<int>> newEnergyObjectsNumbers;
 	std::vector<std::vector<int>> transEnergyObjectsNumbers;
 
+	std::vector<IStaingObject*> simpleObjects;
+
 	// Фнкции отрисовки (прямоугольник, круг, текст, спрайт...)
 	Functions functions;
 
@@ -43,7 +46,7 @@ public:
 	/// <param name="_sizeW">Размер окна</param>
 	/// <param name="texture">Текстурка травы</param>
 	Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, sf::Vector2i _size, int _sizeOne,
-		sf::Vector2u _sizeW, sf::Texture& _texture, std::vector<Object*>& _objects);
+		sf::Vector2u _sizeW, sf::Texture* _texture, std::vector<Object*>& _objects);
 	/// <summary>Отрисовка травы</summary>
 	/// <param name="cameraPosition">Позиция камеры</param>
 	void Draw();

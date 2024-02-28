@@ -16,7 +16,7 @@ public:
 	WireInventory(){ }
 
 	WireInventory(std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
-		int _maxEnergy, int _power, std::vector<sf::Texture>& _textures);
+		int _maxEnergy, int _power, std::vector<sf::Texture*>& _textures);
 
 	// Отрисовка инвентаря
 	void Draw() override;

@@ -96,9 +96,6 @@ private:
 	std::vector<IEnergyObject*> energyObjects;
 	// Все обычные объекты
 	std::vector<IStaingObject*> simpleObjects;
-	
-	// Список текстур иконок в инвентаре
-	std::map<std::string, sf::Texture> texturesInInventory;
 
 	// Поле
 	Field field;

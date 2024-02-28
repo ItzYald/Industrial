@@ -18,7 +18,7 @@ void Game::LoadingApp()
 {
 	objects = std::vector<Object*>();
 	transEnergyObjects = std::vector<IEnergyObject*>();
-	simpleObjects = std::vector<IStaingObject*>();
+	field.simpleObjects = std::vector<IStaingObject*>();
 
 	assets = Assets();
 
@@ -103,16 +103,16 @@ void Game::LoadingPlay()
 		rw, cameraPosition, field.sizeOne, assets.textures["EnergyCoalGenerator"], assets.itemTextures, sf::Vector2f(20, 19), colorsInventory, 100, 10));
 	transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 
-	simpleObjects.push_back(new StaingObject<CoalOvenInventory>(
+	field.simpleObjects.push_back(new StaingObject<CoalOvenInventory>(
 		rw, cameraPosition, field.sizeOne, assets.textures["Oven"], assets.itemTextures, sf::Vector2f(23, 20), colorsInventory));
-	simpleObjects.push_back(new StaingObject<ChestInventory>(
+	field.simpleObjects.push_back(new StaingObject<ChestInventory>(
 		rw, cameraPosition, field.sizeOne, assets.textures["Chest"], assets.itemTextures, sf::Vector2f(23, 21), colorsInventory));
-	simpleObjects.push_back(new StaingObject<WorkbenchInventory >(
+	field.simpleObjects.push_back(new StaingObject<WorkbenchInventory >(
 		rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, sf::Vector2f(23, 22), colorsInventory));
 
-	for (size_t i = 0; i < simpleObjects.size(); i++)
+	for (size_t i = 0; i < field.simpleObjects.size(); i++)
 	{
-		objects.push_back(simpleObjects[i]);
+		objects.push_back(field.simpleObjects[i]);
 	}
 	for (size_t i = 0; i < energyObjects.size(); i++)
 	{
@@ -134,7 +134,7 @@ void Game::UnloadingPlay(std::string nextScreen)
 	buttons.clear();
 	oldButtons.clear();
 	objects.clear();
-	simpleObjects.clear();
+	field.simpleObjects.clear();
 	energyObjects.clear();
 	transEnergyObjects.clear();
 
@@ -171,7 +171,7 @@ void Game::CloseInventory()
 			energyObjects[player.newWhatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		case 2:
-			simpleObjects[player.newWhatNumberInventoryOpen]->isOpenInventory = false;
+			field.simpleObjects[player.newWhatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		}
 	}
@@ -184,9 +184,9 @@ void Game::PutObject(sf::Vector2f position)
 	{
 	// Печку
 	case 2:
-		simpleObjects.push_back(new StaingObject<CoalOvenInventory >(
+		field.simpleObjects.push_back(new StaingObject<CoalOvenInventory >(
 			rw, cameraPosition, field.sizeOne, assets.textures["Oven"], assets.itemTextures, position, colorsInventory));
-		objects.push_back(simpleObjects[simpleObjects.size() - 1]);
+		objects.push_back(field.simpleObjects[field.simpleObjects.size() - 1]);
 		break;
 	// Электропечку
 	case 11:
@@ -208,15 +208,15 @@ void Game::PutObject(sf::Vector2f position)
 		break;
 	// Сундук
 	case 5:
-		simpleObjects.push_back(new StaingObject<ChestInventory > (
+		field.simpleObjects.push_back(new StaingObject<ChestInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["Chest"], assets.itemTextures, position, colorsInventory));
-		objects.push_back(simpleObjects[simpleObjects.size() - 1]);
+		objects.push_back(field.simpleObjects[field.simpleObjects.size() - 1]);
 		break;
 	// Верстак
 	case 8:
-		simpleObjects.push_back(new StaingObject<WorkbenchInventory > (
+		field.simpleObjects.push_back(new StaingObject<WorkbenchInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, position, colorsInventory));
-		objects.push_back(simpleObjects[simpleObjects.size() - 1]);
+		objects.push_back(field.simpleObjects[field.simpleObjects.size() - 1]);
 		break;
 	// Энергохранилище
 	case 13:
@@ -228,7 +228,8 @@ void Game::PutObject(sf::Vector2f position)
 	// Ручной энергогенератор
 	case 16:
 		energyObjects.push_back(new EnergyObject<EnergyHandGeneratorInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["EnergyHandGenerator"], assets.itemTextures, position, colorsInventory, 100, 10));
+			rw, cameraPosition, field.sizeOne, assets.textures["EnergyHandGenerator"],
+			assets.itemTextures, position, colorsInventory, 100, 10, assets.texturesInInventory));
 		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
@@ -260,6 +261,8 @@ void Game::PutObject(sf::Vector2f position)
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 	}
+
+	drawables.push_back(objects[objects.size() - 1]);
 }
 // Геймплей
 void Game::Gameplay()
@@ -308,10 +311,10 @@ void Game::Gameplay()
 		}
 	}
 
-	for (size_t i = 0; i < simpleObjects.size(); i++)
+	for (size_t i = 0; i < field.simpleObjects.size(); i++)
 	{
-		simpleObjects[i]->Update(mousePositionGrid, player.position, player.angle);
-		if (simpleObjects[i]->isOpenInventory)
+		field.simpleObjects[i]->Update(mousePositionGrid, player.position, player.angle);
+		if (field.simpleObjects[i]->isOpenInventory)
 		{
 			player.isOpenInventory = true;
 			player.newWhatTypeInventoryOpen = 2;
@@ -436,7 +439,7 @@ void Game::WhatInventory()
 		energyObjects[player.newWhatNumberInventoryOpen]->inventory->Update(player.inventory);
 		break;
 	case 2:
-		simpleObjects[player.newWhatNumberInventoryOpen]->inventory->Update(player.inventory);
+		field.simpleObjects[player.newWhatNumberInventoryOpen]->inventory->Update(player.inventory);
 		break;
 	}
 	
