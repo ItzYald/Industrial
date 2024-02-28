@@ -22,6 +22,45 @@ MineInventory::MineInventory(std::shared_ptr<sf::RenderWindow> _rw,
 
 void MineInventory::Next()
 {
+	if (energy > 0)
+	{
+		energy -= 1;
+		if (rand() % 10 == 1)
+		{
+			int randomItem = rand() % 4;
+			int item = 0;
+			switch (randomItem)
+			{
+			case 0:
+				item = 1;
+				break;
+			case 1:
+				item = 3;
+				break;
+			case 2:
+				item = 21;
+				break;
+			case 3:
+				item = 22;
+				break;
+			}
+			for (size_t i = 0; i < 5; i++)
+			{
+				if (cells[i].item.number == item)
+				{
+					cells[i].item.quantity += 1;
+					break;
+				}
+				else if (cells[i].item.number == 0)
+				{
+					cells[i].item.NumberUpdate(item);
+					cells[i].item.quantity += 1;
+					break;
+				}
+			}
+		}
+	}
+
 	AllNext();
 }
 
