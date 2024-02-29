@@ -23,10 +23,10 @@ public:
 	// Отрисовка инвентаря
 	void Draw() override;
 	// Всегда
-	void Next() override;
+	void PlayUpdate() override;
 	/// <summary>Логика инвентаря</summary>
 	/// <param name="playerInventory">Инвентарь игрока</param>
-	void Update(Inventory& playerInventory) override;
+	void WhileOpen(Inventory& playerInventory) override;
 
 };
 

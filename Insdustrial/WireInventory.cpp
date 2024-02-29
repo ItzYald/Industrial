@@ -18,12 +18,12 @@ WireInventory::WireInventory(
 	energy = 0;
 }
 
-void WireInventory::Update(Inventory& playerInventory)
+void WireInventory::WhileOpen(Inventory& playerInventory)
 {
 	AllUpdate(playerInventory);
 }
 
-void WireInventory::Next()
+void WireInventory::PlayUpdate()
 {
 	AllNext();
 }

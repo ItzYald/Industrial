@@ -38,9 +38,9 @@ public:
 	// Отрисовка инвентаря
 	void Draw() override;
 	// В данном случае не используется
-	void Next() override{ }
+	void PlayUpdate() override{ }
 	// Действия инвентаря
-	void Update();
+	void WhileOpen();
 	// Отрисовка и действия внутреннего инвентаря (вместе с мини верстаком, который пока не работает)
 	void DrawMiniWorkbench();
 	// Отрисовка нижней части инвентаря (во время геймплея)

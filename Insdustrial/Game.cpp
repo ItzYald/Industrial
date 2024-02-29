@@ -94,7 +94,7 @@ void Game::LoadingPlay()
 
 	assets.LoadingPlay();
 
-	field = Field(rw, cameraPosition, sf::Vector2i(200, 200), 48, sizeW, assets.textures["Grass"], assets);
+	field = Field(rw, cameraPosition, sf::Vector2i(200, 200), 48, sizeW, assets.textures["Grass"], assets, player);
 	drawables.push_back(&field);
 	player = Player(rw, cameraPosition, field.sizeOne, assets.textures["Player"], sf::Vector2f(20, 20), colorsInventory, assets.itemTextures);
 
@@ -282,7 +282,7 @@ void Game::Gameplay()
 	DrawGameplay();
 
 	// То, что делает игрок каждый кадр
-	player.Update();
+	player.GamePlayUpdate();
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
@@ -296,7 +296,7 @@ void Game::Gameplay()
 		field.objects[i]->Update(mousePositionGrid, player.position, player.angle);
 	}
 
-	field.GamePlay(player);
+	field.GamePlayUpdate();
 
 	// Смещение камеры
 	//cameraPosition -= (cameraPosition - sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2))) * 0.04f;
@@ -309,13 +309,13 @@ void Game::WhatInventory()
 	{
 	case 0:
 		player.inventory.DrawMiniWorkbench();
-		player.inventory.Update();
+		player.inventory.WhileOpen();
 		break;
 	case 1:
-		field.energyObjects[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
+		field.energyObjects[player.whatNumberInventoryOpen]->inventory->WhileOpen(player.inventory);
 		break;
 	case 2:
-		field.simpleObjects[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
+		field.simpleObjects[player.whatNumberInventoryOpen]->inventory->WhileOpen(player.inventory);
 		break;
 	}
 	
@@ -334,7 +334,7 @@ void Game::Play()
 	// Отрисовать игру
 	DrawPlay();
 
-	field.Next();
+	field.PlayUpdate();
 
 	if (!player.isOpenInventory)
 	{

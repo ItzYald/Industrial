@@ -22,7 +22,7 @@ void EnergyHandGeneratorInventory::Draw()
 	
 }
 
-void EnergyHandGeneratorInventory::Update(Inventory& playerInventory)
+void EnergyHandGeneratorInventory::WhileOpen(Inventory& playerInventory)
 {
 	if (oldButtons.size() < 1)
 	{
@@ -50,7 +50,7 @@ void EnergyHandGeneratorInventory::Update(Inventory& playerInventory)
 	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 
 	Draw();
-	playerInventory.Update();
+	playerInventory.WhileOpen();
 
 }
 

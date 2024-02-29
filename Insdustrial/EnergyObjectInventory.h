@@ -27,12 +27,12 @@ public:
 
 	void AllNext();
 	// Всегда
-	virtual void Next() = 0;
+	virtual void PlayUpdate() = 0;
 
 	void AllUpdate(Inventory& playerInventory);
 	/// <summary>Логика инвентаря</summary>
 	/// <param name="playerInventory">Инвентарь игрока</param>
-	virtual void Update(Inventory& playerInventory) = 0;
+	virtual void WhileOpen(Inventory& playerInventory) = 0;
 
 };
 

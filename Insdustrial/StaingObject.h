@@ -34,34 +34,6 @@ public:
 		inventory = &TypeInventory;
 	}
 
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
-		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures, sf::Vector2f _position,
-		std::vector<sf::Color> _colorsInventory, int _maxFuel, int _power)
-	{
-		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
-		TypeInventory = T(rw, _colorsInventory, _maxFuel, _power, _itemTextures);
-		inventory = &TypeInventory;
-	}
-
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
-		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures, sf::Vector2f _position,
-		std::vector<sf::Color> _colorsInventory, int _maxFuel, int _power,
-		std::map<std::string, sf::Texture>& _texturesInInventory)
-	{
-		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
-		TypeInventory = T(rw, _colorsInventory, _maxFuel, _power, _itemTextures, _texturesInInventory);
-		inventory = &TypeInventory;
-	}
-
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
-		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures, sf::Vector2f _position,
-		std::vector<sf::Color> _colorsInventory, int _maxFuel)
-	{
-		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
-		TypeInventory = T(rw, _colorsInventory, _maxFuel, _itemTextures);
-		inventory = &TypeInventory;
-	}
-
 	void Init(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures,
 		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
@@ -103,9 +75,9 @@ public:
 		return false;
 	}
 	// Обновление инвентаря
-	void Next() override
+	void PlayUpdate() override
 	{
-		inventory->Next();
+		inventory->PlayUpdate();
 		// Если повернут вверх
 		if (turn == 0)
 		{

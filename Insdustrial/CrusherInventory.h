@@ -14,10 +14,10 @@ public:
 		int _maxEnergy, std::vector<sf::Texture*>& _textures);
 
 	// Всегда
-	void Next() override;
+	void PlayUpdate() override;
 	// Отроисовка отнвентаря
 	void Draw() override;
 	// Когда зашел в инвентарь
-	void Update(Inventory& playerInventory) override;
+	void WhileOpen(Inventory& playerInventory) override;
 };
 

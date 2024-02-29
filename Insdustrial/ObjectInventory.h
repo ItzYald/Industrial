@@ -24,10 +24,10 @@ public:
 	// Отрисовка инвентаря
 	virtual void Draw() = 0;
 	// Всегда (даже когда инвентарь не открыт)
-	virtual void Next() = 0;
+	virtual void PlayUpdate() = 0;
 	/// <summary>Пока инвентарь открыт</summary>
 	/// <param name="playerInventory">Инвентарь игрока</param>
-	virtual void Update(Inventory& playerInventory) = 0;
+	virtual void WhileOpen(Inventory& playerInventory) = 0;
 
 };
 

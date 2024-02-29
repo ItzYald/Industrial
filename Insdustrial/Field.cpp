@@ -1,12 +1,14 @@
 #include "Field.h"
 
 Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, sf::Vector2i _size, int _sizeOne,
-	sf::Vector2u _sizeW, sf::Texture* _texture, Assets& _assets)
+	sf::Vector2u _sizeW, sf::Texture* _texture, Assets& _assets, Player& _player)
 	: rw(_rw), size(_size), sizeOne(_sizeOne), sizeW(_sizeW)
 {
 	functions = Functions(rw);
 	sprite = sf::Sprite(*_texture);
 	cameraPosition = &_cameraPosition;
+
+	player = &_player;
 
 	assets = &_assets;
 
@@ -135,16 +137,16 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 }
 
-void Field::GamePlay(Player& player)
+void Field::GamePlayUpdate()
 {
 	for (size_t i = 0; i < energyObjects.size(); i++)
 	{
 		newEnergyObjectsNumbers[energyObjects[i]->position.x][energyObjects[i]->position.y] = i;
 		if (energyObjects[i]->isOpenInventory)
 		{
-			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 1;
-			player.whatNumberInventoryOpen = i;
+			player->isOpenInventory = true;
+			player->whatTypeInventoryOpen = 1;
+			player->whatNumberInventoryOpen = i;
 			break;
 		}
 	}
@@ -153,9 +155,9 @@ void Field::GamePlay(Player& player)
 	{
 		if (simpleObjects[i]->isOpenInventory)
 		{
-			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 2;
-			player.whatNumberInventoryOpen = i;
+			player->isOpenInventory = true;
+			player->whatTypeInventoryOpen = 2;
+			player->whatNumberInventoryOpen = i;
 			break;
 		}
 	}
@@ -252,11 +254,11 @@ void Field::WhatObjectTransEnergy()
 	}
 }
 
-void Field::Next()
+void Field::PlayUpdate()
 {
 	for (size_t i = 0; i < objects.size(); i++)
 	{
-		objects[i]->Next();
+		objects[i]->PlayUpdate();
 	}
 
 	WhatObjectTransEnergy();

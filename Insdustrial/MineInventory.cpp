@@ -20,7 +20,7 @@ MineInventory::MineInventory(std::shared_ptr<sf::RenderWindow> _rw,
 	itemsSprites = StaticSprites(_textures);
 }
 
-void MineInventory::Next()
+void MineInventory::PlayUpdate()
 {
 	if (energy > 0)
 	{
@@ -70,7 +70,7 @@ void MineInventory::Draw()
 	DrawCommon(cells);
 }
 
-void MineInventory::Update(Inventory& playerInventory)
+void MineInventory::WhileOpen(Inventory& playerInventory)
 {
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
@@ -82,9 +82,9 @@ void MineInventory::Update(Inventory& playerInventory)
 	// Два цикла по координатам инвентаря
 	for (int i = 0; i < cells.size(); i++)
 	{
-		cells[i].Update(playerInventory.mouseItem);
+		cells[i].WhileOpen(playerInventory.mouseItem);
 	}
 
 	Draw();
-	playerInventory.Update();
+	playerInventory.WhileOpen();
 }

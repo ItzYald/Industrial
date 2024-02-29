@@ -125,7 +125,7 @@ void Player::Move()
 	}
 }
 
-void Player::Update()
+void Player::GamePlayUpdate()
 {
 	if (!isOpenInventory)
 	{

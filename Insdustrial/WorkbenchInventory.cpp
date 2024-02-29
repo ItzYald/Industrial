@@ -277,7 +277,7 @@ void WorkbenchInventory::Draw()
 	madeItemCell.DrawCell();
 }
 
-void WorkbenchInventory::Update(Inventory& playerInventory)
+void WorkbenchInventory::WhileOpen(Inventory& playerInventory)
 {
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
@@ -289,7 +289,7 @@ void WorkbenchInventory::Update(Inventory& playerInventory)
 	{
 		for (int j = 0; j < cells[0].size(); j++)
 		{
-			cells[i][j].Update(playerInventory.mouseItem);
+			cells[i][j].WhileOpen(playerInventory.mouseItem);
 		}
 	}
 
@@ -312,5 +312,5 @@ void WorkbenchInventory::Update(Inventory& playerInventory)
 
 	Craft();
 	Draw();
-	playerInventory.Update();
+	playerInventory.WhileOpen();
 }

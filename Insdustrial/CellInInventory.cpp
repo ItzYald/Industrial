@@ -119,7 +119,7 @@ bool CellInInventory::Take(Item& mouseItem)
 	return false;
 }
 
-void CellInInventory::Update(Item& mouseItem)
+void CellInInventory::WhileOpen(Item& mouseItem)
 {
 	// Нажатие левой кнопки мыши
 	if (button.CheckLeft(*rw))

@@ -13,7 +13,7 @@ CrusherInventory::CrusherInventory(
 	progress = ProgressInventory(_rw, _textures, cells);
 }
 
-void CrusherInventory::Next()
+void CrusherInventory::PlayUpdate()
 {
 	progress.Progress(energy, cells, cells[0].item.whatCrush.x, cells[0].item.whatCrush.y);
 }
@@ -26,11 +26,11 @@ void CrusherInventory::Draw()
 
 }
 
-void CrusherInventory::Update(Inventory& playerInventory)
+void CrusherInventory::WhileOpen(Inventory& playerInventory)
 {
 	for (auto& thisCell : cells)
 	{
-		thisCell.Update(playerInventory.mouseItem);
+		thisCell.WhileOpen(playerInventory.mouseItem);
 	}
 
 	// Узнать координаты мыши
@@ -39,6 +39,6 @@ void CrusherInventory::Update(Inventory& playerInventory)
 	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 
 	Draw();
-	playerInventory.Update();
+	playerInventory.WhileOpen();
 
 }

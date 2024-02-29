@@ -150,6 +150,12 @@
     <ClCompile Include="MineInventory.cpp">
       <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>
     </ClCompile>
+    <ClCompile Include="GamePlayUpdatable.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayUpdatable.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -263,8 +269,17 @@
     <ClInclude Include="MineInventory.h">
       <Filter>Файлы заголовков\Inventories\EnergyInventories</Filter>
     </ClInclude>
+    <ClInclude Include="GamePlayUpdatable.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayUpdatable.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
 </Project>

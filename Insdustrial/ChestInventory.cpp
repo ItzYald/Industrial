@@ -27,7 +27,7 @@ void ChestInventory::Draw()
 	DrawCommon(cells);
 }
 
-void ChestInventory::Update(Inventory& playerInventory)
+void ChestInventory::WhileOpen(Inventory& playerInventory)
 {
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
@@ -39,9 +39,9 @@ void ChestInventory::Update(Inventory& playerInventory)
 	{
 		for (int j = 0; j < cells[0].size(); j++)
 		{
-			cells[i][j].Update(playerInventory.mouseItem);
+			cells[i][j].WhileOpen(playerInventory.mouseItem);
 		}
 	}
 
-	playerInventory.Update();
+	playerInventory.WhileOpen();
 }

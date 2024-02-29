@@ -12,11 +12,13 @@
 #include "Functions/OldButton.h"
 #include "Functions/Checks.h"
 
+#include "PlayUpdatable.h"
+
 #include "StaticSprites.h"
 
 #include "CellInInventory.h"
 
-class AllInventory
+class AllInventory : public PlayUpdatable
 {
 public:
 	// Списко кнопок
@@ -46,7 +48,7 @@ public:
 	// Отрисовка инвентаря
 	virtual void Draw() = 0;
 	// Всегда (даже когда инвентарь не открыт)
-	virtual void Next() = 0;
+	virtual void PlayUpdate() = 0;
 
 };
 

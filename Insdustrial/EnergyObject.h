@@ -101,9 +101,9 @@ public:
 		return false;
 	}
 	// Обновление инвентаря
-	void Next() override
+	void PlayUpdate() override
 	{
-		inventory->Next();
+		inventory->PlayUpdate();
 		// Если повернут вверх
 		if (turn == 0)
 		{

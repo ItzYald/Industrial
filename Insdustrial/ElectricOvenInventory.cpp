@@ -37,7 +37,7 @@ void ElectricOvenInventory::Burn()
 
 }
 
-void ElectricOvenInventory::Next()
+void ElectricOvenInventory::PlayUpdate()
 {
 	Burn();
 }
@@ -49,7 +49,7 @@ void ElectricOvenInventory::Draw()
 	AllDraw();
 }
 
-void ElectricOvenInventory::Update(Inventory& playerInventory)
+void ElectricOvenInventory::WhileOpen(Inventory& playerInventory)
 {
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
@@ -59,9 +59,9 @@ void ElectricOvenInventory::Update(Inventory& playerInventory)
 	// Цикл по координатам инвентаря
 	for (int i = 0; i < cells.size(); i++)
 	{
-		cells[i].Update(playerInventory.mouseItem);
+		cells[i].WhileOpen(playerInventory.mouseItem);
 	}
 
 	Draw();
-	playerInventory.Update();
+	playerInventory.WhileOpen();
 }

@@ -9,12 +9,14 @@
 #include "Functions/Functions.h"
 #include "Functions/OldButton.h"
 
+#include "GamePlayUpdatable.h"
+
 #include "Sprite.h"
 #include "StaticSprites.h"
 #include "Inventory.h"
 #include "StaingObject.h"
 
-class Player : public Sprite
+class Player : public Sprite, public GamePlayUpdatable
 {
 private:
 	Functions functions;
@@ -53,9 +55,9 @@ public:
 	// Ходьба игрока
 	void Move();
 	//Каждый кадр
-	void Update();
+	void GamePlayUpdate();
 
-	void Next() override{ }
+	void PlayUpdate() override{ }
 	// Отрисовка
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

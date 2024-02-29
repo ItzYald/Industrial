@@ -19,12 +19,12 @@ EnergyStorageInventory::EnergyStorageInventory(
 	energy = 0;
 }
 
-void EnergyStorageInventory::Update(Inventory& playerInventory)
+void EnergyStorageInventory::WhileOpen(Inventory& playerInventory)
 {
 	AllUpdate(playerInventory);
 }
 
-void EnergyStorageInventory::Next()
+void EnergyStorageInventory::PlayUpdate()
 {
 	AllNext();
 }

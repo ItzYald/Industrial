@@ -10,7 +10,7 @@ EnergyCoalGeneratorInventory::EnergyCoalGeneratorInventory(
 	maxBurn = 0;
 }
 
-void EnergyCoalGeneratorInventory::Next()
+void EnergyCoalGeneratorInventory::PlayUpdate()
 {
 	if (coalCell.item.whatFuel)
 	{
@@ -50,9 +50,9 @@ void EnergyCoalGeneratorInventory::Draw()
 
 }
 
-void EnergyCoalGeneratorInventory::Update(Inventory& playerInventory)
+void EnergyCoalGeneratorInventory::WhileOpen(Inventory& playerInventory)
 {
-	coalCell.Update(playerInventory.mouseItem);
+	coalCell.WhileOpen(playerInventory.mouseItem);
 
 	//if (energy > maxEnergy)
 	//	energy = maxEnergy;
@@ -63,7 +63,7 @@ void EnergyCoalGeneratorInventory::Update(Inventory& playerInventory)
 	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 
 	Draw();
-	playerInventory.Update();
+	playerInventory.WhileOpen();
 
 }
 

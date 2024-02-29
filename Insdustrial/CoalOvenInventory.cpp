@@ -37,7 +37,7 @@ void CoalOvenInventory::Burn()
 	energy -= 1;
 }
 
-void CoalOvenInventory::Next()
+void CoalOvenInventory::PlayUpdate()
 {
 	Burn();
 }
@@ -55,7 +55,7 @@ void CoalOvenInventory::Draw()
 
 }
 
-void CoalOvenInventory::Update(Inventory& playerInventory)
+void CoalOvenInventory::WhileOpen(Inventory& playerInventory)
 {
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
@@ -65,9 +65,9 @@ void CoalOvenInventory::Update(Inventory& playerInventory)
 	// Два цикла по координатам инвентаря
 	for (int i = 0; i < cells.size(); i++)
 	{
-		cells[i].Update(playerInventory.mouseItem);
+		cells[i].WhileOpen(playerInventory.mouseItem);
 	}
 
 	Draw();
-	playerInventory.Update();
+	playerInventory.WhileOpen();
 }

@@ -17,11 +17,11 @@ public:
 		int _maxEnergy, int _power, std::vector<sf::Texture*>& _textures);
 
 	// Всегда
-	void Next();
+	void PlayUpdate();
 	// Отроисовка отнвентаря
 	void Draw();
 	// Когда зашел в инвентарь
-	void Update(Inventory& playerInventory);
+	void WhileOpen(Inventory& playerInventory);
 
 };
 

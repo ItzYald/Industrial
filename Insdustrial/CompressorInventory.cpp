@@ -13,7 +13,7 @@ CompressorInventory::CompressorInventory(
 	progress = ProgressInventory(_rw, _textures, cells);
 }
 
-void CompressorInventory::Next()
+void CompressorInventory::PlayUpdate()
 {
 	progress.Progress(energy, cells, cells[0].item.whatCompress, 1);
 }
@@ -26,11 +26,11 @@ void CompressorInventory::Draw()
 
 }
 
-void CompressorInventory::Update(Inventory& playerInventory)
+void CompressorInventory::WhileOpen(Inventory& playerInventory)
 {
 	for (auto& thisCell : cells)
 	{
-		thisCell.Update(playerInventory.mouseItem);
+		thisCell.WhileOpen(playerInventory.mouseItem);
 	}
 
 	// Узнать координаты мыши
@@ -39,6 +39,6 @@ void CompressorInventory::Update(Inventory& playerInventory)
 	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 
 	Draw();
-	playerInventory.Update();
+	playerInventory.WhileOpen();
 
 }

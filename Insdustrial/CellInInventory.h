@@ -47,7 +47,7 @@ public:
 	// Взять из ячейки
 	bool Take(Item& mouseItem);
 	// Каждый кадр
-	void Update(Item& mouseItem);
+	void WhileOpen(Item& mouseItem);
 
 };
 

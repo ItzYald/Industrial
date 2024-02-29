@@ -14,6 +14,7 @@
 #include "Player.h"
 
 #include "Assets.h"
+#include "PlayUpdatable.h"
 
 #include "EnergyObject.h"
 #include "StaingObject.h"
@@ -31,7 +32,7 @@
 #include "EnergyCoalGeneratorInventory.h"
 #include "WireInventory.h"
 
-class Field : public sf::Drawable
+class Field : public sf::Drawable, public PlayUpdatable, public GamePlayUpdatable
 {
 public:
 	// Окно
@@ -48,6 +49,8 @@ public:
 	Assets* assets;
 
 	std::vector<std::vector<sf::Sprite>> sprites;
+
+	Player* player;
 	
 	sf::Vector2f* cameraPosition;
 
@@ -74,8 +77,8 @@ public:
 	/// <param name="_sizeW">Размер окна</param>
 	/// <param name="texture">Текстурка травы</param>
 	Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition,
-		sf::Vector2i _size, int _sizeOne,
-		sf::Vector2u _sizeW, sf::Texture* _texture, Assets& _assets);
+		sf::Vector2i _size, int _sizeOne, sf::Vector2u _sizeW, sf::Texture* _texture,
+		Assets& _assets, Player& _player);
 
 	void LoadingForDev(std::vector<sf::Color>& colorsInventory);
 
@@ -99,9 +102,9 @@ public:
 
 	void WhatObjectTransEnergy();
 
-	void GamePlay(Player& player);
+	void GamePlayUpdate() override;
 
-	void Next();
+	void PlayUpdate() override;
 
 	bool ObjectHere(sf::Vector2i mousePositionGrid, Item& chooseItem);
 	// А я кстати не помню что это, так что возможно скоро удалю

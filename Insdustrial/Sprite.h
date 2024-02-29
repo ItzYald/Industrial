@@ -6,7 +6,9 @@
 #include "Functions/Checks.h"
 #include "Functions/Functions.h"
 
-class Sprite : public sf::Drawable
+#include "PlayUpdatable.h"
+
+class Sprite : public sf::Drawable, public PlayUpdatable
 {
 protected:
 	std::shared_ptr<sf::RenderWindow> rw;
@@ -19,7 +21,7 @@ public:
 	int fieldSizeOne;
 	std::vector<Checks> ch;
 
-	virtual void Next() = 0;
+	virtual void PlayUpdate() = 0;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 };
 

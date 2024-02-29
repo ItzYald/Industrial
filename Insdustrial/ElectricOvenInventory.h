@@ -16,11 +16,11 @@ public:
 
 	void Burn();
 	// Каждый кадр (даже пока игрок не открыл этот инвентарь)
-	void Next() override;
+	void PlayUpdate() override;
 	// Отрисовка
 	void Draw() override;
 	// Когда инвентарь открыт
-	void Update(Inventory& playerInventory) override;
+	void WhileOpen(Inventory& playerInventory) override;
 
 };
 

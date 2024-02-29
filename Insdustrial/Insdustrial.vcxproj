@@ -152,8 +152,10 @@
     <ClCompile Include="Functions\Checks.cpp" />
     <ClCompile Include="Functions\Functions.cpp" />
     <ClCompile Include="Functions\TextButton.cpp" />
+    <ClCompile Include="GamePlayUpdatable.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MineInventory.cpp" />
+    <ClCompile Include="PlayUpdatable.cpp" />
     <ClCompile Include="ProgressInventory.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -185,12 +187,14 @@
     <ClInclude Include="Functions\Checks.h" />
     <ClInclude Include="Functions\Functions.h" />
     <ClInclude Include="Functions\TextButton.h" />
+    <ClInclude Include="GamePlayUpdatable.h" />
     <ClInclude Include="IEnergyObject.h" />
     <ClInclude Include="IStaingObject.h" />
     <ClInclude Include="MineInventory.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ObjectInventory.h" />
+    <ClInclude Include="PlayUpdatable.h" />
     <ClInclude Include="ProgressInventory.h" />
     <ClInclude Include="StaingObject.h" />
     <ClInclude Include="Field.h" />
@@ -204,6 +208,9 @@
     <ClInclude Include="WorkbenchInventory.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

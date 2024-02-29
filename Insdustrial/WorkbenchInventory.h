@@ -51,11 +51,11 @@ public:
 	void AddAllDualCraft(int craft1, int craft2, int result, int quantity);
 	// Проверка слотов крафта
 	void Craft();
-	void Next(){ }
+	void PlayUpdate(){ }
 	// Отрисовка
 	void Draw();
 	// Работа интерфейса и мыши
-	void Update(Inventory& playerInventory);
+	void WhileOpen(Inventory& playerInventory);
 
 };
 

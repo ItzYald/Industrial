@@ -20,9 +20,9 @@ public:
 		std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture*>& _textures);
 
 	void Burn();
-	void Next() override;
+	void PlayUpdate() override;
 	void Draw() override;
-	void Update(Inventory& playerInventory);
+	void WhileOpen(Inventory& playerInventory);
 
 };
 

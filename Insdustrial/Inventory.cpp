@@ -56,7 +56,7 @@ void Inventory::Draw()
 	}
 }
 
-void Inventory::Update()
+void Inventory::WhileOpen()
 {
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);
@@ -68,7 +68,7 @@ void Inventory::Update()
 	{
 		for (int j = 0; j < cells[0].size(); j++)
 		{
-			cells[i][j].Update(mouseItem);
+			cells[i][j].WhileOpen(mouseItem);
 		}
 	}
 
@@ -86,7 +86,7 @@ void Inventory::DrawMiniWorkbench()
 	{
 		for (int j = 0; j < cellsMiniWorkbench[0].size(); j++)
 		{
-			cellsMiniWorkbench[i][j].Update(mouseItem);
+			cellsMiniWorkbench[i][j].WhileOpen(mouseItem);
 			DrawCommon(cellsMiniWorkbench);
 		}
 	}

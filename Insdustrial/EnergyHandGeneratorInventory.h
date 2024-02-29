@@ -15,7 +15,7 @@ public:
 		std::map<std::string, sf::Texture>& _texturesInInventory);
 
 	void Draw();
-	void Update(Inventory& playerInventory);
+	void WhileOpen(Inventory& playerInventory);
 
 };
 
