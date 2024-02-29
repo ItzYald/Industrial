@@ -166,8 +166,101 @@ void Field::GamePlay(Player& player)
 	}
 }
 
+void Field::TransEnergy(float& originalEnergy, int power, float& nextEnergy, int nextMaxEnergy)
+{
+	if (originalEnergy - power < 0)
+	{
+		if (nextEnergy + originalEnergy > nextMaxEnergy)
+		{
+			originalEnergy -= nextMaxEnergy - nextEnergy;
+			nextEnergy = nextMaxEnergy;
+		}
+		else
+		{
+			nextEnergy += originalEnergy;
+			originalEnergy = 0;
+		}
+	}
+	else
+	{
+		if (nextEnergy + power > nextMaxEnergy)
+		{
+			originalEnergy -= nextMaxEnergy - nextEnergy;
+			nextEnergy = nextMaxEnergy;
+		}
+		else
+		{
+			nextEnergy += power;
+			originalEnergy -= power;
+		}
+	}
+}
+
+void Field::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int power)
+{
+	EnergyObjectInventory* thisObjectInventory;
+
+	if (newEnergyObjectsNumbers[nextPosition.x][nextPosition.y] == -1)
+	{
+		return;
+	}
+
+	thisObjectInventory = energyObjects[newEnergyObjectsNumbers[nextPosition.x][nextPosition.y]]->inventory;
+	TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
+}
+
+sf::Vector2i Field::CheckTurnEnergy(int turn)
+{
+	switch (turn)
+	{
+	case 0:
+		return sf::Vector2i(0, -1);
+		break;
+	case 1:
+		return sf::Vector2i(1, 0);;
+		break;
+	case 2:
+		return sf::Vector2i(0, 1);
+		break;
+	case 3:
+		return sf::Vector2i(-1, 0);
+		break;
+	}
+}
+
+void Field::WhatObjectTransEnergy()
+{
+	// Передача энергии
+	for (int i = 0; i < size.x; i++)
+	{
+		for (int j = 0; j < size.y; j++)
+		{
+			sf::Vector2i shift;
+			int typeObject = -1;
+
+			if (transEnergyObjectsNumbers[i][j] == -1) continue;
+			if (transEnergyObjects[transEnergyObjectsNumbers[i][j]]->inventory->energy == 0) continue;
+
+			shift = CheckTurnEnergy(transEnergyObjects[transEnergyObjectsNumbers[i][j]]->turn);
+
+			if (newEnergyObjectsNumbers[i][j] == -1) continue;
+
+			CheckNextEnergyObject(sf::Vector2i(i + shift.x, j + shift.y),
+				transEnergyObjects[transEnergyObjectsNumbers[i][j]]->inventory->energy,
+				transEnergyObjects[transEnergyObjectsNumbers[i][j]]->inventory->power);
+		}
+	}
+}
+
 void Field::Next()
 {
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		objects[i]->Next();
+	}
+
+	WhatObjectTransEnergy();
+
 	for (size_t i = 0; i < size.x; i++)
 	{
 		for (size_t j = 0; j < size.y; j++)

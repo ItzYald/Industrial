@@ -98,13 +98,11 @@ void Game::LoadingPlay()
 	drawables.push_back(&field);
 	player = Player(rw, cameraPosition, field.sizeOne, assets.textures["Player"], sf::Vector2f(20, 20), colorsInventory, assets.itemTextures);
 
-#if defined(DEBUG) || defined(_DEBUG)
+#if defined(_DEBUG)
 	LoadingForDev();
 #else
 	LoadingForPlay();
 #endif;
-
-	LoadingForDev();
 
 	field.LoadingPlay();
 
@@ -305,93 +303,6 @@ void Game::Gameplay()
 	cameraPosition = sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2));
 }
 
-void Game::TransEnergy(float& originalEnergy, int power, float& nextEnergy, int nextMaxEnergy)
-{
-	if (originalEnergy - power < 0)
-	{
-		if (nextEnergy + originalEnergy > nextMaxEnergy)
-		{
-			originalEnergy -= nextMaxEnergy - nextEnergy;
-			nextEnergy = nextMaxEnergy;
-		}
-		else
-		{
-			nextEnergy += originalEnergy;
-			originalEnergy = 0;
-		}
-	}
-	else
-	{
-		if (nextEnergy + power > nextMaxEnergy)
-		{
-			originalEnergy -= nextMaxEnergy - nextEnergy;
-			nextEnergy = nextMaxEnergy;
-		}
-		else
-		{
-			nextEnergy += power;
-			originalEnergy -= power;
-		}
-	}
-}
-
-void Game::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int power)
-{
-	EnergyObjectInventory* thisObjectInventory;
-
-	if (field.newEnergyObjectsNumbers[nextPosition.x][nextPosition.y] == -1)
-	{
-		return;
-	}
-
-	thisObjectInventory = field.energyObjects[field.newEnergyObjectsNumbers[nextPosition.x][nextPosition.y]]->inventory;
-	TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
-}
-
-sf::Vector2i Game::CheckTurnEnergy(int turn)
-{
-	switch (turn)
-	{
-	case 0:
-		return sf::Vector2i(0, -1);
-		break;
-	case 1:
-		return sf::Vector2i(1, 0);;
-		break;
-	case 2:
-		return sf::Vector2i(0, 1);
-		break;
-	case 3:
-		return sf::Vector2i(-1, 0);
-		break;
-	}
-}
-
-void Game::WhatObjectTransEnergy()
-{
-	// Передача энергии
-	for (int i = 0; i < field.size.x; i++)
-	{
-		for (int j = 0; j < field.size.y; j++)
-		{
-			sf::Vector2i shift;
-			int typeObject = -1;
-
-			if (field.transEnergyObjectsNumbers[i][j] == -1) continue;
-			if (field.transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->inventory->energy == 0) continue;
-
-			shift = CheckTurnEnergy(field.transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->turn);
-
-			if (field.newEnergyObjectsNumbers[i][j] == -1) continue;
-
-			CheckNextEnergyObject(sf::Vector2i(i + shift.x, j + shift.y),
-				field.transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->inventory->energy,
-				field.transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->inventory->power);
-		}
-	}
-
-}
-
 void Game::WhatInventory()
 {
 	switch (player.whatTypeInventoryOpen)
@@ -422,13 +333,6 @@ void Game::Play()
 	}
 	// Отрисовать игру
 	DrawPlay();
-
-	for (size_t i = 0; i < field.objects.size(); i++)
-	{
-		field.objects[i]->Next();
-	}
-
-	WhatObjectTransEnergy();
 
 	field.Next();
 

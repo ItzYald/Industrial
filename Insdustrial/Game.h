@@ -86,8 +86,6 @@ private:
 
 	// Все на отрисовку
 	std::vector<sf::Drawable*> drawables;
-	// Все объекты
-	std::vector<Object*> objects;
 
 	// Поле
 	Field field;
@@ -125,22 +123,6 @@ public:
 	void PutObject(sf::Vector2f position);
 	// Геймплей
 	void Gameplay();
-	/// <summary>Процесс передачи энергии</summary>
-	/// <param name="originalEnergy">Ссылка на энергию объекта,которй передает</param>
-	/// <param name="power">Скорость передвчи энергии</param>
-	/// <param name="nextEnergy">Ссылка на энергию того, которому передают</param>
-	/// <param name="nextMaxEnergy">Максимальная энегрия объекта, которому передают</param>
-	void TransEnergy(float &originalEnergy, int power, float& nextEnergy, int nextMaxEnergy);
-	/// <summary>Какому объекту передать энергию</summary>
-	/// <param name="nextPosition">Позиция объекта, которому передать энергию</param>
-	/// <param name="energy">Какую энергию передать</param>
-	/// <param name="power">Сколько передать энергии</param>
-	void CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int power);
-	/// <summary>Проверка поворота устройста для понятия, куда отправлять энергию</summary>
-	/// <param name="turn">Поворот объекта</param>
-	sf::Vector2i CheckTurnEnergy(int turn);
-	/// Какой объект находится по координатам (будет передавать энергию)
-	void WhatObjectTransEnergy();
 	// Какой инвентарь открыт
 	void WhatInventory();
 

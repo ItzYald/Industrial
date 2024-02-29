@@ -90,6 +90,15 @@ public:
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+
+	void TransEnergy(float& originalEnergy, int power, float& nextEnergy, int nextMaxEnergy);
+
+	void CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int power);
+
+	sf::Vector2i CheckTurnEnergy(int turn);
+
+	void WhatObjectTransEnergy();
+
 	void GamePlay(Player& player);
 
 	void Next();
