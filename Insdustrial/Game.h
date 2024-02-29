@@ -88,12 +88,6 @@ private:
 	std::vector<sf::Drawable*> drawables;
 	// Все объекты
 	std::vector<Object*> objects;
-	// Все объекты передающие энергию
-	std::vector<IEnergyObject*> transEnergyObjects;
-	// Все энергетические объекты
-	std::vector<IEnergyObject*> energyObjects;
-	// Все обычные объекты
-	std::vector<IStaingObject*> simpleObjects;
 
 	// Поле
 	Field field;

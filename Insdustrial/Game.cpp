@@ -15,8 +15,8 @@ Game::Game(sf::RenderWindow& _rw)
 // Загрузка приложения
 void Game::LoadingApp()
 {
-	objects = std::vector<Object*>();
-	transEnergyObjects = std::vector<IEnergyObject*>();
+	field.objects = std::vector<Object*>();
+	field.transEnergyObjects = std::vector<IEnergyObject*>();
 	field.simpleObjects = std::vector<IStaingObject*>();
 
 	assets = Assets();
@@ -75,40 +75,13 @@ void Game::LoadColorInventoryFromFile()
 void Game::LoadingForPlay()
 {
 	player.LoadingForPlay();
-	field.simpleObjects.push_back(new StaingObject<WorkbenchInventory >(
-		rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, sf::Vector2f(23, 22), colorsInventory));
-	energyObjects.push_back(new EnergyObject<MineInventory >(
-		rw, cameraPosition, field.sizeOne, assets.textures["Mine"], assets.itemTextures, sf::Vector2f(22, 22), colorsInventory));
+	field.LoadingForPlay(colorsInventory);
 }
 
 void Game::LoadingForDev()
 {
 	player.LoadingForDev();
-
-	energyObjects.push_back(new EnergyObject<ElectricOvenInventory >(
-		rw, cameraPosition, field.sizeOne, assets.textures["ElectricOven"], assets.itemTextures, sf::Vector2f(23, 19), colorsInventory));
-	energyObjects.push_back(new EnergyObject<CrusherInventory >(
-		rw, cameraPosition, field.sizeOne, assets.textures["Crusher"], assets.itemTextures, sf::Vector2f(19, 17), colorsInventory, 1000));
-	energyObjects.push_back(new EnergyObject<CompressorInventory >(
-		rw, cameraPosition, field.sizeOne, assets.textures["Compressor"], assets.itemTextures, sf::Vector2f(19, 16), colorsInventory, 1000));
-	energyObjects.push_back(new EnergyObject<EnergyStorageInventory>(
-		rw, cameraPosition, field.sizeOne, assets.textures["EnergyStorage"], assets.itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
-	transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
-	energyObjects.push_back(new EnergyObject<EnergyHandGeneratorInventory>(
-		rw, cameraPosition, field.sizeOne, assets.textures["EnergyHandGenerator"], assets.itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, assets.texturesInInventory));
-	transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
-	energyObjects.push_back(new EnergyObject<EnergyCoalGeneratorInventory >(
-		rw, cameraPosition, field.sizeOne, assets.textures["EnergyCoalGenerator"], assets.itemTextures, sf::Vector2f(20, 19), colorsInventory, 100, 10));
-	transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
-	energyObjects.push_back(new EnergyObject<MineInventory >(
-		rw, cameraPosition, field.sizeOne, assets.textures["Mine"], assets.itemTextures, sf::Vector2f(15, 16), colorsInventory));
-
-	field.simpleObjects.push_back(new StaingObject<CoalOvenInventory>(
-		rw, cameraPosition, field.sizeOne, assets.textures["Oven"], assets.itemTextures, sf::Vector2f(23, 20), colorsInventory));
-	field.simpleObjects.push_back(new StaingObject<ChestInventory>(
-		rw, cameraPosition, field.sizeOne, assets.textures["Chest"], assets.itemTextures, sf::Vector2f(23, 21), colorsInventory));
-	field.simpleObjects.push_back(new StaingObject<WorkbenchInventory >(
-		rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, sf::Vector2f(23, 22), colorsInventory));
+	field.LoadingForDev(colorsInventory);
 }
 // Загрузка геймплея
 void Game::LoadingPlay()
@@ -121,23 +94,23 @@ void Game::LoadingPlay()
 
 	assets.LoadingPlay();
 
-	field = Field(rw, cameraPosition, sf::Vector2i(200, 200), 48, sizeW, assets.textures["Grass"], objects);
+	field = Field(rw, cameraPosition, sf::Vector2i(200, 200), 48, sizeW, assets.textures["Grass"], assets);
 	drawables.push_back(&field);
 	player = Player(rw, cameraPosition, field.sizeOne, assets.textures["Player"], sf::Vector2f(20, 20), colorsInventory, assets.itemTextures);
 
+#if defined(DEBUG) || defined(_DEBUG)
+	LoadingForDev();
+#else
+	LoadingForPlay();
+#endif;
+
 	LoadingForDev();
 
-	for (size_t i = 0; i < field.simpleObjects.size(); i++)
+	field.LoadingPlay();
+
+	for (size_t i = 0; i < field.objects.size(); i++)
 	{
-		objects.push_back(field.simpleObjects[i]);
-	}
-	for (size_t i = 0; i < energyObjects.size(); i++)
-	{
-		objects.push_back(energyObjects[i]);
-	}
-	for (size_t i = 0; i < objects.size(); i++)
-	{
-		drawables.push_back(objects[i]);
+		drawables.push_back(field.objects[i]);
 	}
 
 	screen = "Игра";
@@ -150,10 +123,9 @@ void Game::UnloadingPlay(std::string nextScreen)
 	drawables.clear();
 	buttons.clear();
 	oldButtons.clear();
-	objects.clear();
-	field.simpleObjects.clear();
-	energyObjects.clear();
-	transEnergyObjects.clear();
+	field.objects.clear();
+
+	field.UnloadingPlay();
 
 	screen = nextScreen;
 }
@@ -185,7 +157,7 @@ void Game::CloseInventory()
 		switch (player.whatTypeInventoryOpen)
 		{
 		case 1:
-			energyObjects[player.whatNumberInventoryOpen]->isOpenInventory = false;
+			field.energyObjects[player.whatNumberInventoryOpen]->isOpenInventory = false;
 			break;
 		case 2:
 			field.simpleObjects[player.whatNumberInventoryOpen]->isOpenInventory = false;
@@ -203,89 +175,89 @@ void Game::PutObject(sf::Vector2f position)
 	case 2:
 		field.simpleObjects.push_back(new StaingObject<CoalOvenInventory >(
 			rw, cameraPosition, field.sizeOne, assets.textures["Oven"], assets.itemTextures, position, colorsInventory));
-		objects.push_back(field.simpleObjects[field.simpleObjects.size() - 1]);
+		field.objects.push_back(field.simpleObjects[field.simpleObjects.size() - 1]);
 		break;
 	// Электропечку
 	case 11:
-		energyObjects.push_back(new EnergyObject<ElectricOvenInventory > (
+		field.energyObjects.push_back(new EnergyObject<ElectricOvenInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["ElectricOven"], assets.itemTextures, position, colorsInventory));
-		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
 		break;
 	// Дробитель
 	case 24:
-		energyObjects.push_back(new EnergyObject<CrusherInventory > (
+		field.energyObjects.push_back(new EnergyObject<CrusherInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["Crusher"], assets.itemTextures, position, colorsInventory, 1000));
-		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
 		break;
 	// Компрессор
 	case 28:
-		energyObjects.push_back(new EnergyObject<CompressorInventory > (
+		field.energyObjects.push_back(new EnergyObject<CompressorInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["Compressor"], assets.itemTextures, position, colorsInventory, 1000));
-		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
 		break;
 		// Компрессор
 	case 32:
-		energyObjects.push_back(new EnergyObject<MineInventory >(
+		field.energyObjects.push_back(new EnergyObject<MineInventory >(
 			rw, cameraPosition, field.sizeOne, assets.textures["Mine"], assets.itemTextures, position, colorsInventory));
-		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
 		break;
 	// Сундук
 	case 5:
 		field.simpleObjects.push_back(new StaingObject<ChestInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["Chest"], assets.itemTextures, position, colorsInventory));
-		objects.push_back(field.simpleObjects[field.simpleObjects.size() - 1]);
+		field.objects.push_back(field.simpleObjects[field.simpleObjects.size() - 1]);
 		break;
 	// Верстак
 	case 8:
 		field.simpleObjects.push_back(new StaingObject<WorkbenchInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, position, colorsInventory));
-		objects.push_back(field.simpleObjects[field.simpleObjects.size() - 1]);
+		field.objects.push_back(field.simpleObjects[field.simpleObjects.size() - 1]);
 		break;
 	// Энергохранилище
 	case 13:
-		energyObjects.push_back(new EnergyObject<EnergyStorageInventory > (
+		field.energyObjects.push_back(new EnergyObject<EnergyStorageInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["EnergyStorage"], assets.itemTextures, position, colorsInventory, 1000, 10));
-		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
-		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		field.transEnergyObjects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
+		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
 		break;
 	// Ручной энергогенератор
 	case 16:
-		energyObjects.push_back(new EnergyObject<EnergyHandGeneratorInventory > (
+		field.energyObjects.push_back(new EnergyObject<EnergyHandGeneratorInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["EnergyHandGenerator"],
 			assets.itemTextures, position, colorsInventory, 100, 10, assets.texturesInInventory));
-		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
-		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		field.transEnergyObjects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
+		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
 		break;
 	// Угольный энергогенератор
 	case 17:
-		energyObjects.push_back(new EnergyObject<EnergyCoalGeneratorInventory > (
+		field.energyObjects.push_back(new EnergyObject<EnergyCoalGeneratorInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["EnergyCoalGenerator"], assets.itemTextures, position, colorsInventory, 100, 10));
-		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
-		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		field.transEnergyObjects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
+		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
 	// Медный провод
 	case 12:
-		energyObjects.push_back(new EnergyObject<WireInventory > (
+		field.energyObjects.push_back(new EnergyObject<WireInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["CopperWireOn"], assets.itemTextures, position, colorsInventory, 10, 10));
-		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
-		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		field.transEnergyObjects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
+		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
 		break;
 	// Железный провод
 	case 15:
-		energyObjects.push_back(new EnergyObject<WireInventory > (
+		field.energyObjects.push_back(new EnergyObject<WireInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["IronWireOn"], assets.itemTextures, position, colorsInventory, 100, 100));
-		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
-		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		field.transEnergyObjects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
+		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
 		break;
 	// Оловяный провод
 	case 20:
-		energyObjects.push_back(new EnergyObject<WireInventory > (
+		field.energyObjects.push_back(new EnergyObject<WireInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["TinWireOn"], assets.itemTextures, position, colorsInventory, 1000, 1000));
-		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
-		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		field.transEnergyObjects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
+		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
 		break;
 	}
 
-	drawables.push_back(objects[objects.size() - 1]);
+	drawables.push_back(field.objects[field.objects.size() - 1]);
 }
 // Геймплей
 void Game::Gameplay()
@@ -316,45 +288,17 @@ void Game::Gameplay()
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
 	// Поставить объект на землю
-	if (field.PutObject(mousePositionGrid, objects, player.inventory.cells[player.inventory.choseCell][3].item))
+	if (field.ObjectHere(mousePositionGrid, player.inventory.cells[player.inventory.choseCell][3].item))
 	{
 		PutObject((sf::Vector2f)mousePositionGrid);
 	}
 
-	for (size_t i = 0; i < energyObjects.size(); i++)
+	for (size_t i = 0; i < field.objects.size(); i++)
 	{
-		field.newEnergyObjectsNumbers[energyObjects[i]->position.x][energyObjects[i]->position.y] = i;
-		//energyObjects[i]->Update(mousePositionGrid, player.position, player.angle);
-		if (energyObjects[i]->isOpenInventory)
-		{
-			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 1;
-			player.whatNumberInventoryOpen = i;
-			break;
-		}
+		field.objects[i]->Update(mousePositionGrid, player.position, player.angle);
 	}
 
-	for (size_t i = 0; i < field.simpleObjects.size(); i++)
-	{
-		//field.simpleObjects[i]->Update(mousePositionGrid, player.position, player.angle);
-		if (field.simpleObjects[i]->isOpenInventory)
-		{
-			player.isOpenInventory = true;
-			player.whatTypeInventoryOpen = 2;
-			player.whatNumberInventoryOpen = i;
-			break;
-		}
-	}
-
-	for (size_t i = 0; i < objects.size(); i++)
-	{
-		objects[i]->Update(mousePositionGrid, player.position, player.angle);
-	}
-
-	for (size_t i = 0; i < transEnergyObjects.size(); i++)
-	{
-		field.transEnergyObjectsNumbers[transEnergyObjects[i]->position.x][transEnergyObjects[i]->position.y] = i;
-	}
+	field.GamePlay(player);
 
 	// Смещение камеры
 	//cameraPosition -= (cameraPosition - sf::Vector2f(player.position.x - (sizeW.x / field.sizeOne / 2), player.position.y - (sizeW.y / field.sizeOne / 2))) * 0.04f;
@@ -400,7 +344,7 @@ void Game::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int p
 		return;
 	}
 
-	thisObjectInventory = energyObjects[field.newEnergyObjectsNumbers[nextPosition.x][nextPosition.y]]->inventory;
+	thisObjectInventory = field.energyObjects[field.newEnergyObjectsNumbers[nextPosition.x][nextPosition.y]]->inventory;
 	TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
 }
 
@@ -434,15 +378,15 @@ void Game::WhatObjectTransEnergy()
 			int typeObject = -1;
 
 			if (field.transEnergyObjectsNumbers[i][j] == -1) continue;
-			if (transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->inventory->energy == 0) continue;
+			if (field.transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->inventory->energy == 0) continue;
 
-			shift = CheckTurnEnergy(transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->turn);
+			shift = CheckTurnEnergy(field.transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->turn);
 
 			if (field.newEnergyObjectsNumbers[i][j] == -1) continue;
 
 			CheckNextEnergyObject(sf::Vector2i(i + shift.x, j + shift.y),
-				transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->inventory->energy,
-				transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->inventory->power);
+				field.transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->inventory->energy,
+				field.transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->inventory->power);
 		}
 	}
 
@@ -457,7 +401,7 @@ void Game::WhatInventory()
 		player.inventory.Update();
 		break;
 	case 1:
-		energyObjects[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
+		field.energyObjects[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
 		break;
 	case 2:
 		field.simpleObjects[player.whatNumberInventoryOpen]->inventory->Update(player.inventory);
@@ -479,9 +423,9 @@ void Game::Play()
 	// Отрисовать игру
 	DrawPlay();
 
-	for (size_t i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < field.objects.size(); i++)
 	{
-		objects[i]->Next();
+		field.objects[i]->Next();
 	}
 
 	WhatObjectTransEnergy();

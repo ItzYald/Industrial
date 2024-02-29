@@ -1,12 +1,14 @@
 #include "Field.h"
 
 Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, sf::Vector2i _size, int _sizeOne,
-	sf::Vector2u _sizeW, sf::Texture* _texture, std::vector<Object*>& _objects)
+	sf::Vector2u _sizeW, sf::Texture* _texture, Assets& _assets)
 	: rw(_rw), size(_size), sizeOne(_sizeOne), sizeW(_sizeW)
 {
 	functions = Functions(rw);
 	sprite = sf::Sprite(*_texture);
 	cameraPosition = &_cameraPosition;
+
+	assets = &_assets;
 
 	sprite.setScale(_sizeOne / sprite.getTexture()->getSize().x, _sizeOne / sprite.getTexture()->getSize().y);
 	
@@ -29,7 +31,7 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPositio
 		}
 	}
 
-	objects = &_objects;
+	objects = std::vector<Object*>();
 
 	newEnergyObjectsNumbers = std::vector<std::vector<int>>();
 	transEnergyObjectsNumbers = std::vector<std::vector<int>>();
@@ -45,6 +47,61 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPositio
 		}
 	}
 
+}
+
+void Field::LoadingForDev(std::vector<sf::Color>& colorsInventory)
+{
+	energyObjects.push_back(new EnergyObject<ElectricOvenInventory >(
+		rw, *cameraPosition, sizeOne, assets->textures["ElectricOven"], assets->itemTextures, sf::Vector2f(23, 19), colorsInventory));
+	energyObjects.push_back(new EnergyObject<CrusherInventory >(
+		rw, *cameraPosition, sizeOne, assets->textures["Crusher"], assets->itemTextures, sf::Vector2f(19, 17), colorsInventory, 1000));
+	energyObjects.push_back(new EnergyObject<CompressorInventory >(
+		rw, *cameraPosition, sizeOne, assets->textures["Compressor"], assets->itemTextures, sf::Vector2f(19, 16), colorsInventory, 1000));
+	energyObjects.push_back(new EnergyObject<EnergyStorageInventory>(
+		rw, *cameraPosition, sizeOne, assets->textures["EnergyStorage"], assets->itemTextures, sf::Vector2f(22, 20), colorsInventory, 10000, 10));
+	transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
+	energyObjects.push_back(new EnergyObject<EnergyHandGeneratorInventory>(
+		rw, *cameraPosition, sizeOne, assets->textures["EnergyHandGenerator"], assets->itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, assets->texturesInInventory));
+	transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
+	energyObjects.push_back(new EnergyObject<EnergyCoalGeneratorInventory >(
+		rw, *cameraPosition, sizeOne, assets->textures["EnergyCoalGenerator"], assets->itemTextures, sf::Vector2f(20, 19), colorsInventory, 100, 10));
+	transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
+	energyObjects.push_back(new EnergyObject<MineInventory >(
+		rw, *cameraPosition, sizeOne, assets->textures["Mine"], assets->itemTextures, sf::Vector2f(15, 16), colorsInventory));
+
+	simpleObjects.push_back(new StaingObject<CoalOvenInventory>(
+		rw, *cameraPosition, sizeOne, assets->textures["Oven"], assets->itemTextures, sf::Vector2f(23, 20), colorsInventory));
+	simpleObjects.push_back(new StaingObject<ChestInventory>(
+		rw, *cameraPosition, sizeOne, assets->textures["Chest"], assets->itemTextures, sf::Vector2f(23, 21), colorsInventory));
+	simpleObjects.push_back(new StaingObject<WorkbenchInventory >(
+		rw, *cameraPosition, sizeOne, assets->textures["Workbench"], assets->itemTextures, sf::Vector2f(23, 22), colorsInventory));
+}
+
+void Field::LoadingForPlay(std::vector<sf::Color>& colorsInventory)
+{
+	simpleObjects.push_back(new StaingObject<WorkbenchInventory >(
+		rw, *cameraPosition, sizeOne, assets->textures["Workbench"], assets->itemTextures, sf::Vector2f(23, 22), colorsInventory));
+	energyObjects.push_back(new EnergyObject<MineInventory >(
+		rw, *cameraPosition, sizeOne, assets->textures["Mine"], assets->itemTextures, sf::Vector2f(22, 22), colorsInventory));
+}
+
+void Field::LoadingPlay()
+{
+	for (size_t i = 0; i < simpleObjects.size(); i++)
+	{
+		objects.push_back(simpleObjects[i]);
+	}
+	for (size_t i = 0; i < energyObjects.size(); i++)
+	{
+		objects.push_back(energyObjects[i]);
+	}
+}
+
+void Field::UnloadingPlay()
+{
+	simpleObjects.clear();
+	energyObjects.clear();
+	transEnergyObjects.clear();
 }
 
 void Field::Draw()
@@ -78,6 +135,37 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 }
 
+void Field::GamePlay(Player& player)
+{
+	for (size_t i = 0; i < energyObjects.size(); i++)
+	{
+		newEnergyObjectsNumbers[energyObjects[i]->position.x][energyObjects[i]->position.y] = i;
+		if (energyObjects[i]->isOpenInventory)
+		{
+			player.isOpenInventory = true;
+			player.whatTypeInventoryOpen = 1;
+			player.whatNumberInventoryOpen = i;
+			break;
+		}
+	}
+
+	for (size_t i = 0; i < simpleObjects.size(); i++)
+	{
+		if (simpleObjects[i]->isOpenInventory)
+		{
+			player.isOpenInventory = true;
+			player.whatTypeInventoryOpen = 2;
+			player.whatNumberInventoryOpen = i;
+			break;
+		}
+	}
+
+	for (size_t i = 0; i < transEnergyObjects.size(); i++)
+	{
+		transEnergyObjectsNumbers[transEnergyObjects[i]->position.x][transEnergyObjects[i]->position.y] = i;
+	}
+}
+
 void Field::Next()
 {
 	for (size_t i = 0; i < size.x; i++)
@@ -86,12 +174,12 @@ void Field::Next()
 		{
 			sprites[i][j].setPosition(
 				sf::Vector2f(sizeOne * (i - cameraPosition->x), sizeOne * (j - cameraPosition->y)));
-			
 		}
 	}
+
 }
 
-bool Field::PutObject(sf::Vector2i mousePositionGrid, std::vector<Object*> _objects, Item& chooseItem)
+bool Field::ObjectHere(sf::Vector2i mousePositionGrid, Item& chooseItem)
 {
 	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
@@ -107,10 +195,10 @@ bool Field::PutObject(sf::Vector2i mousePositionGrid, std::vector<Object*> _obje
 	{
 		bool isNear = false;
 
-		for (size_t i = 0; i < objects->size(); i++)
+		for (size_t i = 0; i < objects.size(); i++)
 		{
 			if (!isNear)
-				isNear = (mousePositionGrid == (sf::Vector2i)(*objects)[i]->position);
+				isNear = (mousePositionGrid == (sf::Vector2i)objects[i]->position);
 		}
 
 		if (!isNear)
