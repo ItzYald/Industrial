@@ -125,7 +125,7 @@ void Game::LoadingPlay()
 	drawables.push_back(&field);
 	player = Player(rw, cameraPosition, field.sizeOne, assets.textures["Player"], sf::Vector2f(20, 20), colorsInventory, assets.itemTextures);
 
-	LoadingForPlay();
+	LoadingForDev();
 
 	for (size_t i = 0; i < field.simpleObjects.size(); i++)
 	{
@@ -221,6 +221,12 @@ void Game::PutObject(sf::Vector2f position)
 	case 28:
 		energyObjects.push_back(new EnergyObject<CompressorInventory > (
 			rw, cameraPosition, field.sizeOne, assets.textures["Compressor"], assets.itemTextures, position, colorsInventory, 1000));
+		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		break;
+		// Компрессор
+	case 32:
+		energyObjects.push_back(new EnergyObject<MineInventory >(
+			rw, cameraPosition, field.sizeOne, assets.textures["Mine"], assets.itemTextures, position, colorsInventory));
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 	// Сундук
@@ -427,20 +433,13 @@ void Game::WhatObjectTransEnergy()
 			sf::Vector2i shift;
 			int typeObject = -1;
 
-			if (field.transEnergyObjectsNumbers[i][j] == -1)
-			{
-				continue;
-			}
-			if (transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->inventory->energy == 0)
-			{
-				continue;
-			}
+			if (field.transEnergyObjectsNumbers[i][j] == -1) continue;
+			if (transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->inventory->energy == 0) continue;
 
 			shift = CheckTurnEnergy(transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->turn);
-			if (field.newEnergyObjectsNumbers[i][j] == -1)
-			{
-				continue;
-			}
+
+			if (field.newEnergyObjectsNumbers[i][j] == -1) continue;
+
 			CheckNextEnergyObject(sf::Vector2i(i + shift.x, j + shift.y),
 				transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->inventory->energy,
 				transEnergyObjects[field.transEnergyObjectsNumbers[i][j]]->inventory->power);

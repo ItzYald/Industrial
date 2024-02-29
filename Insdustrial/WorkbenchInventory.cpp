@@ -1,4 +1,4 @@
-#include "WorbenchInventory.h"
+#include "WorkbenchInventory.h"
 
 WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw,
 	std::vector<sf::Color> _colorsInventory, std::vector<sf::Texture*>& _textures)
@@ -101,6 +101,12 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw,
 	AddAllDualCraft(31, 14, 26, 1);
 	// Оловяная пластина
 	AddAllDualCraft(31, 19, 27, 1);
+	// Шахта
+	AddCraft(
+		0, 4, 4,
+		0, 30, 4,
+		30, 0, 0,
+		31, 1);
 }
 
 void WorkbenchInventory::AddCraft(

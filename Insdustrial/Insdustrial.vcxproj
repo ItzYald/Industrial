@@ -161,7 +161,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StaticSprites.cpp" />
     <ClCompile Include="WireInventory.cpp" />
-    <ClCompile Include="WorbenchInventory.cpp" />
+    <ClCompile Include="WorkbenchInventory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllInventory.h" />
@@ -200,7 +200,7 @@
     <ClInclude Include="StaticSprites.h" />
     <ClInclude Include="Updatable.h" />
     <ClInclude Include="WireInventory.h" />
-    <ClInclude Include="WorbenchInventory.h" />
+    <ClInclude Include="WorkbenchInventory.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

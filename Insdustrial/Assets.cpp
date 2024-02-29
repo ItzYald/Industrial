@@ -3,7 +3,7 @@
 void Assets::LoadingItemTextures()
 {
 	// Текстуры предметов
-	for (int i = 0; i < 32; i++)
+	for (int i = 0; i < 33; i++)
 	{
 		itemTextures.push_back(new sf::Texture());
 	}
@@ -72,6 +72,8 @@ void Assets::LoadingItemTextures()
 	itemTextures[30]->loadFromFile("Images/Stick.png");
 	// Молот
 	itemTextures[31]->loadFromFile("Images/Hammer.png");
+	// Шахта
+	itemTextures[32]->loadFromFile("Images/Objects/Mine.png");
 }
 
 void Assets::LoadingPlay()

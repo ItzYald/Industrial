@@ -126,5 +126,8 @@ void Item::NumberUpdate(int _number)
 		name = L"Молот";
 		isReusable = true;
 		break;
+	case 32:
+		name = L"Автошахта";
+		break;
 	}
 }

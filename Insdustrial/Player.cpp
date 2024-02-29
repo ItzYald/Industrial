@@ -75,6 +75,8 @@ void Player::LoadingForDev()
 	inventory.cells[8][1].item.quantity = 10;
 	inventory.cells[9][1].item.NumberUpdate(29);
 	inventory.cells[9][1].item.quantity = 10;
+	inventory.cells[0][2].item.NumberUpdate(32);
+	inventory.cells[0][2].item.quantity = 10;
 }
 
 void Player::LoadingForPlay()

@@ -101,7 +101,8 @@ bool Field::PutObject(sf::Vector2i mousePositionGrid, std::vector<Object*> _obje
 	if ((chooseNumber == 2 || chooseNumber == 5 || chooseNumber == 8 ||
 		chooseNumber == 11 || chooseNumber == 12 || chooseNumber == 13 ||
 		chooseNumber == 15 || chooseNumber == 16 || chooseNumber == 17 ||
-		chooseNumber == 20 || chooseNumber == 24 || chooseNumber == 28) &&
+		chooseNumber == 20 || chooseNumber == 24 || chooseNumber == 28 ||
+		chooseNumber == 32) &&
 		chooseItem.quantity > 0)
 	{
 		bool isNear = false;

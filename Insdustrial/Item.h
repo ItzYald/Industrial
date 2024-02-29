@@ -1,6 +1,42 @@
 #pragma once
 #include "SFML/System.hpp"
 
+enum ItemEnum
+{
+	empty = 0,
+	ironOre,
+	oven,
+	coal,
+	ironIngot,
+	chest,
+	ironBlock,
+	wood,
+	workbench,
+	planks,
+	accumulator,
+	enegyOven,
+	copperWire,
+	energyStorage,
+	copperIngot,
+	ironWire,
+	handEnergyGenerator,
+	coalEnergyGenerator,
+	mechanismBody,
+	tinIngot,
+	tinWire,
+	copperOre,
+	tinOre,
+	crushedIronOre,
+	crusher,
+	ironPlate,
+	copperPlate,
+	tinPlate,
+	compressor,
+	chip,
+	stick,
+	hammer,
+	mine
+};
 
 class Item
 {

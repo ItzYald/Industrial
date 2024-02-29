@@ -26,7 +26,7 @@
 // Инвентари
 #include "CoalOvenInventory.h"
 #include "ChestInventory.h"
-#include "WorbenchInventory.h"
+#include "WorkbenchInventory.h"
 #include "MineInventory.h"
 
 #include "ElectricOvenInventory.h"
