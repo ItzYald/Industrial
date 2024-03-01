@@ -14,7 +14,7 @@
 #include "Player.h"
 
 #include "Assets.h"
-#include "PlayUpdatable.h"
+#include "IPlayUpdatable.h"
 
 #include "EnergyObject.h"
 #include "StaingObject.h"
@@ -32,7 +32,7 @@
 #include "EnergyCoalGeneratorInventory.h"
 #include "WireInventory.h"
 
-class Field : public sf::Drawable, public PlayUpdatable, public GamePlayUpdatable
+class Field : public sf::Drawable, public IPlayUpdatable, public GamePlayUpdatable
 {
 public:
 	// Окно
@@ -45,6 +45,8 @@ public:
 	int sizeOne;
 	// Размер окна
 	sf::Vector2u sizeW;
+	// Фнкции отрисовки (прямоугольник, круг, текст, спрайт...)
+	Functions functions;
 
 	Assets* assets;
 
@@ -66,8 +68,7 @@ public:
 	// Все объекты передающие энергию
 	std::vector<IEnergyObject*> transEnergyObjects;
 
-	// Фнкции отрисовки (прямоугольник, круг, текст, спрайт...)
-	Functions functions;
+	std::vector<IPlayUpdatable*> playUpdatables;
 
 	Field(){ }
 	/// <summary>Конструктор</summary>

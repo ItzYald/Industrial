@@ -97,7 +97,7 @@ void CellInInventory::DrawName()
 		sf::String name = item.name;
 		int sizeSimbol = 20;
 		functions.DrawRectangle(sf::Vector2f(positionInventory.x + 65, positionInventory.y),
-			sf::Vector2f(sizeSimbol * name.getSize() / 1.8 + 10, 35), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 2);
+			sf::Vector2f(sizeSimbol * name.getSize() / 1.8f + 10, 35), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 2);
 		functions.PrintText(name, sf::Vector2f(positionInventory.x + 70, positionInventory.y), sizeSimbol, sf::Color(250, 250, 250));
 	}
 }

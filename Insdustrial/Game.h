@@ -13,10 +13,6 @@
 #include "Functions/OldButton.h"
 #include "Functions/Checks.h"
 
-#include "Functions/BaseButton.h"
-#include "Functions/TextButton.h"
-#include "Functions/ImageButton.h"
-
 #include "Assets.h"
 
 #include "Field.h"
@@ -70,8 +66,6 @@ private:
 	// Список кнопок
 	std::vector<OldButton> oldButtons;
 
-	std::vector<Button*> buttons;
-
 	// Позиция камеры
 	sf::Vector2f cameraPosition;
 	// Позиция мышки по сетке
@@ -86,6 +80,8 @@ private:
 
 	// Все на отрисовку
 	std::vector<sf::Drawable*> drawables;
+
+	std::vector<IPlayUpdatable*> playUpdatables;
 
 	// Поле
 	Field field;

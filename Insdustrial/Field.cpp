@@ -8,6 +8,12 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPositio
 	sprite = sf::Sprite(*_texture);
 	cameraPosition = &_cameraPosition;
 
+	objects = std::vector<Object*>();
+	transEnergyObjects = std::vector<IEnergyObject*>();
+	simpleObjects = std::vector<IStaingObject*>();
+
+	playUpdatables = std::vector<IPlayUpdatable*>();
+
 	player = &_player;
 
 	assets = &_assets;
@@ -96,6 +102,10 @@ void Field::LoadingPlay()
 	for (size_t i = 0; i < energyObjects.size(); i++)
 	{
 		objects.push_back(energyObjects[i]);
+	}
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		playUpdatables.push_back(objects[i]);
 	}
 }
 
@@ -256,9 +266,9 @@ void Field::WhatObjectTransEnergy()
 
 void Field::PlayUpdate()
 {
-	for (size_t i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < playUpdatables.size(); i++)
 	{
-		objects[i]->PlayUpdate();
+		playUpdatables[i]->PlayUpdate();
 	}
 
 	WhatObjectTransEnergy();

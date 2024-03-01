@@ -1,6 +1,7 @@
 #pragma once
-class PlayUpdatable
+class IPlayUpdatable
 {
+public:
 	virtual void PlayUpdate() = 0;
 };
 

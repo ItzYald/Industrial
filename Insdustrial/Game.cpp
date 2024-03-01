@@ -15,9 +15,7 @@ Game::Game(sf::RenderWindow& _rw)
 // Загрузка приложения
 void Game::LoadingApp()
 {
-	field.objects = std::vector<Object*>();
-	field.transEnergyObjects = std::vector<IEnergyObject*>();
-	field.simpleObjects = std::vector<IStaingObject*>();
+	playUpdatables = std::vector<IPlayUpdatable*>();
 
 	assets = Assets();
 
@@ -87,7 +85,6 @@ void Game::LoadingForDev()
 void Game::LoadingPlay()
 {
 	oldButtons.clear();
-	buttons.clear();
 	drawables.clear();
 	// Загрузка цветов интерфейса
 	LoadColorInventoryFromFile();
@@ -106,6 +103,8 @@ void Game::LoadingPlay()
 
 	field.LoadingPlay();
 
+	playUpdatables.push_back(&field);
+
 	for (size_t i = 0; i < field.objects.size(); i++)
 	{
 		drawables.push_back(field.objects[i]);
@@ -119,7 +118,6 @@ void Game::UnloadingPlay(std::string nextScreen)
 	assets.UnloadingPlay();
 
 	drawables.clear();
-	buttons.clear();
 	oldButtons.clear();
 	field.objects.clear();
 
@@ -334,7 +332,12 @@ void Game::Play()
 	// Отрисовать игру
 	DrawPlay();
 
-	field.PlayUpdate();
+	//field.PlayUpdate();
+
+	for (size_t i = 0; i < playUpdatables.size(); i++)
+	{
+		playUpdatables[i]->PlayUpdate();
+	}
 
 	if (!player.isOpenInventory)
 	{
@@ -359,34 +362,28 @@ void Game::Menu()
 {
 	if (oldButtons.size() < 1)
 	{
+		oldButtons.push_back(OldButton(sf::Vector2f(sizeW.x / 2 - 75, 300), sf::Vector2f(150, 40), L"Начать",
+			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(0, 255, 0), sf::Color::Transparent,
+			sf::Color(0, 255, 0), sf::Color::Transparent, 1, 2, 30));
 		oldButtons.push_back(OldButton(sf::Vector2f(sizeW.x / 2 - 75, 500), sf::Vector2f(150, 40), L"Выйти",
 			sf::Color::Transparent, sf::Color(100, 100, 100, 100), sf::Color(0, 255, 0), sf::Color::Transparent,
 			sf::Color(0, 255, 0), sf::Color::Transparent, 1, 2, 30));
-		buttons.push_back(new TextButton(
-			mousePosition, sf::Vector2f(sizeW.x / 2 - 75, 300), sf::Vector2f(150, 40), L"Начать", 30,
-			textButtonColors(sf::Color::Transparent, sf::Color(0, 255, 0), sf::Color(0, 255, 0)),
-			textButtonColors(sf::Color(100, 255, 100, 100), sf::Color(0, 255, 0), sf::Color(0, 255, 0)), 2));
-		for (size_t i = 0; i < buttons.size(); i++)
-		{
-			drawables.push_back(buttons[i]);
-		}
 	}
 
 	functions.DrawRectangle(sf::Vector2f(200, 100), sf::Vector2f(980, 520), sf::Color(0, 40, 0), sf::Color(0, 255, 0), 4);
 	functions.PrintText(L"Industrial", sf::Vector2f(sizeW.x / 2.f, 100), 109, sf::Color(0, 255, 0), 1);
 
-	if (buttons[0]->CheckLeft())
+	AllDraw();
+
+	if (oldButtons[0].DrawCheckLeft(*rw))
 	{
 		screen = "ЗагрузочныЭкранГеймплея";
 		oldButtons.clear();
 		return;
 	}
 
-	AllDraw();
 
-	buttons[0]->Update();
-
-	if (oldButtons[0].DrawCheckLeft(*rw) || ch[0].Check(sf::Keyboard::Escape))
+	if (oldButtons[1].DrawCheckLeft(*rw) || ch[0].Check(sf::Keyboard::Escape))
 	{
 		rw->close();
 		oldButtons.clear();

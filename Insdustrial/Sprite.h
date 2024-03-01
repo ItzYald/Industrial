@@ -6,9 +6,9 @@
 #include "Functions/Checks.h"
 #include "Functions/Functions.h"
 
-#include "PlayUpdatable.h"
+#include "IPlayUpdatable.h"
 
-class Sprite : public sf::Drawable, public PlayUpdatable
+class Sprite : public sf::Drawable, public IPlayUpdatable
 {
 protected:
 	std::shared_ptr<sf::RenderWindow> rw;

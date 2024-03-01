@@ -12,13 +12,13 @@
 #include "Functions/OldButton.h"
 #include "Functions/Checks.h"
 
-#include "PlayUpdatable.h"
+#include "IPlayUpdatable.h"
 
 #include "StaticSprites.h"
 
 #include "CellInInventory.h"
 
-class AllInventory : public PlayUpdatable
+class AllInventory : public IPlayUpdatable
 {
 public:
 	// Списко кнопок

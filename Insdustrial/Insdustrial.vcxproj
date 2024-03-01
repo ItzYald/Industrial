@@ -145,17 +145,11 @@
     <ClCompile Include="EnergyHandGeneratorInventory.cpp" />
     <ClCompile Include="EnergyObjectInventory.cpp" />
     <ClCompile Include="EnergyStorageInventory.cpp" />
-    <ClCompile Include="Functions\BaseButton.cpp" />
-    <ClCompile Include="Functions\Button.cpp" />
-    <ClCompile Include="Functions\ImageButton.cpp" />
     <ClCompile Include="Functions\OldButton.cpp" />
     <ClCompile Include="Functions\Checks.cpp" />
     <ClCompile Include="Functions\Functions.cpp" />
-    <ClCompile Include="Functions\TextButton.cpp" />
-    <ClCompile Include="GamePlayUpdatable.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MineInventory.cpp" />
-    <ClCompile Include="PlayUpdatable.cpp" />
     <ClCompile Include="ProgressInventory.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -194,7 +188,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ObjectInventory.h" />
-    <ClInclude Include="PlayUpdatable.h" />
+    <ClInclude Include="IPlayUpdatable.h" />
     <ClInclude Include="ProgressInventory.h" />
     <ClInclude Include="StaingObject.h" />
     <ClInclude Include="Field.h" />
@@ -203,14 +197,10 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="StaticSprites.h" />
-    <ClInclude Include="Updatable.h" />
     <ClInclude Include="WireInventory.h" />
     <ClInclude Include="WorkbenchInventory.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

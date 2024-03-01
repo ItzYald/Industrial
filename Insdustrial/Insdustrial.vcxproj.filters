@@ -52,9 +52,6 @@
     <Filter Include="Файлы заголовков\Inventories\ProgressInventories\OvenInventories">
       <UniqueIdentifier>{579a1259-c78e-4d6e-b27e-143a07ddac37}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\Functions\Buttons">
-      <UniqueIdentifier>{ee34682e-d0de-4d69-9040-edae8eeaf496}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\Functions\Buttons">
       <UniqueIdentifier>{c2173df4-9d8a-4b43-8982-486f20858450}</UniqueIdentifier>
     </Filter>
@@ -129,18 +126,6 @@
     <ClCompile Include="AllInventory.cpp">
       <Filter>Исходные файлы\Inventories</Filter>
     </ClCompile>
-    <ClCompile Include="Functions\BaseButton.cpp">
-      <Filter>Исходные файлы\Functions\Buttons</Filter>
-    </ClCompile>
-    <ClCompile Include="Functions\Button.cpp">
-      <Filter>Исходные файлы\Functions\Buttons</Filter>
-    </ClCompile>
-    <ClCompile Include="Functions\ImageButton.cpp">
-      <Filter>Исходные файлы\Functions\Buttons</Filter>
-    </ClCompile>
-    <ClCompile Include="Functions\TextButton.cpp">
-      <Filter>Исходные файлы\Functions\Buttons</Filter>
-    </ClCompile>
     <ClCompile Include="Field.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -149,12 +134,6 @@
     </ClCompile>
     <ClCompile Include="MineInventory.cpp">
       <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>
-    </ClCompile>
-    <ClCompile Include="GamePlayUpdatable.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayUpdatable.cpp">
-      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -248,9 +227,6 @@
     <ClInclude Include="IEnergyObject.h">
       <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
     </ClInclude>
-    <ClInclude Include="Updatable.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Functions\BaseButton.h">
       <Filter>Файлы заголовков\Functions\Buttons</Filter>
     </ClInclude>
@@ -272,14 +248,11 @@
     <ClInclude Include="GamePlayUpdatable.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="PlayUpdatable.h">
+    <ClInclude Include="IPlayUpdatable.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
 </Project>
