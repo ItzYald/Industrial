@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Assets" Collapsed="true">
+    <Position X="33" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAIAgAAAAAAACAAAAAQACAAgAAAAAAA=</HashCode>
+      <FileName>Assets.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GamePlayUpdatable" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>GamePlayUpdatable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Item" Collapsed="true">
+    <Position X="36.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAQQAQAwAACAAAEAAAEAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Item.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IPlayUpdatable" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IPlayUpdatable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Field" Collapsed="true">
+    <Position X="17" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiAAAAAEAAIAQiAA0oIAAAABERgAKSIBCAAgAgCAgAA=</HashCode>
+      <FileName>Field.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game" Collapsed="true">
+    <Position X="34.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CiKABBBAAAAAEACAwgAAQAQpABiYiCoByRACUoAAAAg=</HashCode>
+      <FileName>Game.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StaticSprites" Collapsed="true">
+    <Position X="36.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIgAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>StaticSprites.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AllInventory" Collapsed="true">
+    <Position X="19.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAQABAAAAAQgAAAgAAAAAAAACQAAIAAAAAQAAAAAA=</HashCode>
+      <FileName>AllInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CellInInventory" Collapsed="true">
+    <Position X="34.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACABAAAAAAAAAAoQAAAAAAAAQAAICAAEEQAABAQA=</HashCode>
+      <FileName>CellInInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChestInventory" Collapsed="true">
+    <Position X="12.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAgIAAIAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ChestInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectInventory" Collapsed="true">
+    <Position X="20.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAgAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory" Collapsed="true">
+    <Position X="8" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAQAAAAQAAAgAAEIAEAAACAACAAAAAAAAAAgBAAAA=</HashCode>
+      <FileName>Inventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WorkbenchInventory" Collapsed="true">
+    <Position X="10.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAIQAQACAgAQAIAgAAgCAAAAgAgQAICAAAEAAAA=</HashCode>
+      <FileName>WorkbenchInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnergyCoalGeneratorInventory" Collapsed="true">
+    <Position X="26" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQIAAAIAAAgAAAIAAAAAAgAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>EnergyCoalGeneratorInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnergyHandGeneratorInventory" Collapsed="true">
+    <Position X="28.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAgAAAIAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EnergyHandGeneratorInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnergyObjectInventory" Collapsed="true">
+    <Position X="21.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACQAAAAAAAAgQAAIBAQAEAAAFAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EnergyObjectInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnergyStorageInventory" Collapsed="true">
+    <Position X="27" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAgAAAIAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>EnergyStorageInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MineInventory" Collapsed="true">
+    <Position X="14.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAwAAAAAAAAgAAAIAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MineInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WireInventory" Collapsed="true">
+    <Position X="19.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAACAAAAAgAAAKEAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>WireInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CompressorInventory" Collapsed="true">
+    <Position X="21.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAgAAAIAAAAACAAAAAAAAAIAQAAAAAAA=</HashCode>
+      <FileName>CompressorInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrusherInventory" Collapsed="true">
+    <Position X="23.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAgAAAIAAAAACAAEAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>CrusherInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProgressInventory" Collapsed="true">
+    <Position X="34.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAgAAAgAAAAAAEAAAIAAAAAAAAACAAAA=</HashCode>
+      <FileName>ProgressInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoalOvenInventory" Collapsed="true">
+    <Position X="30.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAACAAgQAAIAAAAECAAAAAAAAAKAAAAAAAAA=</HashCode>
+      <FileName>CoalOvenInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ElectricOvenInventory" Collapsed="true">
+    <Position X="17" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAACAAgAAAIAAAAACAAAAAAAAAIAAAAAAEAA=</HashCode>
+      <FileName>ElectricOvenInventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sprite" Collapsed="true">
+    <Position X="4.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAACAAAAgIAIAAAABCAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Sprite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAUgAAAIAAAABAAgIAAAAAAAAAaAACAAAAQQBAAAA=</HashCode>
+      <FileName>Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnergyObject&lt;T&gt;" Collapsed="true">
+    <Position X="3.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAAgAAAAAAAAAIAAgAAAAAAAEAAAAACAAAAAAA=</HashCode>
+      <FileName>EnergyObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IEnergyObject" Collapsed="true">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAAgAAAAAAAAAIAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>IEnergyObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IStaingObject" Collapsed="true">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAAgAAAAAAAAAIAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>IStaingObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Object" Collapsed="true">
+    <Position X="4.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAUAAAgAAAAAIAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Object.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StaingObject&lt;T&gt;" Collapsed="true">
+    <Position X="5.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAIgAAAAAAAAAIAAAAAQAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>StaingObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OldButton" Collapsed="true">
+    <Position X="33" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BgoIACIAAAAwAgAKAYAAICAAkIBgAALIAiACAAFEACA=</HashCode>
+      <FileName>Functions\OldButton.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checks" Collapsed="true">
+    <Position X="36.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Functions\Checks.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Functions" Collapsed="true">
+    <Position X="33" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAACAQAEAAAAAAAAAAAAIAAAgAAAIIAAAAAAAAAAA=</HashCode>
+      <FileName>Functions\Functions.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ItemEnum" Collapsed="true">
+    <Position X="33" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQESApHAAAAIAAghACACFICBTgEgIAAAAAAAAAgIIg=</HashCode>
+      <FileName>Item.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
