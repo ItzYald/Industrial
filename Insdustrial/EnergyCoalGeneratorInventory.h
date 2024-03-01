@@ -1,7 +1,7 @@
 #pragma once
 #include "EnergyStorageInventory.h"
 
-class EnergyCoalGeneratorInventory : public EnergyStorageInventory
+class EnergyCoalGeneratorInventory : public EnergyObjectInventory
 {
 public:
 	// Место для уголя (или другого горючего)
@@ -17,11 +17,11 @@ public:
 		int _maxEnergy, int _power, std::vector<sf::Texture*>& _textures);
 
 	// Всегда
-	void PlayUpdate();
+	void PlayUpdate() override;
 	// Отроисовка отнвентаря
-	void Draw();
+	void Draw() override;
 	// Когда зашел в инвентарь
-	void WhileOpen(Inventory& playerInventory);
+	void WhileOpen(Inventory& playerInventory) override;
 
 };
 

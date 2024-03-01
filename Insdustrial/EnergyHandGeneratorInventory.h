@@ -1,7 +1,7 @@
 #pragma once
 #include "EnergyStorageInventory.h"
 
-class EnergyHandGeneratorInventory : public EnergyStorageInventory
+class EnergyHandGeneratorInventory : public EnergyObjectInventory
 {
 public:
 	// Иконка генерации энергии
@@ -14,8 +14,9 @@ public:
 		int _maxEnergy, int _power, std::vector<sf::Texture*>& _textures,
 		std::map<std::string, sf::Texture>& _texturesInInventory);
 
-	void Draw();
-	void WhileOpen(Inventory& playerInventory);
+	void Draw() override;
+	void PlayUpdate() override;
+	void WhileOpen(Inventory& playerInventory) override;
 
 };
 

@@ -3,8 +3,20 @@
 EnergyCoalGeneratorInventory::EnergyCoalGeneratorInventory(
 	std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
 	int _maxEnergy, int _power, std::vector<sf::Texture*>& _textures)
-	: EnergyStorageInventory(_rw, _colorsInventory, _maxEnergy, _power, _textures)
 {
+	rw = _rw;
+	functions = Functions(rw);
+	colorsInventory = _colorsInventory;
+	power = _power;
+
+	maxEnergy = _maxEnergy;
+
+	for (int i = 0; i < 30; i++)
+	{
+		ch.push_back(Checks());
+	}
+	energy = 0;
+
 	coalCell = CellInInventory(rw, sf::Vector2f(460, 350 - 64), true, _textures);
 	burn = 0;
 	maxBurn = 0;

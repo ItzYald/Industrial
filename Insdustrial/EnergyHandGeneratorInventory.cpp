@@ -4,22 +4,26 @@ EnergyHandGeneratorInventory::EnergyHandGeneratorInventory(
 	std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
 	int _maxEnergy, int _power, std::vector<sf::Texture*>& _textures,
 	std::map<std::string, sf::Texture>& _texturesInInventory)
-	: EnergyStorageInventory(_rw, _colorsInventory, _maxEnergy, _power, _textures)
 {
+	rw = _rw;
+	functions = Functions(rw);
+	colorsInventory = _colorsInventory;
+	power = _power;
+
+	maxEnergy = _maxEnergy;
+
+	for (int i = 0; i < 30; i++)
+	{
+		ch.push_back(Checks());
+	}
+	energy = 0;
+
 	iconGenerate = sf::Sprite();
 	iconGenerate.setTexture(_texturesInInventory["HandGenerate"]);
 	iconGenerate.setScale(
 		128 / (float)iconGenerate.getTexture()->getSize().x,
 		128 / (float)iconGenerate.getTexture()->getSize().y);
 	iconGenerate.setPosition(550, 160);
-}
-
-void EnergyHandGeneratorInventory::Draw()
-{
-	AllDraw();
-	rw->draw(iconGenerate);
-	oldButtons[0].Draw(*rw);
-	
 }
 
 void EnergyHandGeneratorInventory::WhileOpen(Inventory& playerInventory)
@@ -52,5 +56,18 @@ void EnergyHandGeneratorInventory::WhileOpen(Inventory& playerInventory)
 	Draw();
 	playerInventory.WhileOpen();
 
+}
+
+void EnergyHandGeneratorInventory::Draw()
+{
+	AllDraw();
+	rw->draw(iconGenerate);
+	oldButtons[0].Draw(*rw);
+	
+}
+
+void EnergyHandGeneratorInventory::PlayUpdate()
+{
+	AllNext();
 }
 
