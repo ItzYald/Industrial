@@ -18,7 +18,7 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPositio
 
 	assets = &_assets;
 
-	sprite.setScale(_sizeOne / sprite.getTexture()->getSize().x, _sizeOne / sprite.getTexture()->getSize().y);
+	sprite.setScale(_sizeOne / (float)sprite.getTexture()->getSize().x, _sizeOne / (float)sprite.getTexture()->getSize().y);
 	
 	sprites = std::vector<std::vector<sf::Sprite>>();
 	for (size_t i = 0; i < size.x; i++)

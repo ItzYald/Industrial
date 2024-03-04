@@ -15,7 +15,7 @@ ChestInventory::ChestInventory(std::shared_ptr<sf::RenderWindow> _rw,
 		cells.push_back(std::vector<CellInInventory>());
 		for (int j = 0; j < 4; j++)
 		{
-			cells[i].push_back(CellInInventory(rw, sf::Vector2f(300 + 8 + i * 66, 110 + 8 + j * 66), true, _textures));
+			cells[i].push_back(CellInInventory(rw, sf::Vector2f((float)(300 + 8 + i * 66), (float)(110 + 8 + j * 66)), true, _textures));
 		}
 	}
 

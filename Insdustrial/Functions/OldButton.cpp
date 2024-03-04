@@ -182,7 +182,7 @@ void OldButton::PrintText(sf::RenderWindow& rw, sf::String mes, sf::Vector2f pos
     text.setCharacterSize(_size);
     if (center == 0)
     {
-        text.setPosition(sf::Vector2f(pos.x + size.x / 2 - mes.getSize() + 0.5 * _size / 2, pos.y));
+        text.setPosition(sf::Vector2f(pos.x + size.x / 2 - mes.getSize() + 0.5f * _size / 2, pos.y));
     }
     else if (center == 1)
     {

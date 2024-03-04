@@ -108,7 +108,8 @@ void Inventory::DrawNear(int mouseWheel)
 
 	}
 
-	functions.DrawRectangle(sf::Vector2f(300 + 8 + choseCell * 66, 400 + 8 + 3 * 66), sf::Vector2f(64, 64), sf::Color::Transparent, sf::Color(100, 100, 100), 4);
+	functions.DrawRectangle(sf::Vector2f((float)(300 + 8 + choseCell * 66), (float)(400 + 8 + 3 * 66)),
+		sf::Vector2f(64, 64), sf::Color::Transparent, sf::Color(100, 100, 100), 4);
 
 	if (mouseWheel < 0)
 	{

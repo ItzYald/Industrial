@@ -21,7 +21,7 @@ Player::Player(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosit
 
 	inventory = Inventory(rw, _colorsInventory, _itemTextures);
 
-	sprite.setScale(fieldSizeOne / sprite.getTexture()->getSize().x, fieldSizeOne / sprite.getTexture()->getSize().y);
+	sprite.setScale(fieldSizeOne / (float)sprite.getTexture()->getSize().x, fieldSizeOne / (float)sprite.getTexture()->getSize().y);
 
 	angle = 0.06f;
 
