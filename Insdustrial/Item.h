@@ -14,7 +14,7 @@ enum ItemEnum
 	workbench,
 	planks,
 	accumulator,
-	enegyOven,
+	energyOven,
 	copperWire,
 	energyStorage,
 	copperIngot,
@@ -44,7 +44,7 @@ public:
 	// Название предмета
 	sf::String name;
 	// Номер (id) предмета
-	int number;
+	ItemEnum number;
 	// Количество
 	int quantity;
 	// Горит ли и в какой предмет сгорает (в какой переплавляется)

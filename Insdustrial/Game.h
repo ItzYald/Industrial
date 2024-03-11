@@ -115,8 +115,6 @@ public:
 	void DrawGameplay();
 	// Закрыть
 	void CloseInventory();
-	// Поставить объект по определенным коодинатам
-	void PutObject(sf::Vector2f position);
 	// Геймплей
 	void Gameplay();
 	// Какой инвентарь открыт

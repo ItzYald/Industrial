@@ -16,6 +16,7 @@ Game::Game(sf::RenderWindow& _rw)
 void Game::LoadingApp()
 {
 	playUpdatables = std::vector<IPlayUpdatable*>();
+	drawables = std::vector<sf::Drawable*>();
 
 	assets = Assets();
 
@@ -91,7 +92,8 @@ void Game::LoadingPlay()
 
 	assets.LoadingPlay();
 
-	field = Field(rw, cameraPosition, sf::Vector2i(200, 200), 48, sizeW, assets.textures["Grass"], assets, player);
+	field = Field(rw, cameraPosition, sf::Vector2i(200, 200), 48,
+		sizeW, assets.textures["Grass"], assets, player, drawables);
 	drawables.push_back(&field);
 	player = Player(rw, cameraPosition, field.sizeOne, assets.textures["Player"], sf::Vector2f(20, 20), colorsInventory, assets.itemTextures);
 
@@ -161,100 +163,6 @@ void Game::CloseInventory()
 		}
 	}
 }
-// Поставить объект по определенным координатам
-void Game::PutObject(sf::Vector2f position)
-{
-	// Поставить:
-	switch (player.inventory.cells[player.inventory.choseCell][3].item.number)
-	{
-	// Печку
-	case 2:
-		field.simpleObjects.push_back(new StaingObject<CoalOvenInventory >(
-			rw, cameraPosition, field.sizeOne, assets.textures["Oven"], assets.itemTextures, position, colorsInventory));
-		field.objects.push_back(field.simpleObjects[field.simpleObjects.size() - 1]);
-		break;
-	// Электропечку
-	case 11:
-		field.energyObjects.push_back(new EnergyObject<ElectricOvenInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["ElectricOven"], assets.itemTextures, position, colorsInventory));
-		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		break;
-	// Дробитель
-	case 24:
-		field.energyObjects.push_back(new EnergyObject<CrusherInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["Crusher"], assets.itemTextures, position, colorsInventory, 1000));
-		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		break;
-	// Компрессор
-	case 28:
-		field.energyObjects.push_back(new EnergyObject<CompressorInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["Compressor"], assets.itemTextures, position, colorsInventory, 1000));
-		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		break;
-		// Компрессор
-	case 32:
-		field.energyObjects.push_back(new EnergyObject<MineInventory >(
-			rw, cameraPosition, field.sizeOne, assets.textures["Mine"], assets.itemTextures, position, colorsInventory));
-		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		break;
-	// Сундук
-	case 5:
-		field.simpleObjects.push_back(new StaingObject<ChestInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["Chest"], assets.itemTextures, position, colorsInventory));
-		field.objects.push_back(field.simpleObjects[field.simpleObjects.size() - 1]);
-		break;
-	// Верстак
-	case 8:
-		field.simpleObjects.push_back(new StaingObject<WorkbenchInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["Workbench"], assets.itemTextures, position, colorsInventory));
-		field.objects.push_back(field.simpleObjects[field.simpleObjects.size() - 1]);
-		break;
-	// Энергохранилище
-	case 13:
-		field.energyObjects.push_back(new EnergyObject<EnergyStorageInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["EnergyStorage"], assets.itemTextures, position, colorsInventory, 1000, 10));
-		field.transEnergyObjects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		break;
-	// Ручной энергогенератор
-	case 16:
-		field.energyObjects.push_back(new EnergyObject<EnergyHandGeneratorInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["EnergyHandGenerator"],
-			assets.itemTextures, position, colorsInventory, 100, 10, assets.texturesInInventory));
-		field.transEnergyObjects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		break;
-	// Угольный энергогенератор
-	case 17:
-		field.energyObjects.push_back(new EnergyObject<EnergyCoalGeneratorInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["EnergyCoalGenerator"], assets.itemTextures, position, colorsInventory, 100, 10));
-		field.transEnergyObjects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-	// Медный провод
-	case 12:
-		field.energyObjects.push_back(new EnergyObject<WireInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["CopperWireOn"], assets.itemTextures, position, colorsInventory, 10, 10));
-		field.transEnergyObjects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		break;
-	// Железный провод
-	case 15:
-		field.energyObjects.push_back(new EnergyObject<WireInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["IronWireOn"], assets.itemTextures, position, colorsInventory, 100, 100));
-		field.transEnergyObjects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		break;
-	// Оловяный провод
-	case 20:
-		field.energyObjects.push_back(new EnergyObject<WireInventory > (
-			rw, cameraPosition, field.sizeOne, assets.textures["TinWireOn"], assets.itemTextures, position, colorsInventory, 1000, 1000));
-		field.transEnergyObjects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		field.objects.push_back(field.energyObjects[field.energyObjects.size() - 1]);
-		break;
-	}
-
-	drawables.push_back(field.objects[field.objects.size() - 1]);
-}
 // Геймплей
 void Game::Gameplay()
 {
@@ -286,7 +194,9 @@ void Game::Gameplay()
 	// Поставить объект на землю
 	if (field.ObjectHere(mousePositionGrid, player.inventory.cells[player.inventory.choseCell][3].item))
 	{
-		PutObject((sf::Vector2f)mousePositionGrid);
+		//PutObject((sf::Vector2f)mousePositionGrid);
+		field.PutObject((sf::Vector2f)mousePositionGrid,
+			player.inventory.cells[player.inventory.choseCell][3].item.number, colorsInventory);
 	}
 
 	for (size_t i = 0; i < field.objects.size(); i++)
@@ -332,7 +242,7 @@ void Game::Play()
 	// Отрисовать игру
 	DrawPlay();
 
-	//field.PlayUpdate();
+	field.PlayUpdate();
 
 	for (size_t i = 0; i < playUpdatables.size(); i++)
 	{

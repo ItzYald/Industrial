@@ -61,6 +61,9 @@ public:
 	std::vector<std::vector<int>> newEnergyObjectsNumbers;
 	std::vector<std::vector<int>> transEnergyObjectsNumbers;
 
+	// Все на отрисовку
+	std::vector<sf::Drawable*>* drawables;
+
 	// Все обычные объекты
 	std::vector<IStaingObject*> simpleObjects;
 	// Все энергетические объекты
@@ -79,7 +82,7 @@ public:
 	/// <param name="texture">Текстурка травы</param>
 	Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition,
 		sf::Vector2i _size, int _sizeOne, sf::Vector2u _sizeW, sf::Texture* _texture,
-		Assets& _assets, Player& _player);
+		Assets& _assets, Player& _player, std::vector<sf::Drawable*>& _drawables);
 
 	void LoadingForDev(std::vector<sf::Color>& colorsInventory);
 
@@ -94,6 +97,9 @@ public:
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+	void PutObject(sf::Vector2f position, int playerCell, std::vector<sf::Color>& colorsInventory);
+
+	void GamePlayUpdate() override;
 
 	void TransEnergy(float& originalEnergy, int power, float& nextEnergy, int nextMaxEnergy);
 
@@ -102,8 +108,6 @@ public:
 	sf::Vector2i CheckTurnEnergy(int turn);
 
 	void WhatObjectTransEnergy();
-
-	void GamePlayUpdate() override;
 
 	void PlayUpdate() override;
 
