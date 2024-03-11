@@ -1,12 +1,14 @@
 #include "Field.h"
 
 Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition,
-	sf::Vector2i _size, int _sizeOne, sf::Vector2u _sizeW, sf::Texture* _texture,
+	sf::Vector2i _size, int _sizeOne, sf::Vector2u _sizeW,
 	Assets& _assets, Player& _player, std::vector<sf::Drawable*>& _drawables)
 	: rw(_rw), size(_size), sizeOne(_sizeOne), sizeW(_sizeW)
 {
 	functions = Functions(rw);
-	sprite = sf::Sprite(*_texture);
+	assets = &_assets;
+
+	sprite = sf::Sprite(*assets->textures["Grass"]);
 	cameraPosition = &_cameraPosition;
 
 	objects = std::vector<Object*>();
@@ -19,7 +21,6 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPositio
 
 	player = &_player;
 
-	assets = &_assets;
 
 	sprite.setScale(_sizeOne / (float)sprite.getTexture()->getSize().x, _sizeOne / (float)sprite.getTexture()->getSize().y);
 	
@@ -156,56 +157,56 @@ void Field::PutObject(sf::Vector2f position, int playerCell, std::vector<sf::Col
 	switch (playerCell)
 	{
 		// Печку
-	case 2:
+	case ItemEnum::oven:
 		simpleObjects.push_back(new StaingObject<CoalOvenInventory >(
 			rw, *cameraPosition, sizeOne, assets->textures["Oven"], assets->itemTextures, position, colorsInventory));
 		objects.push_back(simpleObjects[simpleObjects.size() - 1]);
 		break;
 		// Электропечку
-	case 11:
+	case ItemEnum::energyOven:
 		energyObjects.push_back(new EnergyObject<ElectricOvenInventory >(
 			rw, *cameraPosition, sizeOne, assets->textures["ElectricOven"], assets->itemTextures, position, colorsInventory));
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 		// Дробитель
-	case 24:
+	case ItemEnum::crusher:
 		energyObjects.push_back(new EnergyObject<CrusherInventory >(
 			rw, *cameraPosition, sizeOne, assets->textures["Crusher"], assets->itemTextures, position, colorsInventory, 1000));
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 		// Компрессор
-	case 28:
+	case ItemEnum::compressor:
 		energyObjects.push_back(new EnergyObject<CompressorInventory >(
 			rw, *cameraPosition, sizeOne, assets->textures["Compressor"], assets->itemTextures, position, colorsInventory, 1000));
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
-		// Компрессор
-	case 32:
+		// Шахту
+	case ItemEnum::mine:
 		energyObjects.push_back(new EnergyObject<MineInventory >(
 			rw, *cameraPosition, sizeOne, assets->textures["Mine"], assets->itemTextures, position, colorsInventory));
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 		// Сундук
-	case 5:
+	case ItemEnum::chest:
 		simpleObjects.push_back(new StaingObject<ChestInventory >(
 			rw, *cameraPosition, sizeOne, assets->textures["Chest"], assets->itemTextures, position, colorsInventory));
 		objects.push_back(simpleObjects[simpleObjects.size() - 1]);
 		break;
 		// Верстак
-	case 8:
+	case ItemEnum::workbench:
 		simpleObjects.push_back(new StaingObject<WorkbenchInventory >(
 			rw, *cameraPosition, sizeOne, assets->textures["Workbench"], assets->itemTextures, position, colorsInventory));
 		objects.push_back(simpleObjects[simpleObjects.size() - 1]);
 		break;
 		// Энергохранилище
-	case 13:
+	case ItemEnum::energyStorage:
 		energyObjects.push_back(new EnergyObject<EnergyStorageInventory >(
 			rw, *cameraPosition, sizeOne, assets->textures["EnergyStorage"], assets->itemTextures, position, colorsInventory, 1000, 10));
 		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 		// Ручной энергогенератор
-	case 16:
+	case ItemEnum::handEnergyGenerator:
 		energyObjects.push_back(new EnergyObject<EnergyHandGeneratorInventory >(
 			rw, *cameraPosition, sizeOne, assets->textures["EnergyHandGenerator"],
 			assets->itemTextures, position, colorsInventory, 100, 10, assets->texturesInInventory));
@@ -213,27 +214,27 @@ void Field::PutObject(sf::Vector2f position, int playerCell, std::vector<sf::Col
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 		// Угольный энергогенератор
-	case 17:
+	case ItemEnum::coalEnergyGenerator:
 		energyObjects.push_back(new EnergyObject<EnergyCoalGeneratorInventory >(
 			rw, *cameraPosition, sizeOne, assets->textures["EnergyCoalGenerator"], assets->itemTextures, position, colorsInventory, 100, 10));
 		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		// Медный провод
-	case 12:
+	case ItemEnum::copperWire:
 		energyObjects.push_back(new EnergyObject<WireInventory >(
 			rw, *cameraPosition, sizeOne, assets->textures["CopperWireOn"], assets->itemTextures, position, colorsInventory, 10, 10));
 		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 		// Железный провод
-	case 15:
+	case ItemEnum::ironWire:
 		energyObjects.push_back(new EnergyObject<WireInventory >(
 			rw, *cameraPosition, sizeOne, assets->textures["IronWireOn"], assets->itemTextures, position, colorsInventory, 100, 100));
 		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 		// Оловяный провод
-	case 20:
+	case ItemEnum::tinWire:
 		energyObjects.push_back(new EnergyObject<WireInventory >(
 			rw, *cameraPosition, sizeOne, assets->textures["TinWireOn"], assets->itemTextures, position, colorsInventory, 1000, 1000));
 		transEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);

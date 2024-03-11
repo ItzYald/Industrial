@@ -81,7 +81,7 @@ public:
 	/// <param name="_sizeW">Размер окна</param>
 	/// <param name="texture">Текстурка травы</param>
 	Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition,
-		sf::Vector2i _size, int _sizeOne, sf::Vector2u _sizeW, sf::Texture* _texture,
+		sf::Vector2i _size, int _sizeOne, sf::Vector2u _sizeW,
 		Assets& _assets, Player& _player, std::vector<sf::Drawable*>& _drawables);
 
 	void LoadingForDev(std::vector<sf::Color>& colorsInventory);

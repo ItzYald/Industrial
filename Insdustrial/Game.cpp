@@ -93,7 +93,7 @@ void Game::LoadingPlay()
 	assets.LoadingPlay();
 
 	field = Field(rw, cameraPosition, sf::Vector2i(200, 200), 48,
-		sizeW, assets.textures["Grass"], assets, player, drawables);
+		sizeW, assets, player, drawables);
 	drawables.push_back(&field);
 	player = Player(rw, cameraPosition, field.sizeOne, assets.textures["Player"], sf::Vector2f(20, 20), colorsInventory, assets.itemTextures);
 
