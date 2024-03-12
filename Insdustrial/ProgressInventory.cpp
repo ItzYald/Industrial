@@ -23,7 +23,7 @@ bool ProgressInventory::Progress(float& energy, std::vector<CellInInventory>& ce
 		whatProgress = 120;
 	}
 	previousItemProgress = cells[0].item.number;
-	if ((cells[2].item.number == 0 || cells[2].item.number == whatNext))
+	if ((cells[2].item.number == ItemEnum::empty || cells[2].item.number == whatNext))
 	{
 		if (energy > 0)
 		{
@@ -34,7 +34,7 @@ bool ProgressInventory::Progress(float& energy, std::vector<CellInInventory>& ce
 				if (whatProgress == 0)
 				{
 					whatProgress = 120;
-					if (cells[2].item.number == whatNext && cells[2].item.number != 0)
+					if (cells[2].item.number == whatNext && cells[2].item.number != ItemEnum::empty)
 					{
 						cells[2].item.quantity += 1;
 					}
@@ -47,7 +47,7 @@ bool ProgressInventory::Progress(float& energy, std::vector<CellInInventory>& ce
 					cells[0].item.quantity -= 1;
 					if (cells[0].item.quantity == 0)
 					{
-						cells[0].item.NumberUpdate(0);
+						cells[0].item.NumberUpdate(ItemEnum::empty);
 					}
 					res = true;
 				}

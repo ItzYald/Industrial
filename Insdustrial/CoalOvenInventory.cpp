@@ -18,7 +18,9 @@ CoalOvenInventory::CoalOvenInventory(std::shared_ptr<sf::RenderWindow> _rw,
 
 void CoalOvenInventory::Burn()
 {
-	if (cells[1].item.whatFuel && cells[0].item.whatBurn && (cells[0].item.whatBurn == cells[2].item.number || cells[2].item.number == 0))
+	if (cells[1].item.whatFuel && cells[0].item.whatBurn
+		&& (cells[0].item.whatBurn == cells[2].item.number
+			|| cells[2].item.number == ItemEnum::empty))
 	{
 		if (energy <= 0)
 		{

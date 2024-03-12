@@ -240,7 +240,7 @@ void WorkbenchInventory::Craft()
 			if (isCraft == 9)
 			{
 				isAllCraft = false;
-				if (madeItemCell.item.number == 0)
+				if (madeItemCell.item.number == ItemEnum::empty)
 				{
 					madeItemCell.item.NumberUpdate(collectionResult[i][0]);
 					madeItemCell.item.quantity = collectionResult[i][1];
@@ -255,18 +255,18 @@ void WorkbenchInventory::Craft()
 
 	if (isAllCraft)
 	{
-		madeItemCell.item.NumberUpdate(0);
+		madeItemCell.item.NumberUpdate(ItemEnum::empty);
 	}
 
 	// ≈сли тип пустой - сделать колличество 0
-	if (madeItemCell.item.number == 0)
+	if (madeItemCell.item.number == ItemEnum::empty)
 	{
 		madeItemCell.item.quantity == 0;
 	}
 	// ≈сли колличество 0 - сделать тип пустой
 	if (madeItemCell.item.quantity == 0)
 	{
-		madeItemCell.item.NumberUpdate(0);
+		madeItemCell.item.NumberUpdate(ItemEnum::empty);
 	}
 
 }
@@ -299,7 +299,7 @@ void WorkbenchInventory::WhileOpen(Inventory& playerInventory)
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				if (cells[i][j].item.number != 0)
+				if (cells[i][j].item.number != ItemEnum::empty)
 				{
 					if (!cells[i][j].item.isReusable)
 					{

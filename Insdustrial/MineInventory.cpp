@@ -51,7 +51,7 @@ void MineInventory::PlayUpdate()
 					cells[i].item.quantity += 1;
 					break;
 				}
-				else if (cells[i].item.number == 0)
+				else if (cells[i].item.number == ItemEnum::empty)
 				{
 					cells[i].item.NumberUpdate(item);
 					cells[i].item.quantity += 1;

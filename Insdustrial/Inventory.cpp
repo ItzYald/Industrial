@@ -49,7 +49,7 @@ void Inventory::Draw()
 	DrawCommon(cells);
 
 	// Отрисовка предмета в мышке
-	if (mouseItem.number != 0)
+	if (mouseItem.number != ItemEnum::empty)
 	{
 		itemsSprites.DrawItemSprite(rw.get(), mouseItem.number, sf::Vector2f(mousePosition.x, mousePosition.y), 64);
 		functions.PrintText(std::to_string(mouseItem.quantity), sf::Vector2f(mousePosition.x + 35, mousePosition.y + 35), 25, sf::Color(250, 250, 250));
@@ -101,7 +101,7 @@ void Inventory::DrawNear(int mouseWheel)
 		// Если 0 - сделать пустым
 		if (cells[i][3].item.quantity == 0)
 		{
-			cells[i][3].item.NumberUpdate(0);
+			cells[i][3].item.NumberUpdate(ItemEnum::empty);
 		}
 
 		cells[i][3].DrawCell();
