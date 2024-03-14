@@ -35,7 +35,9 @@ enum ItemEnum
 	chip,
 	stick,
 	hammer,
-	mine
+	mine,
+	stone,
+	flint
 };
 
 class Item

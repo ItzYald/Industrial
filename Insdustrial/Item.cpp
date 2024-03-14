@@ -21,7 +21,7 @@ void Item::NumberUpdate(int _number)
 		break;
 	case ItemEnum::ironOre:
 		name = L"Железная руда";
-		whatBurn = 4;
+		whatBurn = ItemEnum::ironIngot;
 		whatCrush = sf::Vector2i(23, 2);
 		break;
 	case ItemEnum::oven:
@@ -34,7 +34,7 @@ void Item::NumberUpdate(int _number)
 	case ItemEnum::ironIngot:
 		name = L"Железный слиток";
 		whatCrush = sf::Vector2i(23, 1);
-		whatCompress = 25;
+		whatCompress = ItemEnum::ironPlate;
 		break;
 	case ItemEnum::chest:
 		name = L"Сундук";
@@ -45,7 +45,7 @@ void Item::NumberUpdate(int _number)
 	case ItemEnum::wood:
 		name = L"Древесина";
 		whatFuel = 4;
-		whatBurn = 3;
+		whatBurn = ItemEnum::coal;
 		break;
 	case ItemEnum::workbench:
 		name = L"Верстак";
@@ -68,7 +68,7 @@ void Item::NumberUpdate(int _number)
 		break;
 	case ItemEnum::copperIngot:
 		name = L"Медный слиток";
-		whatCompress = 26;
+		whatCompress = ItemEnum::copperPlate;
 		break;
 	case ItemEnum::ironWire:
 		name = L"Железный провод";
@@ -84,22 +84,22 @@ void Item::NumberUpdate(int _number)
 		break;
 	case ItemEnum::tinIngot:
 		name = L"Оловяный слиток";
-		whatCompress = 27;
+		whatCompress = ItemEnum::tinPlate;
 		break;
 	case ItemEnum::tinWire:
 		name = L"Оловяный провод";
 		break;
 	case ItemEnum::copperOre:
 		name = L"Медная руда";
-		whatBurn = 14;
+		whatBurn = ItemEnum::copperIngot;
 		break;
 	case ItemEnum::tinOre:
 		name = L"Оловяная руда";
-		whatBurn = 19;
+		whatBurn = ItemEnum::tinIngot;
 		break;
 	case ItemEnum::crushedIronOre:
 		name = L"Измельченная железная руда";
-		whatBurn = 4;
+		whatBurn = ItemEnum::ironIngot;
 		break;
 	case ItemEnum::crusher:
 		name = L"Дробитель";
@@ -128,6 +128,13 @@ void Item::NumberUpdate(int _number)
 		break;
 	case ItemEnum::mine:
 		name = L"Автошахта";
+		break;
+	case ItemEnum::stone:
+		name = "Камень";
+		whatCrush = sf::Vector2i(ItemEnum::flint, 1);
+		break;
+	case ItemEnum::flint:
+		name = "Крмень";
 		break;
 	}
 }

@@ -9,11 +9,11 @@
 int main()
 {
 	std::setlocale(LC_ALL, "Russian");
-	// ShowWindow(GetConsoleWindow(), SW_HIDE);
 
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 16;
 
+	// ShowWindow(GetConsoleWindow(), SW_HIDE);
 	ShowWindow(GetConsoleWindow(), SW_SHOW);
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Industrial", 7U, settings);
 
