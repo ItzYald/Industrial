@@ -37,7 +37,7 @@ void EnergyCoalGeneratorInventory::PlayUpdate()
 	if (burn > 0)
 	{
 		burn -= 1;
-		energy += 0.05f;
+		energy += 1.f;
 	}
 	if (energy > maxEnergy)
 	{

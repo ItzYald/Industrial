@@ -42,7 +42,7 @@ void EnergyHandGeneratorInventory::WhileOpen(Inventory& playerInventory)
 
 	if (oldButtons[0].CheckDown(*rw))
 	{
-		energy += 0.2;
+		energy += 1.f;
 	}
 
 	if (energy > maxEnergy)
