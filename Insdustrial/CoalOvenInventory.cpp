@@ -8,7 +8,7 @@ CoalOvenInventory::CoalOvenInventory(std::shared_ptr<sf::RenderWindow> _rw,
 	colorsInventory = _colorsInventory;
 	itemsSprites = StaticSprites(_textures);
 
-	progress = ProgressInventory(_rw, _textures, cells);
+	progress = ProgressInventory(_rw, _textures, cells, colorsInventory);
 
 
 	energy = 0;

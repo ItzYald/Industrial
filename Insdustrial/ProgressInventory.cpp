@@ -2,7 +2,8 @@
 
 ProgressInventory::ProgressInventory(
 	std::shared_ptr<sf::RenderWindow> _rw,
-	std::vector<sf::Texture*>& _textures, std::vector<CellInInventory>& cells)
+	std::vector<sf::Texture*>& _textures,
+	std::vector<CellInInventory>& cells, std::vector<sf::Color> _colorsInventory)
 {
 	functions = Functions(_rw);
 	whatProgress = 120;
@@ -10,9 +11,9 @@ ProgressInventory::ProgressInventory(
 
 	// 3 €чейки в инвентаре
 	cells = std::vector<CellInInventory>();
-	cells.push_back(CellInInventory(_rw, sf::Vector2f(460, 150), true, _textures));
-	cells.push_back(CellInInventory(_rw, sf::Vector2f(460, 286), true, _textures));
-	cells.push_back(CellInInventory(_rw, sf::Vector2f(670, 218), false, _textures));
+	cells.push_back(CellInInventory(_rw, sf::Vector2f(460, 150), true, _textures, _colorsInventory));
+	cells.push_back(CellInInventory(_rw, sf::Vector2f(460, 286), true, _textures, _colorsInventory));
+	cells.push_back(CellInInventory(_rw, sf::Vector2f(670, 218), false, _textures, _colorsInventory));
 }
 
 bool ProgressInventory::Progress(float& energy, std::vector<CellInInventory>& cells, int whatNext, int quantity)

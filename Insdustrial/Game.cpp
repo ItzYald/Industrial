@@ -15,6 +15,7 @@ Game::Game(sf::RenderWindow& _rw)
 // Загрузка приложения
 void Game::LoadingApp()
 {
+	LoadColorInventoryFromFile();
 	playUpdatables = std::vector<IPlayUpdatable*>();
 	drawables = std::vector<sf::Drawable*>();
 
@@ -95,7 +96,9 @@ void Game::LoadingPlay()
 	field = Field(rw, cameraPosition, sf::Vector2i(200, 200), 48,
 		sizeW, assets, player, drawables);
 	drawables.push_back(&field);
-	player = Player(rw, cameraPosition, field.sizeOne, assets.textures["Player"], sf::Vector2f(20, 20), colorsInventory, assets.itemTextures);
+	player = Player(
+		rw, cameraPosition, field.sizeOne, assets.textures["Player"],
+		sf::Vector2f(20, 20), colorsInventory, assets.itemTextures);
 
 #if defined(_DEBUG)
 	LoadingForDev();

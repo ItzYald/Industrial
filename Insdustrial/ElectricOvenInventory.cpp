@@ -7,7 +7,7 @@ ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _
 	functions = Functions(rw);
 	colorsInventory = _colorsInventory;
 
-	progress = ProgressInventory(_rw, _textures, cells);
+	progress = ProgressInventory(_rw, _textures, cells, colorsInventory);
 
 	energy = 0;
 	maxEnergy = 1000;
@@ -17,17 +17,6 @@ ElectricOvenInventory::ElectricOvenInventory(std::shared_ptr<sf::RenderWindow> _
 
 void ElectricOvenInventory::Burn()
 {
-	// Раньше был редстоун, но его больше нет
-	//if (cells[1].item.number == 10 && fuel < maxFuel)
-	//{
-	//	fuel += 10;
-	//	cells[1].item.quantity -= 1;
-	//	if (fuel > maxFuel)
-	//	{
-	//		fuel = maxFuel;
-	//	}
-	//}
-
 	progress.Progress(energy, cells, cells[0].item.whatBurn, 1);
 
 	if (energy > maxEnergy)

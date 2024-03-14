@@ -16,13 +16,14 @@ WorkbenchInventory::WorkbenchInventory(std::shared_ptr<sf::RenderWindow> _rw,
 		auto cellsI = std::vector<CellInInventory>();
 		for (int j = 0; j < 3; j++)
 		{
-			cellsI.push_back(CellInInventory(rw, sf::Vector2f(350 + 8 + i * 66, 130 + 8 + j * 66), true, _textures));
+			cellsI.push_back(CellInInventory(
+				rw, sf::Vector2f(350 + 8 + i * 66, 130 + 8 + j * 66), true, _textures, colorsInventory));
 		}
 		cells.push_back(cellsI);
 	}
 
 	// Созданный предмет
-	madeItemCell = CellInInventory(rw, sf::Vector2f(700, 130 + 8 + 1 * 66), false, _textures);
+	madeItemCell = CellInInventory(rw, sf::Vector2f(700, 130 + 8 + 1 * 66), false, _textures, colorsInventory);
 
 	itemsSprites = StaticSprites(_textures);
 	// Какие есть крафты

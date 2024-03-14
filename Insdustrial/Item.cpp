@@ -9,10 +9,10 @@ Item::Item(int _number, int _quantity)
 void Item::NumberUpdate(int _number)
 {
 	number = (ItemEnum)_number;
-	whatBurn = 0;
-	whatFuel = 0;
+	whatBurn = ItemEnum::empty;
+	whatFuel = ItemEnum::empty;
 	whatCrush = sf::Vector2i(0, 0);
-	whatCompress = 0;
+	whatCompress = ItemEnum::empty;
 	isReusable = 0;
 	switch (number)
 	{

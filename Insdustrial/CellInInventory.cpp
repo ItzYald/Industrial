@@ -1,25 +1,29 @@
 #include "CellInInventory.h"
 
 CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw,
-	sf::Vector2f position, bool _put, bool _take, std::vector<sf::Texture*>& _textures)
+	sf::Vector2f position, bool _put, bool _take,
+	std::vector<sf::Texture*>& _textures, std::vector<sf::Color> _colorsInventory)
 {
 	rw = _rw;
 	functions = Functions(rw);
 
 	itemsSprites = StaticSprites(_textures);
 
+	colorsInventory = _colorsInventory;
+
 	put = _put;
 	take = _take;
 
 	item = Item(0, 0);
 	
-	LoadColorInventoryFromFile();
 	button = OldButton(position, sf::Vector2f(64, 64), L"",
 		colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 		sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25);
 }
 
-CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f position, bool _put, std::vector<sf::Texture*>& _textures)
+CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw,
+	sf::Vector2f position, bool _put,
+	std::vector<sf::Texture*>& _textures, std::vector<sf::Color> _colorsInventory)
 {
 	rw = _rw;
 	functions = Functions(rw);
@@ -29,48 +33,13 @@ CellInInventory::CellInInventory(std::shared_ptr<sf::RenderWindow> _rw, sf::Vect
 	put = _put;
 	take = true;
 
+	colorsInventory = _colorsInventory;
+
 	item = Item(0, 0);
 
-	LoadColorInventoryFromFile();
 	button = OldButton(position, sf::Vector2f(64, 64), L"",
 		colorsInventory[0], colorsInventory[1], colorsInventory[2], sf::Color::Transparent,
 		sf::Color::Transparent, sf::Color::Transparent, 1, 2, 25);
-}
-
-void CellInInventory::LoadColorInventoryFromFile()
-{
-	colorsInventory.clear();
-	// Файл с цветами
-	std::fstream colorFile("Files/ColorInventory.txt");
-	// Построчное чтение
-	std::string line;
-	std::string line2;
-	line2 = "";
-	while (std::getline(colorFile, line))
-	{
-		sf::Color color = sf::Color(0, 0, 0);
-		// Красный
-		line2.push_back(line[0]);
-		line2.push_back(line[1]);
-		line2.push_back(line[2]);
-		color.r = std::stoi(line2);
-		line2.clear();
-		// Зеленый
-		line2.push_back(line[4]);
-		line2.push_back(line[5]);
-		line2.push_back(line[6]);
-		color.g = std::stoi(line2);
-		line2.clear();
-		// Синий
-		line2.push_back(line[8]);
-		line2.push_back(line[9]);
-		line2.push_back(line[10]);
-		color.b = std::stoi(line2);
-		colorsInventory.push_back(color);
-		//std::cout << line2 << std::endl;
-		line2.clear();
-	}
-
 }
 
 void CellInInventory::DrawCell()

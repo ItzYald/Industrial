@@ -10,7 +10,7 @@ CompressorInventory::CompressorInventory(
 	colorsInventory = _colorsInventory;
 	itemsSprites = StaticSprites(_textures);
 
-	progress = ProgressInventory(_rw, _textures, cells);
+	progress = ProgressInventory(_rw, _textures, cells, colorsInventory);
 }
 
 void CompressorInventory::PlayUpdate()

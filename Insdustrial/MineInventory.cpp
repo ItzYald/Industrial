@@ -11,7 +11,8 @@ MineInventory::MineInventory(std::shared_ptr<sf::RenderWindow> _rw,
 	cells = std::vector<CellInInventory>();
 	for (int i = 0; i < 4; i++)
 	{
-		cells.push_back(CellInInventory(_rw, sf::Vector2f((float)500 + 8 + 66 * i, 200.f), false, _textures));
+		cells.push_back(CellInInventory(
+			_rw, sf::Vector2f((float)500 + 8 + 66 * i, 200.f), false, _textures, colorsInventory));
 	}
 
 	maxEnergy = 100;
