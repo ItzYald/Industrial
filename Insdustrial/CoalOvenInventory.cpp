@@ -10,6 +10,7 @@ CoalOvenInventory::CoalOvenInventory(std::shared_ptr<sf::RenderWindow> _rw,
 
 	progress = ProgressInventory(_rw, _textures, cells, colorsInventory);
 
+	transferItem = &cells[2].item;
 
 	energy = 0;
 	maxEnergy = 0;

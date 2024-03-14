@@ -15,6 +15,8 @@ MineInventory::MineInventory(std::shared_ptr<sf::RenderWindow> _rw,
 			_rw, sf::Vector2f((float)500 + 8 + 66 * i, 200.f), false, _textures, colorsInventory));
 	}
 
+	transferItem = &cells[0].item;
+
 	maxEnergy = 100;
 	energy = 0;
 
@@ -26,23 +28,23 @@ void MineInventory::PlayUpdate()
 	if (energy > 0)
 	{
 		energy -= 1;
-		if (rand() % 600 == 1)
+		if (rand() % 250 == 1)
 		{
 			int randomItem = rand() % 4;
 			int item = 0;
 			switch (randomItem)
 			{
 			case 0:
-				item = 1;
+				item = ItemEnum::ironOre;
 				break;
 			case 1:
-				item = 3;
+				item = ItemEnum::coal;
 				break;
 			case 2:
-				item = 21;
+				item = ItemEnum::copperOre;
 				break;
 			case 3:
-				item = 22;
+				item = ItemEnum::tinOre;
 				break;
 			}
 			for (size_t i = 0; i < 5; i++)

@@ -251,9 +251,11 @@
     <ClInclude Include="IPlayUpdatable.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="TransferObject.h">
+      <Filter>Файлы заголовков\Inventories</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

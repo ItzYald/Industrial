@@ -2,8 +2,9 @@
 #include "ObjectInventory.h"
 #include "ProgressInventory.h"
 #include "Inventory.h"
+#include "TransferObject.h"
 
-class CoalOvenInventory : public ObjectInventory
+class CoalOvenInventory : public ObjectInventory, public TransferObject
 {
 private:
 	// Ячейки с предметами

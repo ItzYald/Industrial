@@ -198,11 +198,11 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="StaticSprites.h" />
+    <ClInclude Include="TransferObject.h" />
     <ClInclude Include="WireInventory.h" />
     <ClInclude Include="WorkbenchInventory.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

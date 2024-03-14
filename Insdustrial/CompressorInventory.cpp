@@ -11,6 +11,7 @@ CompressorInventory::CompressorInventory(
 	itemsSprites = StaticSprites(_textures);
 
 	progress = ProgressInventory(_rw, _textures, cells, colorsInventory);
+	transferItem = &cells[2].item;
 }
 
 void CompressorInventory::PlayUpdate()

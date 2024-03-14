@@ -64,7 +64,7 @@ public:
 	Item(int _number, int _quantity);
 
 	/// <summary>Обновление id предмета</summary>
-	/// <param name="_number">ID предмета</param>
+	/// <param name="_number">id предмета</param>
 	void NumberUpdate(int _number);
 
 };
