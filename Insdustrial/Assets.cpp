@@ -3,77 +3,81 @@
 void Assets::LoadingItemTextures()
 {
 	// Текстуры предметов
-	for (int i = 0; i < 33; i++)
+	for (int i = 0; i < 35; i++)
 	{
 		itemTextures.push_back(new sf::Texture());
 	}
 
 	// Пустой слот
-	itemTextures[0]->loadFromFile("Images/Empty.png");
+	itemTextures[ItemEnum::empty]->loadFromFile("Images/Empty.png");
 	// Железная руда
-	itemTextures[1]->loadFromFile("Images/Metals/IronOre.png");
+	itemTextures[ItemEnum::ironOre]->loadFromFile("Images/Metals/IronOre.png");
 	// Печка
-	itemTextures[2]->loadFromFile("Images/Objects/Oven.png");
+	itemTextures[ItemEnum::oven]->loadFromFile("Images/Objects/Oven.png");
 	// Уголь
-	itemTextures[3]->loadFromFile("Images/Coal.png");
+	itemTextures[ItemEnum::coal]->loadFromFile("Images/Coal.png");
 	// Железный слиток
-	itemTextures[4]->loadFromFile("Images/Metals/IronIngot.png");
+	itemTextures[ItemEnum::ironIngot]->loadFromFile("Images/Metals/IronIngot.png");
 	// Сундук
-	itemTextures[5]->loadFromFile("Images/Objects/Chest.png");
+	itemTextures[ItemEnum::chest]->loadFromFile("Images/Objects/Chest.png");
 	// Железный блок
-	itemTextures[6]->loadFromFile("Images/IronBlock.png");
+	itemTextures[ItemEnum::ironBlock]->loadFromFile("Images/IronBlock.png");
 	// Древесина
-	itemTextures[7]->loadFromFile("Images/Wood.png");
+	itemTextures[ItemEnum::wood]->loadFromFile("Images/Wood.png");
 	// Верстак
-	itemTextures[8]->loadFromFile("Images/Objects/WorkBench.png");
+	itemTextures[ItemEnum::workbench]->loadFromFile("Images/Objects/WorkBench.png");
 	// Доски
-	itemTextures[9]->loadFromFile("Images/Planks.png");
-	// Корпус механнизма
-	itemTextures[10]->loadFromFile("Images/Accumulator.png");
+	itemTextures[ItemEnum::planks]->loadFromFile("Images/Planks.png");
+	// Аккумулятоп
+	itemTextures[ItemEnum::accumulator]->loadFromFile("Images/Accumulator.png");
 	// Электропеч
-	itemTextures[11]->loadFromFile("Images/Objects/ElectricOven.png");
+	itemTextures[ItemEnum::energyOven]->loadFromFile("Images/Objects/ElectricOven.png");
 	// Медный провод
-	itemTextures[12]->loadFromFile("Images/Wires/CopperWireOn.png");
+	itemTextures[ItemEnum::copperWire]->loadFromFile("Images/Wires/CopperWireOn.png");
 	// Энергохранилище
-	itemTextures[13]->loadFromFile("Images/Objects/EnergyStorage.png");
+	itemTextures[ItemEnum::energyStorage]->loadFromFile("Images/Objects/EnergyStorage.png");
 	// Медный слиток
-	itemTextures[14]->loadFromFile("Images/Metals/CopperIngot.png");
+	itemTextures[ItemEnum::copperIngot]->loadFromFile("Images/Metals/CopperIngot.png");
 	// Железный провод
-	itemTextures[15]->loadFromFile("Images/Wires/IronWireOn.png");
+	itemTextures[ItemEnum::ironWire]->loadFromFile("Images/Wires/IronWireOn.png");
 	// Ручной энергогенератор
-	itemTextures[16]->loadFromFile("Images/Objects/EnergyHandGenerator.png");
+	itemTextures[ItemEnum::handEnergyGenerator]->loadFromFile("Images/Objects/EnergyHandGenerator.png");
 	// Угольный энергогенератор
-	itemTextures[17]->loadFromFile("Images/Objects/EnergyCoalGenerator.png");
+	itemTextures[ItemEnum::coalEnergyGenerator]->loadFromFile("Images/Objects/EnergyCoalGenerator.png");
 	// Корпус механнизма
-	itemTextures[18]->loadFromFile("Images/Objects/MechanismBody.png");
+	itemTextures[ItemEnum::mechanismBody]->loadFromFile("Images/Objects/MechanismBody.png");
 	// Оловяный слиток
-	itemTextures[19]->loadFromFile("Images/Metals/TinIngot.png");
+	itemTextures[ItemEnum::tinIngot]->loadFromFile("Images/Metals/TinIngot.png");
 	// Оловяный провод
-	itemTextures[20]->loadFromFile("Images/Wires/TinWireOn.png");
-	// Оловяный провод
-	itemTextures[21]->loadFromFile("Images/Metals/CopperOre.png");
-	// Оловяный провод
-	itemTextures[22]->loadFromFile("Images/Metals/TinOre.png");
+	itemTextures[ItemEnum::tinWire]->loadFromFile("Images/Wires/TinWireOn.png");
+	// Медная руда
+	itemTextures[ItemEnum::copperOre]->loadFromFile("Images/Metals/CopperOre.png");
+	// Оловяная руда
+	itemTextures[ItemEnum::tinOre]->loadFromFile("Images/Metals/TinOre.png");
 	// Измельченная железная руда
-	itemTextures[23]->loadFromFile("Images/Metals/CrushedIronOre.png");
+	itemTextures[ItemEnum::crushedIronOre]->loadFromFile("Images/Metals/CrushedIronOre.png");
 	// Дрорбитель
-	itemTextures[24]->loadFromFile("Images/Objects/Crusher.png");
+	itemTextures[ItemEnum::crusher]->loadFromFile("Images/Objects/Crusher.png");
 	// Железная пластина
-	itemTextures[25]->loadFromFile("Images/Metals/IronPlate.png");
+	itemTextures[ItemEnum::ironPlate]->loadFromFile("Images/Metals/IronPlate.png");
+	// Медная пластина
+	itemTextures[ItemEnum::copperPlate]->loadFromFile("Images/Metals/CopperPlate.png");
+	// Оловяная пластина
+	itemTextures[ItemEnum::tinPlate]->loadFromFile("Images/Metals/TinPlate.png");
 	// Компрессор
-	itemTextures[26]->loadFromFile("Images/Metals/CopperPlate.png");
-	// Компрессор
-	itemTextures[27]->loadFromFile("Images/Metals/TinPlate.png");
-	// Компрессор
-	itemTextures[28]->loadFromFile("Images/Objects/Compressor.png");
+	itemTextures[ItemEnum::compressor]->loadFromFile("Images/Objects/Compressor.png");
 	// Микросхема
-	itemTextures[29]->loadFromFile("Images/Chip.png");
+	itemTextures[ItemEnum::chip]->loadFromFile("Images/Chip.png");
 	// Палка
-	itemTextures[30]->loadFromFile("Images/Stick.png");
+	itemTextures[ItemEnum::stick]->loadFromFile("Images/Stick.png");
 	// Молот
-	itemTextures[31]->loadFromFile("Images/Hammer.png");
+	itemTextures[ItemEnum::hammer]->loadFromFile("Images/Hammer.png");
 	// Шахта
-	itemTextures[32]->loadFromFile("Images/Objects/Mine.png");
+	itemTextures[ItemEnum::mine]->loadFromFile("Images/Objects/Mine.png");
+	// Камень
+	itemTextures[ItemEnum::stone]->loadFromFile("Images/Stone.png");
+	// Кремень
+	itemTextures[ItemEnum::flint]->loadFromFile("Images/Error.png");
 }
 
 void Assets::LoadingPlay()

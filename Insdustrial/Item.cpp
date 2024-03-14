@@ -130,11 +130,11 @@ void Item::NumberUpdate(int _number)
 		name = L"Автошахта";
 		break;
 	case ItemEnum::stone:
-		name = "Камень";
+		name = L"Камень";
 		whatCrush = sf::Vector2i(ItemEnum::flint, 1);
 		break;
 	case ItemEnum::flint:
-		name = "Крмень";
+		name = L"Кремень";
 		break;
 	}
 }

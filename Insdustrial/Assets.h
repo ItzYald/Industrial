@@ -10,6 +10,8 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 
+#include "Item.h"
+
 class Assets
 {
 private:
