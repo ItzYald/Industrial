@@ -1,9 +1,10 @@
 #pragma once
 #include "Item.h"
 
-class AcceptItemObject
+class TransferObjectInventory
 {
 public:
+	Item* transferItem;
 	Item* acceptItem;
-};
 
+};

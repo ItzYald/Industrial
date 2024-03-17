@@ -312,10 +312,7 @@ void Field::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int 
 {
 	EnergyObjectInventory* thisObjectInventory;
 
-	if (newEnergyObjectsNumbers[nextPosition.x][nextPosition.y] == -1)
-	{
-		return;
-	}
+	if (newEnergyObjectsNumbers[nextPosition.x][nextPosition.y] == -1) return;
 
 	thisObjectInventory = energyObjects[newEnergyObjectsNumbers[nextPosition.x][nextPosition.y]]->inventory;
 	TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
@@ -348,7 +345,6 @@ void Field::WhatObjectTransEnergy()
 		for (int j = 0; j < size.y; j++)
 		{
 			sf::Vector2i shift;
-			int typeObject = -1;
 
 			if (transEnergyObjectsNumbers[i][j] == -1) continue;
 			if (transEnergyObjects[transEnergyObjectsNumbers[i][j]]->inventory->energy == 0) continue;
@@ -381,7 +377,6 @@ void Field::PlayUpdate()
 				sf::Vector2f(sizeOne * (i - cameraPosition->x), sizeOne * (j - cameraPosition->y)));
 		}
 	}
-
 }
 
 bool Field::ObjectHere(sf::Vector2i mousePositionGrid, Item& chooseItem)

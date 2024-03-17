@@ -251,14 +251,18 @@
     <ClInclude Include="IPlayUpdatable.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="TransferObject.h">
+    <ClInclude Include="TransferObjectInventory.h">
       <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
-    <ClInclude Include="AcceptItemObject.h">
-      <Filter>Файлы заголовков\Inventories</Filter>
+    <ClInclude Include="SimpleTransferItemObjectInventory.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="EnergyTransferItemObjectInventory.h">
+      <Filter>Файлы заголовков\Inventories\EnergyInventories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

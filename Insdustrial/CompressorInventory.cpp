@@ -3,12 +3,14 @@
 CompressorInventory::CompressorInventory(
 	std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory,
 	int _maxEnergy, std::vector<sf::Texture*>& _textures)
-	: EnergyObjectInventory(_rw, _colorsInventory, _maxEnergy)
 {
 	rw = _rw;
 	functions = Functions(rw);
 	colorsInventory = _colorsInventory;
 	itemsSprites = StaticSprites(_textures);
+
+	maxEnergy = _maxEnergy;
+	energy = 0;
 
 	progress = ProgressInventory(_rw, _textures, cells, colorsInventory);
 	transferItem = &cells[2].item;

@@ -19,6 +19,7 @@ EnergyCoalGeneratorInventory::EnergyCoalGeneratorInventory(
 
 	coalCell = CellInInventory(rw, sf::Vector2f(460, 350 - 64), true, _textures, colorsInventory);
 
+	transferItem = NULL;
 	acceptItem = &coalCell.item;
 
 	burn = 0;

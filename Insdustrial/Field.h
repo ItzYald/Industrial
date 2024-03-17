@@ -24,6 +24,8 @@
 #include "WorkbenchInventory.h"
 #include "MineInventory.h"
 
+#include "TransferObjectInventory.h"
+
 #include "ElectricOvenInventory.h"
 #include "CrusherInventory.h"
 #include "CompressorInventory.h"
@@ -60,6 +62,7 @@ public:
 	std::vector<Object*> objects;
 	std::vector<std::vector<int>> newEnergyObjectsNumbers;
 	std::vector<std::vector<int>> transEnergyObjectsNumbers;
+	std::vector<std::vector<int>> transItemObjectsNumbers;
 
 	// Все на отрисовку
 	std::vector<sf::Drawable*>* drawables;
@@ -70,6 +73,8 @@ public:
 	std::vector<IEnergyObject*> energyObjects;
 	// Все объекты передающие энергию
 	std::vector<IEnergyObject*> transEnergyObjects;
+
+
 
 	std::vector<IPlayUpdatable*> playUpdatables;
 

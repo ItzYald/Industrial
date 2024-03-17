@@ -1,11 +1,9 @@
 #pragma once
-#include "ObjectInventory.h"
+#include "SimpleTransferItemObjectInventory.h"
 #include "ProgressInventory.h"
 #include "Inventory.h"
-#include "TransferObject.h"
-#include "AcceptItemObject.h"
 
-class CoalOvenInventory : public ObjectInventory, public TransferObject, public AcceptItemObject
+class CoalOvenInventory : public SimpleTransferItemObjectInventory
 {
 private:
 	// Ячейки с предметами

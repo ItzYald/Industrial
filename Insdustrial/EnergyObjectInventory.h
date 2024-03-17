@@ -10,16 +10,6 @@ public:
 	int power = 0;
 
 	EnergyObjectInventory(){ }
-	EnergyObjectInventory(
-		std::shared_ptr<sf::RenderWindow> _rw, std::vector<sf::Color> _colorsInventory, int _maxEnergy)
-	{
-		rw = _rw;
-		functions = Functions(rw);
-		colorsInventory = _colorsInventory;
-
-		maxEnergy = _maxEnergy;
-		energy = 0;
-	}
 
 	void AllDraw();
 

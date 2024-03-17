@@ -1,8 +1,7 @@
 #pragma once
-#include "EnergyStorageInventory.h"
-#include "AcceptItemObject.h"
+#include "EnergyTransferItemObjectInventory.h"
 
-class EnergyCoalGeneratorInventory : public EnergyObjectInventory, public AcceptItemObject
+class EnergyCoalGeneratorInventory : public EnergyTransferItemObjectInventory
 {
 public:
 	// Место для уголя (или другого горючего)
