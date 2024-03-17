@@ -186,6 +186,8 @@
     <ClInclude Include="GamePlayUpdatable.h" />
     <ClInclude Include="IEnergyObject.h" />
     <ClInclude Include="IStaingObject.h" />
+    <ClInclude Include="ITransferItemEnergyObject.h" />
+    <ClInclude Include="ITransferItemSimpleObject.h" />
     <ClInclude Include="MineInventory.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Item.h" />
@@ -200,12 +202,15 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="StaticSprites.h" />
+    <ClInclude Include="TransferItemEnergyObject.h" />
+    <ClInclude Include="TransferItemSimpleObject.h" />
     <ClInclude Include="TransferObjectInventory.h" />
     <ClInclude Include="WireInventory.h" />
     <ClInclude Include="WorkbenchInventory.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

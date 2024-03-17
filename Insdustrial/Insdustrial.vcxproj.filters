@@ -254,15 +254,28 @@
     <ClInclude Include="TransferObjectInventory.h">
       <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
-    <ClInclude Include="SimpleTransferItemObjectInventory.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="EnergyTransferItemObjectInventory.h">
       <Filter>Файлы заголовков\Inventories\EnergyInventories</Filter>
+    </ClInclude>
+    <ClInclude Include="ITransferItemSimpleObject.h">
+      <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleTransferItemObjectInventory.h">
+      <Filter>Файлы заголовков\Inventories</Filter>
+    </ClInclude>
+    <ClInclude Include="TransferItemSimpleObject.h">
+      <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ITransferItemEnergyObject.h">
+      <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TransferItemEnergyObject.h">
+      <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
 </Project>

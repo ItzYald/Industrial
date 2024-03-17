@@ -1,21 +1,20 @@
 #pragma once
-#include "IStaingObject.h"
+#include "ITransferItemEnergyObject.h"
 
 template<class T>
-class StaingObject : public IStaingObject
+class TransferItemEnergyObject : ITransferItemEnergyObject
 {
-public:
 
 	T TypeInventory;
 
-	StaingObject(){}
+	TransferItemEnergyObject(){}
 	/// <summaryКонструктор</summary>
 	/// <param name="_rw">Окно</param>
 	/// <param name="_fieldSizeOne">Размер одной ячейки</param>
 	/// <param name="_texture">Ссылка на текстуру</param>
 	/// <param name="_position">Позиция</param>
 
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
+	TransferItemEnergyObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures,
 		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
 	{
@@ -24,9 +23,9 @@ public:
 		inventory = &TypeInventory;
 	}
 
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
+	TransferItemEnergyObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures,
-		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory, 
+		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory,
 		std::map<std::string, sf::Texture>& _texturesInInventory)
 	{
 		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
@@ -58,7 +57,6 @@ public:
 			ch.push_back(Checks());
 		}
 	}
-
 	/// <summary>Проверка игрока рядом</summary>
 	/// <param name="playerPosition">Позиция игрока</param>
 	/// <param name="playerAngle">Куда повернут игрок</param>
