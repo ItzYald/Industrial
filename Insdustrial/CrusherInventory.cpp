@@ -12,6 +12,7 @@ CrusherInventory::CrusherInventory(
 
 	progress = ProgressInventory(_rw, _textures, cells, colorsInventory);
 	transferItem = &cells[2].item;
+	acceptItem = &cells[0].item;
 }
 
 void CrusherInventory::PlayUpdate()

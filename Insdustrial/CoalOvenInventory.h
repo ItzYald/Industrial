@@ -3,8 +3,9 @@
 #include "ProgressInventory.h"
 #include "Inventory.h"
 #include "TransferObject.h"
+#include "AcceptItemObject.h"
 
-class CoalOvenInventory : public ObjectInventory, public TransferObject
+class CoalOvenInventory : public ObjectInventory, public TransferObject, public AcceptItemObject
 {
 private:
 	// Ячейки с предметами

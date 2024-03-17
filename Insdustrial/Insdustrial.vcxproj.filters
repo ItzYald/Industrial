@@ -254,6 +254,9 @@
     <ClInclude Include="TransferObject.h">
       <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
+    <ClInclude Include="AcceptItemObject.h">
+      <Filter>Файлы заголовков\Inventories</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

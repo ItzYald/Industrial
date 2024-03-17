@@ -18,6 +18,9 @@ EnergyCoalGeneratorInventory::EnergyCoalGeneratorInventory(
 	energy = 0;
 
 	coalCell = CellInInventory(rw, sf::Vector2f(460, 350 - 64), true, _textures, colorsInventory);
+
+	acceptItem = &coalCell.item;
+
 	burn = 0;
 	maxBurn = 0;
 }

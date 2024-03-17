@@ -2,8 +2,9 @@
 #include "EnergyObjectInventory.h"
 #include "ProgressInventory.h"
 #include "TransferObject.h"
+#include "AcceptItemObject.h"
 
-class CrusherInventory : public EnergyObjectInventory, public TransferObject
+class CrusherInventory : public EnergyObjectInventory, public TransferObject, public AcceptItemObject
 {
 public:
 	ProgressInventory progress;

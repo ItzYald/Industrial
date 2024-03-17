@@ -162,6 +162,7 @@
     <ClCompile Include="WorkbenchInventory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AcceptItemObject.h" />
     <ClInclude Include="AllInventory.h" />
     <ClInclude Include="Assets.h" />
     <ClInclude Include="CellInInventory.h" />

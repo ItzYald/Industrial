@@ -2,8 +2,9 @@
 #include "ProgressInventory.h"
 #include "EnergyObjectInventory.h"
 #include "TransferObject.h"
+#include "AcceptItemObject.h"
 
-class ElectricOvenInventory : public EnergyObjectInventory, public TransferObject
+class ElectricOvenInventory : public EnergyObjectInventory, public TransferObject, public AcceptItemObject
 
 {
 	// Ячейки с предметами
