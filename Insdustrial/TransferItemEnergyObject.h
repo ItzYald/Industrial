@@ -2,9 +2,9 @@
 #include "ITransferItemEnergyObject.h"
 
 template<class T>
-class TransferItemEnergyObject : ITransferItemEnergyObject
+class TransferItemEnergyObject : public ITransferItemEnergyObject
 {
-
+public:
 	T TypeInventory;
 
 	TransferItemEnergyObject(){}

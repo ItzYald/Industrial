@@ -1,11 +1,13 @@
 #pragma once
 #include "Object.h"
 #include "EnergyTransferItemObjectInventory.h"
+#include "INotTransferItemEnergyObject.h"
 
-class ITransferItemEnergyObject : public Object
+class ITransferItemEnergyObject : public INotTransferItemEnergyObject
 {
+public:
 	// Инвентарь (каждый раз разный)
-	EnergyTransferItemObjectInventory* inventory;
+	EnergyTransferItemObjectInventory* transferInventory;
 
 	virtual bool NearPlayer(sf::Vector2f playerPosition, int playerAngle) = 0;
 	virtual void PlayUpdate() = 0;

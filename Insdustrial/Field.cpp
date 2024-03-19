@@ -81,12 +81,14 @@ void Field::LoadingForDev(std::vector<sf::Color>& colorsInventory)
 	energyObjects.push_back(new NotTransferItemEnergyObject<MineInventory >(
 		rw, *cameraPosition, sizeOne, assets->textures["Mine"], assets->itemTextures, sf::Vector2f(15, 16), colorsInventory));
 
-	simpleObjects.push_back(new NotTransferItemSimpleObject<CoalOvenInventory>(
+	transferItemSimpleObjects.push_back(new TransferItemSimpleObject<CoalOvenInventory>(
 		rw, *cameraPosition, sizeOne, assets->textures["Oven"], assets->itemTextures, sf::Vector2f(23, 20), colorsInventory));
+	simpleObjects.push_back(transferItemSimpleObjects[transferItemSimpleObjects.size() - 1]);
 	simpleObjects.push_back(new NotTransferItemSimpleObject<ChestInventory>(
 		rw, *cameraPosition, sizeOne, assets->textures["Chest"], assets->itemTextures, sf::Vector2f(23, 21), colorsInventory));
-	simpleObjects.push_back(new NotTransferItemSimpleObject<WorkbenchInventory >(
+	transferItemSimpleObjects.push_back(new TransferItemSimpleObject<WorkbenchInventory >(
 		rw, *cameraPosition, sizeOne, assets->textures["Workbench"], assets->itemTextures, sf::Vector2f(23, 22), colorsInventory));
+	simpleObjects.push_back(transferItemSimpleObjects[transferItemSimpleObjects.size() - 1]);
 }
 
 void Field::LoadingForPlay(std::vector<sf::Color>& colorsInventory)
