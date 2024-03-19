@@ -59,22 +59,6 @@ public:
 			ch.push_back(Checks());
 		}
 	}
-
-	/// <summary>Проверка игрока рядом</summary>
-	/// <param name="playerPosition">Позиция игрока</param>
-	/// <param name="playerAngle">Куда повернут игрок</param>
-	/// <returns>Наличие рядом игрока</returns>
-	bool NearPlayer(sf::Vector2f playerPosition, int playerAngle) override
-	{
-		if (((int)playerPosition.x == position.x && (int)playerPosition.y == position.y + 1 && playerAngle == 0) ||
-			((int)playerPosition.x == position.x && (int)playerPosition.y == position.y - 1 && playerAngle == 2) ||
-			((int)playerPosition.x == position.x + 1 && (int)playerPosition.y == position.y && playerAngle == 3) ||
-			((int)playerPosition.x == position.x - 1 && (int)playerPosition.y == position.y && playerAngle == 1))
-		{
-			return true;
-		}
-		return false;
-	}
 	// Обновление инвентаря
 	void PlayUpdate() override
 	{
