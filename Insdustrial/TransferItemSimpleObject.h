@@ -2,9 +2,9 @@
 #include "ITransferItemSimpleObject.h"
 
 template<class T>
-class TransferItemSimpleObject : ITransferItemSimpleObject
+class TransferItemSimpleObject : public ITransferItemSimpleObject
 {
-
+public:
 	T TypeInventory;
 
 	TransferItemSimpleObject()
@@ -123,28 +123,6 @@ class TransferItemSimpleObject : ITransferItemSimpleObject
 			sprite.setPosition(
 				sprite.getPosition().x,
 				sprite.getPosition().y + fieldSizeOne);
-		}
-	}
-	/// <summary>
-	/// Каждый кадр
-	/// </summary>
-	/// <param name="playerPosition">Позиция игрока</param>
-	/// <param name="playerAngle">Куда повернут игрок</param>
-	void Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, int playerAngle) override
-	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-		{
-			isOpenInventory = (position == (sf::Vector2f)mousePositionGrid);
-		}
-		if (ch[0].Check(sf::Keyboard::Key::R))
-		{
-			if ((position == (sf::Vector2f)mousePositionGrid))
-			{
-				if (turn < 3)
-					turn += 1;
-				else
-					turn = 0;
-			}
 		}
 	}
 	/// <summary>Отрисовка</summary>

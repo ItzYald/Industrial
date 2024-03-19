@@ -14,7 +14,7 @@
 #include "Sprite.h"
 #include "StaticSprites.h"
 #include "Inventory.h"
-#include "StaingObject.h"
+#include "NotTransferItemSimpleObject.h"
 
 class Player : public Sprite, public GamePlayUpdatable
 {

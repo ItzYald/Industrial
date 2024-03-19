@@ -8,16 +8,16 @@
 #include "Functions/Functions.h"
 #include "Object.h"
 #include "Item.h"
-#include "IStaingObject.h"
-#include "IEnergyObject.h"
 
 #include "Player.h"
 
 #include "Assets.h"
 #include "IPlayUpdatable.h"
 
-#include "EnergyObject.h"
-#include "StaingObject.h"
+#include "NotTransferItemEnergyObject.h"
+#include "NotTransferItemSimpleObject.h"
+#include "TransferItemSimpleObject.h"
+#include "TransferItemEnergyObject.h"
 // Инвентари
 #include "CoalOvenInventory.h"
 #include "ChestInventory.h"
@@ -68,13 +68,13 @@ public:
 	std::vector<sf::Drawable*>* drawables;
 
 	// Все обычные объекты
-	std::vector<IStaingObject*> simpleObjects;
+	std::vector<INotTransferItemSimpleObject*> simpleObjects;
 	// Все энергетические объекты
-	std::vector<IEnergyObject*> energyObjects;
+	std::vector<INotTransferItemEnergyObject*> energyObjects;
 	// Все объекты передающие энергию
-	std::vector<IEnergyObject*> transEnergyObjects;
+	std::vector<INotTransferItemEnergyObject*> transferEnergyObjects;
 
-
+	std::vector<ITransferItemSimpleObject*> transferItemSimpleObjects;
 
 	std::vector<IPlayUpdatable*> playUpdatables;
 

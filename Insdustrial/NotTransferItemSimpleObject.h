@@ -1,21 +1,21 @@
 #pragma once
-#include "IStaingObject.h"
+#include "INotTransferItemSimpleObject.h"
 
 template<class T>
-class StaingObject : public IStaingObject
+class NotTransferItemSimpleObject : public INotTransferItemSimpleObject
 {
 public:
 
 	T TypeInventory;
 
-	StaingObject(){}
+	NotTransferItemSimpleObject(){}
 	/// <summaryКонструктор</summary>
 	/// <param name="_rw">Окно</param>
 	/// <param name="_fieldSizeOne">Размер одной ячейки</param>
 	/// <param name="_texture">Ссылка на текстуру</param>
 	/// <param name="_position">Позиция</param>
 
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
+	NotTransferItemSimpleObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures,
 		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
 	{
@@ -24,7 +24,7 @@ public:
 		inventory = &TypeInventory;
 	}
 
-	StaingObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
+	NotTransferItemSimpleObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 		sf::Texture* _texture, std::vector<sf::Texture*>& _itemTextures,
 		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory, 
 		std::map<std::string, sf::Texture>& _texturesInInventory)
@@ -125,27 +125,6 @@ public:
 		}
 	}
 	/// <summary>
-	/// Каждый кадр
-	/// </summary>
-	/// <param name="playerPosition">Позиция игрока</param>
-	/// <param name="playerAngle">Куда повернут игрок</param>
-	void Update(sf::Vector2i mousePositionGrid, sf::Vector2f playerPosition, int playerAngle) override
-	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-		{
-			isOpenInventory = (position == (sf::Vector2f)mousePositionGrid);
-		}
-		if (ch[0].Check(sf::Keyboard::Key::R))
-		{
-			if ((position == (sf::Vector2f)mousePositionGrid))
-			{
-				if (turn < 3)
-					turn += 1;
-				else
-					turn = 0;
-			}
-		}
-	}
 	/// <summary>Отрисовка</summary>
 	/// <param name="cameraPosition">Позиция камеры</param>
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override

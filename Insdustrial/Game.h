@@ -17,8 +17,8 @@
 
 #include "Field.h"
 #include "Player.h"
-#include "StaingObject.h"
-#include "EnergyObject.h"
+#include "NotTransferItemSimpleObject.h"
+#include "NotTransferItemEnergyObject.h"
 // Инвентари
 #include "CoalOvenInventory.h"
 #include "ChestInventory.h"

@@ -2,7 +2,7 @@
 #include "ObjectInventory.h"
 #include "TransferObjectInventory.h"
 
-class SimpleTransferItemObjectInventory : public ObjectInventory, public TransferObjectInventory
+class TransferItemSimpleObjectInventory : public ObjectInventory, public TransferObjectInventory
 {
 	// Отрисовка инвентаря
 	virtual void Draw() = 0;

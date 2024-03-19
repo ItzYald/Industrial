@@ -1,1 +1,1 @@
-#include "StaingObject.h"
+#include "NotTransferItemSimpleObject.h"
