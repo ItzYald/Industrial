@@ -68,6 +68,6 @@ void EnergyHandGeneratorInventory::Draw()
 
 void EnergyHandGeneratorInventory::PlayUpdate()
 {
-	AllNext();
+	AllPlayUpdate();
 }
 

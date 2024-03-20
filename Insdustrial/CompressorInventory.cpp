@@ -27,7 +27,6 @@ void CompressorInventory::Draw()
 	progress.Draw();
 	AllDraw();
 	DrawCommon(cells);
-
 }
 
 void CompressorInventory::WhileOpen(Inventory& playerInventory)

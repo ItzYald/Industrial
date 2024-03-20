@@ -61,8 +61,8 @@ public:
 	// Указатель на список всех объектов
 	std::vector<Object*> objects;
 	std::vector<std::vector<int>> newEnergyObjectsNumbers;
-	std::vector<std::vector<int>> transEnergyObjectsNumbers;
-	std::vector<std::vector<int>> transItemObjectsNumbers;
+	std::vector<std::vector<int>> transferEnergyObjectsNumbers;
+	std::vector<std::vector<int>> transferItemObjectsNumbers;
 
 	// Все на отрисовку
 	std::vector<sf::Drawable*>* drawables;

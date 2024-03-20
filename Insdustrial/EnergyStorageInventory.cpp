@@ -8,8 +8,8 @@ EnergyStorageInventory::EnergyStorageInventory(
 	rw = _rw;
 	functions = Functions(rw);
 	colorsInventory = _colorsInventory;
-	power = _power;
 
+	power = _power;
 	maxEnergy = _maxEnergy;
 
 	for (int i = 0; i < 30; i++)
@@ -21,12 +21,12 @@ EnergyStorageInventory::EnergyStorageInventory(
 
 void EnergyStorageInventory::WhileOpen(Inventory& playerInventory)
 {
-	AllUpdate(playerInventory);
+	AllWhileOpen(playerInventory);
 }
 
 void EnergyStorageInventory::PlayUpdate()
 {
-	AllNext();
+	AllPlayUpdate();
 }
 
 void EnergyStorageInventory::Draw()

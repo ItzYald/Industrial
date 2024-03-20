@@ -11,7 +11,7 @@ void EnergyObjectInventory::AllDraw()
 	}
 }
 
-void EnergyObjectInventory::AllNext()
+void EnergyObjectInventory::AllPlayUpdate()
 {
 	if (energy > maxEnergy)
 	{
@@ -23,10 +23,10 @@ void EnergyObjectInventory::AllNext()
 	}
 }
 
-void EnergyObjectInventory::AllUpdate(Inventory& playerInventory)
+void EnergyObjectInventory::AllWhileOpen(Inventory& playerInventory)
 {
 	// Узнать координаты мыши
-	//mousePosition = sf::Mouse::getPosition(*rw);
+	mousePosition = sf::Mouse::getPosition(*rw);
 	// Отрисовать окно интерфейса
 	functions.DrawRectangle(sf::Vector2f(302, 110), sf::Vector2f(676, 280), sf::Color(250, 250, 250), sf::Color(100, 100, 100), 3);
 

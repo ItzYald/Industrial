@@ -43,14 +43,7 @@ void EnergyCoalGeneratorInventory::PlayUpdate()
 		burn -= 1;
 		energy += 1.f;
 	}
-	if (energy > maxEnergy)
-	{
-		energy = maxEnergy;
-	}
-	else if (energy < 0)
-	{
-		energy = 0;
-	}
+	AllPlayUpdate();
 }
 
 void EnergyCoalGeneratorInventory::Draw()
@@ -69,9 +62,6 @@ void EnergyCoalGeneratorInventory::Draw()
 void EnergyCoalGeneratorInventory::WhileOpen(Inventory& playerInventory)
 {
 	coalCell.WhileOpen(playerInventory.mouseItem);
-
-	//if (energy > maxEnergy)
-	//	energy = maxEnergy;
 
 	// Узнать координаты мыши
 	mousePosition = sf::Mouse::getPosition(*rw);

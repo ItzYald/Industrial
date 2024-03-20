@@ -15,11 +15,11 @@ public:
 
 	virtual void Draw() = 0;
 
-	void AllNext();
+	void AllPlayUpdate();
 	// Всегда
 	virtual void PlayUpdate() = 0;
 
-	void AllUpdate(Inventory& playerInventory);
+	void AllWhileOpen(Inventory& playerInventory);
 	/// <summary>Логика инвентаря</summary>
 	/// <param name="playerInventory">Инвентарь игрока</param>
 	virtual void WhileOpen(Inventory& playerInventory) = 0;

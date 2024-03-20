@@ -20,12 +20,12 @@ WireInventory::WireInventory(
 
 void WireInventory::WhileOpen(Inventory& playerInventory)
 {
-	AllUpdate(playerInventory);
+	AllWhileOpen(playerInventory);
 }
 
 void WireInventory::PlayUpdate()
 {
-	AllNext();
+	AllPlayUpdate();
 }
 
 void WireInventory::Draw()

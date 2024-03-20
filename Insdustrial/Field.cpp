@@ -45,16 +45,16 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPositio
 	objects = std::vector<Object*>();
 
 	newEnergyObjectsNumbers = std::vector<std::vector<int>>();
-	transEnergyObjectsNumbers = std::vector<std::vector<int>>();
+	transferEnergyObjectsNumbers = std::vector<std::vector<int>>();
 
 	for (int i = 0; i < size.x; i++)
 	{
 		newEnergyObjectsNumbers.push_back(std::vector <int>());
-		transEnergyObjectsNumbers.push_back(std::vector <int>());
+		transferEnergyObjectsNumbers.push_back(std::vector <int>());
 		for (int j = 0; j < size.y; j++)
 		{
 			newEnergyObjectsNumbers[i].push_back(-1);
-			transEnergyObjectsNumbers[i].push_back(-1);
+			transferEnergyObjectsNumbers[i].push_back(-1);
 		}
 	}
 
@@ -75,7 +75,7 @@ void Field::LoadingForDev(std::vector<sf::Color>& colorsInventory)
 		rw, *cameraPosition, sizeOne, assets->textures["EnergyHandGenerator"], assets->itemTextures, sf::Vector2f(22, 19), colorsInventory, 100, 10, assets->texturesInInventory));
 	transferEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 	energyObjects.push_back(new NotTransferItemEnergyObject<EnergyCoalGeneratorInventory >(
-		rw, *cameraPosition, sizeOne, assets->textures["EnergyCoalGenerator"], assets->itemTextures, sf::Vector2f(20, 19), colorsInventory, 100, 10));
+		rw, *cameraPosition, sizeOne, assets->textures["EnergyCoalGenerator"], assets->itemTextures, sf::Vector2f(20, 19), colorsInventory, 1000, 10));
 	transferEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 	energyObjects.push_back(new NotTransferItemEnergyObject<MineInventory >(
 		rw, *cameraPosition, sizeOne, assets->textures["Mine"], assets->itemTextures, sf::Vector2f(15, 16), colorsInventory));
@@ -219,27 +219,31 @@ void Field::PutObject(sf::Vector2f position, int playerCell, std::vector<sf::Col
 	// Угольный энергогенератор
 	case ItemEnum::coalEnergyGenerator:
 		energyObjects.push_back(new NotTransferItemEnergyObject<EnergyCoalGeneratorInventory >(
-			rw, *cameraPosition, sizeOne, assets->textures["EnergyCoalGenerator"], assets->itemTextures, position, colorsInventory, 100, 10));
+			rw, *cameraPosition, sizeOne, assets->textures["EnergyCoalGenerator"],
+			assets->itemTextures, position, colorsInventory, 1000, 10));
 		transferEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		// Медный провод
 	case ItemEnum::copperWire:
 		energyObjects.push_back(new NotTransferItemEnergyObject<WireInventory >(
-			rw, *cameraPosition, sizeOne, assets->textures["CopperWireOn"], assets->itemTextures, position, colorsInventory, 10, 10));
+			rw, *cameraPosition, sizeOne, assets->textures["CopperWireOn"],
+			assets->itemTextures, position, colorsInventory, 10, 10));
 		transferEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 		// Железный провод
 	case ItemEnum::ironWire:
 		energyObjects.push_back(new NotTransferItemEnergyObject<WireInventory >(
-			rw, *cameraPosition, sizeOne, assets->textures["IronWireOn"], assets->itemTextures, position, colorsInventory, 100, 100));
+			rw, *cameraPosition, sizeOne, assets->textures["IronWireOn"],
+			assets->itemTextures, position, colorsInventory, 100, 100));
 		transferEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
 		// Оловяный провод
 	case ItemEnum::tinWire:
 		energyObjects.push_back(new NotTransferItemEnergyObject<WireInventory >(
-			rw, *cameraPosition, sizeOne, assets->textures["TinWireOn"], assets->itemTextures, position, colorsInventory, 1000, 1000));
+			rw, *cameraPosition, sizeOne, assets->textures["TinWireOn"],
+			assets->itemTextures, position, colorsInventory, 1000, 1000));
 		transferEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
 		break;
@@ -277,7 +281,7 @@ void Field::GamePlayUpdate()
 
 	for (size_t i = 0; i < transferEnergyObjects.size(); i++)
 	{
-		transEnergyObjectsNumbers[transferEnergyObjects[i]->position.x][transferEnergyObjects[i]->position.y] = i;
+		transferEnergyObjectsNumbers[transferEnergyObjects[i]->position.x][transferEnergyObjects[i]->position.y] = i;
 	}
 }
 
@@ -313,11 +317,11 @@ void Field::TransEnergy(float& originalEnergy, int power, float& nextEnergy, int
 
 void Field::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int power)
 {
-	EnergyObjectInventory* thisObjectInventory;
-
 	if (newEnergyObjectsNumbers[nextPosition.x][nextPosition.y] == -1) return;
 
-	thisObjectInventory = energyObjects[newEnergyObjectsNumbers[nextPosition.x][nextPosition.y]]->inventory;
+	EnergyObjectInventory* thisObjectInventory;
+	thisObjectInventory = 
+		energyObjects[newEnergyObjectsNumbers[nextPosition.x][nextPosition.y]]->inventory;
 	TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
 }
 
@@ -347,18 +351,19 @@ void Field::WhatObjectTransEnergy()
 	{
 		for (int j = 0; j < size.y; j++)
 		{
-			sf::Vector2i shift;
-
-			if (transEnergyObjectsNumbers[i][j] == -1) continue;
-			if (transferEnergyObjects[transEnergyObjectsNumbers[i][j]]->inventory->energy == 0) continue;
-
-			shift = CheckTurnEnergy(transferEnergyObjects[transEnergyObjectsNumbers[i][j]]->turn);
-
+			if (transferEnergyObjectsNumbers[i][j] == -1) continue;
+			if (transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->inventory->energy == 0) continue;
 			if (newEnergyObjectsNumbers[i][j] == -1) continue;
 
+			sf::Vector2i shift =
+				CheckTurnEnergy(transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->turn);
+			//if (shift.x == 1 && shift.y == 0)
+			//{
+			//	std::cout << "lol";
+			//}
 			CheckNextEnergyObject(sf::Vector2i(i + shift.x, j + shift.y),
-				transferEnergyObjects[transEnergyObjectsNumbers[i][j]]->inventory->energy,
-				transferEnergyObjects[transEnergyObjectsNumbers[i][j]]->inventory->power);
+				transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->inventory->energy,
+				transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->inventory->power);
 		}
 	}
 }
