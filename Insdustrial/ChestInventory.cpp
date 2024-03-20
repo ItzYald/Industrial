@@ -45,5 +45,6 @@ void ChestInventory::WhileOpen(Inventory& playerInventory)
 		}
 	}
 
+	Draw();
 	playerInventory.WhileOpen();
 }

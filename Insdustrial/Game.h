@@ -25,15 +25,6 @@
 #include "WorkbenchInventory.h"
 #include "MineInventory.h"
 
-#include "ElectricOvenInventory.h"
-#include "CrusherInventory.h"
-#include "CompressorInventory.h"
-#include "EnergyStorageInventory.h"
-#include "EnergyHandGeneratorInventory.h"
-#include "EnergyCoalGeneratorInventory.h"
-#include "WireInventory.h"
-
-
 class Game
 {
 private:
@@ -131,6 +122,5 @@ public:
 	void Mouse(sf::Event& e, sf::RenderWindow& rw);
 	// Прокручено колесико мыши
 	void MouseWheelScrolled(int _mouseWheel);
-
 };
 
