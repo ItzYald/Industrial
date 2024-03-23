@@ -1,8 +1,9 @@
 #pragma once
 #include "ProgressInventory.h"
-#include "EnergyTransferItemObjectInventory.h"
+#include "TransferItemObjectInventory.h"
+#include "EnergyObjectInventory.h"
 
-class ElectricOvenInventory : public EnergyTransferItemObjectInventory
+class ElectricOvenInventory : public EnergyObjectInventory, public TransferItemObjectInventory
 
 {
 	// Ячейки с предметами

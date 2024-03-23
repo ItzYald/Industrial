@@ -44,16 +44,16 @@ Field::Field(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPositio
 
 	objects = std::vector<Object*>();
 
-	newEnergyObjectsNumbers = std::vector<std::vector<int>>();
+	energyObjectsNumbers = std::vector<std::vector<int>>();
 	transferEnergyObjectsNumbers = std::vector<std::vector<int>>();
 
 	for (int i = 0; i < size.x; i++)
 	{
-		newEnergyObjectsNumbers.push_back(std::vector <int>());
+		energyObjectsNumbers.push_back(std::vector <int>());
 		transferEnergyObjectsNumbers.push_back(std::vector <int>());
 		for (int j = 0; j < size.y; j++)
 		{
-			newEnergyObjectsNumbers[i].push_back(-1);
+			energyObjectsNumbers[i].push_back(-1);
 			transferEnergyObjectsNumbers[i].push_back(-1);
 		}
 	}
@@ -258,7 +258,7 @@ void Field::GamePlayUpdate()
 {
 	for (size_t i = 0; i < energyObjects.size(); i++)
 	{
-		newEnergyObjectsNumbers[energyObjects[i]->position.x][energyObjects[i]->position.y] = i;
+		energyObjectsNumbers[energyObjects[i]->position.x][energyObjects[i]->position.y] = i;
 		if (energyObjects[i]->isOpenInventory)
 		{
 			player->isOpenInventory = true;
@@ -283,6 +283,11 @@ void Field::GamePlayUpdate()
 	{
 		transferEnergyObjectsNumbers[transferEnergyObjects[i]->position.x][transferEnergyObjects[i]->position.y] = i;
 	}
+
+	//for (size_t i = 0; i < transferItemObjects.size(); i++)
+	//{
+	//	transferItemObjectsNumbers[transferItemObjects[i]->position.x][transferItemObjects[i]->position.y] = i;
+	//}
 }
 
 void Field::TransEnergy(float& originalEnergy, int power, float& nextEnergy, int nextMaxEnergy)
@@ -317,15 +322,55 @@ void Field::TransEnergy(float& originalEnergy, int power, float& nextEnergy, int
 
 void Field::CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int power)
 {
-	if (newEnergyObjectsNumbers[nextPosition.x][nextPosition.y] == -1) return;
+	if (energyObjectsNumbers[nextPosition.x][nextPosition.y] == -1) return;
 
 	EnergyObjectInventory* thisObjectInventory;
 	thisObjectInventory = 
-		energyObjects[newEnergyObjectsNumbers[nextPosition.x][nextPosition.y]]->inventory;
+		energyObjects[energyObjectsNumbers[nextPosition.x][nextPosition.y]]->inventory;
 	TransEnergy(energy, power, thisObjectInventory->energy, thisObjectInventory->maxEnergy);
 }
 
-sf::Vector2i Field::CheckTurnEnergy(int turn)
+void Field::WhatObjectTransEnergy()
+{
+	// Передача энергии
+	for (int i = 0; i < size.x; i++)
+	{
+		for (int j = 0; j < size.y; j++)
+		{
+			if (transferEnergyObjectsNumbers[i][j] == -1) continue;
+			if (transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->inventory->energy == 0) continue;
+			if (energyObjectsNumbers[i][j] == -1) continue;
+
+			sf::Vector2i shift =
+				CheckTurn(transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->turn);
+			CheckNextEnergyObject(sf::Vector2i(i + shift.x, j + shift.y),
+				transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->inventory->energy,
+				transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->inventory->power);
+		}
+	}
+}
+
+void Field::WhatObjectTransItem()
+{
+	// Передача предметов
+	/*for (int i = 0; i < size.x; i++)
+	{
+		for (int j = 0; j < size.y; j++)
+		{
+			if (transferEnergyObjectsNumbers[i][j] == -1) continue;
+			if (transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->inventory->energy == 0) continue;
+			if (energyObjectsNumbers[i][j] == -1) continue;
+
+			sf::Vector2i shift =
+				CheckTurn(transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->turn);
+			CheckNextEnergyObject(sf::Vector2i(i + shift.x, j + shift.y),
+				transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->inventory->energy,
+				transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->inventory->power);
+		}
+	}*/
+}
+
+sf::Vector2i Field::CheckTurn(int turn)
 {
 	switch (turn)
 	{
@@ -344,30 +389,6 @@ sf::Vector2i Field::CheckTurnEnergy(int turn)
 	}
 }
 
-void Field::WhatObjectTransEnergy()
-{
-	// Передача энергии
-	for (int i = 0; i < size.x; i++)
-	{
-		for (int j = 0; j < size.y; j++)
-		{
-			if (transferEnergyObjectsNumbers[i][j] == -1) continue;
-			if (transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->inventory->energy == 0) continue;
-			if (newEnergyObjectsNumbers[i][j] == -1) continue;
-
-			sf::Vector2i shift =
-				CheckTurnEnergy(transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->turn);
-			//if (shift.x == 1 && shift.y == 0)
-			//{
-			//	std::cout << "lol";
-			//}
-			CheckNextEnergyObject(sf::Vector2i(i + shift.x, j + shift.y),
-				transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->inventory->energy,
-				transferEnergyObjects[transferEnergyObjectsNumbers[i][j]]->inventory->power);
-		}
-	}
-}
-
 void Field::PlayUpdate()
 {
 	for (size_t i = 0; i < playUpdatables.size(); i++)
@@ -376,6 +397,7 @@ void Field::PlayUpdate()
 	}
 
 	WhatObjectTransEnergy();
+	WhatObjectTransItem();
 
 	for (size_t i = 0; i < size.x; i++)
 	{

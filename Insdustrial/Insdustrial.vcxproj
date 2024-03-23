@@ -158,6 +158,7 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StaticSprites.cpp" />
+    <ClCompile Include="TransferItemObject.cpp" />
     <ClCompile Include="WireInventory.cpp" />
     <ClCompile Include="WorkbenchInventory.cpp" />
   </ItemGroup>
@@ -175,7 +176,6 @@
     <ClInclude Include="NotTransferItemEnergyObject.h" />
     <ClInclude Include="EnergyObjectInventory.h" />
     <ClInclude Include="EnergyStorageInventory.h" />
-    <ClInclude Include="EnergyTransferItemObjectInventory.h" />
     <ClInclude Include="Functions\BaseButton.h" />
     <ClInclude Include="Functions\Button.h" />
     <ClInclude Include="Functions\ImageButton.h" />
@@ -194,7 +194,7 @@
     <ClInclude Include="ObjectInventory.h" />
     <ClInclude Include="IPlayUpdatable.h" />
     <ClInclude Include="ProgressInventory.h" />
-    <ClInclude Include="TransferItemSimpleObjectInventory.h" />
+    <ClInclude Include="TransferItemObject.h" />
     <ClInclude Include="NotTransferItemSimpleObject.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
@@ -204,11 +204,12 @@
     <ClInclude Include="StaticSprites.h" />
     <ClInclude Include="TransferItemEnergyObject.h" />
     <ClInclude Include="TransferItemSimpleObject.h" />
-    <ClInclude Include="TransferObjectInventory.h" />
+    <ClInclude Include="TransferItemObjectInventory.h" />
     <ClInclude Include="WireInventory.h" />
     <ClInclude Include="WorkbenchInventory.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

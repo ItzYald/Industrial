@@ -24,7 +24,7 @@
 #include "WorkbenchInventory.h"
 #include "MineInventory.h"
 
-#include "TransferObjectInventory.h"
+#include "TransferItemObjectInventory.h"
 
 #include "ElectricOvenInventory.h"
 #include "CrusherInventory.h"
@@ -60,7 +60,7 @@ public:
 
 	// Указатель на список всех объектов
 	std::vector<Object*> objects;
-	std::vector<std::vector<int>> newEnergyObjectsNumbers;
+	std::vector<std::vector<int>> energyObjectsNumbers;
 	std::vector<std::vector<int>> transferEnergyObjectsNumbers;
 	std::vector<std::vector<int>> transferItemObjectsNumbers;
 
@@ -74,6 +74,8 @@ public:
 	// Все объекты передающие энергию
 	std::vector<INotTransferItemEnergyObject*> transferEnergyObjects;
 
+	std::vector<TransferItemObjectInventory*> transferItemObjectsInventories;
+	std::vector<Object*> transferItemObjects;
 	std::vector<ITransferItemSimpleObject*> transferItemSimpleObjects;
 
 	std::vector<IPlayUpdatable*> playUpdatables;
@@ -101,7 +103,12 @@ public:
 	void Draw();
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
+	/// <summary>
+	/// Поставить объект
+	/// </summary>
+	/// <param name="position">Позиция на котору поставить</param>
+	/// <param name="playerCell">Номер ячейки в инвентаре игрока</param>
+	/// <param name="colorsInventory">Цвета инвентаря (для передачи в коструктор)</param>
 	void PutObject(sf::Vector2f position, int playerCell, std::vector<sf::Color>& colorsInventory);
 
 	void GamePlayUpdate() override;
@@ -110,16 +117,20 @@ public:
 
 	void CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int power);
 
-	sf::Vector2i CheckTurnEnergy(int turn);
-
 	void WhatObjectTransEnergy();
+	
+	void WhatObjectTransItem();
+	/// <summary>
+	/// Куда повернут объект
+	/// </summary>
+	/// <param name="turn">Значние поворота</param>
+	/// <returns>Смещение координат</returns>
+	sf::Vector2i CheckTurn(int turn);
 
 	void PlayUpdate() override;
 
 	bool ObjectHere(sf::Vector2i mousePositionGrid, Item& chooseItem);
 	// А я кстати не помню что это, так что возможно скоро удалю
 	sf::Vector2i WhatActive(sf::Vector2i mousePosition);
-
-
 };
 

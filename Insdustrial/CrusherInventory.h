@@ -1,8 +1,9 @@
 #pragma once
-#include "EnergyTransferItemObjectInventory.h"
+#include "TransferItemObjectInventory.h"
+#include "EnergyObjectInventory.h"
 #include "ProgressInventory.h"
 
-class CrusherInventory : public EnergyTransferItemObjectInventory
+class CrusherInventory : public EnergyObjectInventory, public TransferItemObjectInventory
 {
 public:
 	ProgressInventory progress;

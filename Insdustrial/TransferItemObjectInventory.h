@@ -1,7 +1,7 @@
 #pragma once
 #include "Item.h"
 
-class TransferObjectInventory
+class TransferItemObjectInventory
 {
 public:
 	Item* transferItem;

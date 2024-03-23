@@ -135,6 +135,9 @@
     <ClCompile Include="MineInventory.cpp">
       <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>
     </ClCompile>
+    <ClCompile Include="TransferItemObject.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -248,17 +251,11 @@
     <ClInclude Include="IPlayUpdatable.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="TransferObjectInventory.h">
+    <ClInclude Include="TransferItemObjectInventory.h">
       <Filter>Файлы заголовков\Inventories</Filter>
-    </ClInclude>
-    <ClInclude Include="EnergyTransferItemObjectInventory.h">
-      <Filter>Файлы заголовков\Inventories\EnergyInventories</Filter>
     </ClInclude>
     <ClInclude Include="ITransferItemSimpleObject.h">
       <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
-    </ClInclude>
-    <ClInclude Include="TransferItemSimpleObjectInventory.h">
-      <Filter>Файлы заголовков\Inventories</Filter>
     </ClInclude>
     <ClInclude Include="TransferItemSimpleObject.h">
       <Filter>Файлы заголовков\Sprites\InventoryObject</Filter>
@@ -272,8 +269,12 @@
     <ClInclude Include="Assets.h">
       <Filter>Файлы заголовков\Sprites</Filter>
     </ClInclude>
+    <ClInclude Include="TransferItemObject.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

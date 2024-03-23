@@ -1,7 +1,8 @@
 #pragma once
-#include "EnergyTransferItemObjectInventory.h"
+#include "TransferItemObjectInventory.h"
+#include "EnergyObjectInventory.h"
 
-class MineInventory : public EnergyTransferItemObjectInventory
+class MineInventory : public EnergyObjectInventory, public TransferItemObjectInventory
 {
 private:
 	std::vector<CellInInventory> cells;
