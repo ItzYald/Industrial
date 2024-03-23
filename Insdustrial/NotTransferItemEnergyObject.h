@@ -35,29 +35,29 @@ public:
 
 	NotTransferItemEnergyObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 		sf::Texture* _texture, std::vector<sf::Texture*> _itemTextures, sf::Vector2f _position,
-		std::vector<sf::Color> _colorsInventory, int _maxFuel, int _power)
+		std::vector<sf::Color> _colorsInventory, int _maxEnergy, int _power)
 	{
 		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
-		typeInventory = T(rw, _colorsInventory, _maxFuel, _power, _itemTextures);
+		typeInventory = T(rw, _colorsInventory, _maxEnergy, _power, _itemTextures);
 		inventory = &typeInventory;
 	}
 
 	NotTransferItemEnergyObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 		sf::Texture* _texture, std::vector<sf::Texture*> _itemTextures, sf::Vector2f _position,
-		std::vector<sf::Color> _colorsInventory, int _maxFuel, int _power,
+		std::vector<sf::Color> _colorsInventory, int _maxEnergy, int _power,
 		std::map<std::string, sf::Texture>& _texturesInInventory)
 	{
 		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
-		typeInventory = T(rw, _colorsInventory, _maxFuel, _power, _itemTextures, _texturesInInventory);
+		typeInventory = T(rw, _colorsInventory, _maxEnergy, _power, _itemTextures, _texturesInInventory);
 		inventory = &typeInventory;
 	}
 
 	NotTransferItemEnergyObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
 		sf::Texture* _texture, std::vector<sf::Texture*> _itemTextures, sf::Vector2f _position,
-		std::vector<sf::Color> _colorsInventory, int _maxFuel)
+		std::vector<sf::Color> _colorsInventory, int _maxEnergy)
 	{
 		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
-		typeInventory = T(rw, _colorsInventory, _maxFuel, _itemTextures);
+		typeInventory = T(rw, _colorsInventory, _maxEnergy, _itemTextures);
 		inventory = &typeInventory;
 	}
 

@@ -3,6 +3,7 @@
 
 class TransferItemObject
 {
+public:
 	// Инвентарь (каждый раз разный)
 	TransferItemObjectInventory* transferInventory;
 

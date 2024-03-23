@@ -77,6 +77,7 @@ public:
 	std::vector<TransferItemObjectInventory*> transferItemObjectsInventories;
 	std::vector<Object*> transferItemObjects;
 	std::vector<ITransferItemSimpleObject*> transferItemSimpleObjects;
+	std::vector<ITransferItemEnergyObject*> transferItemEnergyObjects;
 
 	std::vector<IPlayUpdatable*> playUpdatables;
 
@@ -109,16 +110,20 @@ public:
 	/// <param name="position">Позиция на котору поставить</param>
 	/// <param name="playerCell">Номер ячейки в инвентаре игрока</param>
 	/// <param name="colorsInventory">Цвета инвентаря (для передачи в коструктор)</param>
-	void PutObject(sf::Vector2f position, int playerCell, std::vector<sf::Color>& colorsInventory);
+	void PutObject(sf::Vector2f position, Item& chooseItem, std::vector<sf::Color>& colorsInventory);
 
 	void GamePlayUpdate() override;
 
 	void TransEnergy(float& originalEnergy, int power, float& nextEnergy, int nextMaxEnergy);
-
+	// Найти объект стоящий на определенных координатах, принимающий энеригию
 	void CheckNextEnergyObject(sf::Vector2i nextPosition, float& energy, int power);
 
 	void WhatObjectTransEnergy();
 	
+	void TransItem(Item* transferItem, Item* acceptItem);
+	// Найти объект стоящий на определенных координатах и принимающий предметы
+	void CheckNextItemObject(sf::Vector2i nextPosition, Item* transferItem);
+
 	void WhatObjectTransItem();
 	/// <summary>
 	/// Куда повернут объект

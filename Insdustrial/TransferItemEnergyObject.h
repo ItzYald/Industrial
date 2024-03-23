@@ -5,7 +5,7 @@ template<class T>
 class TransferItemEnergyObject : public ITransferItemEnergyObject
 {
 public:
-	T TypeInventory;
+	T typeInventory;
 
 	TransferItemEnergyObject(){}
 	/// <summaryÊîíñòðóêòîð</summary>
@@ -19,8 +19,9 @@ public:
 		sf::Vector2f _position, std::vector<sf::Color> _colorsInventory)
 	{
 		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
-		TypeInventory = T(rw, _colorsInventory, _itemTextures);
-		inventory = &TypeInventory;
+		typeInventory = T(rw, _colorsInventory, _itemTextures);
+		inventory = &typeInventory;
+		transferInventory = &typeInventory;
 	}
 
 	TransferItemEnergyObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
@@ -29,8 +30,19 @@ public:
 		std::map<std::string, sf::Texture>& _texturesInInventory)
 	{
 		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
-		TypeInventory = T(rw, _colorsInventory, _itemTextures, _texturesInInventory);
-		inventory = &TypeInventory;
+		typeInventory = T(rw, _colorsInventory, _itemTextures, _texturesInInventory);
+		inventory = &typeInventory;
+		transferInventory = &typeInventory;
+	}
+
+	TransferItemEnergyObject(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,
+		sf::Texture* _texture, std::vector<sf::Texture*> _itemTextures, sf::Vector2f _position,
+		std::vector<sf::Color> _colorsInventory, int _maxEnergy)
+	{
+		Init(_rw, _cameraPosition, _fieldSizeOne, _texture, _itemTextures, _position, _colorsInventory);
+		typeInventory = T(rw, _colorsInventory, _maxEnergy, _itemTextures);
+		inventory = &typeInventory;
+		transferInventory = &typeInventory;
 	}
 
 	void Init(std::shared_ptr<sf::RenderWindow> _rw, sf::Vector2f& _cameraPosition, int _fieldSizeOne,

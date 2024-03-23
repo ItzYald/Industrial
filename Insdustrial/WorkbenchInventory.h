@@ -11,10 +11,11 @@
 
 #include "Inventory.h"
 #include "ObjectInventory.h"
+#include "TransferItemObjectInventory.h"
 
 #include "StaticSprites.h"
 
-class WorkbenchInventory : public ObjectInventory
+class WorkbenchInventory : public ObjectInventory, public TransferItemObjectInventory
 {
 public:
 	// Ячейки с предметами

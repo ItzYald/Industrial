@@ -194,13 +194,9 @@ void Game::Gameplay()
 	player.GamePlayUpdate();
 	// Инвентарь снизу
 	player.inventory.DrawNear(mouseWheel);
-	// Поставить объект на землю
-	if (field.ObjectHere(mousePositionGrid, player.inventory.cells[player.inventory.choseCell][3].item))
-	{
-		//PutObject((sf::Vector2f)mousePositionGrid);
-		field.PutObject((sf::Vector2f)mousePositionGrid,
-			player.inventory.cells[player.inventory.choseCell][3].item.number, colorsInventory);
-	}
+
+	field.PutObject((sf::Vector2f)mousePositionGrid,
+		player.inventory.cells[player.inventory.choseCell][3].item, colorsInventory);
 
 	for (size_t i = 0; i < field.objects.size(); i++)
 	{
