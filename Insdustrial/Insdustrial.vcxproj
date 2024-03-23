@@ -158,7 +158,6 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StaticSprites.cpp" />
-    <ClCompile Include="TransferItemObject.cpp" />
     <ClCompile Include="WireInventory.cpp" />
     <ClCompile Include="WorkbenchInventory.cpp" />
   </ItemGroup>

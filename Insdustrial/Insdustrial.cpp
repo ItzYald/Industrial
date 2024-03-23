@@ -14,7 +14,11 @@ int main()
 	settings.antialiasingLevel = 16;
 
 	// ShowWindow(GetConsoleWindow(), SW_HIDE);
+#if defined(_DEBUG)
 	ShowWindow(GetConsoleWindow(), SW_SHOW);
+#else
+	ShowWindow(GetConsoleWindow(), SW_HIDE);
+#endif;
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Industrial", 7U, settings);
 
 	Game game = Game(window);

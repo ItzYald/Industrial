@@ -135,9 +135,6 @@
     <ClCompile Include="MineInventory.cpp">
       <Filter>Исходные файлы\Inventories\EnergyInventories</Filter>
     </ClCompile>
-    <ClCompile Include="TransferItemObject.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
