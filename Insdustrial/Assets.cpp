@@ -3,7 +3,7 @@
 void Assets::LoadingItemTextures()
 {
 	// Текстуры предметов
-	for (int i = 0; i < 35; i++)
+	for (int i = 0; i < 36; i++)
 	{
 		itemTextures.push_back(new sf::Texture());
 	}
@@ -77,7 +77,9 @@ void Assets::LoadingItemTextures()
 	// Камень
 	itemTextures[ItemEnum::stone]->loadFromFile("Images/Stone.png");
 	// Кремень
-	itemTextures[ItemEnum::flint]->loadFromFile("Images/Error.png");
+	itemTextures[ItemEnum::flint]->loadFromFile("Images/Flint.png");
+	// Труба
+	itemTextures[ItemEnum::pipe]->loadFromFile("Images/Error.png");
 }
 
 void Assets::LoadingPlay()

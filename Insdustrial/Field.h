@@ -32,6 +32,7 @@
 #include "EnergyStorageInventory.h"
 #include "EnergyHandGeneratorInventory.h"
 #include "EnergyCoalGeneratorInventory.h"
+#include "PipeInventory.h"
 #include "WireInventory.h"
 
 class Field : public sf::Drawable, public IPlayUpdatable, public GamePlayUpdatable

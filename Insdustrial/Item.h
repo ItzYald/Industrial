@@ -37,7 +37,8 @@ enum ItemEnum
 	hammer,
 	mine,
 	stone,
-	flint
+	flint,
+	pipe
 };
 
 class Item

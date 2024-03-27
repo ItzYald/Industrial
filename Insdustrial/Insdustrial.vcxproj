@@ -151,6 +151,7 @@
     <ClCompile Include="Functions\Functions.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MineInventory.cpp" />
+    <ClCompile Include="PipeInventory.cpp" />
     <ClCompile Include="ProgressInventory.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="ObjectInventory.h" />
     <ClInclude Include="IPlayUpdatable.h" />
+    <ClInclude Include="PipeInventory.h" />
     <ClInclude Include="ProgressInventory.h" />
     <ClInclude Include="TransferItemObject.h" />
     <ClInclude Include="NotTransferItemSimpleObject.h" />
@@ -209,7 +211,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

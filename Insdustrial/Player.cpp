@@ -79,6 +79,8 @@ void Player::LoadingForDev()
 	inventory.cells[0][2].item.quantity = 10;
 	inventory.cells[1][2].item.NumberUpdate(ItemEnum::stone);
 	inventory.cells[1][2].item.quantity = 10;
+	inventory.cells[2][2].item.NumberUpdate(ItemEnum::pipe);
+	inventory.cells[2][2].item.quantity = 10;
 }
 
 void Player::LoadingForPlay()

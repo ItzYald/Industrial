@@ -228,6 +228,16 @@ void Field::PutObject(sf::Vector2f position, Item& chooseItem, std::vector<sf::C
 			rw, *cameraPosition, sizeOne, assets->textures["Workbench"], assets->itemTextures, position, colorsInventory));
 		objects.push_back(simpleObjects[simpleObjects.size() - 1]);
 		break;
+	// Труба
+	case ItemEnum::pipe:
+		transferItemSimpleObjects.push_back(new TransferItemSimpleObject<PipeInventory >(
+			rw, *cameraPosition, sizeOne, assets->textures["Chest"], assets->itemTextures, position, colorsInventory));
+		transferItemObjects.push_back(transferItemSimpleObjects[transferItemSimpleObjects.size() - 1]);
+		transferItemObjectsInventories.push_back(
+			transferItemSimpleObjects[transferItemSimpleObjects.size() - 1]->transferInventory);
+		simpleObjects.push_back(transferItemSimpleObjects[transferItemSimpleObjects.size() - 1]);
+		objects.push_back(simpleObjects[simpleObjects.size() - 1]);
+		break;
 	// Энергохранилище
 	case ItemEnum::energyStorage:
 		energyObjects.push_back(new NotTransferItemEnergyObject<EnergyStorageInventory >(
@@ -250,6 +260,7 @@ void Field::PutObject(sf::Vector2f position, Item& chooseItem, std::vector<sf::C
 			assets->itemTextures, position, colorsInventory, 1000, 10));
 		transferEnergyObjects.push_back(energyObjects[energyObjects.size() - 1]);
 		objects.push_back(energyObjects[energyObjects.size() - 1]);
+		break;
 		// Медный провод
 	case ItemEnum::copperWire:
 		energyObjects.push_back(new NotTransferItemEnergyObject<WireInventory >(
@@ -475,7 +486,7 @@ bool Field::ObjectHere(sf::Vector2i mousePositionGrid, Item& chooseItem)
 		chooseNumber == 11 || chooseNumber == 12 || chooseNumber == 13 ||
 		chooseNumber == 15 || chooseNumber == 16 || chooseNumber == 17 ||
 		chooseNumber == 20 || chooseNumber == 24 || chooseNumber == 28 ||
-		chooseNumber == 32) &&
+		chooseNumber == 32 || chooseNumber == ItemEnum::pipe) &&
 		chooseItem.quantity > 0)
 	{
 		bool isNear = false;

@@ -136,5 +136,8 @@ void Item::NumberUpdate(int _number)
 	case ItemEnum::flint:
 		name = L"Кремень";
 		break;
+	case ItemEnum::pipe:
+		name = L"Предметная труба";
+		break;
 	}
 }
